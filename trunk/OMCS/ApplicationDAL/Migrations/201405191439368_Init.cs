@@ -3,12 +3,12 @@ namespace ApplicationDAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class Init : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.Users",
+                "dbo.User",
                 c => new
                     {
                         UserId = c.Int(nullable: false, identity: true),
@@ -23,7 +23,7 @@ namespace ApplicationDAL.Migrations
                 .PrimaryKey(t => t.UserId);
             
             CreateTable(
-                "dbo.Roles",
+                "dbo.Role",
                 c => new
                     {
                         RoleId = c.Int(nullable: false, identity: true),
@@ -33,27 +33,15 @@ namespace ApplicationDAL.Migrations
                 .PrimaryKey(t => t.RoleId);
             
             CreateTable(
-                "dbo.Movies",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
-                        ReleaseDate = c.DateTime(nullable: false),
-                        Genre = c.String(),
-                        price = c.Decimal(nullable: false, precision: 18, scale: 2),
-                    })
-                .PrimaryKey(t => t.ID);
-            
-            CreateTable(
-                "dbo.UserRoles",
+                "dbo.UserRole",
                 c => new
                     {
                         UserId = c.Int(nullable: false),
                         RoleId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
-                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Role", t => t.RoleId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
             
@@ -61,14 +49,13 @@ namespace ApplicationDAL.Migrations
         
         public override void Down()
         {
-            DropIndex("dbo.UserRoles", new[] { "RoleId" });
-            DropIndex("dbo.UserRoles", new[] { "UserId" });
-            DropForeignKey("dbo.UserRoles", "RoleId", "dbo.Roles");
-            DropForeignKey("dbo.UserRoles", "UserId", "dbo.Users");
-            DropTable("dbo.UserRoles");
-            DropTable("dbo.Movies");
-            DropTable("dbo.Roles");
-            DropTable("dbo.Users");
+            DropIndex("dbo.UserRole", new[] { "RoleId" });
+            DropIndex("dbo.UserRole", new[] { "UserId" });
+            DropForeignKey("dbo.UserRole", "RoleId", "dbo.Role");
+            DropForeignKey("dbo.UserRole", "UserId", "dbo.User");
+            DropTable("dbo.UserRole");
+            DropTable("dbo.Role");
+            DropTable("dbo.User");
         }
     }
 }

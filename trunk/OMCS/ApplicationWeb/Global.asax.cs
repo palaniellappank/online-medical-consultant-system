@@ -2,6 +2,7 @@
 using Security.DAL.Security;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -25,7 +26,8 @@ namespace MvcApplication1
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //AuthConfig.RegisterAuth();Database.SetInitializer<DataContext>(new DataContextInitilizer());
+            //AuthConfig.RegisterAuth();
+            //Database.SetInitializer<OMCS.DAL.Model.OMCSDBContext>(new DataContextInitilizer());
         }
 
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
