@@ -27,7 +27,16 @@ namespace OMCS.DAL.Model
         public String LastName { get; set; }
 
         public Boolean IsActive { get; set; }
+
+        [Column(TypeName = "datetime2")]
         public DateTime CreateDate { get; set; }
+
+        public String ProfilePicture { get; set; }
+        public String Gender { get; set; }
+        public String Birthday { get; set; }
+        public String Phone { get; set; }
+        public String PrimaryAddress { get; set; }
+        public String TemporaryAddress { get; set; }
 
         public virtual ICollection<Role> Roles { get; set; }
     }
