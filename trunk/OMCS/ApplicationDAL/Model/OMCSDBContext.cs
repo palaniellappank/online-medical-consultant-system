@@ -25,9 +25,35 @@ namespace OMCS.DAL.Model
                 m.MapLeftKey("UserId");
                 m.MapRightKey("RoleId");
             });
-         }
+
+            modelBuilder.Entity<DiseaseHistory>()
+            .HasRequired(c => c.Patient)
+            .WithMany()
+            .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<OnlineSession>()
+            .HasRequired(c => c.Doctor)
+            .WithMany()
+            .WillCascadeOnDelete(false);
+        }
          public DbSet<User> Users { get; set; }
          public DbSet<Role> Roles { get; set; }
+         public DbSet<Allergy> Allergies { get; set; }
+         public DbSet<DiseaseType> DiseaseTypes { get; set; }
+         public DbSet<QualifyingDegree> QualifyingDegree { get; set; }
+         public DbSet<SpecialtyField> SpecialtyField { get; set; }
+         public DbSet<Doctor> Doctors { get; set; }
+         public DbSet<DynamicField> DynamicFields { get; set; }
+         public DbSet<FilmDocument> FilmDocuments { get; set; }
+         public DbSet<FilmType> FilmTypes { get; set; }
+         public DbSet<Immunization> Immunizations { get; set; }
+         public DbSet<MedicalRecord> MedicalRecords { get; set; }
+         public DbSet<MedicalRecordTemplate> MedicalRecordTemplates { get; set; }
+         public DbSet<MedicalRecordType> MedicalRecordTypes { get; set; }
+         public DbSet<OnlineSession> OnlineSessions { get; set; }
+         public DbSet<Patient> Patients { get; set; }
+         public DbSet<DiseaseHistory> DiseaseHistories { get; set; }
+         public DbSet<PersonalHealthRecord> PersonalHealthRecords { get; set; }
     }
 
     
