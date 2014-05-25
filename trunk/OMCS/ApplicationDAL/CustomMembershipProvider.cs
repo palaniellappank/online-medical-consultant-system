@@ -21,7 +21,7 @@ namespace OMCS.DAL
                     Username = username,
                     Password = password,
                     Email = email,
-                    CreateDate = DateTime.UtcNow,
+                    CreatedDate = DateTime.UtcNow,
                 };
 
                 Context.Users.Add(NewUser);

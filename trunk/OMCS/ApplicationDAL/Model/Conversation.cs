@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace OMCS.DAL.Model
 {
-    [Table("DiseaseHistory")]
-    public class DiseaseHistory
+    [Table("Conversation")]
+    public class Conversation
     {
         [Key]
-        public int DiseaseHistoryId { get; set; }
+        public int ConversationId { get; set; }
 
         [ForeignKey("Patient")]
         public int PatientId { get; set; }
@@ -23,20 +23,13 @@ namespace OMCS.DAL.Model
         public int DoctorId { get; set; }
         public virtual Doctor Doctor { get; set; }
 
-        [ForeignKey("DiseaseType")]
-        public int DiseaseTypeId { get; set; }
-        public virtual DiseaseType DiseaseType { get; set; }
-
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Ngày thêm")]
-        public string DateCreated { get; set; }
+        [Display(Name = "Ngày tư vấn")]
+        public DateTime DateConsulted { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Ngày phát bệnh")]
-	    public DateTime OnSetDate { get; set; }
-
-	    public string Note { get; set; }
+        public string HealthProblem { get; set; }
+        public string ConditionStatus { get; set; }
+        public string Note { get; set; }
     }
 }

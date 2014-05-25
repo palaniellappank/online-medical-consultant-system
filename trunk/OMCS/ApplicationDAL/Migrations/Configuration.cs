@@ -1,4 +1,4 @@
-namespace ApplicationDAL.Migrations
+﻿namespace ApplicationDAL.Migrations
 {
     using OMCS.DAL.Model;
     using System;
@@ -16,13 +16,24 @@ namespace ApplicationDAL.Migrations
 
         protected override void Seed(OMCS.DAL.Model.OMCSDBContext context)
         {
-            Role role1 = new Role { RoleName = "Admin" };
+            Role role0 = new Role { RoleName = "Admin" };
+            Role role1 = new Role { RoleName = "HospitalAdmin" };
             Role role2 = new Role { RoleName = "User" };
             Role role3 = new Role { RoleName = "Doctor" };
 
-            User user1 = new User { Username = "admin", Email = "admin@ymail.com", FirstName = "Admin", Password = "123456", IsActive = true, CreateDate = DateTime.UtcNow, Roles = new List<Role>() };
-            User user2 = new User { Username = "user1", Email = "user1@ymail.com", FirstName = "User1", Password = "123456", IsActive = true, CreateDate = DateTime.UtcNow, Roles = new List<Role>() };
-            User user3 = new User { Username = "doctor1", Email = "doctor1@ymail.com", FirstName = "Doctor 1", Password = "123456", IsActive = true, CreateDate = DateTime.UtcNow, Roles = new List<Role>() };
+            QualifyingDegree BacSi = new QualifyingDegree { Abbrv = "BS.", Name = "Bác Sĩ" };
+
+            Hospital ChoRay = new Hospital { Address = "201B Nguyễn Chí Thanh, Quận 5, TP.HCM", Name = "Bệnh viện Chợ Rẫy" };
+
+            SpecialtyField NhiKhoa = new SpecialtyField { Name = "Nhi Khoa" };
+
+            User user1 = new User { Username = "admin", Email = "admin@ymail.com", FirstName = "Admin", Password = "123456", IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>() };
+            User user2 = new User { Username = "user1", Email = "user1@ymail.com", FirstName = "User1", Password = "123456", IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>() };
+            Doctor user3 = new Doctor { Username = "doctor1", Email = "doctor1@ymail.com", FirstName = "Doctor 1", 
+                Password = "123456", IsActive = true, 
+                Hospital = ChoRay,
+                CreatedDate = DateTime.UtcNow, QualifyingDegree = BacSi, SpecialtyField = NhiKhoa,
+                Roles = new List<Role>() };
             user1.Roles.Add(role1);
             user2.Roles.Add(role2);
             user3.Roles.Add(role3);
