@@ -23,22 +23,22 @@ namespace OMCS.DAL.Model
         public int MedicalRecordTemplateId { get; set; }
         public virtual MedicalRecordTemplate MedicalRecordTemplate { get; set; }
 
-        [Description("Nhịp tim")]
+        [Display(Name = "Nhịp tim")]
         public string HeartRate { get; set; }
 
-        [Description("Thân Nhiệt")]
+        [Display(Name = "Thân Nhiệt")]
         public string Temperature { get; set; }
 
-        [Description("Huyết Áp")]
+        [Display(Name = "Huyết Áp")]
         public string BloodPressure { get; set; }
 
-        [Description("Nhịp Thở")]
+        [Display(Name = "Nhịp Thở")]
         public string BreathingRate { get; set; }
 
-        [Description("Cân Nặng")]
+        [Display(Name = "Cân Nặng")]
         public string Weight { get; set; }
 
-        [Description("Chiều Cao")]
+        [Display(Name = "Chiều Cao")]
         public string Height { get; set; }
     }
 }

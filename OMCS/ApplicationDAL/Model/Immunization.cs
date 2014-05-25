@@ -19,8 +19,12 @@ namespace OMCS.DAL.Model
         public virtual Patient Patient { get; set; }
 
         public string Name { get; set; }
-        [Column(TypeName = "datetime2")]
-        public DateTime Date { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Ngày tiêm chủng")]
+        public DateTime DateImmunized { get; set; }
+
         public int BoosterTime { get; set; }
     }
 }

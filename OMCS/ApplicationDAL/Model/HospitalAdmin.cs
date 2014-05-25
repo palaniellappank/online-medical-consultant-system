@@ -8,17 +8,9 @@ using System.Threading.Tasks;
 
 namespace OMCS.DAL.Model
 {
-    [Table("Doctor")]
-    public class Doctor : User
+    [Table("HospitalAdmin")]
+    public class HospitalAdmin : User
     {
-        [ForeignKey("SpecialtyField")]
-        public int SpecialtyFieldId { get; set; }
-        public virtual SpecialtyField SpecialtyField { get; set; }
-
-        [ForeignKey("QualifyingDegree")]
-        public int QualifyingDegreeId { get; set; }
-        public virtual QualifyingDegree QualifyingDegree { get; set; }
-
         [ForeignKey("Hospital")]
         public int HospitalId { get; set; }
         public virtual Hospital Hospital { get; set; }

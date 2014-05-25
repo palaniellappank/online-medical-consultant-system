@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 namespace OMCS.DAL.Model
 {
     [Table("Patient")]
-    public class Patient
+    public class Patient : User
     {
-        [Key]
         public int PatientId { get; set; }
 
         public string Ethnicity { get; set; }
@@ -20,7 +19,5 @@ namespace OMCS.DAL.Model
 	    public string WhereToWork { get; set; }
         public string ContactPerson { get; set; }
         public string ContactPersonAddress { get; set; }
-
-        public virtual ICollection<DiseaseHistory> DiseaseHistories { get; set; }
     }
 }

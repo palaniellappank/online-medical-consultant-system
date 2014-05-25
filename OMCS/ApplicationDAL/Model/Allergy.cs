@@ -28,12 +28,21 @@ namespace OMCS.DAL.Model
     public class Allergy
     {   
         [Key]
-        public int DiUngId { get; set; }
+        public int AllergyTypeId { get; set; }
 
+        [ForeignKey("Patient")]
+        public int PatientId { get; set; }
+        public virtual Patient Patient { get; set; }
+
+        [Display(Name = "Loại dị ứng")]
         public AllergyType AllergyType { get; set; }
 
-        [Column(TypeName = "datetime2")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Ngày bị dị ứng gần nhất")]
         public DateTime DateLastOccurred { get; set; }
+
+        [Display(Name = "Phản ứng")]
         public string Reaction { get; set; }
         public string Note { get; set; }
     }
