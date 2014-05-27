@@ -59,13 +59,17 @@ namespace Security.Controllers
                     {
                         return RedirectToAction("Index", "Admin");
                     }
-                    else if (roles.Contains("User"))
+                    else if (roles.Contains("HospitalAdmin"))
                     {
-                        return RedirectToAction("Index", "User");
+                        return RedirectToAction("Index", "HospitalAdmin");
                     }
                     else if (roles.Contains("Doctor"))
                     {
                         return RedirectToAction("Index", "Doctor");
+                    }
+                    else if (roles.Contains("User"))
+                    {
+                        return RedirectToAction("Index", "User");
                     }
                     else
                     {

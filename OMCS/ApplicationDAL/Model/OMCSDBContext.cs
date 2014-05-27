@@ -55,7 +55,7 @@ namespace OMCS.DAL.Model
          public DbSet<MedicalRecordType> MedicalRecordTypes { get; set; }
          public DbSet<Patient> Patients { get; set; }
          public DbSet<PersonalHealthRecord> PersonalHealthRecords { get; set; }
-         public DbSet<QualifyingDegree> QualifyingDegree { get; set; }
-         public DbSet<SpecialtyField> SpecialtyField { get; set; }
+         public DbSet<QualifyingDegree> QualifyingDegrees { get; set; }
+         public DbSet<SpecialtyField> SpecialtyFields { get; set; }
     }    
 }
