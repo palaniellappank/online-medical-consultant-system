@@ -19,9 +19,5 @@ namespace OMCS.DAL.Model
         [ForeignKey("MedicalRecordType")]
         public int MedicalRecordTypeId { get; set; }
         public MedicalRecordType MedicalRecordType { get; set; }
-
-        [ForeignKey("Hospital")]
-        public int HospitalId { get; set; }
-        public Hospital Hospital { get; set; }
     }
 }

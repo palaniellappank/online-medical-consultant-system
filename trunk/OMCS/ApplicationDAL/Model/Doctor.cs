@@ -14,13 +14,5 @@ namespace OMCS.DAL.Model
         [ForeignKey("SpecialtyField")]
         public int SpecialtyFieldId { get; set; }
         public virtual SpecialtyField SpecialtyField { get; set; }
-
-        [ForeignKey("QualifyingDegree")]
-        public int QualifyingDegreeId { get; set; }
-        public virtual QualifyingDegree QualifyingDegree { get; set; }
-
-        [ForeignKey("Hospital")]
-        public int HospitalId { get; set; }
-        public virtual Hospital Hospital { get; set; }
     }
 }

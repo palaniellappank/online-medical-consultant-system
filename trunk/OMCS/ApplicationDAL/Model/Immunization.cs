@@ -14,9 +14,9 @@ namespace OMCS.DAL.Model
         [Key]
         public int ImmunizationId { get; set; }
 
-        [ForeignKey("Patient")]
-        public int PatientId { get; set; }
-        public virtual Patient Patient { get; set; }
+        [ForeignKey("MedicalProfile")]
+        public int MedicalProfileId { get; set; }
+        public virtual MedicalProfile MedicalProfile { get; set; }
 
         public string Name { get; set; }
 

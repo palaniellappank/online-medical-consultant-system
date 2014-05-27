@@ -57,8 +57,10 @@ namespace OMCS.DAL.Model
         [Display(Name = "Giới tính")]
         public String Gender { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Ngày sinh")]
-        public String Birthday { get; set; }
+        public DateTime Birthday { get; set; }
 
         [Display(Name = "Số điện thoại")]
         public String Phone { get; set; }

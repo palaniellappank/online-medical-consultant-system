@@ -21,8 +21,6 @@
             Role role2 = new Role { RoleName = "User" };
             Role role3 = new Role { RoleName = "Doctor" };
 
-            QualifyingDegree BacSi = new QualifyingDegree { Abbrv = "BS.", Name = "Bác Sĩ" };
-
             SpecialtyField NgoaiKhoa = new SpecialtyField { Name = "Ngoại khoa" };
             SpecialtyField NgoaiTimMach = new SpecialtyField { Name = "Ngoại tim mạch", Parent = NgoaiKhoa };
             SpecialtyField NgoaiLongNguc = new SpecialtyField { Name = "Ngoại lồng ngực", Parent = NgoaiKhoa };
@@ -49,27 +47,24 @@
             context.SpecialtyFields.Add(DiUng);
             context.SpecialtyFields.Add(MienDich);
             context.SpecialtyFields.Add(NoiTimMach);
-            
-            Hospital ChoRay = new Hospital { Address = "201B Nguyễn Chí Thanh, Quận 5, TP.HCM", Name = "Bệnh viện Chợ Rẫy" };
 
             SpecialtyField NhiKhoa = new SpecialtyField { Name = "Nhi Khoa" };
 
-            User admin = new User { Username = "admin", Email = "admin@ymail.com", FirstName = "Admin", Password = "123456", IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>() };
+            User admin = new User { Username = "admin", Email = "admin@ymail.com", FirstName = "Admin", 
+                Password = "123456", IsActive = true, Birthday = DateTime.UtcNow,
+                CreatedDate = DateTime.UtcNow, Roles = new List<Role>() };
 
-            User adminChoRay = new HospitalAdmin { Username = "choray", Email = "admin@ymail.com", FirstName = "Admin", Password = "123456", IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>(), Hospital = ChoRay };
-
-            User user2 = new User { Username = "user1", Email = "user1@ymail.com", FirstName = "User1", Password = "123456", IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>() };
+            User user2 = new User { Username = "user1", Email = "user1@ymail.com", FirstName = "User1", 
+                Password = "123456", IsActive = true, Birthday = DateTime.UtcNow,
+                CreatedDate = DateTime.UtcNow, Roles = new List<Role>() };
             Doctor user3 = new Doctor { Username = "doctor1", Email = "doctor1@ymail.com", FirstName = "Doctor 1", 
-                Password = "123456", IsActive = true, 
-                Hospital = ChoRay,
-                CreatedDate = DateTime.UtcNow, QualifyingDegree = BacSi, SpecialtyField = NhiKhoa,
+                Password = "123456", IsActive = true, Birthday = DateTime.UtcNow,
+                CreatedDate = DateTime.UtcNow, SpecialtyField = NhiKhoa,
                 Roles = new List<Role>() };
             admin.Roles.Add(role0);
             user2.Roles.Add(role2);
             user3.Roles.Add(role3);
-            adminChoRay.Roles.Add(role1);
             context.Users.Add(admin);
-            context.Users.Add(adminChoRay);
             context.Users.Add(user2);
             context.Users.Add(user3);
         }

@@ -30,9 +30,9 @@ namespace OMCS.DAL.Model
         [Key]
         public int AllergyTypeId { get; set; }
 
-        [ForeignKey("Patient")]
-        public int PatientId { get; set; }
-        public virtual Patient Patient { get; set; }
+        [ForeignKey("MedicalProfile")]
+        public int MedicalProfileId { get; set; }
+        public virtual MedicalProfile MedicalProfile { get; set; }
 
         [Display(Name = "Loại dị ứng")]
         public AllergyType AllergyType { get; set; }

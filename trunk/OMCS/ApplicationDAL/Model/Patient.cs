@@ -19,5 +19,17 @@ namespace OMCS.DAL.Model
 	    public string WhereToWork { get; set; }
         public string ContactPerson { get; set; }
         public string ContactPersonAddress { get; set; }
+
+        public string HealthInsuranceId { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Ngày cấp")]
+        public DateTime HealthInsuranceIssued { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Ngày hết hạn")]
+        public DateTime HealthInsuranceDateExpired { get; set; }
     }
 }

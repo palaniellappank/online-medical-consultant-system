@@ -26,13 +26,13 @@ namespace OMCS.DAL.Model
                 m.MapRightKey("RoleId");
             });
 
-            modelBuilder.Entity<DiseaseHistory>()
-            .HasRequired(c => c.Patient)
+            modelBuilder.Entity<Conversation>()
+            .HasRequired(c => c.Doctor)
             .WithMany()
             .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Conversation>()
-            .HasRequired(c => c.Doctor)
+            modelBuilder.Entity<TreatmentHistory>()
+            .HasRequired(c => c.DiseaseType)
             .WithMany()
             .WillCascadeOnDelete(false);
         }
@@ -41,21 +41,18 @@ namespace OMCS.DAL.Model
          public DbSet<Allergy> Allergies { get; set; }
          public DbSet<Conversation> Conversations { get; set; }
          public DbSet<ConversationDetail> ConversationDetails { get; set; }
-         public DbSet<DiseaseHistory> DiseaseHistories { get; set; }
+         public DbSet<TreatmentHistory> TreatmentHistories { get; set; }
          public DbSet<DiseaseType> DiseaseTypes { get; set; }
          public DbSet<Doctor> Doctors { get; set; }
          public DbSet<DynamicField> DynamicFields { get; set; }
          public DbSet<FilmDocument> FilmDocuments { get; set; }
          public DbSet<FilmType> FilmTypes { get; set; }
-         public DbSet<Hospital> Hospitals { get; set; }
-         public DbSet<HospitalAdmin> HospitalAdmins { get; set; }
          public DbSet<Immunization> Immunizations { get; set; }
-         public DbSet<MedicalRecord> MedicalRecords { get; set; }
+         public DbSet<MedicalProfile> MedicalProfiles { get; set; }
          public DbSet<MedicalRecordTemplate> MedicalRecordTemplates { get; set; }
          public DbSet<MedicalRecordType> MedicalRecordTypes { get; set; }
          public DbSet<Patient> Patients { get; set; }
          public DbSet<PersonalHealthRecord> PersonalHealthRecords { get; set; }
-         public DbSet<QualifyingDegree> QualifyingDegrees { get; set; }
          public DbSet<SpecialtyField> SpecialtyFields { get; set; }
     }    
 }
