@@ -1,0 +1,71 @@
+﻿@model OMCS.DAL.Model.DiseaseHistory
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>DiseaseHistory</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PatientId, "Patient")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PatientId", String.Empty)
+            @Html.ValidationMessageFor(model => model.PatientId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DoctorId, "Doctor")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("DoctorId", String.Empty)
+            @Html.ValidationMessageFor(model => model.DoctorId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DiseaseTypeId, "DiseaseType")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("DiseaseTypeId", String.Empty)
+            @Html.ValidationMessageFor(model => model.DiseaseTypeId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateCreated)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateCreated)
+            @Html.ValidationMessageFor(model => model.DateCreated)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OnSetDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OnSetDate)
+            @Html.ValidationMessageFor(model => model.OnSetDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Note)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Note)
+            @Html.ValidationMessageFor(model => model.Note)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,53 @@
+﻿@model OMCS.DAL.Model.Conversation
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Conversation</legend>
+
+        @Html.HiddenFor(model => model.ConversationId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PatientId, "Patient")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PatientId", String.Empty)
+            @Html.ValidationMessageFor(model => model.PatientId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DoctorId, "Doctor")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("DoctorId", String.Empty)
+            @Html.ValidationMessageFor(model => model.DoctorId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedDate)
+            @Html.ValidationMessageFor(model => model.CreatedDate)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

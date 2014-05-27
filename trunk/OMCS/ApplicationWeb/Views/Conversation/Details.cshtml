@@ -1,0 +1,36 @@
+﻿@model OMCS.DAL.Model.Conversation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Conversation</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Patient.Username)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Patient.Username)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Doctor.Username)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Doctor.Username)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreatedDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatedDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ConversationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

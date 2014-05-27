@@ -7,8 +7,8 @@ using System.Web.Mvc;
 
 namespace Security.Controllers
 {
-    [CustomAuthorize(Roles = "Admin")]
-    public class AdminController : BaseController
+    [CustomAuthorize(Roles = "HospitalAdmin")]
+    public class HospitalAdminController : BaseController
     {
         public ActionResult Index()
         {
