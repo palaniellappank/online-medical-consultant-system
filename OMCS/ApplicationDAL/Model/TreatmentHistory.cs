@@ -9,15 +9,24 @@ using System.Threading.Tasks;
 
 namespace OMCS.DAL.Model
 {
-    [Table("DiseaseHistory")]
-    public class DiseaseHistory
+    public enum TreatmentHistoryType
+    {
+        [Description("Qua mạng internet")]
+        Online = 0,
+
+        [Description("Trực tiếp")]
+        Offline = 1
+    };
+
+    [Table("TreatmentHistory")]
+    public class TreatmentHistory
     {
         [Key]
-        public int DiseaseHistoryId { get; set; }
+        public int TreatmentHistoryId { get; set; }
 
-        [ForeignKey("Patient")]
-        public int PatientId { get; set; }
-        public virtual Patient Patient { get; set; }
+        [ForeignKey("MedicalProfile")]
+        public int MedicalProfileId { get; set; }
+        public virtual MedicalProfile MedicalProfile { get; set; }
 
         [ForeignKey("Doctor")]
         public int DoctorId { get; set; }
@@ -29,8 +38,8 @@ namespace OMCS.DAL.Model
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Ngày thêm")]
-        public string DateCreated { get; set; }
+        [Display(Name = "Ngày khám")]
+        public DateTime DateCreated { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

@@ -9,15 +9,11 @@ using System.Threading.Tasks;
 
 namespace OMCS.DAL.Model
 {
-    [Table("MedicalRecord")]
-    public class MedicalRecord
+    [Table("MedicalProfile")]
+    public class MedicalProfile
     {
         [Key]
-        public int MedicalRecordId { get; set; }
-
-        [ForeignKey("DiseaseType")]
-        public int DiseaseTypeId { get; set; }
-        public virtual DiseaseType DiseaseType { get; set; }
+        public int MedicalProfileId { get; set; }
 
         [ForeignKey("MedicalRecordTemplate")]
         public int MedicalRecordTemplateId { get; set; }

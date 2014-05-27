@@ -14,9 +14,9 @@ namespace OMCS.DAL.Model
         [Key]
         public int FilmDocumentId { get; set; }
 
-        [ForeignKey("MedicalRecord")]
-        public int MedicalRecordId { get; set; }
-        public virtual MedicalRecord MedicalRecord { get; set; }
+        [ForeignKey("TreatmentHistory")]
+        public int TreatmentHistoryId { get; set; }
+        public virtual TreatmentHistory TreatmentHistory { get; set; }
 
         [ForeignKey("FilmType")]
         public int FilmTypeId { get; set; }
