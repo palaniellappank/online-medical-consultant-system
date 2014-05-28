@@ -63,32 +63,22 @@
   <ItemGroup>
     <Compile Include="CustomMembershipProvider.cs" />
     <Compile Include="CustomRoleProvider.cs" />
-    <Compile Include="Migrations\201405251439439_Initial.cs" />
-    <Compile Include="Migrations\201405251439439_Initial.Designer.cs">
-      <DependentUpon>201405251439439_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201405271534258_Initial.cs" />
+    <Compile Include="Migrations\201405271534258_Initial.Designer.cs">
+      <DependentUpon>201405271534258_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201405251529471_Initial1.cs" />
-    <Compile Include="Migrations\201405251529471_Initial1.Designer.cs">
-      <DependentUpon>201405251529471_Initial1.cs</DependentUpon>
+    <Compile Include="Migrations\201405271548429_Initial1.cs" />
+    <Compile Include="Migrations\201405271548429_Initial1.Designer.cs">
+      <DependentUpon>201405271548429_Initial1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201405251602342_Initial3.cs" />
-    <Compile Include="Migrations\201405251602342_Initial3.Designer.cs">
-      <DependentUpon>201405251602342_Initial3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201405251608545_Initial4.cs" />
-    <Compile Include="Migrations\201405251608545_Initial4.Designer.cs">
-      <DependentUpon>201405251608545_Initial4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201405261356466_Initial5.cs" />
-    <Compile Include="Migrations\201405261356466_Initial5.Designer.cs">
-      <DependentUpon>201405261356466_Initial5.cs</DependentUpon>
+    <Compile Include="Migrations\201405271606032_Initial2.cs" />
+    <Compile Include="Migrations\201405271606032_Initial2.Designer.cs">
+      <DependentUpon>201405271606032_Initial2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Conversation.cs" />
     <Compile Include="Model\ConversationDetail.cs" />
-    <Compile Include="Model\HospitalAdmin.cs" />
-    <Compile Include="Model\Hospital.cs" />
-    <Compile Include="Model\QualifyingDegree.cs" />
+    <Compile Include="Model\TreatmentHistory.cs" />
     <Compile Include="Model\SpecialtyField.cs" />
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Model\Patient.cs" />
@@ -97,11 +87,10 @@
     <Compile Include="Model\DynamicField.cs" />
     <Compile Include="Model\MedicalRecordType.cs" />
     <Compile Include="Model\MedicalRecordTemplate.cs" />
-    <Compile Include="Model\MedicalRecord.cs" />
+    <Compile Include="Model\MedicalProfile.cs" />
     <Compile Include="Model\Allergy.cs" />
     <Compile Include="Model\Immunization.cs" />
     <Compile Include="Model\DiseaseType.cs" />
-    <Compile Include="Model\DiseaseHistory.cs" />
     <Compile Include="Model\PersonalHealthRecord.cs" />
     <Compile Include="Model\OMCSDBContext.cs" />
     <Compile Include="Model\Role.cs" />
@@ -113,20 +102,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201405251439439_Initial.resx">
-      <DependentUpon>201405251439439_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201405271534258_Initial.resx">
+      <DependentUpon>201405271534258_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201405251529471_Initial1.resx">
-      <DependentUpon>201405251529471_Initial1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201405271548429_Initial1.resx">
+      <DependentUpon>201405271548429_Initial1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201405251602342_Initial3.resx">
-      <DependentUpon>201405251602342_Initial3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201405251608545_Initial4.resx">
-      <DependentUpon>201405251608545_Initial4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201405261356466_Initial5.resx">
-      <DependentUpon>201405261356466_Initial5.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201405271606032_Initial2.resx">
+      <DependentUpon>201405271606032_Initial2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
