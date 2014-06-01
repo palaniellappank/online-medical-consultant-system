@@ -1,6 +1,5 @@
 require.config({
-  baseUrl: "Content/FormBuilder/js/lib/"
-  , shim: {
+  shim: {
     'backbone': {
       deps: ['underscore', 'jquery'],
       exports: 'Backbone'

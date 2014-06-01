@@ -29,9 +29,9 @@ namespace OMCS.DAL.Model
         [Key]
         public int DynamicFieldId { get; set; }
 
-        [ForeignKey("MedicalRecordTemplate")]
-        public int MedicalRecordTemplateId { get; set; }
-        public virtual MedicalRecordTemplate MedicalRecordTemplate { get; set; }
+        [ForeignKey("MedicalProfileTemplate")]
+        public int MedicalProfileTemplateId { get; set; }
+        public virtual MedicalProfileTemplate MedicalProfileTemplate { get; set; }
         
         public int Position { get; set; }
         public FieldType FieldType { get; set; }

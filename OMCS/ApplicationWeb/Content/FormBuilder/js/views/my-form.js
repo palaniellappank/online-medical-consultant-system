@@ -1,17 +1,19 @@
-define([
+﻿define([
        "jquery", "underscore", "backbone"
+      , "collections/my-form-snippets"
       , "views/temp-snippet"
       , "helper/pubsub"
       , "text!templates/app/renderform.html"
 ], function(
   $, _, Backbone
+  , MyFormSnippetsCollection
   , TempSnippetView
   , PubSub
   , _renderForm
 ){
   return Backbone.View.extend({
-    tagName: "fieldset"
-    , initialize: function(){
+      el: "#build"
+    , initialize: function () {
       this.collection.on("add", this.render, this);
       this.collection.on("remove", this.render, this);
       this.collection.on("change", this.render, this);
@@ -19,26 +21,63 @@ define([
       PubSub.on("tempMove", this.handleTempMove, this);
       PubSub.on("tempDrop", this.handleTempDrop, this);
       this.$build = $("#build");
+      this.fieldset = this.$el.find("fieldset");
       this.renderForm = _.template(_renderForm);
       this.render();
-    }
+    },
+    events: {
+        "click #saveBtn":   "saveForm",
+        "click #viewBtn":   "viewForm",
+        "click #cancelBtn": "cancelForm",
+    },
 
+    saveForm: function () {
+        window.snippetCollection = new MyFormSnippetsCollection(this.collection.toJSON());
+        console.dir(this.collection);
+        $.ajax({
+            type: "post",
+            url: "/MedicalProfileTemplate/Edit",
+            data: {
+                jsonString: JSON.stringify(snippetCollection.toJSON())
+            },
+            success: function (data) {
+                console.dir(data.status);
+                alert("Mẫu hồ sơ lưu thành công" + data.status);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Có lỗi xảy ra: " + textStatus);
+            },
+        })
+    },
+
+    viewForm: function () {
+        this.collection = window.snippetCollection;
+        this.initialize();
+        this.render();
+    },
+
+    cancelForm: function () {
+        alert("hehe");
+    }
+    
     , render: function(){
       //Render Snippet Views
-      this.$el.empty();
+      this.fieldset.empty();
       var that = this;
       _.each(this.collection.renderAll(), function(snippet){
-        that.$el.append(snippet);
+          that.fieldset.append(snippet);
       });
+      
       $("#render").val(that.renderForm({
         text: _.map(this.collection.renderAllClean(), function(e){return e.html()}).join("\n")
       }));
-      this.$el.appendTo("#build form");
+      console.dir(this.fieldset);
+      this.fieldset.appendTo("#build form");
       this.delegateEvents();
     }
 
     , getBottomAbove: function(eventY){
-      var myFormBits = $(this.$el.find(".component"));
+        var myFormBits = $(this.fieldset.find(".component"));
       var topelement = _.find(myFormBits, function(renderedSnippet) {
         if (($(renderedSnippet).position().top + $(renderedSnippet).height()) > eventY  - 90) {
           return true;

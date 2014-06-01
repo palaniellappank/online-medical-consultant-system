@@ -14,7 +14,8 @@ define([
       , "mouseup"   : "mouseUpHandler"
     }
 
-    , mouseDownHandler : function(mouseDownEvent){
+    , mouseDownHandler: function (mouseDownEvent) {
+        console.log("Go to mouseDownHandler");
       mouseDownEvent.stopPropagation();
       mouseDownEvent.preventDefault();
       var that = this;
@@ -43,11 +44,13 @@ define([
       e.preventDefault();
     }
 
-    , mouseUpHandler : function(mouseUpEvent) {
+    , mouseUpHandler: function (mouseUpEvent) {
+        console.log("Go to mouseUpHandler");
         $("body").off("mousemove");
     }
 
-    , saveHandler : function(boundContext) {
+    , saveHandler: function (boundContext) {
+        console.log("Go to saveHandler");
       return function(mouseEvent) {
         mouseEvent.preventDefault();
         var fields = $(".popover .field");
@@ -88,7 +91,8 @@ define([
       }
     }
 
-    , cancelHandler : function(boundContext) {
+    , cancelHandler: function (boundContext) {
+        console.log("Go to cancelHandler");
       return function(mouseEvent) {
         mouseEvent.preventDefault();
         $(".popover").remove();

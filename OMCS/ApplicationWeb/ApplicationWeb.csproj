@@ -45,9 +45,9 @@
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -169,6 +169,7 @@
     <Compile Include="Controllers\ConversationController.cs" />
     <Compile Include="Controllers\CustomFormController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
+    <Compile Include="Controllers\MedicalProfileTemplateController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -189,8 +190,12 @@
     <Content Include="Content\FormBuilder\img\glyphicons-halflings-white.png" />
     <Content Include="Content\FormBuilder\img\glyphicons-halflings.png" />
     <Content Include="Content\FormBuilder\js\app.js" />
+    <Content Include="Content\FormBuilder\js\collections\my-form-input-mode.js" />
     <Content Include="Content\FormBuilder\js\collections\my-form-snippets.js" />
     <Content Include="Content\FormBuilder\js\collections\snippets.js" />
+    <Content Include="Content\FormBuilder\js\config.js" />
+    <Content Include="Content\FormBuilder\js\view-app.js" />
+    <Content Include="Content\FormBuilder\js\view.js" />
     <Content Include="Content\FormBuilder\js\helper\pubsub.js" />
     <Content Include="Content\FormBuilder\js\lib\backbone.js" />
     <Content Include="Content\FormBuilder\js\lib\bootstrap.js" />
@@ -199,7 +204,6 @@
     <Content Include="Content\FormBuilder\js\lib\require.js" />
     <Content Include="Content\FormBuilder\js\lib\text.js" />
     <Content Include="Content\FormBuilder\js\lib\underscore.js" />
-    <Content Include="Content\FormBuilder\js\main-built.js" />
     <Content Include="Content\FormBuilder\js\main.js" />
     <Content Include="Content\FormBuilder\js\models\snippet.js" />
     <Content Include="Content\FormBuilder\js\templates\app\about.html" />
@@ -224,7 +228,6 @@
     <Content Include="Content\FormBuilder\js\templates\snippet\multiplecheckboxesinline.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\multipleradios.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\multipleradiosinline.html" />
-    <Content Include="Content\FormBuilder\js\templates\snippet\passwordinput.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\prependedcheckbox.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\prependedtext.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\searchinput.html" />
@@ -233,6 +236,8 @@
     <Content Include="Content\FormBuilder\js\templates\snippet\snippet-templates.js" />
     <Content Include="Content\FormBuilder\js\templates\snippet\textarea.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\textinput.html" />
+    <Content Include="Content\FormBuilder\js\views\input-mode-snippet.js" />
+    <Content Include="Content\FormBuilder\js\views\my-form-input-mode.js" />
     <Content Include="Content\FormBuilder\js\views\my-form-snippet.js" />
     <Content Include="Content\FormBuilder\js\views\my-form.js" />
     <Content Include="Content\FormBuilder\js\views\snippet.js" />
@@ -310,14 +315,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\FormBuilder\js\data\buttons.json" />
-    <Content Include="Content\FormBuilder\js\data\buttons.yaml" />
     <Content Include="Content\FormBuilder\js\data\input.json" />
-    <Content Include="Content\FormBuilder\js\data\input.yaml" />
-    <Content Include="Content\FormBuilder\js\data\parse.rb" />
     <Content Include="Content\FormBuilder\js\data\radio.json" />
-    <Content Include="Content\FormBuilder\js\data\radio.yaml" />
     <Content Include="Content\FormBuilder\js\data\select.json" />
-    <Content Include="Content\FormBuilder\js\data\select.yaml" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -380,6 +380,12 @@
     <Content Include="Views\Shared\_TemplateLayout.cshtml" />
     <Content Include="Views\Shared\_DoctorLayout.cshtml" />
     <Content Include="Views\CustomForm\Index.cshtml" />
+    <Content Include="Views\MedicalProfileTemplate\Index.cshtml" />
+    <Content Include="Views\MedicalProfileTemplate\Details.cshtml" />
+    <Content Include="Views\MedicalProfileTemplate\Create.cshtml" />
+    <Content Include="Views\MedicalProfileTemplate\Edit.cshtml" />
+    <Content Include="Views\MedicalProfileTemplate\Delete.cshtml" />
+    <Content Include="Views\MedicalProfileTemplate\Editor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

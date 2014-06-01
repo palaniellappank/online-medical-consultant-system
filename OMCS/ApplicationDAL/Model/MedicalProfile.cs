@@ -15,9 +15,9 @@ namespace OMCS.DAL.Model
         [Key]
         public int MedicalProfileId { get; set; }
 
-        [ForeignKey("MedicalRecordTemplate")]
-        public int MedicalRecordTemplateId { get; set; }
-        public virtual MedicalRecordTemplate MedicalRecordTemplate { get; set; }
+        [ForeignKey("MedicalProfileTemplate")]
+        public int MedicalProfileTemplateId { get; set; }
+        public virtual MedicalProfileTemplate MedicalProfileTemplate { get; set; }
 
         [Display(Name = "Nhịp tim")]
         public string HeartRate { get; set; }
