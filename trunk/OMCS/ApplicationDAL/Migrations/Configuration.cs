@@ -61,6 +61,11 @@
                 Password = "123456", IsActive = true, Birthday = DateTime.UtcNow,
                 CreatedDate = DateTime.UtcNow, SpecialtyField = NhiKhoa,
                 Roles = new List<Role>() };
+
+            MedicalProfileType benhAnNgoaiDa = new MedicalProfileType { Name = "Bệnh án Ngoài Da" };
+            MedicalProfileTemplate mauCoSan = new MedicalProfileTemplate { IsDefault = true, MedicalProfileType = benhAnNgoaiDa };
+
+            context.MedicalProfileTemplates.Add(mauCoSan);
             admin.Roles.Add(role0);
             user2.Roles.Add(role2);
             user3.Roles.Add(role3);

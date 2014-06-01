@@ -1,17 +1,17 @@
 define([
        "jquery" , "underscore" , "backbone"
        , "models/snippet"
-       , "views/tab-snippet"
+       , "views/input-mode-snippet"
 ], function(
   $, _, Backbone
   , SnippetModel
-  , TabSnippetView
+  , SnippetView
 ){
   return Backbone.Collection.extend({
     model: SnippetModel
     , renderAll: function(){
         return this.map(function (snippet) {
-        return new TabSnippetView({model: snippet}).render();
+            return new SnippetView({ model: snippet }).render();
       });
     }
   });

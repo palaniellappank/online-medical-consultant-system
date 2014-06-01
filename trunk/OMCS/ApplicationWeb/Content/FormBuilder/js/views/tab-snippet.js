@@ -18,6 +18,8 @@ define([
       mouseDownEvent.stopPropagation();
       //hide all popovers
       $(".popover").hide();
+      //TempSnippetView is Element that is dragging
+      //console.dir(this.model.attributes);
       $("body").append(new TempSnippetView({model: new SnippetModel($.extend(true,{},this.model.attributes))}).render());
       PubSub.trigger("newTempPostRender", mouseDownEvent);
     }

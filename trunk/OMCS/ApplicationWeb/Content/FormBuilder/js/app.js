@@ -1,43 +1,26 @@
-define([
+﻿define([
        "jquery" , "underscore" , "backbone"
        , "collections/snippets" , "collections/my-form-snippets"
        , "views/tab" , "views/my-form"
-       , "text!data/input.json", "text!data/radio.json", "text!data/select.json", "text!data/buttons.json"
-       , "text!templates/app/render.html",  "text!templates/app/about.html", 
+       , "text!data/input.json"
+       , "text!templates/app/render.html", 
 ], function(
   $, _, Backbone
   , SnippetsCollection, MyFormSnippetsCollection
   , TabView, MyFormView
-  , inputJSON, radioJSON, selectJSON, buttonsJSON
-  , renderTab, aboutTab
+  , inputJSON, renderTab
 ){
   return {
     initialize: function(){
         
       //Bootstrap tabs from json.
       new TabView({
-        title: "Input"
+        title: "Dữ liệu động"
         , collection: new SnippetsCollection(JSON.parse(inputJSON))
       });
       new TabView({
-        title: "Radios / Checkboxes"
-        , collection: new SnippetsCollection(JSON.parse(radioJSON))
-      });
-      new TabView({
-        title: "Select"
-        , collection: new SnippetsCollection(JSON.parse(selectJSON))
-      });
-      new TabView({
-        title: "Buttons"
-        , collection: new SnippetsCollection(JSON.parse(buttonsJSON))
-      });
-      new TabView({
-        title: "Rendered"
+        title: "Mã HTML"
         , content: renderTab
-      });
-      new TabView({
-        title: "About"
-        , content: aboutTab
       });
 
       //Make the first tab active!
@@ -50,9 +33,9 @@ define([
           { "title" : "Form Name"
             , "fields": {
               "name" : {
-                "label"   : "Form Name"
-                , "type"  : "input"
-                , "value" : "Form Name"
+                  "label": "Form Name",
+                  "type" : "input",
+                  "value" : "Form Name"
               }
             }
           }

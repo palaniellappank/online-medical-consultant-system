@@ -1,7 +1,5 @@
 define(function(require) {
   var formname               = require('text!templates/snippet/formname.html')
-  , prependedtext            = require('text!templates/snippet/prependedtext.html')
-  , search                   = require('text!templates/snippet/searchinput.html')
   , textinput                = require('text!templates/snippet/textinput.html')
   , appendedcheckbox         = require('text!templates/snippet/appendedcheckbox.html')
   , appendedtext             = require('text!templates/snippet/appendedtext.html')
@@ -13,10 +11,7 @@ define(function(require) {
   , multiplecheckboxesinline = require('text!templates/snippet/multiplecheckboxesinline.html')
   , multipleradios           = require('text!templates/snippet/multipleradios.html')
   , multipleradiosinline     = require('text!templates/snippet/multipleradiosinline.html')
-  , passwordinput            = require('text!templates/snippet/passwordinput.html')
   , prependedcheckbox        = require('text!templates/snippet/prependedcheckbox.html')
-  , prependedtext            = require('text!templates/snippet/prependedtext.html')
-  , searchinput              = require('text!templates/snippet/searchinput.html')
   , selectbasic              = require('text!templates/snippet/selectbasic.html')
   , selectmultiple           = require('text!templates/snippet/selectmultiple.html')
   , textarea                 = require('text!templates/snippet/textarea.html')
@@ -24,8 +19,6 @@ define(function(require) {
 
   return {
     formname                   : formname
-    , prependedtext            : prependedtext
-    , search                   : search
     , textinput                : textinput
     , appendedcheckbox         : appendedcheckbox
     , appendedtext             : appendedtext
@@ -37,10 +30,7 @@ define(function(require) {
     , multiplecheckboxesinline : multiplecheckboxesinline
     , multipleradios           : multipleradios
     , multipleradiosinline     : multipleradiosinline
-    , passwordinput            : passwordinput
     , prependedcheckbox        : prependedcheckbox
-    , prependedtext            : prependedtext
-    , searchinput              : searchinput
     , selectbasic              : selectbasic
     , selectmultiple           : selectmultiple
     , textarea                 : textarea

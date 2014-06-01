@@ -1,6 +1,6 @@
 [
   {
-    "fields": {
+    "fields": [
       "id": {
         "type": "input",
         "label": "ID / Name",
@@ -49,7 +49,7 @@
             "selected": false
           }
         ]
-      },
+      ],
       "label": {
         "type": "input",
         "label": "Label Text",
