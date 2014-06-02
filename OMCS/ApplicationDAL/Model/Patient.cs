@@ -25,7 +25,7 @@ namespace OMCS.DAL.Model
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Ngày cấp")]
-        public DateTime HealthInsuranceIssued { get; set; }
+        public DateTime? HealthInsuranceIssued { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

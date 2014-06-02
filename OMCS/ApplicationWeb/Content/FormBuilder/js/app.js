@@ -29,17 +29,7 @@
       // Bootstrap "My Form" with 'Form Name' snippet.
       new MyFormView({
         title: "Original"
-        , collection: new MyFormSnippetsCollection([
-          { "title" : "Form Name"
-            , "fields": {
-              "name" : {
-                  "label": "Form Name",
-                  "type" : "input",
-                  "value" : "Form Name"
-              }
-            }
-          }
-        ])
+        , collection: new MyFormSnippetsCollection(formInJson)
       });
     }
   }

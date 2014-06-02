@@ -112,6 +112,11 @@
   },
     {
     "fields": {
+	  "id": {
+		"type": "input",
+		"label": "ID / Name",
+		"value": "multipleradios"
+	  },
       "label": {
         "type": "input",
         "label": "Label Text",
@@ -140,6 +145,11 @@
   },
   {
     "fields": {
+	  "id": {
+		"type": "input",
+		"label": "ID / Name",
+		"value": "inlineradios"
+	  },
       "label": {
         "type": "input",
         "label": "Label Text",
@@ -167,6 +177,11 @@
   },
   {
     "fields": {
+	  "id": {
+		"type": "input",
+		"label": "ID / Name",
+		"value": "multiplecheckboxes"
+	  },
       "label": {
         "type": "input",
         "label": "Label Text",
@@ -195,6 +210,11 @@
   },
   {
     "fields": {
+	  "id": {
+		"type": "input",
+		"label": "ID / Name",
+		"value": "inlinecheckboxes"
+	  },
       "label": {
         "type": "input",
         "label": "Label Text",
@@ -222,6 +242,11 @@
   },
   {
     "fields": {
+	  "id": {
+		"type": "input",
+		"label": "ID / Name",
+		"value": "selectbasic"
+	  },
       "id": {
         "type": "input",
         "label": "ID / Name",

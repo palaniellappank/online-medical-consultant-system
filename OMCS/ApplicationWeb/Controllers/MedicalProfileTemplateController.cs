@@ -9,6 +9,7 @@ using OMCS.DAL.Model;
 using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace MvcApplication1.Controllers
 {
@@ -22,8 +23,41 @@ namespace MvcApplication1.Controllers
             return View(medicalrecordtemplates.ToList());
         }
 
-        public ActionResult Editor()
+        public ActionResult Editor(int id)
         {
+            var listCustomSnippets = db.CustomSnippets.Where(s => s.MedicalProfileTemplateId == id).ToList();
+            dynamic result = new JArray();
+            foreach (var customSnippet in listCustomSnippets)
+            {
+                dynamic snippet = new JObject();
+                snippet.title = customSnippet.Title;
+                snippet.fields = new JObject() as dynamic;
+                var listCustomSnippetFields = from snippetField in db.CustomSnippetFields
+                                              where snippetField.CustomSnippetId == customSnippet.CustomSnippetId
+                                              select snippetField;
+                foreach (var customSnippetField in listCustomSnippetFields)
+                {
+                    dynamic metadata = new JObject();
+                    dynamic value;
+                    if (customSnippetField.Value.Contains("[") && customSnippetField.Value.Contains("]"))
+                    {
+                        value = JArray.Parse(customSnippetField.Value);
+                    }
+                    else
+                    {
+                        value = customSnippetField.Value;
+                    }
+                    metadata.label = customSnippetField.Label;
+                    metadata.type = customSnippetField.Type;
+                    metadata.value = value;
+                    metadata.name = customSnippetField.Name;
+                    snippet.fields.Add(customSnippetField.FieldName, metadata);
+                }
+                result.Add(snippet);
+            }
+            string json = JsonConvert.SerializeObject(result, Formatting.None);
+            ViewBag.formInJson = json;
+            ViewBag.medicalProfileTemplateId = id;
             return View();
         }
 
@@ -99,9 +133,9 @@ namespace MvcApplication1.Controllers
         //
         // GET: /MedicalProfileTemplate/Edit/5
 
-        public JObject Edit(string jsonString)
+        public JObject Edit(string jsonString, int id)
         {
-            var listCustomSnippets = db.CustomSnippets.Where(s => s.MedicalProfileTemplateId == 1);
+            var listCustomSnippets = db.CustomSnippets.Where(s => s.MedicalProfileTemplateId == id);
             foreach (var entity in listCustomSnippets)
             {
                 db.CustomSnippets.Remove(entity);
@@ -113,7 +147,7 @@ namespace MvcApplication1.Controllers
 
             foreach (dynamic snippet in listSnippets)
             {
-                CustomSnippet customSnippet = new CustomSnippet { Title = snippet.title, MedicalProfileTemplateId = 1 };
+                CustomSnippet customSnippet = new CustomSnippet { Title = snippet.title, MedicalProfileTemplateId = id };
                 customSnippet.CustomSnippetFields = new Collection<CustomSnippetField>();
 
                 if (snippet.fields != null)
