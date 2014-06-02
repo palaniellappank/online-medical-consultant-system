@@ -1,4 +1,34 @@
-[
+﻿[
+  {
+    "title" : "Form Name",
+    "fields": {
+        "name" : {
+            "label": "Form Name",
+            "type" : "input",
+            "value" : "Khu vực"
+        }
+    }
+  },
+  {
+    "title" : "Form Name",
+    "fields": {
+        "name" : {
+            "label": "Form Name",
+            "type" : "input",
+            "value" : "Lịch sử khám bệnh"
+        }
+    }
+  },
+  {
+    "title" : "Form Name",
+    "fields": {
+        "name" : {
+            "label": "Form Name",
+            "type" : "input",
+            "value" : "Hồ sơ"
+        }
+    }
+  },
   {
     "fields": {
       "id": {
