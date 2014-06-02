@@ -38,7 +38,8 @@
             type: "post",
             url: "/MedicalProfileTemplate/Edit",
             data: {
-                jsonString: JSON.stringify(snippetCollection.toJSON())
+                jsonString: JSON.stringify(snippetCollection.toJSON()),
+                id: medicalProfileTemplateId
             },
             success: function (data) {
                 console.dir(data.status);

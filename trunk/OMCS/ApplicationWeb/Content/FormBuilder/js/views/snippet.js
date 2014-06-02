@@ -33,6 +33,7 @@ define([
     }
     , render: function(withAttributes){
       var that = this;
+      
       var content = _.template(_PopoverMain)({
         "title": that.model.get("title"),
         "items" : that.model.get("fields"),

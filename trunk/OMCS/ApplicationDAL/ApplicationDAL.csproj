@@ -63,13 +63,18 @@
   <ItemGroup>
     <Compile Include="CustomMembershipProvider.cs" />
     <Compile Include="CustomRoleProvider.cs" />
-    <Compile Include="Migrations\201406011509351_Init.cs" />
-    <Compile Include="Migrations\201406011509351_Init.Designer.cs">
-      <DependentUpon>201406011509351_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201406021738072_Init2.cs" />
+    <Compile Include="Migrations\201406021738072_Init2.Designer.cs">
+      <DependentUpon>201406021738072_Init2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406021742333_Init3.cs" />
+    <Compile Include="Migrations\201406021742333_Init3.Designer.cs">
+      <DependentUpon>201406021742333_Init3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Conversation.cs" />
     <Compile Include="Model\ConversationDetail.cs" />
+    <Compile Include="Model\CustomSnippetValue.cs" />
     <Compile Include="Model\CustomSnippetField.cs" />
     <Compile Include="Model\CustomSnippet.cs" />
     <Compile Include="Model\TreatmentHistory.cs" />
@@ -96,8 +101,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201406011509351_Init.resx">
-      <DependentUpon>201406011509351_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201406021738072_Init2.resx">
+      <DependentUpon>201406021738072_Init2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406021742333_Init3.resx">
+      <DependentUpon>201406021742333_Init3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

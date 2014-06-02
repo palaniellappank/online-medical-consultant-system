@@ -65,13 +65,29 @@
             MedicalProfileType benhAnNgoaiDa = new MedicalProfileType { Name = "Bệnh án Ngoài Da" };
             MedicalProfileTemplate mauCoSan = new MedicalProfileTemplate { IsDefault = true, MedicalProfileType = benhAnNgoaiDa };
 
+            Patient suTran = new Patient
+            {
+                FirstName = "Su",
+                LastName = "Tran",
+                Username = "sutran",
+                Email = "trannguyentiensu@gmail.com",
+                Password = "123456",
+                IsActive = true,
+                Birthday = DateTime.UtcNow,
+                CreatedDate = DateTime.UtcNow,
+                Roles = new List<Role>(),
+                HealthInsuranceDateExpired = DateTime.UtcNow
+            };
+
             context.MedicalProfileTemplates.Add(mauCoSan);
             admin.Roles.Add(role0);
             user2.Roles.Add(role2);
+            suTran.Roles.Add(role2);
             user3.Roles.Add(role3);
             context.Users.Add(admin);
             context.Users.Add(user2);
             context.Users.Add(user3);
+            context.Patients.Add(suTran);
         }
     }
 }
