@@ -170,7 +170,6 @@
     <Compile Include="Controllers\CustomFormController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\MedicalProfileTemplateController.cs" />
-    <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -392,6 +391,7 @@
     <Content Include="Views\Patient\Create.cshtml" />
     <Content Include="Views\Patient\Edit.cshtml" />
     <Content Include="Views\Patient\Delete.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
