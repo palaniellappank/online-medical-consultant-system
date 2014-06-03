@@ -6,131 +6,86 @@
 @model OMCS.DAL.Model.User
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Đăng kí";
 }
 
-<h2>Create</h2>
-
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>User</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Username)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Username)
-            @Html.ValidationMessageFor(model => model.Username)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Password)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Password)
-            @Html.ValidationMessageFor(model => model.Password)
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
+            <legend><a href="#"><i class="glyphicon glyphicon-globe"></i></a> Đăng kí!</legend>
+            <form action="/Account/Register" method="post" class="form" role="form">
+            <input class="form-control" name="Username" placeholder="Tên đăng nhập" required autofocus/>
+            <div class="row">
+                <div class="col-xs-4 col-md-4">
+                    <input class="form-control" name="FirstName" placeholder="Tên" type="text"
+                        required />
+                </div>
+                <div class="col-xs-8 col-md-8">
+                    <input class="form-control" name="Lastname" placeholder="Họ" type="text" required />
+                </div>
+            </div>
+            <input class="form-control" name="Email" placeholder="Địa chỉ Email" type="email" required/>
+            <input class="form-control" name="Password" pattern=".{6,32}" placeholder="Mật khẩu" type="password" required title="Mật khẩu trong khoảng từ 6-32 kí tự!"/>
+            <input class="form-control" name="Re-password" pattern=".{6,32}" placeholder="Nhập lại mật khẩu" type="password" 
+                required title="Mật khẩu trong khoảng từ 6-32 kí tự!"/>
+            <br />
+            <ul class="errors" style="color: red;">
+            </ul>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="return checkValidation();">
+                Đăng kí</button>
+            </form>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.FirstName)
+        <div class="col-xs-0 col-sm-0 col-md-8">
+            <img class="col-xs-0 col-sm-0 col-md-8" src="/Content/Image/1314902_99313658.jpg" />
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.FirstName)
-            @Html.ValidationMessageFor(model => model.FirstName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.LastName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.LastName)
-            @Html.ValidationMessageFor(model => model.LastName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IsActive)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IsActive)
-            @Html.ValidationMessageFor(model => model.IsActive)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CreatedDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CreatedDate)
-            @Html.ValidationMessageFor(model => model.CreatedDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ProfilePicture)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ProfilePicture)
-            @Html.ValidationMessageFor(model => model.ProfilePicture)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Gender)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Gender)
-            @Html.ValidationMessageFor(model => model.Gender)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Birthday)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Birthday)
-            @Html.ValidationMessageFor(model => model.Birthday)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Phone)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Phone)
-            @Html.ValidationMessageFor(model => model.Phone)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PrimaryAddress)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PrimaryAddress)
-            @Html.ValidationMessageFor(model => model.PrimaryAddress)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TemporaryAddress)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.TemporaryAddress)
-            @Html.ValidationMessageFor(model => model.TemporaryAddress)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    </div>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<script type="text/javascript">
+    function checkValidation() {
+        var errorMessage = $(".errors");
+        errorMessage.html("");
+        var hasError = false;
+        var password = $('input[name=Password]').val();
+        var rePassword = $('input[name=Re-password]').val();
+
+
+        var username = $('input[name=Username]').val();
+        var email = $('input[name=Email]').val();
+        $.ajax({
+            url: "/Account/CheckUsername",
+            type: "GET",
+            data: { data: username },
+            async: false,
+            success: function (data) {
+                console.log(data);
+                if (data == "False") {
+                    errorMessage.append("Tên tài khoản đã tồn tại!</br>");
+                    hasError = true;
+                }
+            }
+        });
+
+        $.ajax({
+            url: "/Account/CheckEmail",
+            type: "GET",
+            data: { data: email },
+            async: false,
+            success: function (data) {
+                console.log(data);
+                if (data == "False") {
+                    errorMessage.append("Email này đã được đăng kí!</br>");
+                    hasError = true;
+                }
+            }
+        });
+
+        if (rePassword != password) {
+            errorMessage.append("Mật khẩu nhập lại chưa chính xác!</br>");
+            hasError = true;
+        }
+        if (!hasError) return true;
+        else return false;
+    }
+</script>

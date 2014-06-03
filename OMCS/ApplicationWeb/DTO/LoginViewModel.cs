@@ -8,16 +8,16 @@ namespace Security.Models
 {
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "User name")]
+        [Required(ErrorMessage = "Vui lòng điền tên đăng nhập.")]
+        [Display(Name = "Tên đăng nhập")]
         public string Username { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Vui lòng điền mật khẩu.")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Duy trì đăng nhập?")]
         public bool RememberMe { get; set; }
     }
 }
