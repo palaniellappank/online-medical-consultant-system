@@ -14,7 +14,7 @@ namespace Security.Controllers
 {
     public class AccountController : Controller
     {
-        OMCSDBContext Context = new OMCSDBContext();
+        OMCSDBContext db = new OMCSDBContext();
         
         //public ActionResult Index()
         //{
@@ -31,7 +31,7 @@ namespace Security.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = Context.Users.Where(u => u.Username == model.Username && u.Password == model.Password).FirstOrDefault();
+                var user = db.Users.Where(u => u.Username == model.Username && u.Password == model.Password).FirstOrDefault();
                 if (user != null)
                 {
                     var roles=user.Roles.Select(m => m.RoleName).ToArray();
@@ -81,6 +81,27 @@ namespace Security.Controllers
             }
 
             return View(model);
+        }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        //
+        // POST: /UserTemp/Create
+
+        [HttpPost]
+        public ActionResult Register(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(user);
         }
 
         [AllowAnonymous]
