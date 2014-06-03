@@ -4,14 +4,20 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@ViewBag.Title - My ASP.NET Application</title>
-        <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/bootstrap-flatly.css" rel="stylesheet" type="text/css" />
         <link href="~/Content/bootply.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+        <script src="~/Scripts/jquery-1.9.0.js"></script>
+        @if (IsSectionDefined("Scripts"))
+        {
+            @RenderSection("Scripts");
+        }
   </head>
 
   <body>
       <div class="navbar-wrapper">
           <div class="container">
-            <div class="navbar navbar-inverse navbar-static-top">
+            <div class="navbar navbar-static-top navbar-default">
       
                 <div class="navbar-header">
 	            <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -24,20 +30,16 @@
                 <div class="navbar-collapse collapse">
                   <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Trang Chủ</a></li>
-                    <li><a href="Account/Login">Đăng nhập</a></li>
-                      <li><a href="Account/Register">Đăng kí</a></li>
+                    <li><a href="/Account/Login">Đăng nhập</a></li>
+                      <li><a href="/Account/Register">Đăng kí</a></li>
                   </ul>
                 </div>
 
             </div>
+
+              @RenderBody()
           </div><!-- /container -->
         </div><!-- /navbar wrapper -->
-      @RenderBody()
-
-      @if (IsSectionDefined("scripts"))
-        {
-            RenderSection("scripts");
-        }
 </body>
 
 </html>

@@ -10,6 +10,7 @@ using OMCS.DAL.Model;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using Newtonsoft.Json;
+using System.Diagnostics;
 namespace Security.Controllers
 {
     public class AccountController : Controller
@@ -77,7 +78,7 @@ namespace Security.Controllers
                     }
                 }
 
-                ModelState.AddModelError("", "Incorrect username and/or password");
+                ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
             }
 
             return View(model);
@@ -94,14 +95,32 @@ namespace Security.Controllers
         [HttpPost]
         public ActionResult Register(User user)
         {
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            Debug.WriteLine("sdfd");
+            Debug.WriteLine(user.Email);
+            Debug.WriteLine(user.FullName);
+            user.CreatedDate = DateTime.UtcNow;
+            db.Users.Add(user);
+            db.SaveChanges();
+            return RedirectToAction("Register");
+        }
 
-            return View(user);
+        public bool CheckUsername(string data)
+        {
+            Debug.WriteLine(data);
+            var username = (from user in db.Users 
+                            where user.Username.Equals(data,StringComparison.InvariantCultureIgnoreCase)
+                            select user).FirstOrDefault();
+            if (username != null) return false;
+            else return true;
+        }
+        public bool CheckEmail(string data)
+        {
+            Debug.WriteLine(data);
+            var email = (from user in db.Users
+                         where user.Email.Equals(data, StringComparison.InvariantCultureIgnoreCase)
+                         select user).FirstOrDefault();
+            if (email != null) return false;
+            else return true;
         }
 
         [AllowAnonymous]

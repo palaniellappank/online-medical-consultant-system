@@ -251,6 +251,9 @@
     <Content Include="Content\bootstrap-flatly.css" />
     <Content Include="Content\bootply.css" />
     <Content Include="Content\bootply-admin.css" />
+    <Content Include="Content\Image\1004854_88618726.jpg" />
+    <Content Include="Content\Image\1314902_99313658.jpg" />
+    <Content Include="Content\Image\1314903_62676029.jpg" />
     <Content Include="Content\Image\slider1.jpg" />
     <Content Include="Content\Image\slider2.jpg" />
     <Content Include="Content\Image\slider3.gif" />

@@ -21,7 +21,7 @@ namespace OMCS.DAL.Model
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "Tên đăng nhập")]
+        [Display(Name = "Email")]
         public String Email { get; set; }
 
         [Required]
@@ -51,7 +51,7 @@ namespace OMCS.DAL.Model
         [Display(Name = "Ngày Tạo")]
         public DateTime CreatedDate { get; set; }
 
-
+        [Display(Name = "Hình đại diện")]
         public String ProfilePicture { get; set; }
 
         [Display(Name = "Giới tính")]
@@ -60,7 +60,7 @@ namespace OMCS.DAL.Model
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Ngày sinh")]
-        public DateTime Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
 
         [Display(Name = "Số điện thoại")]
         public String Phone { get; set; }
