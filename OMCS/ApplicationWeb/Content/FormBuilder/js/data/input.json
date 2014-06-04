@@ -1,40 +1,12 @@
 ﻿[
   {
-    "title" : "Form Name",
-    "fields": {
-        "name" : {
-            "label": "Form Name",
-            "type" : "input",
-            "value" : "Khu vực"
-        }
-    }
-  },
-  {
-    "title" : "Form Name",
-    "fields": {
-        "name" : {
-            "label": "Form Name",
-            "type" : "input",
-            "value" : "Lịch sử khám bệnh"
-        }
-    }
-  },
-  {
-    "title" : "Form Name",
-    "fields": {
-        "name" : {
-            "label": "Form Name",
-            "type" : "input",
-            "value" : "Hồ sơ"
-        }
-    }
-  },
-  {
+	"name" : "Ô nhập liệu",
+    "title": "Text Input",
     "fields": {
       "id": {
         "type": "input",
         "label": "ID / Name",
-        "value": "textinput"
+        "value": null
       },
       "inputsize": {
         "type": "select",
@@ -74,141 +46,132 @@
       },
       "label": {
         "type": "input",
-        "label": "Label Text",
-        "value": "Text Input"
+        "label": "Tên đối tượng",
+        "value": "Tên đối tượng"
       },
       "placeholder": {
         "type": "input",
-        "label": "Placeholder",
-        "value": "placeholder"
+        "label": "Nhắc nhở",
+        "value": "Nhắc nhở..."
       },
       "required": {
         "type": "checkbox",
-        "label": "Required",
+        "label": "Bắt buộc",
         "value": false
       }
-    },
-    "title": "Text Input"
+    }
   },
   {
+	"name": "Đoạn nhập liệu",
+    "title": "Text Area",
     "fields": {
       "id": {
         "type": "input",
         "label": "ID / Name",
-        "value": "textarea"
+        "value": null
       },
       "label": {
         "type": "input",
-        "label": "Label Text",
-        "value": "Text Area"
+        "label": "Tên đối tượng",
+        "value": "Tên đối tượng"
       },
       "textarea": {
         "type": "textarea",
-        "label": "Starting Text",
-        "value": "default text"
+        "label": "Giá trị mặc định",
+        "value": "Giá trị mặc định"
       }
-    },
-    "title": "Text Area"
+    }
   },
-    {
+  {
+	"name": "Tùy chọn đơn 1 hàng dọc",
+    "title": "Multiple Radios",
     "fields": {
 	  "id": {
 		"type": "input",
 		"label": "ID / Name",
-		"value": "multipleradios"
+		"value": "radios"
 	  },
       "label": {
         "type": "input",
-        "label": "Label Text",
-        "value": "Multiple Radios"
+        "label": "Tên đối tượng",
+        "value": "Tên đối tượng"
       },
       "radios": {
         "type": "textarea-split",
-        "label": "Radios",
+        "label": "Các tùy chọn",
         "value": [
-          "Option one",
-          "Option two"
+          "Tùy chọn 1",
+          "Tùy chọn 2"
         ]
       },
       "required": {
         "type": "checkbox",
-        "label": "Required",
+        "label": "Bắt buộc",
         "value": false
-      },
-      "name": {
-        "type": "input",
-        "label": "Group Name",
-        "value": "radios"
       }
-    },
-    "title": "Multiple Radios"
+    }
   },
   {
+	"name": "Tùy chọn đơn hàng ngang",
+	"title": "Multiple Radios Inline",
     "fields": {
 	  "id": {
 		"type": "input",
 		"label": "ID / Name",
-		"value": "inlineradios"
+		"value": "radios"
 	  },
       "label": {
         "type": "input",
-        "label": "Label Text",
-        "value": "Inline Radios"
+        "label": "Tên đối tượng",
+        "value": "Tên đối tượng"
       },
       "radios": {
         "type": "textarea-split",
-        "label": "Radios",
+        "label": "Các tùy chọn",
         "value": [
-          1234
+          "Tùy chọn 1",
+          "Tùy chọn 2"
         ]
       },
       "required": {
         "type": "checkbox",
-        "label": "Required",
+        "label": "Bắt buộc",
         "value": false
-      },
-      "name": {
-        "type": "input",
-        "label": "Group Name",
-        "value": "radios"
       }
-    },
-    "title": "Multiple Radios Inline"
+    }
   },
   {
+	"name": "Tùy chọn kép hàng dọc",
+	"title": "Multiple Checkboxes",
     "fields": {
 	  "id": {
 		"type": "input",
 		"label": "ID / Name",
-		"value": "multiplecheckboxes"
+		"value": ""
 	  },
       "label": {
         "type": "input",
-        "label": "Label Text",
-        "value": "Multiple Checkboxes"
+        "label": "Tên đối tượng",
+        "value": "Tên đối tượng"
       },
       "checkboxes": {
         "type": "textarea-split",
-        "label": "Checkboxes",
+        "label": "Các tùy chọn",
         "value": [
-          "Option one",
-          "Option two"
+          "Tùy chọn 2",
+          "Tùy chọn 2"
         ]
       },
       "required": {
         "type": "checkbox",
-        "label": "Required",
+        "label": "Bắt buộc",
         "value": false
-      },
-      "name": {
-        "type": "input",
-        "label": "Group Name",
-        "value": "checkboxes"
       }
-    },
-    "title": "Multiple Checkboxes"
+    }
   },
   {
+	"name": "Tùy chọn kép hàng ngang",
+	"title": "Multiple Checkboxes Inline",
     "fields": {
 	  "id": {
 		"type": "input",
@@ -217,52 +180,44 @@
 	  },
       "label": {
         "type": "input",
-        "label": "Label Text",
-        "value": "Inline Checkboxes"
+        "label": "Tên đối tượng",
+        "value": "Tên đối tượng"
       },
       "checkboxes": {
         "type": "textarea-split",
-        "label": "Checkboxes",
+        "label": "Các tùy chọn",
         "value": [
-          1234
+          "Tùy chọn 2",
+          "Tùy chọn 2"
         ]
       },
       "required": {
         "type": "checkbox",
-        "label": "Required",
+        "label": "Bắt buộc",
         "value": false
-      },
-      "name": {
-        "type": "input",
-        "label": "Group Name",
-        "value": "checkboxes"
       }
-    },
-    "title": "Multiple Checkboxes Inline"
+    }
   },
   {
+	"name": "Tùy chọn đơn",
+	"title": "Select Basic",
     "fields": {
 	  "id": {
 		"type": "input",
 		"label": "ID / Name",
 		"value": "selectbasic"
 	  },
-      "id": {
-        "type": "input",
-        "label": "ID / Name",
-        "value": "selectbasic"
-      },
       "options": {
         "type": "textarea-split",
         "label": "Options",
         "value": [
-          "Option one",
-          "Option two"
+          "Tùy chọn 2",
+          "Tùy chọn 2"
         ]
       },
       "inputsize": {
         "type": "select",
-        "label": "Input Size",
+        "label": "Kích thước",
         "value": [
           {
             "label": "Mini",
@@ -298,13 +253,14 @@
       },
       "label": {
         "type": "input",
-        "label": "Label Text",
-        "value": "Select Basic"
+        "label": "Tên đối tượng",
+        "value": "Tên đối tượng"
       }
-    },
-    "title": "Select Basic"
+    }
   },
   {
+	"name": "Tùy chọn kép",
+	"title": "Select Multiple",
     "fields": {
       "id": {
         "type": "input",
@@ -313,15 +269,15 @@
       },
       "options": {
         "type": "textarea-split",
-        "label": "Options",
+        "label": "Các tùy chọn",
         "value": [
-          "Option one",
-          "Option two"
+          "Tùy chọn 2",
+          "Tùy chọn 2"
         ]
       },
       "inputsize": {
         "type": "select",
-        "label": "Input Size",
+        "label": "Kích thước",
         "value": [
           {
             "label": "Mini",
@@ -357,10 +313,9 @@
       },
       "label": {
         "type": "input",
-        "label": "Label Text",
-        "value": "Select Multiple"
+        "label": "Tên đối tượng",
+        "value": "Tên đối tượng"
       }
-    },
-    "title": "Select Multiple"
+    }
   }
 ]

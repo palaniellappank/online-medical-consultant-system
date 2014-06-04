@@ -10,6 +10,11 @@
     <link href="~/Content/FormBuilder/css/lib/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="~/Content/FormBuilder/css/custom.css" rel="stylesheet">
 
+    <script type="text/javascript">
+        var formInJson = @Html.Raw(ViewBag.formInJson);
+        var medicalProfileTemplateId = @(ViewBag.medicalProfileTemplateId);
+        var patientId = @(ViewBag.patientId);
+    </script>
   </head>
 
   <body>

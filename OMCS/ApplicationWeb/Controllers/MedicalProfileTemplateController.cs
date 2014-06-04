@@ -142,22 +142,26 @@ namespace MvcApplication1.Controllers
             }
             db.SaveChanges();
 
-
             JArray listSnippets = JArray.Parse(jsonString) as JArray;
 
             foreach (dynamic snippet in listSnippets)
             {
-                CustomSnippet customSnippet = new CustomSnippet { Title = snippet.title, MedicalProfileTemplateId = id };
+                CustomSnippet customSnippet = new CustomSnippet { Title = snippet.title, MedicalProfileTemplateId = id};
+                db.CustomSnippets.Add(customSnippet);
+                db.SaveChanges();
                 customSnippet.CustomSnippetFields = new Collection<CustomSnippetField>();
-
                 if (snippet.fields != null)
                 {
                     foreach (dynamic snippetField in snippet.fields)
                     {
                         //string str = ((object)snippetField).ToString();
                         //Debug.WriteLine("1" + str);
-
                         dynamic metadata = snippetField.Value;
+                        
+                        if ("id".Equals(snippetField.Name))
+                        {
+                            metadata.value = customSnippet.CustomSnippetId;
+                        }
                         //str = ((object)metadata).ToString();
                         CustomSnippetField customSnippetField = new CustomSnippetField
                         {
@@ -171,7 +175,7 @@ namespace MvcApplication1.Controllers
                         customSnippet.CustomSnippetFields.Add(customSnippetField);
                     }
                 }
-                db.CustomSnippets.Add(customSnippet);
+                db.Entry(customSnippet).State = EntityState.Modified;
                 db.SaveChanges();
             }
             dynamic result = new JObject();

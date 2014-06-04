@@ -42,8 +42,10 @@
                 id: medicalProfileTemplateId
             },
             success: function (data) {
-                console.dir(data.status);
-                alert("Mẫu hồ sơ lưu thành công" + data.status);
+                var result = JSON.parse(data);
+                if (result.status == "success") {
+                    alert("Mẫu hồ sơ lưu thành công");
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert("Có lỗi xảy ra: " + textStatus);
