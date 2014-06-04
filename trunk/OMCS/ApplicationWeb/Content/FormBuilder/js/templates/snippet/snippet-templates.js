@@ -16,7 +16,8 @@ define(function(require) {
   , selectmultiple           = require('text!templates/snippet/selectmultiple.html')
   , textarea                 = require('text!templates/snippet/textarea.html')
   , textinput                = require('text!templates/snippet/textinput.html')
-  , commonsnippettab       = require('text!templates/snippet/common-snippet-tab.html');
+  , commonsnippettab = require('text!templates/snippet/common-snippet-tab.html')
+  , datepicker = require('text!templates/snippet/datepicker.html');
 
   return {
     formname                   : formname
@@ -37,5 +38,6 @@ define(function(require) {
     , textarea                 : textarea
     , textinput                : textinput
     , commonsnippettab: commonsnippettab
+    , datepicker: datepicker
   }
 });
