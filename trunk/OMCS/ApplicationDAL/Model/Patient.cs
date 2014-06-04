@@ -11,8 +11,6 @@ namespace OMCS.DAL.Model
     [Table("Patient")]
     public class Patient : User
     {
-        public int PatientId { get; set; }
-
         public string Ethnicity { get; set; }
         public string Nationality { get; set; }
         public string Job { get; set; }

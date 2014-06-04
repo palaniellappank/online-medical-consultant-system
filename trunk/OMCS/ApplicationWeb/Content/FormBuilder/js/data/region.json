@@ -1,0 +1,35 @@
+﻿[
+  {
+    "title" : "Form Name",
+	"name" : "Khu vực",
+    "fields": {
+        "name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Khu vực"
+        }
+    }
+  },
+  {
+    "title" : "Form Name",
+	"name" : "Lịch sử khám bệnh",
+    "fields": {
+        "name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Lịch sử khám bệnh"
+        }
+    }
+  },
+  {
+    "title" : "Form Name",
+	"name" : "Hồ sơ",
+    "fields": {
+        "name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Hồ sơ"
+        }
+    }
+  }
+]

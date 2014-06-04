@@ -167,9 +167,9 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ConversationController.cs" />
-    <Compile Include="Controllers\CustomFormController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\MedicalProfileTemplateController.cs" />
+    <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -194,6 +194,7 @@
     <Content Include="Content\FormBuilder\js\collections\my-form-snippets.js" />
     <Content Include="Content\FormBuilder\js\collections\snippets.js" />
     <Content Include="Content\FormBuilder\js\config.js" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\common-snippet-tab.html" />
     <Content Include="Content\FormBuilder\js\view-app.js" />
     <Content Include="Content\FormBuilder\js\view.js" />
     <Content Include="Content\FormBuilder\js\helper\pubsub.js" />
@@ -321,6 +322,7 @@
     <Content Include="Content\FormBuilder\js\data\input.json" />
     <Content Include="Content\FormBuilder\js\data\radio.json" />
     <Content Include="Content\FormBuilder\js\data\select.json" />
+    <Content Include="Content\FormBuilder\js\data\region.json" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -382,9 +384,8 @@
     <Content Include="Views\Conversation\Delete.cshtml" />
     <Content Include="Views\Shared\_TemplateLayout.cshtml" />
     <Content Include="Views\Shared\_DoctorLayout.cshtml" />
-    <Content Include="Views\CustomForm\Index.cshtml" />
     <Content Include="Views\MedicalProfileTemplate\Index.cshtml" />
-    <Content Include="Views\MedicalProfileTemplate\Details.cshtml" />
+    <Content Include="Views\Patient\UpdateMedicalProfile.cshtml" />
     <Content Include="Views\MedicalProfileTemplate\Create.cshtml" />
     <Content Include="Views\MedicalProfileTemplate\Edit.cshtml" />
     <Content Include="Views\MedicalProfileTemplate\Delete.cshtml" />

@@ -23,19 +23,17 @@ define([
       this.$el.popover("show");
       $(".popover #save").on("click", this.saveHandler(that));
       $(".popover #cancel").on("click", this.cancelHandler(that));
-      //add drag event for all but form name
-      if(this.model.get("title") !== "Form Name"){
+      //add drag event for all
         $("body").on("mousemove", function(mouseMoveEvent){
-          if(
+            if(
             Math.abs(mouseDownEvent.pageX - mouseMoveEvent.pageX) > 10 ||
             Math.abs(mouseDownEvent.pageY - mouseMoveEvent.pageY) > 10
-          ){
+            ){
             that.$el.popover('destroy');
             PubSub.trigger("mySnippetDrag", mouseDownEvent, that.model);
             that.mouseUpHandler();
-          };
+            };
         });
-      }
     }
 
     , preventPropagation: function(e) {

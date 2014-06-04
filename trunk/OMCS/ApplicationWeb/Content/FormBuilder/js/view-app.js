@@ -11,18 +11,10 @@
 ){
   return {
       initialize: function () {
-
-          $.ajax({
-              url: "/MedicalProfileTemplate/DetailInJson/1",
-              success: function (data) {
-                  var jsonType = JSON.parse(data);
-                  new InputView({
-                      title: "Original",
-                      collection: new SnippetsCollection(jsonType)
-                  });
-              }
-          });
-          
+        new InputView({
+            title: "Original",
+            collection: new SnippetsCollection(formInJson)
+        });
     }
   }
 });

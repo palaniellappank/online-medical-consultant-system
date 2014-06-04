@@ -1,0 +1,179 @@
+﻿@model OMCS.DAL.Model.Patient
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Patient</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ethnicity)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ethnicity)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nationality)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nationality)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Job)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Job)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.WhereToWork)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WhereToWork)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ContactPerson)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ContactPerson)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ContactPersonAddress)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ContactPersonAddress)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.HealthInsuranceId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HealthInsuranceId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.HealthInsuranceIssued)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HealthInsuranceIssued)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.HealthInsuranceDateExpired)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HealthInsuranceDateExpired)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Username)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Username)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Password)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Password)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FullName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FullName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IsActive)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsActive)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreatedDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatedDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProfilePicture)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProfilePicture)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Gender)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Gender)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Birthday)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Birthday)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Phone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Phone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PrimaryAddress)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PrimaryAddress)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TemporaryAddress)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TemporaryAddress)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
