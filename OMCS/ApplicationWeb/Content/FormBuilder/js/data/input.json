@@ -62,6 +62,27 @@
     }
   },
   {
+	"name" : "Kiểu ngày tháng",
+    "title": "Datepicker",
+    "fields": {
+      "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+      },
+      "label": {
+        "type": "input",
+        "label": "Tên đối tượng",
+        "value": "Tên đối tượng"
+      },
+      "required": {
+        "type": "checkbox",
+        "label": "Bắt buộc",
+        "value": false
+      }
+    }
+  },
+  {
 	"name": "Đoạn nhập liệu",
     "title": "Text Area",
     "fields": {

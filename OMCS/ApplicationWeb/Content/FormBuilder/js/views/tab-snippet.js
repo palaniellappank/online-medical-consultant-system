@@ -28,7 +28,6 @@ define([
       PubSub.trigger("newTempPostRender", mouseDownEvent);
     },
     render: function () {
-        console.log(this.model);
         this.template = _.template(_snippetTemplates["commonsnippettab"]);
         return this.$el.html(this.template(this.model.attributes));
     }

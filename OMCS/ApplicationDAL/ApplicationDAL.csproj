@@ -71,6 +71,14 @@
     <Compile Include="Migrations\201406021742333_Init3.Designer.cs">
       <DependentUpon>201406021742333_Init3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406031346385_Init4.cs" />
+    <Compile Include="Migrations\201406031346385_Init4.Designer.cs">
+      <DependentUpon>201406031346385_Init4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406031615443_Init5.cs" />
+    <Compile Include="Migrations\201406031615443_Init5.Designer.cs">
+      <DependentUpon>201406031615443_Init5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Conversation.cs" />
     <Compile Include="Model\ConversationDetail.cs" />
@@ -106,6 +114,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406021742333_Init3.resx">
       <DependentUpon>201406021742333_Init3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406031346385_Init4.resx">
+      <DependentUpon>201406031346385_Init4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406031615443_Init5.resx">
+      <DependentUpon>201406031615443_Init5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

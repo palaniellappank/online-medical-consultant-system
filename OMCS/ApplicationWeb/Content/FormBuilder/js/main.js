@@ -10,6 +10,10 @@ require.config({
     'bootstrap': {
       deps: ['jquery'],
       exports: '$.fn.popover'
+    },
+    'jquery-ui': {
+        deps: ['jquery'],
+        exports: 'jqueryUI'
     }
   }
   , paths: {

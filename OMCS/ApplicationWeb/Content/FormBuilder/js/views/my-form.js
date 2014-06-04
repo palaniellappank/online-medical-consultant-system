@@ -33,7 +33,6 @@
 
     saveForm: function () {
         window.snippetCollection = new MyFormSnippetsCollection(this.collection.toJSON());
-        console.dir(this.collection);
         $.ajax({
             type: "post",
             url: "/MedicalProfileTemplate/Edit",
@@ -74,7 +73,6 @@
       $("#render").val(that.renderForm({
         text: _.map(this.collection.renderAllClean(), function(e){return e.html()}).join("\n")
       }));
-      console.dir(this.fieldset);
       this.fieldset.appendTo("#build form");
       this.delegateEvents();
     }

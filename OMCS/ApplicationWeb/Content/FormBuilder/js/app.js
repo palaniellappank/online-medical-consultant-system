@@ -30,9 +30,7 @@
 
       $(document).scroll(function () {
           var scroll = $(this).scrollTop();
-         // var topDist = $("#tab-editor").position();
           var topDist = 90;
-          console.log(scroll);
           if (scroll < topDist) {
               $('#tab-editor').css({ "position": "static", "top": "auto" });
           } else {
