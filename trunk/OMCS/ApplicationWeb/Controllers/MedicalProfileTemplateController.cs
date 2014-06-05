@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using OMCS.DAL.Model;
+using OMCS.BLL;
 using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -17,6 +18,8 @@ namespace MvcApplication1.Controllers
     {
         private OMCSDBContext db = new OMCSDBContext();
 
+        MedicalProfileTemplateBusinessLogic business = new MedicalProfileTemplateBusinessLogic();
+
         public ActionResult Index()
         {
             var medicalrecordtemplates = db.MedicalProfileTemplates.Include(m => m.MedicalProfileType);
@@ -25,37 +28,7 @@ namespace MvcApplication1.Controllers
 
         public ActionResult Editor(int id)
         {
-            var listCustomSnippets = db.CustomSnippets.Where(s => s.MedicalProfileTemplateId == id).ToList();
-            dynamic result = new JArray();
-            foreach (var customSnippet in listCustomSnippets)
-            {
-                dynamic snippet = new JObject();
-                snippet.title = customSnippet.Title;
-                snippet.fields = new JObject() as dynamic;
-                var listCustomSnippetFields = from snippetField in db.CustomSnippetFields
-                                              where snippetField.CustomSnippetId == customSnippet.CustomSnippetId
-                                              select snippetField;
-                foreach (var customSnippetField in listCustomSnippetFields)
-                {
-                    dynamic metadata = new JObject();
-                    dynamic value;
-                    if (customSnippetField.Value.Contains("[") && customSnippetField.Value.Contains("]"))
-                    {
-                        value = JArray.Parse(customSnippetField.Value);
-                    }
-                    else
-                    {
-                        value = customSnippetField.Value;
-                    }
-                    metadata.label = customSnippetField.Label;
-                    metadata.type = customSnippetField.Type;
-                    metadata.value = value;
-                    metadata.name = customSnippetField.Name;
-                    snippet.fields.Add(customSnippetField.FieldName, metadata);
-                }
-                result.Add(snippet);
-            }
-            string json = JsonConvert.SerializeObject(result, Formatting.None);
+            string json = business.ShowTemplate(id);
             ViewBag.formInJson = json;
             ViewBag.medicalProfileTemplateId = id;
             return View();
@@ -135,49 +108,7 @@ namespace MvcApplication1.Controllers
 
         public JObject Edit(string jsonString, int id)
         {
-            var listCustomSnippets = db.CustomSnippets.Where(s => s.MedicalProfileTemplateId == id);
-            foreach (var entity in listCustomSnippets)
-            {
-                db.CustomSnippets.Remove(entity);
-            }
-            db.SaveChanges();
-
-            JArray listSnippets = JArray.Parse(jsonString) as JArray;
-
-            foreach (dynamic snippet in listSnippets)
-            {
-                CustomSnippet customSnippet = new CustomSnippet { Title = snippet.title, MedicalProfileTemplateId = id};
-                db.CustomSnippets.Add(customSnippet);
-                db.SaveChanges();
-                customSnippet.CustomSnippetFields = new Collection<CustomSnippetField>();
-                if (snippet.fields != null)
-                {
-                    foreach (dynamic snippetField in snippet.fields)
-                    {
-                        //string str = ((object)snippetField).ToString();
-                        //Debug.WriteLine("1" + str);
-                        dynamic metadata = snippetField.Value;
-                        
-                        if ("id".Equals(snippetField.Name))
-                        {
-                            metadata.value = customSnippet.CustomSnippetId;
-                        }
-                        //str = ((object)metadata).ToString();
-                        CustomSnippetField customSnippetField = new CustomSnippetField
-                        {
-                            CustomSnippet = customSnippet,
-                            FieldName = snippetField.Name,
-                            Label = metadata.label,
-                            Type = metadata.type,
-                            Value = ((object)metadata.value).ToString(),
-                            Name = metadata.name
-                        };
-                        customSnippet.CustomSnippetFields.Add(customSnippetField);
-                    }
-                }
-                db.Entry(customSnippet).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            business.SaveTemplate(jsonString, id);
             dynamic result = new JObject();
             result.status = "success";
             return result;

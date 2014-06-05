@@ -44,7 +44,6 @@ namespace OMCS.DAL.Model
          public DbSet<TreatmentHistory> TreatmentHistories { get; set; }
          public DbSet<DiseaseType> DiseaseTypes { get; set; }
          public DbSet<Doctor> Doctors { get; set; }
-         public DbSet<DynamicField> DynamicFields { get; set; }
          public DbSet<FilmDocument> FilmDocuments { get; set; }
          public DbSet<FilmType> FilmTypes { get; set; }
          public DbSet<Immunization> Immunizations { get; set; }
@@ -56,5 +55,6 @@ namespace OMCS.DAL.Model
          public DbSet<SpecialtyField> SpecialtyFields { get; set; }
          public DbSet<CustomSnippet> CustomSnippets { get; set; }
          public DbSet<CustomSnippetField> CustomSnippetFields { get; set; }
+         public DbSet<CustomSnippetValue> CustomSnippetValues { get; set; }
     }    
 }

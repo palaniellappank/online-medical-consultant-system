@@ -1,0 +1,60 @@
+﻿@{
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+@model IEnumerable<OMCS.DAL.Model.Immunization>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <div class="row">
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicalProfile.HeartRate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateImmunized)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BoosterTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicalProfile.HeartRate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateImmunized)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BoosterTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ImmunizationId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ImmunizationId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ImmunizationId })
+        </td>
+    </tr>
+}
+
+</table>
+</div>
+    </div>

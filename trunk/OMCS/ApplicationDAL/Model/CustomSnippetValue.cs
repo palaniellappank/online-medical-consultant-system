@@ -15,10 +15,6 @@ namespace OMCS.DAL.Model
         [Key]
         public int CustomSnippetValueId { get; set; }
 
-        [ForeignKey("MedicalProfile")]
-        public int MedicalProfileId { get; set; }
-        public virtual MedicalProfile MedicalProfile { get; set; }
-
         [ForeignKey("CustomSnippet")]
         public int CustomSnippetId { get; set; }
         public virtual CustomSnippet CustomSnippet { get; set; }

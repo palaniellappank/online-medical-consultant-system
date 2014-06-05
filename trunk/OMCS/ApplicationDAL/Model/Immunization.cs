@@ -25,6 +25,7 @@ namespace OMCS.DAL.Model
         [Display(Name = "Ngày tiêm chủng")]
         public DateTime DateImmunized { get; set; }
 
+        [Display(Name = "Lần tiêm chủng")]
         public int BoosterTime { get; set; }
     }
 }
