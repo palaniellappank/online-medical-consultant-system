@@ -168,6 +168,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ConversationController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
+    <Compile Include="Controllers\ImmunizationController.cs" />
     <Compile Include="Controllers\MedicalProfileTemplateController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
@@ -406,6 +407,11 @@
     <Content Include="Views\Patient\Edit.cshtml" />
     <Content Include="Views\Patient\Delete.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Immunization\Index.cshtml" />
+    <Content Include="Views\Immunization\Details.cshtml" />
+    <Content Include="Views\Immunization\Create.cshtml" />
+    <Content Include="Views\Immunization\Edit.cshtml" />
+    <Content Include="Views\Immunization\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

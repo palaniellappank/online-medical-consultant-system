@@ -1,0 +1,46 @@
+﻿@model OMCS.DAL.Model.Immunization
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Immunization</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MedicalProfile.HeartRate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MedicalProfile.HeartRate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateImmunized)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateImmunized)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.BoosterTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.BoosterTime)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
