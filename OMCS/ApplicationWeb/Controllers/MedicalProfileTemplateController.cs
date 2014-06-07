@@ -18,7 +18,7 @@ namespace MvcApplication1.Controllers
     {
         private OMCSDBContext db = new OMCSDBContext();
 
-        MedicalProfileTemplateBusinessLogic business = new MedicalProfileTemplateBusinessLogic();
+        MedicalProfileTemplateBusiness business = new MedicalProfileTemplateBusiness();
 
         public ActionResult Index()
         {
