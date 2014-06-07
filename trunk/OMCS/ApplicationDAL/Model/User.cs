@@ -11,6 +11,7 @@ namespace OMCS.DAL.Model
     [Table("User")]
     public class User
     {
+
         [Key]
         public int UserId { get; set; }
 
@@ -69,7 +70,7 @@ namespace OMCS.DAL.Model
         public String PrimaryAddress { get; set; }
 
         [Display(Name = "Địa chỉ tạm trú")]
-        public String TemporaryAddress { get; set; }
+        public String SecondaryAddress { get; set; }
 
         public virtual ICollection<Role> Roles { get; set; }
     }
