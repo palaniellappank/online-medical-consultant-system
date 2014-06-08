@@ -15,24 +15,26 @@ namespace OMCS.DAL.Model
         [Key]
         public int UserId { get; set; }
 
-        [Required]
-        [StringLength(50)]
+        [Required(ErrorMessage = "*Bạn cần nhập thông tin này")]
+        [StringLength(50, ErrorMessage = "*Độ dài không được quá 50 ký tự")]
         [Display(Name = "Tên đăng nhập")]
         public String Username { get; set; }
 
-        [Required]
-        [StringLength(50)]
+        [Required(ErrorMessage = "*Bạn cần nhập thông tin này")]
+        [StringLength(50, ErrorMessage = "Độ dài không được quá 50 ký tự")]
+        [EmailAddress(ErrorMessage = "*Địa chỉ Email không tồn tại")]
         [Display(Name = "Email")]
         public String Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "*Bạn cần nhập thông tin này")]
+        [Display(Name = "Mật khẩu")]
         public String Password { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "*Độ dài không được quá 50 ký tự")]
         [Display(Name = "Tên")]
         public String FirstName { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "*Độ dài không được quá 50 ký tự")]
         [Display(Name = "Họ")]
         public String LastName { get; set; }
 
