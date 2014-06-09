@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model IEnumerable<OMCS.DAL.Model.SpecialtyField>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Danh sách Khoa và Chuyên Khoa</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create", null, null, new { @class = "btn btn-primary" })
+</p>
+<table class="table table-striped table-hover" id="list-of-specialty-field">
+    <tr>
+        <th>
+            Tên Khoa
+        </th>
+        <th>
+            Chuyên Khoa
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr class="info">
+        <td>
+            @if (item.Parent == null)
+            {
+                @Html.DisplayFor(modelItem => item.Name)
+            }
+        </td>
+        <td>
+            @if (item.Parent != null)
+            {
+                @Html.DisplayFor(modelItem => item.Name)
+            }
+        </td>
+        <td>
+            <button class="btn btn-primary edit-specialty-field" data-id="@item.SpecialtyFieldId">Edit</button>
+            <button class="btn btn-danger delete-specialty-field" data-id="@item.SpecialtyFieldId">Delete</button>
+            |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SpecialtyFieldId })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<div class="modal fade in" id="edit-specialty-field">
+    <div id="edit-specialty-field-container"></div>
+</div>
+
+<div class="modal fade in" id="create-specialty-field">
+    <div id="create-specialty-field-container"></div>
+</div>
+
+<div class="modal fade in" id="delete-specialty-field">
+    <div id="delete-specialty-field-container"></div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.edit-specialty-field').click(function () {
+            var url = "/AdminSpecialtyField/Edit"; // the url to the controller
+            var id = $(this).attr('data-id'); // the id that's given to each button in the list
+            $.get(url + '/' + id, function (data) {
+                $('#edit-specialty-field-container').html(data);
+                $('#edit-specialty-field').modal('show');
+            });
+        });
+
+        $('.delete-specialty-field').click(function () {
+            var url = "/AdminSpecialtyField/Edit"; // the url to the controller
+            var id = $(this).attr('data-id'); // the id that's given to each button in the list
+            $.get(url + '/' + id, function (data) {
+                $('#edit-specialty-field-container').html(data);
+                $('#edit-specialty-field').modal('show');
+            });
+        });
+    });
+</script>

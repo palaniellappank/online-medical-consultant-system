@@ -1,0 +1,56 @@
+﻿@model OMCS.DAL.Model.SpecialtyField
+
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Cập nhật Chuyên Khoa</h4>
+      </div>
+
+    @using (Ajax.BeginForm("Edit", "AdminSpecialtyField", FormMethod.Post,
+                    new AjaxOptions
+                    {
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "POST",
+                        UpdateTargetId = "list-of-specialty-field"
+                    }))
+    {
+    @Html.ValidationSummary()
+    @Html.AntiForgeryToken()
+      <div class="modal-body">
+        <fieldset>
+            @Html.HiddenFor(model => model.SpecialtyFieldId)
+            @if (Model.Parent == null)
+            {
+                <div class="editor-label">
+                    <label for="ParentId">Tên Khoa</label>
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control"})
+                </div>
+            }
+            else
+            {
+                <div class="editor-label">
+                    <label for="ParentId">Tên Khoa</label>
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("ParentId", null, new {@class="form-control"})
+                </div>
+
+                <div class="editor-label">
+                    <label for="Name">Tên Chuyên Khoa</label>
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control"})
+                </div>
+            }
+        </fieldset>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
+        <button type="submit" class="btn btn-primary">Lưu</button>
+      </div>
+    }
+    </div>
+  </div>

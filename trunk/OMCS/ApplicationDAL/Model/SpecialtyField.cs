@@ -15,9 +15,11 @@ namespace OMCS.DAL.Model
         public int SpecialtyFieldId { get; set; }
 
         [ForeignKey("Parent")]
+        [Display(Name="Tên Khoa")]
         public int? ParentId { get; set; }
         public virtual SpecialtyField Parent { get; set; }
 
+        [Display(Name = "Tên Chuyên Khoa")]
         public string Name { get; set; }
     }
 }

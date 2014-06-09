@@ -35,7 +35,7 @@
                 @Html.LabelFor(model => model.Password)
             </div>
             <div class="col-xs-8 col-md-8">
-                @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @type = "password"})
             </div>
             <div class="col-xs-12 col-md-12">
                 @Html.ValidationMessageFor(model => model.Password)
@@ -61,5 +61,3 @@
         </div>
     </div>
 }
-
-
