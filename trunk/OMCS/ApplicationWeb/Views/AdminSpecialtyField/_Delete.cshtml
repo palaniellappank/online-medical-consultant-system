@@ -1,0 +1,25 @@
+﻿@model OMCS.DAL.Model.SpecialtyField
+
+<div class="modal-dialog">
+    <div class="modal-content">
+         <div class="modal-header">
+            <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
+             <h3>Xác nhận</h3>
+        </div>
+        <div class="modal-body">
+            @if (Model.Parent == null)
+            {
+                <p>Bạn có muốn xóa Khoa "@Html.DisplayFor(model => model.Name)" và tất các Chuyên Khoa con.</p>
+            } else
+            {
+                <p>Bạn có muốn xóa Chuyên Khoa "@Html.DisplayFor(model => model.Name)".</p>
+            }
+        </div>
+        <div class="modal-footer">
+            @using (Html.BeginForm()) {
+                <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
+                <button type="submit" class="btn btn-danger">Đồng ý</button>
+            }
+        </div>
+    </div>
+  </div>
