@@ -338,6 +338,7 @@
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\site.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />
     <Content Include="Scripts\jquery-1.9.0.min.map" />
@@ -414,11 +415,9 @@
     <Content Include="Views\Immunization\Edit.cshtml" />
     <Content Include="Views\Immunization\Delete.cshtml" />
     <Content Include="Views\AdminSpecialtyField\Index.cshtml" />
-    <Content Include="Views\AdminSpecialtyField\Details.cshtml" />
-    <Content Include="Views\AdminSpecialtyField\Create.cshtml" />
-    <Content Include="Views\AdminSpecialtyField\Edit.cshtml" />
-    <Content Include="Views\AdminSpecialtyField\Delete.cshtml" />
+    <Content Include="Views\AdminSpecialtyField\_Create.cshtml" />
     <Content Include="Views\AdminSpecialtyField\_Edit.cshtml" />
+    <Content Include="Views\AdminSpecialtyField\_Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -13,9 +13,6 @@ namespace MvcApplication1.Controllers
     {
         private OMCSDBContext db = new OMCSDBContext();
 
-        //
-        // GET: /AdminSpecialtyField/
-
         public ActionResult Index()
         {
             var specialtyfields = db.SpecialtyFields.Include(s => s.Parent).OrderBy(s => s.ParentId).ToList();
@@ -37,30 +34,16 @@ namespace MvcApplication1.Controllers
             return View(specialtyResult);
         }
 
-        //
-        // GET: /AdminSpecialtyField/Details/5
-
-        public ActionResult Details(int id = 0)
+        public ActionResult Create(bool isChild = false)
         {
-            SpecialtyField specialtyfield = db.SpecialtyFields.Find(id);
-            if (specialtyfield == null)
-            {
-                return HttpNotFound();
-            }
-            return View(specialtyfield);
+            var generalSpecialty = db.SpecialtyFields.Where(
+                    sf => sf.Parent == null
+                ).ToList();
+            generalSpecialty.Add(null);
+            ViewBag.ParentId = new SelectList(generalSpecialty, "SpecialtyFieldId", "Name");
+            ViewBag.IsChild = isChild;
+            return PartialView("_Create");
         }
-
-        //
-        // GET: /AdminSpecialtyField/Create
-
-        public ActionResult Create()
-        {
-            ViewBag.ParentId = new SelectList(db.SpecialtyFields, "SpecialtyFieldId", "Name");
-            return View();
-        }
-
-        //
-        // POST: /AdminSpecialtyField/Create
 
         [HttpPost]
         public ActionResult Create(SpecialtyField specialtyfield)
@@ -69,15 +52,9 @@ namespace MvcApplication1.Controllers
             {
                 db.SpecialtyFields.Add(specialtyfield);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-
-            ViewBag.ParentId = new SelectList(db.SpecialtyFields, "SpecialtyFieldId", "Name", specialtyfield.ParentId);
-            return View(specialtyfield);
+            return RedirectToAction("Index");
         }
-
-        //
-        // GET: /AdminSpecialtyField/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
@@ -89,12 +66,10 @@ namespace MvcApplication1.Controllers
             var generalSpecialty = db.SpecialtyFields.Where(
                     sf => sf.Parent == null
                 ).ToList();
+            generalSpecialty.Add(null);
             ViewBag.ParentId = new SelectList(generalSpecialty, "SpecialtyFieldId", "Name", specialtyfield.ParentId);
             return PartialView("_Edit", specialtyfield);
         }
-
-        //
-        // POST: /AdminSpecialtyField/Edit/5
 
         [HttpPost]
         public ActionResult Edit(SpecialtyField specialtyfield)
@@ -103,14 +78,9 @@ namespace MvcApplication1.Controllers
             {
                 db.Entry(specialtyfield).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            ViewBag.ParentId = new SelectList(db.SpecialtyFields, "SpecialtyFieldId", "Name", specialtyfield.ParentId);
-            return View(specialtyfield);
+            return RedirectToAction("Index");
         }
-
-        //
-        // GET: /AdminSpecialtyField/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
@@ -119,16 +89,18 @@ namespace MvcApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(specialtyfield);
+            return PartialView("_Delete", specialtyfield);
         }
-
-        //
-        // POST: /AdminSpecialtyField/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             SpecialtyField specialtyfield = db.SpecialtyFields.Find(id);
+            var childNode = db.SpecialtyFields.Where(s => s.ParentId == id).ToList();
+            foreach (var child in childNode)
+            {
+                db.SpecialtyFields.Remove(child);
+            }
             db.SpecialtyFields.Remove(specialtyfield);
             db.SaveChanges();
             return RedirectToAction("Index");

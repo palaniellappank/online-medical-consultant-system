@@ -20,6 +20,7 @@ namespace OMCS.DAL.Model
         public virtual SpecialtyField Parent { get; set; }
 
         [Display(Name = "Tên Chuyên Khoa")]
+        [Required(ErrorMessage = "Bạn cần nhập thông tin này.")]
         public string Name { get; set; }
     }
 }

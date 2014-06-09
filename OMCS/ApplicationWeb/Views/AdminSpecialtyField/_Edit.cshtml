@@ -13,7 +13,7 @@
                         InsertionMode = InsertionMode.Replace,
                         HttpMethod = "POST",
                         UpdateTargetId = "list-of-specialty-field"
-                    }))
+                    }, new { id = "edit-form" }))
     {
     @Html.ValidationSummary()
     @Html.AntiForgeryToken()
@@ -22,27 +22,21 @@
             @Html.HiddenFor(model => model.SpecialtyFieldId)
             @if (Model.Parent == null)
             {
-                <div class="editor-label">
+                <div class="form-group">
                     <label for="ParentId">Tên Khoa</label>
-                </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control"})
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control required"})
                 </div>
             }
             else
             {
-                <div class="editor-label">
+                <div class="form-group">
                     <label for="ParentId">Tên Khoa</label>
-                </div>
-                <div class="editor-field">
                     @Html.DropDownList("ParentId", null, new {@class="form-control"})
                 </div>
-
-                <div class="editor-label">
+                
+                <div class="form-group">
                     <label for="Name">Tên Chuyên Khoa</label>
-                </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control"})
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control required"})
                 </div>
             }
         </fieldset>
