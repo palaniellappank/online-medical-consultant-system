@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    @using MvcApplication1
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
@@ -29,9 +30,15 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Trang Chủ</a></li>
-                        <li><a href="/Account/Login">Đăng nhập</a></li>
-                        <li><a href="/Account/Register">Đăng kí</a></li>
+                        <li class='@Html.IsActive("Home", "Index")'>
+                            @Html.ActionLink("Trang chủ", "Index", "Home")
+                        </li>
+                         <li class='@Html.IsActive("Account", "Login")'>
+                            @Html.ActionLink("Đăng nhập", "Login", "Account")
+                        </li>
+                         <li class='@Html.IsActive("Account", "Register")'>
+                            @Html.ActionLink("Đăng kí", "Register", "Account")
+                        </li>           
                     </ul>
                 </div>
 
