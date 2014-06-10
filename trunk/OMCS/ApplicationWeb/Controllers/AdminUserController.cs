@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using OMCS.DAL.Model;
+using System.IO;
 
 namespace MvcApplication1.Controllers
 {
@@ -23,19 +24,6 @@ namespace MvcApplication1.Controllers
         }
 
         //
-        // GET: /AdminUser/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        //
         // GET: /AdminUser/Create
 
         public ActionResult Create()
@@ -49,12 +37,14 @@ namespace MvcApplication1.Controllers
         [HttpPost]
         public ActionResult Create(User user)
         {
-            Role role = new Role();
-            user.CreatedDate = DateTime.Now;
-            user.IsActive = false;
-
             if (ModelState.IsValid)
             {
+                Role role = db.Roles.FirstOrDefault(r => r.RoleName == "User");
+                user.Roles = new List<Role>();
+                user.Roles.Add(role);
+                user.CreatedDate = DateTime.Now;
+                user.ProfilePicture = "/Content/ProfilePicture/anonymous-avatar.jpg";
+                user.IsActive = false;
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -80,14 +70,34 @@ namespace MvcApplication1.Controllers
         // POST: /AdminUser/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(User user)
+        public ActionResult Edit(User user, HttpPostedFileBase file,int roleId)
         {
-            if (ModelState.IsValid)
+            var role = db.Roles.Find(roleId);
+            user.Roles = new List<Role>();
+            try
             {
+                if (file.ContentLength > 0 && file != null)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = HttpContext.Server.MapPath("~/Content/ProfilePicture/" + fileName);
+                    var dbPath = string.Format("/Content/ProfilePicture/" + fileName);
+                    file.SaveAs(path);
+
+                    user.ProfilePicture = dbPath;
+                    user.Roles.Add(role);
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (NullReferenceException ex)
+            {
+                user.Roles.Add(role);
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(user);
         }
 
@@ -109,6 +119,24 @@ namespace MvcApplication1.Controllers
             user.IsActive = true;
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        //
+        // POST: /AdminUser/CheckUserNameExist
+        [HttpPost]
+        public JsonResult CheckUserNameExist(string userName, FormCollection form)
+        {
+            var user = db.Users.FirstOrDefault(u => u.Username == userName);
+            return Json(user == null);
+        }
+
+        //
+        // POST: /AdminUser/CheckEmailExist
+        [HttpPost]
+        public JsonResult CheckEmailExist(string email)
+        {
+            var user = db.Users.FirstOrDefault(u => u.Email == email);
+            return Json(user == null);
         }
 
         protected override void Dispose(bool disposing)
