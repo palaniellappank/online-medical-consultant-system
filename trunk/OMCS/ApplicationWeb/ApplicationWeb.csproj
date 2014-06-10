@@ -165,11 +165,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-<<<<<<< .mine
-    <Compile Include="Controllers\AdminUserController.cs" />
-=======
     <Compile Include="Controllers\AdminSpecialtyFieldController.cs" />
->>>>>>> .r98
+    <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ConversationController.cs" />
     <Compile Include="Controllers\UserMedicalProfileController.cs" />
@@ -425,11 +422,6 @@
     <Content Include="Views\Immunization\Create.cshtml" />
     <Content Include="Views\Immunization\Edit.cshtml" />
     <Content Include="Views\Immunization\Delete.cshtml" />
-<<<<<<< .mine
-    <Content Include="Views\AdminUser\Create.cshtml" />
-    <Content Include="Views\AdminUser\Edit.cshtml" />
-    <Content Include="Views\AdminUser\Index.cshtml" />
-=======
     <Content Include="Views\AdminSpecialtyField\Index.cshtml" />
     <Content Include="Views\AdminSpecialtyField\_Create.cshtml" />
     <Content Include="Views\AdminSpecialtyField\_Edit.cshtml" />
@@ -438,7 +430,10 @@
     <Content Include="Views\UserConversation\Index.cshtml" />
     <Content Include="Views\UserHealthRecord\Index.cshtml" />
     <Content Include="Views\UserInfo\Index.cshtml" />
->>>>>>> .r98
+    <Content Include="Views\AdminUser\Create.cshtml" />
+    <Content Include="Views\AdminUser\Details.cshtml" />
+    <Content Include="Views\AdminUser\Edit.cshtml" />
+    <Content Include="Views\AdminUser\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
