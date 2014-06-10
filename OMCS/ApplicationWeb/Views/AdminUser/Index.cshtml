@@ -8,12 +8,12 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Quản Lý Người Dùng</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", "", new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create New", "Create", "", new { @class = "btn btn-info btn-sm" })
 </p>
-<table class="table table-striped table-hover ">
+<table class="table table-striped table-hover">
     <thead>
         <tr class="active">
             <th>
@@ -46,27 +46,42 @@
                 @Html.DisplayFor(modelItem => item.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
+                @if (item.IsActive == true)
+                {
+                    <b class="text-success">Hoạt Động</b>
+                }
+                else
+                {
+                    <b class="text-danger">Bị Khóa</b>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProfilePicture)
+                <img src="@item.ProfilePicture" style="width:40px; height:40px;" />
             </td>
             <td>
                 @Html.ActionLink("Cập Nhật", "Edit", new { id = item.UserId }, new { @class = "btn btn-info btn-sm" })
 
                 @if (item.IsActive == true)
                 {
+
                     @Html.ActionLink("Vô Hiệu", "Deactivate", new { id = item.UserId }, new { @class = "btn btn-danger btn-sm" })
                 }
                 else
                 {
                     @Html.ActionLink("Kích Hoạt", "Activate", new { id = item.UserId }, new { @class = "btn btn-success btn-sm" })
                 }
+
             </td>
         </tr>
     }
 
 </table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("a").css("text-decoration", "none");
+    })
+</script>
