@@ -168,6 +168,10 @@
     <Compile Include="Controllers\AdminSpecialtyFieldController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ConversationController.cs" />
+    <Compile Include="Controllers\UserMedicalProfileController.cs" />
+    <Compile Include="Controllers\UserConversationController.cs" />
+    <Compile Include="Controllers\UserHealthRecordController.cs" />
+    <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\ImmunizationController.cs" />
     <Compile Include="Controllers\MedicalProfileTemplateController.cs" />
@@ -186,6 +190,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Image\Background-user.jpg" />
+    <Content Include="Content\User.css" />
     <Content Include="Content\FormBuilder\css\custom.css" />
     <Content Include="Content\FormBuilder\css\lib\bootstrap-responsive.min.css" />
     <Content Include="Content\FormBuilder\css\lib\bootstrap.min.css" />
@@ -418,6 +424,10 @@
     <Content Include="Views\AdminSpecialtyField\_Create.cshtml" />
     <Content Include="Views\AdminSpecialtyField\_Edit.cshtml" />
     <Content Include="Views\AdminSpecialtyField\_Delete.cshtml" />
+    <Content Include="Views\UserMedicalProfile\Index.cshtml" />
+    <Content Include="Views\UserConversation\Index.cshtml" />
+    <Content Include="Views\UserHealthRecord\Index.cshtml" />
+    <Content Include="Views\UserInfo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
