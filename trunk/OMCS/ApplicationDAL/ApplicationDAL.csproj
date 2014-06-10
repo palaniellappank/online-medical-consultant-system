@@ -48,6 +48,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
@@ -63,21 +64,9 @@
   <ItemGroup>
     <Compile Include="CustomMembershipProvider.cs" />
     <Compile Include="CustomRoleProvider.cs" />
-    <Compile Include="Migrations\201406021738072_Init2.cs" />
-    <Compile Include="Migrations\201406021738072_Init2.Designer.cs">
-      <DependentUpon>201406021738072_Init2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201406021742333_Init3.cs" />
-    <Compile Include="Migrations\201406021742333_Init3.Designer.cs">
-      <DependentUpon>201406021742333_Init3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201406031346385_Init4.cs" />
-    <Compile Include="Migrations\201406031346385_Init4.Designer.cs">
-      <DependentUpon>201406031346385_Init4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201406031615443_Init5.cs" />
-    <Compile Include="Migrations\201406031615443_Init5.Designer.cs">
-      <DependentUpon>201406031615443_Init5.cs</DependentUpon>
+    <Compile Include="Migrations\201406101645101_initial.cs" />
+    <Compile Include="Migrations\201406101645101_initial.Designer.cs">
+      <DependentUpon>201406101645101_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Conversation.cs" />
@@ -109,17 +98,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201406021738072_Init2.resx">
-      <DependentUpon>201406021738072_Init2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201406021742333_Init3.resx">
-      <DependentUpon>201406021742333_Init3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201406031346385_Init4.resx">
-      <DependentUpon>201406031346385_Init4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201406031615443_Init5.resx">
-      <DependentUpon>201406031615443_Init5.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201406101645101_initial.resx">
+      <DependentUpon>201406101645101_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
