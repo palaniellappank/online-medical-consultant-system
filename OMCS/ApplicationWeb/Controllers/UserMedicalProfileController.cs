@@ -8,7 +8,7 @@ using System.Web.Mvc;
 namespace Security.Controllers
 {
      [CustomAuthorize(Roles= "User")]
-    public class UserController : BaseController
+    public class UserMedicalProfileController : BaseController
     {
         public ActionResult Index()
         {
