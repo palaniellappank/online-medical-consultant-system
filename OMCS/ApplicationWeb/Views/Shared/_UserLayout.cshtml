@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    @using MvcApplication1
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
@@ -16,31 +17,31 @@
     <div class="container" style="margin-top:100px;">
         <div class="row">
 		    <div class="row nav-row">
-			    <div class="col-md-2">
+			    <div class="col-md-2 @Html.IsActive("UserInfo", "Index") @Html.IsActive("User", "Index")">
                     <a href="@Url.Action("Index", "UserInfo")">
 				        <span class="glyphicon glyphicon-user"></span>
 				        <p>Thông Tin Bệnh Nhân</p>
                     </a>
 			    </div>
-			    <div class="col-md-2 active">
+			    <div class="col-md-2 @Html.IsActive("UserHealthRecord", "Index")">
                     <a href="@Url.Action("Index", "UserHealthRecord")">
 				        <span class="glyphicon glyphicon-heart"></span>
 				        <p>Sức Khỏe Cơ Bản</p>
                     </a>
 			    </div>
-			    <div class="col-md-2">
+			    <div class="col-md-2 @Html.IsActive("UserMedicalProfile", "Index")">
                     <a href="@Url.Action("Index", "UserMedicalProfile")">
 				        <span class="glyphicon glyphicon-list-alt"></span>
 				        <p>Hồ Sơ Bệnh Án</p>
                     </a>
 			    </div>
-			    <div class="col-md-2">
+			    <div class="col-md-2 @Html.IsActive("UserConversation", "Index")">
                     <a href="@Url.Action("Index", "UserConversation")">
 				        <span class="glyphicon glyphicon-bookmark"></span>
 				        <p>Lược Sử Tư Vấn</p>
                     </a>
 			    </div>
-			    <div class="col-md-2">
+			    <div class="col-md-2 @Html.IsActive("UserConversation", "Index")">
                     <a href="@Url.Action("Index", "UserConversation")">
 				        <span class="glyphicon glyphicon-comment"></span>
 				        <p>Tư Vấn Online</p>

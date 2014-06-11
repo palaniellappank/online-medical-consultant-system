@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,10 +17,9 @@ namespace MvcApplication1
 
             var routeAction = (string)routeData.Values["action"];
             var routeControl = (string)routeData.Values["controller"];
-
             // both must match
-            var returnActive = control == routeControl &&
-                               action == routeAction;
+            var returnActive = control.Equals(routeControl) &&
+                               action.Equals(routeAction);
 
             return returnActive ? "active" : "";
         }
