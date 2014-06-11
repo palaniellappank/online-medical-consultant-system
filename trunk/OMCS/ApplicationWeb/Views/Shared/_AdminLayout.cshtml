@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    @using MvcApplication1
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Trang quản trị hệ thống</title>
@@ -26,7 +27,6 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        
         <li class="dropdown">
           <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
           <ul id="g-account-menu" class="dropdown-menu" role="menu">
@@ -45,68 +45,22 @@
 <div class="row">
 	<div class="col-md-3">
       <!-- Left column -->
-      <a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Tools</strong></a>  
-      
-      <hr>
-      
-      <ul class="list-unstyled">
-        <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu">
-          <h5>Settings <i class="glyphicon glyphicon-chevron-down"></i></h5>
-          </a>
-            <ul class="list-unstyled collapse in" id="userMenu">
-                <li class="active"> <a href="#"><i class="glyphicon glyphicon-home"></i> Home</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-envelope"></i> Messages <span class="badge badge-info">4</span></a></li>
-                <li><a href="/AdminSpecialtyField/Index"><i class="glyphicon glyphicon-cog"></i> Quản lý Chuyên Khoa</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-comment"></i> Shoutbox</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-user"></i> Staff List</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Transactions</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-exclamation-sign"></i> Rules</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
-            </ul>
-        </li>
-        <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu2">
-          <h5>Reports <i class="glyphicon glyphicon-chevron-right"></i></h5>
-          </a>
-        
-            <ul class="list-unstyled collapse" id="menu2">
-                <li><a href="#">Information &amp; Stats</a>
-                </li>
-                <li><a href="#">Views</a>
-                </li>
-                <li><a href="#">Requests</a>
-                </li>
-                <li><a href="#">Timetable</a>
-                </li>
-                <li><a href="#">Alerts</a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-header">
-        <a href="#" data-toggle="collapse" data-target="#menu3">
-          <h5>Social Media <i class="glyphicon glyphicon-chevron-right"></i></h5>
-          </a>
-        
-            <ul class="list-unstyled collapse" id="menu3">
-                <li><a href="#"><i class="glyphicon glyphicon-circle"></i> Facebook</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-circle"></i> Twitter</a></li>
-            </ul>
-        </li>
-      </ul>
-           
-      <hr>
-      
-      <a href="#"><strong><i class="glyphicon glyphicon-link"></i> Resources</strong></a>  
-      
-      <hr>
-      
+
       <ul class="nav nav-pills nav-stacked">
         <li class="nav-header"></li>
-        <li><a href="#"><i class="glyphicon glyphicon-list"></i> Layouts &amp; Templates</a></li>
-        <li><a href="#"><i class="glyphicon glyphicon-briefcase"></i> Toolbox</a></li>
-        <li><a href="#"><i class="glyphicon glyphicon-link"></i> Widgets</a></li>
-        <li><a href="#"><i class="glyphicon glyphicon-list-alt"></i> Reports</a></li>
-        <li><a href="#"><i class="glyphicon glyphicon-book"></i> Pages</a></li>
-        <li><a href="#"><i class="glyphicon glyphicon-star"></i> Social Media</a></li>
+        <li><a href="#"><i class="glyphicon glyphicon-home"></i> Thông tin bệnh viện</a></li>
+        <li class="@Html.IsActive("AdminUser", "Index")">
+            <a href="@Url.Action("Index", "AdminUser")"><i class="glyphicon glyphicon-user"></i> Quản lý người dùng</a>
+        </li>
+          <li>
+              <a href="#"><i class="glyphicon glyphicon-th"></i> Quản lý bác sĩ</a>
+          </li>
+        <li class="@Html.IsActive("AdminSpecialtyField", "Index")">
+            <a href="@Url.Action("Index", "AdminSpecialtyField")"><i class="glyphicon glyphicon-list"></i> Quản lý Chuyên Khoa</a>
+        </li>
+        <li><a href="#"><i class="glyphicon glyphicon-list-alt"></i> Mẫu hồ sơ</a></li>
+        <li><a href="#"><i class="glyphicon glyphicon-list-alt"></i> Danh mục bệnh</a></li>
+        <li><a href="#"><i class="glyphicon glyphicon-book"></i> Thống kê</a></li>
       </ul>
       
       <hr>
