@@ -181,6 +181,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="DTO\LoginViewModel.cs" />
     <Compile Include="DTO\Security\BaseViewPage.cs" />
     <Compile Include="DTO\Security\CustomAuthorizeAttribute.cs" />
