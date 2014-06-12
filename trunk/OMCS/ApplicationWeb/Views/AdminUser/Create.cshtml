@@ -1,79 +1,65 @@
 ﻿@model OMCS.DAL.Model.User
 
 @{
-    Layout = "~/Views/Shared/_HomeLayout.cshtml";
-}
-
-@{
     ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
 <h2>Tạo Mới</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "AdminUser", FormMethod.Post, new { @class = "col-md-6" }))
 {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>User</legend>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.Username, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.TextBoxFor(model => model.Username, new { @class = "" })
-                @Html.ValidationMessageFor(model => model.Username)
-            </div>
-        </div>*@
+        <legend></legend>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Username)
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Username)
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Username)
         </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Email)
         </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.Email, new { placeholder = "Email" })
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Email)
         </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Password)
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Password)
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Password)
         </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.FirstName)
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.FirstName)
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.FirstName)
         </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.LastName)
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.LastName)
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.LastName)
         </div>
 
         <br />
-        <input type="submit" name="btnSubmit" value="Tạo Mới" class="btn btn-success btn-sm" />
-        @Html.ActionLink("Quay Lại", "Index", "", new { @class = "btn btn-danger btn-sm" })
+        <input type="submit" name="btnSubmit" value="Tạo Mới" class="btn btn-primary" />
+        @Html.ActionLink("Quay Lại", "Index", "", new { @class = "btn btn-danger" })
     </fieldset>
 }
 
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@

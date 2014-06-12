@@ -7,20 +7,44 @@ using System.Web;
 using System.Web.Mvc;
 using OMCS.DAL.Model;
 using System.IO;
+using PagedList;
+using ApplicationBLL.BusinessLogic;
 
 namespace MvcApplication1.Controllers
 {
     public class AdminUserController : Controller
     {
         private OMCSDBContext db = new OMCSDBContext();
+        private AdminUserBusiness business = new AdminUserBusiness();
 
         //
         // GET: /AdminUser/
 
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             IEnumerable<User> users = db.Roles.Where(r => r.RoleName == "User").SelectMany(r => r.Users);
-            return View(users);
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.UserSortParam = String.IsNullOrEmpty(sortOrder) ? "User_desc" : "";
+            ViewBag.DateSortParam = sortOrder == "Date" ? "Date_desc" : "Date";
+            ViewBag.IsActiveParam = sortOrder == "Active" ? "Active_desc" : "Active";
+            ViewBag.NameSortParam = sortOrder == "Name" ? "Name_desc" : "Name";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            business.SearchByString(searchString, ref users);//Search UserName/Fullname by string
+            business.CheckSortOrder(sortOrder, ref users);// Check sort order to sort with the corresponding column
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(users.ToPagedList(pageNumber, pageSize));
         }
 
         //
@@ -70,7 +94,7 @@ namespace MvcApplication1.Controllers
         // POST: /AdminUser/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(User user, HttpPostedFileBase file,int roleId)
+        public ActionResult Edit(User user, HttpPostedFileBase file, int roleId)
         {
             var role = db.Roles.Find(roleId);
             user.Roles = new List<Role>();
