@@ -1,35 +1,40 @@
-﻿@model IEnumerable<OMCS.DAL.Model.User>
-
-@{
-    Layout = "~/Views/Shared/_HomeLayout.cshtml";
-}
+﻿@model PagedList.IPagedList<OMCS.DAL.Model.User>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>Quản Lý Người Dùng</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create", "", new { @class = "btn btn-info btn-sm" })
-</p>
+<div>
+    @Html.ActionLink("Tạo Mới", "Create", "", new { @class = "btn btn-primary" })
+    @using (Html.BeginForm("Index", "AdminUser", FormMethod.Get, new { style = "float: right", @class = "form-inline" }))
+    {
+        <div class="form-group">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+        </div>
+        <input type="submit" value="Tìm Kiếm" class="btn btn-primary" />
+    }
+</div>
+<p></p>
+
 <table class="table table-striped table-hover">
     <thead>
         <tr class="active">
             <th>
-                @Html.DisplayNameFor(model => model.Username)
+                @Html.ActionLink("Tên đăng nhập", "Index", new { sortOrder = ViewBag.UserSortParam, currentFilter = ViewBag.CurrentFilter })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FullName)
+                @Html.ActionLink("Tên đầy đủ", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsActive)
+                @Html.ActionLink("Tình trạng", "Index", new { sortOrder = ViewBag.IsActiveParam, currentFilter = ViewBag.CurrentFilter })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProfilePicture)
+                @Html.ActionLink("Ngày tạo", "Index", new { sortOrder = ViewBag.DateSortParam, currentFilter = ViewBag.CurrentFilter })
             </th>
             <th>Sửa đổi
             </th>
@@ -59,19 +64,16 @@
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
             <td>
-                <img src="@item.ProfilePicture" style="width:40px; height:40px;" />
-            </td>
-            <td>
-                @Html.ActionLink("Cập Nhật", "Edit", new { id = item.UserId }, new { @class = "btn btn-info btn-sm" })
+                @Html.ActionLink("Cập Nhật", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary" })
 
                 @if (item.IsActive == true)
                 {
 
-                    @Html.ActionLink("Vô Hiệu", "Deactivate", new { id = item.UserId }, new { @class = "btn btn-danger btn-sm" })
+                    @Html.ActionLink("Vô Hiệu", "Deactivate", new { id = item.UserId }, new { @class = "btn btn-danger" })
                 }
                 else
                 {
-                    @Html.ActionLink("Kích Hoạt", "Activate", new { id = item.UserId }, new { @class = "btn btn-success btn-sm" })
+                    @Html.ActionLink("Kích Hoạt", "Activate", new { id = item.UserId }, new { @class = "btn btn-success" })
                 }
 
             </td>
@@ -80,8 +82,10 @@
 
 </table>
 
-<script type="text/javascript">
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+@*<script type="text/javascript">
     $(document).ready(function () {
         $("a").css("text-decoration", "none");
     })
-</script>
+</script>*@
