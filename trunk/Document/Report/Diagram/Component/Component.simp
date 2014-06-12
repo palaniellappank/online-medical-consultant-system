@@ -74,7 +74,7 @@
     </item>
   </items>
   <models>
-    <model id="p285262821495448038" name="Model 1" type="model" namespace="" order-index="1">
+    <model id="p285262821495448038" name="Component" type="model" namespace="" order-index="1">
       <meta>
         <authors>
           <author> </author>
@@ -877,6 +877,59 @@
               </points>
             </layout>
             <relation from="ddip163654682183673821_808772489512289130" from-iid="35ccbaee8d024128aa372f239347566c" to="ddip163654682183673821_270549589143543653" to-iid="93246e377fda45e8b1bd32eff685faf8" />
+          </item>
+        </layer>
+      </diagram>
+    </model>
+    <model id="p413028124346189163" name="Class" type="" namespace="" order-index="2">
+      <meta>
+        <authors>
+          <author> </author>
+        </authors>
+        <description />
+        <creation-date>06/07/2014 10:36:04</creation-date>
+        <change-date>01/01/0001 00:00:00</change-date>
+        <revision-count>0</revision-count>
+        <version />
+      </meta>
+      <tagged-values />
+      <abstract-items />
+      <sub-models />
+      <diagram type="uml-class" id="p940002070102477757" name="Model" order-index="1" show-nullability="false">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author> </author>
+          </authors>
+          <description />
+          <creation-date>06/07/2014 10:36:26</creation-date>
+          <change-date>06/07/2014 10:36:51</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <tagged-values />
+        <abstract-items>
+          <item id="ddip940002070102477757_377387867545065640" cid="C001" type="class" name="FilmType" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:36:51">
+            <stereotypes />
+            <tagged-values />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <attributes />
+            <operations />
+            <template-parameters>
+              <source-codes />
+            </template-parameters>
+          </item>
+        </abstract-items>
+        <layer name="Default" visible="true" enabled="true" locked="false">
+          <item id="ddip940002070102477757_377387867545065640" iid="b451f6572fd14d3b98e0482f3b8c254f" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="06/07/2014 10:36:51" order-index="0" type="entity">
+            <layout ax="16" ay="-61" awidth="140" aheight="160" x="16" y="-61" width="0" height="0" angle="0" />
+            <class />
           </item>
         </layer>
       </diagram>
