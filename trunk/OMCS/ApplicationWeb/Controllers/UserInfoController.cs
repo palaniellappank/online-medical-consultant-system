@@ -4,6 +4,8 @@ using Security.DAL.Security;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -28,7 +30,7 @@ namespace Security.Controllers
             var patient = _db.Patients.Where(pa => pa.UserId == User.UserId).SingleOrDefault();
             Type type = typeof(Patient);
             PropertyInfo pi = type.GetProperty(name, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-            if ("birthday".Equals(name))
+            if ("birthday".Equals(name) || "healthInsuranceIssued".Equals(name) || "healthInsuranceDateExpired".Equals(name))
             {
                 DateTime datetime = DateTime.ParseExact(value, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 pi.SetValue(patient, datetime);
@@ -38,8 +40,7 @@ namespace Security.Controllers
             }
             _db.SaveChanges();
             JObject result = new JObject();
-            result.Add("status", "error");
-            result.Add("msg", "huhu");
+            result.Add("status", "success");
             return result;
         }
     }

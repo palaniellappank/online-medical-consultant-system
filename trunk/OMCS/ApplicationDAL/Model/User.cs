@@ -41,7 +41,7 @@ namespace OMCS.DAL.Model
         [Display(Name = "Họ")]
         public String LastName { get; set; }
 
-        [Display(Name = "Tên đầy đủ")]
+        [Display(Name = "Họ và tên")]
         public string FullName
         {
             get
