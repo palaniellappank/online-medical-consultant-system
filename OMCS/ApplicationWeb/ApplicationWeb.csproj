@@ -198,8 +198,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap3-editable\css\bootstrap-editable.css" />
+    <Content Include="Content\bootstrap3-editable\img\clear.png" />
+    <Content Include="Content\bootstrap3-editable\img\loading.gif" />
+    <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.js" />
+    <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.min.js" />
+    <Content Include="Content\toggle-switch.css" />
     <Content Include="Content\Image\Background-user.jpg" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\select2\select2.css" />
+    <Content Include="Content\select2\select2.js" />
     <Content Include="Content\User.css" />
     <Content Include="Content\FormBuilder\css\custom.css" />
     <Content Include="Content\FormBuilder\css\lib\bootstrap-responsive.min.css" />
