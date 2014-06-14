@@ -70,7 +70,7 @@ namespace Security.Controllers
                     }
                     else if (roles.Contains("User"))
                     {
-                        return RedirectToAction("Index", "User");
+                        return RedirectToAction("Index", "UserInfo");
                     }
                     else
                     {
@@ -95,11 +95,8 @@ namespace Security.Controllers
         [HttpPost]
         public ActionResult Register(User user)
         {
-            Debug.WriteLine("sdfd");
-            Debug.WriteLine(user.Email);
-            Debug.WriteLine(user.FullName);
             user.CreatedDate = DateTime.UtcNow;
-            db.Users.Add(user);
+            db.Patients.Add((Patient) user);
             db.SaveChanges();
             return RedirectToAction("Register");
         }

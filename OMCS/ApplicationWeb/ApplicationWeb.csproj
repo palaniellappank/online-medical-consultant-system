@@ -203,6 +203,9 @@
     <Content Include="Content\bootstrap3-editable\img\loading.gif" />
     <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.js" />
     <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.min.js" />
+    <Content Include="Content\select2\select2-spinner.gif" />
+    <Content Include="Content\select2\select2.png" />
+    <Content Include="Content\select2\select2x2.png" />
     <Content Include="Content\toggle-switch.css" />
     <Content Include="Content\Image\Background-user.jpg" />
     <Content Include="Content\PagedList.css" />

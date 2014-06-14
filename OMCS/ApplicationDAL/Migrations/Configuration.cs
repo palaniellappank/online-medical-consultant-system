@@ -70,17 +70,6 @@
                     Roles = new List<Role>()
                 };
 
-                User user2 = new User
-                {
-                    Username = "user1",
-                    Email = "user1@ymail.com",
-                    FirstName = "User1",
-                    Password = "123456",
-                    IsActive = true,
-                    Birthday = DateTime.UtcNow,
-                    CreatedDate = DateTime.UtcNow,
-                    Roles = new List<Role>()
-                };
                 Doctor user3 = new Doctor
                 {
                     Username = "doctor1",
@@ -113,7 +102,7 @@
                     PrimaryAddress = "Thôn 1, xa CuEbur, Buôn Ma Thuột",
                     SecondaryAddress = "201/9 Đường Số 9, Gò Vấp",
                     Ethnicity = "Kinh",
-                    Nationality = "Viet Nam",
+                    Nationality = "Việt Nam",
                     Job = "Lập trình viên",
                     WhereToWork = "39B Trường Sơn, Tân Bình",
                     ContactPerson = "Mỹ Linh",
@@ -145,11 +134,9 @@
 
                 context.MedicalProfileTemplates.Add(mauCoSan);
                 admin.Roles.Add(role0);
-                user2.Roles.Add(role2);
                 suTran.Roles.Add(role2);
                 user3.Roles.Add(role3);
                 context.Users.Add(admin);
-                context.Users.Add(user2);
                 context.Users.Add(user3);
                 context.Patients.Add(suTran);
             }

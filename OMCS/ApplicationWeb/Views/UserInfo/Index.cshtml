@@ -4,31 +4,28 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<label><input type="checkbox" id="autoopen">Chỉnh sửa liên tiếp</label>
-<button id="enable" class="btn btn-default">Thay đổi chế độ</button>
-
 <div class="row">
     <div class="col-xs-4" style="float: right">
-        <label class="switch-light well" onclick="">
-	        <input type="checkbox">
+        <label class="switch-light progress progress-striped active" onclick="">
+	        <input type="checkbox" id="enable">
 	        <span>
 		        Thay đổi
-		        <span>Bật</span>
-		        <span>Tắt</span>
+                <span aria-label="Tắt" title="Tắt">O</span>
+				<span aria-label="Bật" title="Bật">I</span>
 	        </span>
-	        <a class="btn btn-primary"></a>
+	        <a class="progress-bar progress-bar-success"></a>
         </label>
     </div>
     <div class="clearfix"></div>
-    <div class="col-xs-4" style="float: right">
-        <label class="switch-light well" onclick="">
-	        <input type="checkbox">
+    <div class="col-xs-4" style="float: right; display: none" id="autoopendiv">
+        <label class="switch-light progress progress-striped active" onclick="">
+	        <input type="checkbox" id="autoopen">
 	        <span>
 		        Liên tiếp
-		        <span>Bật</span>
-		        <span>Tắt</span>
+                <span aria-label="Tắt" title="Tắt">O</span>
+				<span aria-label="Bật" title="Bật">I</span>
 	        </span>
-	        <a class="btn btn-primary"></a>
+	        <a class="progress-bar progress-bar-success"></a>
         </label>
     </div>
 </div>
@@ -37,11 +34,11 @@
     <legend>Thông tin Người dùng</legend>
 </fieldset>
 
-<table id="user" class="table table-bordered table-striped" style="clear: both">
+<table class="table table-data table-bordered table-striped" style="clear: both">
     <tbody> 
         <tr>         
-            <td width="35%">@Html.DisplayNameFor(model => model.FullName)</td>
-            <td width="65%">
+            <td style="width: 35%;">@Html.DisplayNameFor(model => model.FullName)</td>
+            <td style="width: 65%;">
                 <a href="#" id="lastname" data-type="text"
                     data-title="@Html.DisplayNameFor(model => model.LastName)" class="editable editable-click">
                     @Html.DisplayFor(model => model.LastName)
@@ -95,16 +92,92 @@
     <legend>Thông tin bệnh nhân</legend>
 </fieldset>
 
+<table class="table table-data table-bordered table-striped" style="clear: both">
+    <tbody> 
+        <tr>         
+            <td style="width: 35%;">@Html.DisplayNameFor(model => model.Ethnicity)</td>
+            <td style="width: 65%;">
+                <a href="#" id="ethnicity" data-type="select2" data-value="@Html.DisplayFor(model => model.Ethnicity)"
+                    data-title="@Html.DisplayNameFor(model => model.Ethnicity)" class="editable editable-click">
+                </a>
+            </td>
+        </tr>
+        <tr>         
+            <td>@Html.DisplayNameFor(model => model.Nationality)</td>
+            <td>
+                <a href="#" id="nationality" data-type="select2" data-value="@Html.DisplayFor(model => model.Nationality)" 
+                    data-title="@Html.DisplayNameFor(model => model.Nationality)" class="editable editable-click">
+                </a>
+            </td>
+        </tr>
+        <tr>         
+            <td>@Html.DisplayNameFor(model => model.Job)</td>
+            <td>
+                <a href="#" id="job" data-type="text" data-value="@Html.DisplayFor(model => model.Job)"
+                    data-title="@Html.DisplayNameFor(model => model.Job)"></a>
+            </td>
+        </tr>
+        <tr>         
+            <td>@Html.DisplayNameFor(model => model.WhereToWork)</td>
+            <td>
+                <a href="#" id="whereToWork" data-type="textarea"
+                    data-title="@Html.DisplayNameFor(model => model.WhereToWork)">@Html.DisplayFor(model => model.WhereToWork)</a>
+            </td>
+        </tr>
+        <tr>         
+            <td>@Html.DisplayNameFor(model => model.ContactPerson)</td>
+            <td>
+                <a href="#" id="contactPerson" data-type="text"
+                    data-title="@Html.DisplayNameFor(model => model.ContactPerson)">@Html.DisplayFor(model => model.ContactPerson)</a>
+            </td>
+        </tr>
+        <tr>         
+            <td>@Html.DisplayNameFor(model => model.ContactPersonAddress)</td>
+            <td>
+                <a href="#" id="contactPersonAddress" data-type="textarea"
+                    data-title="@Html.DisplayNameFor(model => model.ContactPersonAddress)">@Html.DisplayFor(model => model.ContactPersonAddress)</a>
+            </td>
+        </tr>
+        <tr>         
+            <td>@Html.DisplayNameFor(model => model.HealthInsuranceId)</td>
+            <td>
+                <a href="#" id="healthInsuranceId" data-type="text"
+                    data-title="@Html.DisplayNameFor(model => model.HealthInsuranceId)">@Html.DisplayFor(model => model.HealthInsuranceId)</a>
+            </td>
+        </tr>
+        <tr>         
+            <td>@Html.DisplayNameFor(model => model.HealthInsuranceIssued)</td>
+            <td>
+                <a href="#" id="healthInsuranceIssued" data-type="date" data-value="@Html.DisplayFor(model => model.HealthInsuranceIssued)"
+                    data-title="@Html.DisplayNameFor(model => model.HealthInsuranceIssued)"></a>
+            </td>
+        </tr>
+        <tr>         
+            <td>@Html.DisplayNameFor(model => model.HealthInsuranceDateExpired)</td>
+            <td>
+                <a href="#" id="healthInsuranceDateExpired" data-type="date" data-value="@Html.DisplayFor(model => model.HealthInsuranceDateExpired)"
+                    data-title="@Html.DisplayNameFor(model => model.HealthInsuranceDateExpired)"></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
 <script type="text/javascript">
     $(function () {
 
         //defaults
         $.fn.editable.defaults.url = '/UserInfo/Save';
+        $.fn.editable.defaults.emptytext = 'Trống';
         $.fn.editable.defaults.pk = @Html.DisplayFor(model => model.UserId);
 
         //enable / disable
         $('#enable').click(function () {
-            $('#user .editable').editable('toggleDisabled');
+            if ($(this).prop("checked")) {
+                $("#autoopendiv").css("display", "block");
+            } else {
+                $("#autoopendiv").css("display", "none");
+            }
+            $('.table-data .editable').editable('toggleDisabled');
         });
 
         //editables 
@@ -139,7 +212,6 @@
 
         $('#phone').editable({
             validate: function (value) {
-                if ($.trim(value) == '') return jQuery.validator.messages.required;
                 var reg = new RegExp(/^[0-9]/);
                 if (value.length > 8 && value.length < 12) {
                     if (!value.match(reg)) {
@@ -151,19 +223,45 @@
            }
         });
 
-        $('#primaryaddress').editable({
-            validate: function (value) {
-                if ($.trim(value) == '') return jQuery.validator.messages.required;
+        $('#primaryaddress').editable();
+
+        $('#secondaryaddress').editable();
+
+        //Patient
+
+        $('#ethnicity').editable({
+            source: vietnamEthnicity,
+            select2: {
+                width: 200
             }
         });
 
-        $('#secondaryaddress').editable({
-            validate: function (value) {
-                if ($.trim(value) == '') return jQuery.validator.messages.required;
+        $('#nationality').editable({
+            source: countries,
+            select2: {
+                width: 200
             }
         });
-
-        $('#user .editable').on('hidden', function (e, reason) {
+        $('#job').editable();
+        $('#whereToWork').editable();
+        $('#contactPerson').editable();
+        $('#contactPersonAddress').editable();
+        $('#healthInsuranceId').editable();
+        $('#healthInsuranceIssued').editable({
+            format: 'dd-mm-yyyy',    
+            viewformat: 'dd/mm/yyyy',    
+            datepicker: {
+                firstDay: 1
+            }
+        });
+        $('#healthInsuranceDateExpired').editable({
+            format: 'dd-mm-yyyy',    
+            viewformat: 'dd/mm/yyyy',    
+            datepicker: {
+                firstDay: 1
+            }
+        });
+        $('.table-data .editable').on('hidden', function (e, reason) {
             if (reason === 'save' || reason === 'nochange') {
                 var $next = $(this).closest('tr').next().find('.editable');
                 if ($('#autoopen').is(':checked')) {
@@ -175,6 +273,6 @@
                 }
             }
         });
-
+        //$('.table-data .editable').editable('toggleDisabled');
     });
 </script>

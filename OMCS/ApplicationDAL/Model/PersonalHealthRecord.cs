@@ -17,19 +17,19 @@ namespace OMCS.DAL.Model
         public virtual Patient Patient { get; set; }
         
         //Apperance
-        [Description("Chiều Cao")]
+        [Display(Name = "Chiều Cao (cm)")]
 	    public double Height { get; set; }
 
-        [Description("Cân Nặng")]
+        [Display(Name = "Cân Nặng (kg)")]
         public double Weight { get; set; }
 
-        [Description("Màu Mắt")]
+        [Display(Name = "Màu Mắt")]
 	    public string EyeColor { get; set; }
 
-        [Description("Màu Tóc")]
+        [Display(Name = "Màu Tóc")]
 	    public string HairColor { get; set; }
 
-        [Description("Nhóm Máu")]
+        [Display(Name = "Nhóm Máu")]
         public string BloodType { get; set; }
 
         //Life Style Part
