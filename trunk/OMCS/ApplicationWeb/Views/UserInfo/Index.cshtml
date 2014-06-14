@@ -1,7 +1,180 @@
-﻿@{
+﻿@model OMCS.DAL.Model.Patient
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<h1>User DashBoard</h1>
+<label><input type="checkbox" id="autoopen">Chỉnh sửa liên tiếp</label>
+<button id="enable" class="btn btn-default">Thay đổi chế độ</button>
 
+<div class="row">
+    <div class="col-xs-4" style="float: right">
+        <label class="switch-light well" onclick="">
+	        <input type="checkbox">
+	        <span>
+		        Thay đổi
+		        <span>Bật</span>
+		        <span>Tắt</span>
+	        </span>
+	        <a class="btn btn-primary"></a>
+        </label>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-xs-4" style="float: right">
+        <label class="switch-light well" onclick="">
+	        <input type="checkbox">
+	        <span>
+		        Liên tiếp
+		        <span>Bật</span>
+		        <span>Tắt</span>
+	        </span>
+	        <a class="btn btn-primary"></a>
+        </label>
+    </div>
+</div>
+
+<fieldset>
+    <legend>Thông tin Người dùng</legend>
+</fieldset>
+
+<table id="user" class="table table-bordered table-striped" style="clear: both">
+    <tbody> 
+        <tr>         
+            <td width="35%">@Html.DisplayNameFor(model => model.FullName)</td>
+            <td width="65%">
+                <a href="#" id="lastname" data-type="text"
+                    data-title="@Html.DisplayNameFor(model => model.LastName)" class="editable editable-click">
+                    @Html.DisplayFor(model => model.LastName)
+                </a>
+                <a href="#" id="firstname" data-type="text" 
+                    data-title="@Html.DisplayNameFor(model => model.FirstName)" class="editable editable-click">
+                    @Html.DisplayFor(model => model.FirstName)
+                </a>
+            </td>
+        </tr>
+        <tr>         
+            <td>@Html.DisplayNameFor(model => model.Gender)</td>
+            <td>
+                <a href="#" id="gender" data-type="select" data-value="@Html.DisplayFor(model => model.Gender)" 
+                    data-title="@Html.DisplayNameFor(model => model.Gender)" class="editable editable-click">
+                </a>
+            </td>
+        </tr>
+        <tr>         
+            <td>@Html.DisplayNameFor(model => model.Birthday)</td>
+            <td>
+                <a href="#" id="birthday" data-type="date" data-value="@Html.DisplayFor(model => model.Birthday)"
+                    data-title="@Html.DisplayNameFor(model => model.Birthday)"></a>
+            </td>
+        </tr>
+        <tr>         
+            <td>@Html.DisplayNameFor(model => model.Phone)</td>
+            <td>
+                <a href="#" id="phone" data-type="tel"
+                    data-title="@Html.DisplayNameFor(model => model.Phone)">@Html.DisplayFor(model => model.Phone)</a>
+            </td>
+        </tr>
+        <tr>         
+            <td>@Html.DisplayNameFor(model => model.PrimaryAddress)</td>
+            <td>
+                <a href="#" id="primaryaddress" data-type="textarea"
+                    data-title="@Html.DisplayNameFor(model => model.PrimaryAddress)">@Html.DisplayFor(model => model.PrimaryAddress)</a>
+            </td>
+        </tr>
+        <tr>         
+            <td>@Html.DisplayNameFor(model => model.SecondaryAddress)</td>
+            <td>
+                <a href="#" id="secondaryaddress" data-type="textarea"
+                    data-title="@Html.DisplayNameFor(model => model.SecondaryAddress)">@Html.DisplayFor(model => model.SecondaryAddress)</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<fieldset>
+    <legend>Thông tin bệnh nhân</legend>
+</fieldset>
+
+<script type="text/javascript">
+    $(function () {
+
+        //defaults
+        $.fn.editable.defaults.url = '/UserInfo/Save';
+        $.fn.editable.defaults.pk = @Html.DisplayFor(model => model.UserId);
+
+        //enable / disable
+        $('#enable').click(function () {
+            $('#user .editable').editable('toggleDisabled');
+        });
+
+        //editables 
+        $('#lastname').editable({
+            type: 'text',
+            name: 'lastname',
+            validate: function (value) {
+                if ($.trim(value) == '') return jQuery.validator.messages.required;
+            }
+        });
+
+        $('#firstname').editable({
+            validate: function (value) {
+                if ($.trim(value) == '') return jQuery.validator.messages.required;
+            }
+        });
+
+        $('#gender').editable({
+            source: [
+                { value: "M", text: 'Nam' },
+                { value: "F", text: 'Nữ' }
+            ]
+        });
+        
+        $('#birthday').editable({
+            format: 'dd-mm-yyyy',    
+            viewformat: 'dd/mm/yyyy',    
+            datepicker: {
+                firstDay: 1
+            }
+        });
+
+        $('#phone').editable({
+            validate: function (value) {
+                if ($.trim(value) == '') return jQuery.validator.messages.required;
+                var reg = new RegExp(/^[0-9]/);
+                if (value.length > 8 && value.length < 12) {
+                    if (!value.match(reg)) {
+                        return "Vui lòng nhập số !";
+                    }
+                } else {
+                    return "Nhập trong khoảng từ 8-12 !";
+                }
+           }
+        });
+
+        $('#primaryaddress').editable({
+            validate: function (value) {
+                if ($.trim(value) == '') return jQuery.validator.messages.required;
+            }
+        });
+
+        $('#secondaryaddress').editable({
+            validate: function (value) {
+                if ($.trim(value) == '') return jQuery.validator.messages.required;
+            }
+        });
+
+        $('#user .editable').on('hidden', function (e, reason) {
+            if (reason === 'save' || reason === 'nochange') {
+                var $next = $(this).closest('tr').next().find('.editable');
+                if ($('#autoopen').is(':checked')) {
+                    setTimeout(function () {
+                        $next.editable('show');
+                    }, 300);
+                } else {
+                    $next.focus();
+                }
+            }
+        });
+
+    });
+</script>

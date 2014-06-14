@@ -18,10 +18,10 @@ namespace OMCS.DAL.Model
         
         //Apperance
         [Description("Chiều Cao")]
-	    public string Height { get; set; }
+	    public double Height { get; set; }
 
         [Description("Cân Nặng")]
-	    public string Weight { get; set; }
+        public double Weight { get; set; }
 
         [Description("Màu Mắt")]
 	    public string EyeColor { get; set; }
@@ -33,16 +33,27 @@ namespace OMCS.DAL.Model
         public string BloodType { get; set; }
 
         //Life Style Part
-	    public string AlcoholPerWeek { get; set; }
-	    public string AlcoholNumOfYear { get; set; }
-    
-	    public string SmokePackPerDay { get; set; }
-	    public string SmokeNumOfYear { get; set; }
 
+        [Display(Name = "Lượng đồ uống có cồn (lít) hằng tuần")]
+	    public double AlcoholPerWeek { get; set; }
+        [Display(Name = "Số năm uống")]
+	    public int AlcoholNumOfYear { get; set; }
+        public bool IsBeer { get; set; }
+
+        [Display(Name = "Lượng thuốc hút (gói) hằng tuần")]
+	    public double SmokePackPerWeek { get; set; }
+        [Display(Name = "Số năm hút")]
+	    public int SmokeNumOfYear { get; set; }
+
+        [Display(Name = "Tên loại thể thao")]
 	    public string SportName { get; set; }
-	    public string SportPerWeek { get; set; }
+        //Hours per week
+        [Display(Name = "Thời lượng tham gia (giờ) hằng tuần")]
+	    public int SportPerWeek { get; set; }
 
+        [Display(Name = "Tham gia khác (Yoga, Thiền định,...)")]
 	    public string ExerciseType { get; set; }
-        public string ExerciseDayPerWeek { get; set; }
+        [Display(Name = "Thời lượng tham gia (giờ) hằng tuần")]
+        public int ExercisePerWeek { get; set; }
     }
 }

@@ -21,6 +21,7 @@
             var Admin = context.Roles.Where(
                 role => (role.RoleName.Equals("Admin"))
             ).FirstOrDefault();
+
             if (Admin == null)
             {
                 Role role0 = new Role { RoleName = "Admin" };
@@ -104,11 +105,43 @@
                     Email = "trannguyentiensu@gmail.com",
                     Password = "123456",
                     IsActive = true,
-                    Birthday = DateTime.UtcNow,
                     CreatedDate = DateTime.UtcNow,
                     Roles = new List<Role>(),
-                    HealthInsuranceDateExpired = DateTime.UtcNow
+                    Gender = "M",
+                    Birthday = new DateTime(1992, 2, 19),
+                    Phone = "0933056722",
+                    PrimaryAddress = "Thôn 1, xa CuEbur, Buôn Ma Thuột",
+                    SecondaryAddress = "201/9 Đường Số 9, Gò Vấp",
+                    Ethnicity = "Kinh",
+                    Nationality = "Viet Nam",
+                    Job = "Lập trình viên",
+                    WhereToWork = "39B Trường Sơn, Tân Bình",
+                    ContactPerson = "Mỹ Linh",
+                    ContactPersonAddress = "1 Lý Thường Kiệt",
+                    HealthInsuranceId = "234234VSD",
+                    HealthInsuranceIssued = new DateTime(2013, 1, 1),
+                    HealthInsuranceDateExpired = new DateTime(2014, 1, 1)
                 };
+
+                PersonalHealthRecord sutranHealthRecord = new PersonalHealthRecord
+                {
+                    Patient = suTran,
+                    Height = 170,
+                    Weight = 70.5,
+                    EyeColor = "Đen",
+                    HairColor = "Đen",
+                    BloodType = "B",
+                    AlcoholPerWeek = 1.2,
+                    AlcoholNumOfYear = 4,
+                    IsBeer = true,
+                    SmokePackPerWeek = 1,
+                    SmokeNumOfYear = 2,
+                    SportName = "Đá banh",
+                    SportPerWeek = 4,
+                    ExerciseType = "Yoga",
+                    ExercisePerWeek = 2
+                };
+                context.PersonalHealthRecords.Add(sutranHealthRecord);
 
                 context.MedicalProfileTemplates.Add(mauCoSan);
                 admin.Roles.Add(role0);

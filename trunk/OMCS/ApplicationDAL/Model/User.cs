@@ -61,10 +61,11 @@ namespace OMCS.DAL.Model
         public String ProfilePicture { get; set; }
 
         [Display(Name = "Giới tính")]
+        [StringLength(1)]
         public String Gender { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Ngày sinh")]
         public DateTime? Birthday { get; set; }
 

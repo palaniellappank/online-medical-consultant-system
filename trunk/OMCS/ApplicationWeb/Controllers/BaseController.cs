@@ -1,4 +1,5 @@
-﻿using Security.DAL.Security;
+﻿using OMCS.DAL.Model;
+using Security.DAL.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Security.Controllers
 {
     public class BaseController : Controller
     {
+        protected OMCSDBContext _db = new OMCSDBContext();
         protected virtual new CustomPrincipal User
         {
             get { return HttpContext.User as CustomPrincipal; }
