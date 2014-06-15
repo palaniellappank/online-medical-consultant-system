@@ -7,9 +7,9 @@ using System.Data.Entity;
 using System.Data;
 using OMCS.DAL.Model;
 
-namespace ApplicationBLL.BusinessLogic
+namespace OMCS.BLL
 {
-    public class AdminUserBusiness
+    public class AdminUserBusiness: BaseBusiness
     {
         //Check the Sort Order to sort with corresponding column
         public void CheckSortOrder(string sortOrder,ref IEnumerable<User> users)

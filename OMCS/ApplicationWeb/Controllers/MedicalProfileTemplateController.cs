@@ -12,7 +12,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Newtonsoft.Json;
 
-namespace MvcApplication1.Controllers
+namespace OMCS.Web.Controllers
 {
     public class MedicalProfileTemplateController : Controller
     {

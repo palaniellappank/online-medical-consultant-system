@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Security.Controllers
+namespace OMCS.Web.Controllers
 {
     public class HomeController : BaseController
     {

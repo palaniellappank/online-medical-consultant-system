@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using OMCS.DAL.Model;
 
-namespace MvcApplication1.Controllers
+namespace OMCS.Web.Controllers
 {
     public class ImmunizationController : Controller
     {

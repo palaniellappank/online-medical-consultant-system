@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OMCS.BLL
 {
-    public class MedicalProfileTemplateBusiness
+    public class MedicalProfileTemplateBusiness: BaseBusiness
     {
         private readonly OMCSDBContext db = new OMCSDBContext();
 

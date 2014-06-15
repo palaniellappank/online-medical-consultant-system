@@ -9,7 +9,7 @@ using OMCS.DAL.Model;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 
-namespace MvcApplication1.Controllers
+namespace OMCS.Web.Controllers
 {
     public class PatientController : Controller
     {
