@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using OMCS.DAL.Model;
 using System.IO;
 using PagedList;
-using ApplicationBLL.BusinessLogic;
+using OMCS.BLL;
 
-namespace MvcApplication1.Controllers
+namespace OMCS.Web.Controllers
 {
     public class AdminUserController : Controller
     {

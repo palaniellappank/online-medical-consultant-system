@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace MvcApplication1
+namespace OMCS.Web
 {
     public static class Utilities
     {

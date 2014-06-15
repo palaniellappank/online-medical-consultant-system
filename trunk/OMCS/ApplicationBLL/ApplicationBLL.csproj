@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessLogic\AdminUserBusiness.cs" />
+    <Compile Include="BusinessLogic\BaseBusiness.cs" />
     <Compile Include="BusinessLogic\MedicalProfileTemplateBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

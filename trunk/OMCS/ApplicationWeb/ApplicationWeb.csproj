@@ -175,6 +175,7 @@
     <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ConversationController.cs" />
+    <Compile Include="Controllers\AdminMedicalRecordTemplateController.cs" />
     <Compile Include="Controllers\UserMedicalProfileController.cs" />
     <Compile Include="Controllers\UserConversationController.cs" />
     <Compile Include="Controllers\UserHealthRecordController.cs" />

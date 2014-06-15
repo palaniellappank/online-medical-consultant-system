@@ -13,7 +13,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Security.Controllers
+namespace OMCS.Web.Controllers
 {
      [CustomAuthorize(Roles= "User")]
     public class UserInfoController : BaseController
