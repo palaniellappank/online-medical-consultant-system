@@ -1,0 +1,143 @@
+﻿@model OMCS.DAL.Model.User
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Edit";
+}
+
+<h2>Cập Nhật</h2>
+
+@using (Html.BeginForm("Edit", "AdminDoctor", FormMethod.Post, new { enctype = "multipart/form-data", id = "parentForm", @class = "col-md-6" }))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend></legend>
+
+        @Html.HiddenFor(model => model.UserId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Username)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Username)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="editor-label">
+            Phân Quyền
+        </div>
+        <div class="form-group">
+            @{
+    var db = new OMCS.DAL.Model.OMCSDBContext();
+    List<OMCS.DAL.Model.Role> roles = db.Roles.ToList();
+            }
+            @Html.DropDownListFor(model => model.Roles.ElementAt(0).RoleId,
+            new SelectList(roles, "RoleId", "RoleName", Model.Roles.ElementAt(0).RoleId),
+            new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Roles)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FirstName)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastName)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedDate)
+        </div>
+        <div class="form-group">
+           @* @Html.TextBoxFor(model => model.CreatedDate, new { @class = "form-control",type="date", value = Model.CreatedDate.ToUniversalTime() })*@
+            @Html.EditorFor(model => model.CreatedDate)
+            @Html.ValidationMessageFor(model => model.CreatedDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProfilePicture)
+        </div>
+        <div class="form-group">
+            @Html.HiddenFor(mode => mode.ProfilePicture)
+            <img src="@Model.ProfilePicture" style="width: 80px; height:80px;" />
+            <input type="file" name="file" id="file" />
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Gender)
+        </div>
+        <div class="form-group">
+            @Html.DropDownListFor(model => model.Gender, new SelectList(new List<string> { "Nam", "Nữ" }), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Gender)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Birthday)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.Birthday, new { type = "date", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Birthday)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Phone)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Phone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimaryAddress)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PrimaryAddress)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SecondaryAddress)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.SecondaryAddress, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SecondaryAddress)
+        </div>
+
+        <br />
+        <input type="submit" value="Lưu" class="btn btn-primary" />
+        @Html.ActionLink("Quay Lại", "Index", "", new { @class = "btn btn-danger" })
+    </fieldset>
+}
+
+<script type="text/javascript">
+
+</script>
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@
