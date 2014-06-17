@@ -53,8 +53,8 @@
         <li class="@Html.IsActive("AdminUser", "Index")">
             <a href="@Url.Action("Index", "AdminUser")"><i class="glyphicon glyphicon-user"></i> Quản lý người dùng</a>
         </li>
-          <li>
-              <a href="#"><i class="glyphicon glyphicon-th"></i> Quản lý bác sĩ</a>
+          <li class="@Html.IsActive("AdminDoctor", "Index")">
+              <a href="@Url.Action("Index", "AdminDoctor")"><i class="glyphicon glyphicon-user"></i> Quản lý bác sĩ</a>
           </li>
         <li class="@Html.IsActive("AdminSpecialtyField", "Index")">
             <a href="@Url.Action("Index", "AdminSpecialtyField")"><i class="glyphicon glyphicon-list"></i> Quản lý Chuyên Khoa</a>
