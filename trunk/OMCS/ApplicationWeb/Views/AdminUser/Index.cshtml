@@ -10,7 +10,7 @@
 <h2>Quản Lý Người Dùng</h2>
 
 <div>
-    @Html.ActionLink("Tạo Mới", "Create", "", new { @class = "btn btn-primary" })
+    @Html.ActionLink("Tạo Mới", "Create", FormMethod.Get, new { @class = "btn btn-primary" })
     @using (Html.BeginForm("Index", "AdminUser", FormMethod.Get, new { style = "float: right", @class = "form-inline" }))
     {
         <div class="form-group">
@@ -36,7 +36,8 @@
             <th>
                 @Html.ActionLink("Ngày tạo", "Index", new { sortOrder = ViewBag.DateSortParam, currentFilter = ViewBag.CurrentFilter })
             </th>
-            <th>Sửa đổi
+            <th>
+                Thao Tác
             </th>
         </tr>
     </thead>

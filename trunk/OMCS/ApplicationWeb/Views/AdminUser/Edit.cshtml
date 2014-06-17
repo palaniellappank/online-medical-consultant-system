@@ -15,6 +15,7 @@
         <legend></legend>
 
         @Html.HiddenFor(model => model.UserId)
+        @Html.HiddenFor(model => model.CreatedDate)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Username)
@@ -45,8 +46,8 @@
         </div>
         <div class="form-group">
             @{
-    var db = new OMCS.DAL.Model.OMCSDBContext();
-    List<OMCS.DAL.Model.Role> roles = db.Roles.ToList();
+                var db = new OMCS.DAL.Model.OMCSDBContext();
+                List<OMCS.DAL.Model.Role> roles = db.Roles.ToList();
             }
             @Html.DropDownListFor(model => model.Roles.ElementAt(0).RoleId,
             new SelectList(roles, "RoleId", "RoleName", Model.Roles.ElementAt(0).RoleId),
@@ -68,15 +69,6 @@
         <div class="form-group">
             @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.LastName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CreatedDate)
-        </div>
-        <div class="form-group">
-           @* @Html.TextBoxFor(model => model.CreatedDate, new { @class = "form-control",type="date", value = Model.CreatedDate.ToUniversalTime() })*@
-            @Html.EditorFor(model => model.CreatedDate)
-            @Html.ValidationMessageFor(model => model.CreatedDate)
         </div>
 
         <div class="editor-label">
