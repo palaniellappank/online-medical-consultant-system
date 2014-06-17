@@ -1,0 +1,89 @@
+﻿@model OMCS.DAL.Model.MedicalProfileTemplate
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Xây dựng hồ sơ bệnh án</title>
+
+    <link href="~/Content/FormBuilder/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/FormBuilder/css/lib/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="~/Content/FormBuilder/css/custom.css" rel="stylesheet">
+
+      <script type="text/javascript">
+          var formInJson = @Html.Raw(ViewBag.formInJson);
+          var medicalProfileTemplateId = @(ViewBag.medicalProfileTemplateId);
+      </script>
+
+      <style type="text/css">
+          .element-selector a {
+              color: initial;
+          }
+
+          #components .tab-content {
+              max-height: 400px;
+          }
+      </style>
+  </head>
+
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Xây dựng hồ sơ bệnh án</a>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row clearfix">
+        <!-- Building Form. -->
+        <div class="span9">
+          <div class="clearfix">
+            <h2>Mẫu hồ sơ <span style="color: #d35400">@Html.DisplayFor(model => model.MedicalProfileTemplateName)</span></h2>
+            <hr>
+            <div id="build">
+              <form id="target" class="form-horizontal">
+                  <fieldset>
+                  </fieldset>
+              </form>
+              <div class="control-group">
+                <div class="controls">
+                <button id="saveBtn" class="btn btn-primary">Lưu</button>
+                <button id="viewBtn" class="btn btn-primary">View</button>
+                <button id="cancelBtn" class="btn btn-danger">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- / Building Form. -->
+
+        <!-- Components -->
+        <div class="span3">
+          <h2>Các đối tượng</h2>
+          <hr>
+          <div class="tabbable" id="tab-editor">
+            <ul class="nav nav-tabs" id="formtabs">
+              <!-- Tab nav -->
+            </ul>
+            <form class="form-horizontal" id="components">
+              <fieldset>
+                <div class="tab-content">
+                  <!-- Tabs of snippets go here -->
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+        <!-- / Components -->
+
+      </div>
+
+      <div class="row clearfix">
+      </div>
+    </div> <!-- /container -->
+    <script src="~/Content/FormBuilder/js/config.js"></script>
+    <script data-main="../main" src="~/Content/FormBuilder/js/lib/require.js" ></script>
+  </body>
+</html>

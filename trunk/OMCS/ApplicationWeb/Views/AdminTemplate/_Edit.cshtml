@@ -1,0 +1,35 @@
+﻿@model OMCS.DAL.Model.MedicalProfileTemplate
+
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Cập nhật Mẫu hồ sơ</h4>
+      </div>
+
+    @using (Ajax.BeginForm("Edit", "AdminTemplate", FormMethod.Post,
+                    new AjaxOptions
+                    {
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "POST",
+                        UpdateTargetId = "list-of-specialty-field"
+                    }, new { id = "edit-form" }))
+    {
+    @Html.ValidationSummary()
+    @Html.AntiForgeryToken()
+      <div class="modal-body">
+        <fieldset>
+            @Html.HiddenFor(model => model.MedicalProfileTemplateId)
+            <div class="form-group">
+                <label for="ParentId">Tên Mẫu Hồ Sơ</label>
+                @Html.TextBoxFor(model => model.MedicalProfileTemplateName, new { @class = "form-control required"})
+            </div>
+        </fieldset>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
+        <button type="submit" class="btn btn-primary">Lưu</button>
+      </div>
+    }
+    </div>
+  </div>

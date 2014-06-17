@@ -38,7 +38,7 @@
             url: "/MedicalProfileTemplate/Edit",
             data: {
                 jsonString: JSON.stringify(snippetCollection.toJSON()),
-                id: medicalProfileTemplateId
+                MedicalProfileTemplateId: medicalProfileTemplateId
             },
             success: function (data) {
                 var result = JSON.parse(data);

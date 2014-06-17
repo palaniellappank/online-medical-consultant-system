@@ -175,7 +175,7 @@
     <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ConversationController.cs" />
-    <Compile Include="Controllers\AdminMedicalRecordTemplateController.cs" />
+    <Compile Include="Controllers\AdminTemplateController.cs" />
     <Compile Include="Controllers\UserMedicalProfileController.cs" />
     <Compile Include="Controllers\UserConversationController.cs" />
     <Compile Include="Controllers\UserHealthRecordController.cs" />
@@ -204,6 +204,7 @@
     <Content Include="Content\bootstrap3-editable\img\loading.gif" />
     <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.js" />
     <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.min.js" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\static-text.html" />
     <Content Include="Content\select2\select2-spinner.gif" />
     <Content Include="Content\select2\select2.png" />
     <Content Include="Content\select2\select2x2.png" />
@@ -363,6 +364,7 @@
     <Content Include="Content\FormBuilder\js\data\radio.json" />
     <Content Include="Content\FormBuilder\js\data\select.json" />
     <Content Include="Content\FormBuilder\js\data\region.json" />
+    <Content Include="Content\FormBuilder\js\data\data.json" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -455,6 +457,11 @@
     <Content Include="Views\AdminUser\Create.cshtml" />
     <Content Include="Views\AdminUser\Edit.cshtml" />
     <Content Include="Views\AdminUser\Index.cshtml" />
+    <Content Include="Views\AdminTemplate\Index.cshtml" />
+    <Content Include="Views\AdminTemplate\Editor.cshtml" />
+    <Content Include="Views\AdminTemplate\_Delete.cshtml" />
+    <Content Include="Views\AdminTemplate\_Edit.cshtml" />
+    <Content Include="Views\AdminTemplate\_Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
