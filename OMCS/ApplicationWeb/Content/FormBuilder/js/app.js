@@ -4,12 +4,13 @@
        , "views/tab" , "views/my-form"
        , "text!data/input.json"
        , "text!data/region.json"
+       , "text!data/data.json"
        , "text!templates/app/render.html", 
 ], function(
   $, _, Backbone
   , SnippetsCollection, MyFormSnippetsCollection
   , TabView, MyFormView
-  , inputJSON, regionJSON, renderTab
+  , inputJSON, regionJSON, dataJSON, renderTab
 ){
   return {
     initialize: function(){
@@ -20,8 +21,13 @@
         , collection: new SnippetsCollection(JSON.parse(regionJSON))
         });
       new TabView({
-        title: "Dữ liệu động"
+        title: "Tùy chỉnh"
         , collection: new SnippetsCollection(JSON.parse(inputJSON))
+      });
+
+      new TabView({
+          title: "Có sẵn"
+      , collection: new SnippetsCollection(JSON.parse(dataJSON))
       });
 
       //Make the first tab active!

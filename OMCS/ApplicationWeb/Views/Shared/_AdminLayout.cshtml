@@ -59,7 +59,9 @@
         <li class="@Html.IsActive("AdminSpecialtyField", "Index")">
             <a href="@Url.Action("Index", "AdminSpecialtyField")"><i class="glyphicon glyphicon-list"></i> Quản lý Chuyên Khoa</a>
         </li>
-        <li><a href="#"><i class="glyphicon glyphicon-list-alt"></i> Mẫu hồ sơ</a></li>
+        <li class="@Html.IsActive("AdminTemplate", "Index")">
+            <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i> Mẫu hồ sơ</a>
+        </li>
         <li><a href="#"><i class="glyphicon glyphicon-list-alt"></i> Danh mục bệnh</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-book"></i> Thống kê</a></li>
       </ul>

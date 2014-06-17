@@ -21,7 +21,7 @@ define([
   return Backbone.View.extend({
     tagName: "div"
     , className: "component" 
-    , initialize: function(){
+    , initialize: function () {
       this.template = _.template(_snippetTemplates[this.model.idFriendlyTitle()])
       this.popoverTemplates = {
         "input" : _.template(_PopoverInput)
@@ -49,7 +49,8 @@ define([
           , "data-html"      : true
         });
       } else {
-        return this.$el.html(
+          console.log(that.model.getValues());
+          return this.$el.html(
           that.template(that.model.getValues())
         )
       }

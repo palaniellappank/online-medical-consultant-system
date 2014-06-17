@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,20 +52,33 @@ namespace OMCS.BLL
             return json;
         }
 
-        public void SaveTemplate(string jsonString, int id)
+        public void SaveTemplate(string jsonString, MedicalProfileTemplate template)
         {
-            var listCustomSnippets = db.CustomSnippets.Where(s => s.MedicalProfileTemplateId == id);
-            foreach (var entity in listCustomSnippets)
+            if (template.MedicalProfileTemplateId == 0)
             {
-                db.CustomSnippets.Remove(entity);
+                //Create Mode
+                db.MedicalProfileTemplates.Add(template);
+                template.MedicalProfileTemplateName = "Su Tran";
+                db.SaveChanges();
+                Debug.WriteLine("Su Tran" + template.MedicalProfileTemplateId);
             }
-            db.SaveChanges();
+            else
+            {
+                //Edit Mode
+                var listCustomSnippets = db.CustomSnippets.Where(s => s.MedicalProfileTemplateId == template.MedicalProfileTemplateId);
+                foreach (var entity in listCustomSnippets)
+                {
+                    db.CustomSnippets.Remove(entity);
+                }
+                db.SaveChanges();
+            }
+            
 
             JArray listSnippets = JArray.Parse(jsonString) as JArray;
 
             foreach (dynamic snippet in listSnippets)
             {
-                CustomSnippet customSnippet = new CustomSnippet { Title = snippet.title, MedicalProfileTemplateId = id };
+                CustomSnippet customSnippet = new CustomSnippet { Title = snippet.title, MedicalProfileTemplateId = template.MedicalProfileTemplateId };
                 db.CustomSnippets.Add(customSnippet);
                 db.SaveChanges();
                 customSnippet.CustomSnippetFields = new Collection<CustomSnippetField>();

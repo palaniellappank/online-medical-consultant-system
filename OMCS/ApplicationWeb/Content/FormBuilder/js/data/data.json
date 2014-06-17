@@ -1,0 +1,393 @@
+﻿[
+	{
+	"name" : "Thông tin cá nhân",
+    "title": "Form Name",
+	"fields": {
+      "ignore": {
+        "value": true
+		}
+	}
+  },
+  {
+	"name" : "Họ và tên",
+    "title": "Static Text",
+	"snippettype": "User",
+	"fieldname": "FullName",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Họ và tên"
+        }
+    }
+  },
+  {
+	"name" : "Giới tính",
+    "title": "Static Text",
+	"snippettype": "User",
+	"fieldname": "Gender",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Giới tính"
+        }
+    }
+  },
+  {
+	"name" : "Ngày sinh",
+    "title": "Static Text",
+	"snippettype": "User",
+	"fieldname": "Birthday",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Ngày sinh"
+        }
+    }
+  },
+  {
+	"name" : "Số điện thoại",
+    "title": "Static Text",
+	"snippettype": "User",
+	"fieldname": "Phone",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Số điện thoại"
+        }
+    }
+  },
+  {
+	"name" : "Địa chỉ thường trú",
+    "title": "Static Text",
+	"snippettype": "User",
+	"fieldname": "PrimaryAddress",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Địa chỉ thường trú"
+        }
+    }
+  },
+  {
+	"name" : "Địa chỉ tạm trú",
+    "title": "Static Text",
+	"snippettype": "User",
+	"fieldname": "SecondaryAddress",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Địa chỉ tạm trú"
+        }
+    }
+  },
+  {
+	"name" : "Thông tin bệnh nhân",
+    "title": "Form Name",
+	"fields": {
+      "ignore": {
+        "value": true
+		}
+	}
+  },
+  {
+	"name" : "Dân tộc",
+    "title": "Static Text",
+	"snippettype": "Patient",
+	"fieldname": "Ethnicity",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Dân tộc"
+        }
+    }
+  },
+  {
+	"name" : "Quốc tịch",
+    "title": "Static Text",
+	"snippettype": "Patient",
+	"fieldname": "Nationality",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Quốc tịch"
+        }
+    }
+  },
+  {
+	"name" : "Công việc",
+    "title": "Static Text",
+	"snippettype": "Patient",
+	"fieldname": "Job",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Công việc"
+        }
+	}
+  },
+  {
+	"name" : "Nơi làm việc",
+    "title": "Static Text",
+	"snippettype": "Patient",
+	"fieldname": "WhereToWork",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Nơi làm việc"
+        }
+    }
+  },
+  {
+	"name" : "Người liên lạc",
+    "title": "Static Text",
+	"snippettype": "Patient",
+	"fieldname": "ContactPerson",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Người liên lạc"
+        }
+    }
+  },
+  {
+	"name" : "Địa chỉ người liên lạc",
+    "title": "Static Text",
+	"snippettype": "Patient",
+	"fieldname": "ContactPersonAddress",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Địa chỉ người liên lạc"
+        }
+    }
+  },
+  {
+	"name" : "Mã số thẻ bảo hiểm y tế",
+    "title": "Static Text",
+	"snippettype": "Patient",
+	"fieldname": "HealthInsuranceId",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Mã số thẻ bảo hiểm y tế"
+        }
+    }
+  },
+  {
+	"name" : "Ngày cấp",
+    "title": "Static Text",
+	"snippettype": "Patient",
+	"fieldname": "HealthInsuranceIssued",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Ngày cấp"
+        }
+    }
+  },
+  {
+	"name" : "Ngày hết hạn",
+    "title": "Static Text",
+	"snippettype": "Patient",
+	"fieldname": "HealthInsuranceDateExpired",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Ngày hết hạn"
+        }
+    }
+  },
+  {
+	"name" : "Sức khỏe cơ bản",
+    "title": "Form Name",
+	"fields": {
+      "ignore": {
+        "value": true
+		}
+	}
+  },
+  {
+	"name" : "Chiều Cao (cm)",
+    "title": "Static Text",
+	"snippettype": "PersonalHealthRecord",
+	"fieldname": "Height",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Chiều Cao (cm)"
+        }
+    }
+  },
+  {
+	"name" : "Cân Nặng (kg)",
+    "title": "Static Text",
+	"snippettype": "PersonalHealthRecord",
+	"fieldname": "Weight",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Cân Nặng (kg)"
+        }
+    }
+  },
+  {
+	"name" : "Màu Mắt",
+    "title": "Static Text",
+	"snippettype": "PersonalHealthRecord",
+	"fieldname": "EyeColor",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Màu Mắt"
+        }
+    }
+  },
+  {
+	"name" : "Màu Tóc",
+    "title": "Static Text",
+	"snippettype": "PersonalHealthRecord",
+	"fieldname": "HairColor",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Màu Tóc"
+        }
+    }
+  },
+  {
+	"name" : "Nhóm Máu",
+    "title": "Static Text",
+	"snippettype": "PersonalHealthRecord",
+	"fieldname": "BloodType",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Nhóm Máu"
+        }
+    }
+  },
+  {
+	"name" : "Lượng đồ uống có cồn (lít) hằng tuần",
+    "title": "Static Text",
+	"snippettype": "PersonalHealthRecord",
+	"fieldname": "AlcoholPerWeek",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Lượng đồ uống có cồn (lít) hằng tuần"
+        }
+    }
+  },
+  {
+	"name" : "Số năm uống",
+    "title": "Static Text",
+	"snippettype": "PersonalHealthRecord",
+	"fieldname": "AlcoholNumOfYear",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Số năm uống"
+        }
+    }
+  },
+  {
+	"name" : "Lượng thuốc hút (gói) hằng tuần",
+    "title": "Static Text",
+	"snippettype": "PersonalHealthRecord",
+	"fieldname": "SmokePackPerWeek",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Lượng thuốc hút (gói) hằng tuần"
+        }
+    }
+  },
+  {
+	"name" : "Số năm hút",
+    "title": "Static Text",
+	"snippettype": "PersonalHealthRecord",
+	"fieldname": "SmokeNumOfYear",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Số năm hút"
+        }
+    }
+  },
+  {
+	"name" : "Tên loại thể thao",
+    "title": "Static Text",
+	"snippettype": "PersonalHealthRecord",
+	"fieldname": "SportName",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Tên loại thể thao"
+        }
+    }
+  },
+  {
+	"name" : "Thời lượng tham gia (giờ) hằng tuần",
+    "title": "Static Text",
+	"snippettype": "PersonalHealthRecord",
+	"fieldname": "SportPerWeek",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Thời lượng tham gia (giờ) hằng tuần"
+        }
+    }
+  },
+  {
+	"name" : "Tham gia khác (Yoga, Thiền định,...)",
+    "title": "Static Text",
+	"snippettype": "PersonalHealthRecord",
+	"fieldname": "ExerciseType",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Tham gia khác (Yoga, Thiền định,...)"
+        }
+    }
+  },
+  {
+	"name" : "Thời lượng tham gia (giờ) hằng tuần",
+    "title": "Static Text",
+	"snippettype": "PersonalHealthRecord",
+	"fieldname": "ExercisePerWeek",
+    "fields": {
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Thời lượng tham gia (giờ) hằng tuần"
+        }
+    }
+  }
+]

@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model IEnumerable<OMCS.DAL.Model.MedicalProfileTemplate>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Các Mẫu Hồ Sơ Bệnh Án</h2>
+
+<p>
+    <button class="btn btn-primary create-button">
+        Thêm Mẫu Hồ Sơ Mới
+    </button>
+    <a style="display:none" target="_blank" id="create-template" href="">
+    </a>
+</p>
+<table class="table table-striped table-hover" id="list-of-template">
+    <tr>
+        <th>
+            Tên mẫu hồ sơ
+        </th>
+        <th>
+            Thao tác
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr class="info">
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicalProfileTemplateName)
+        </td>
+        <td>
+            <a class="btn btn-primary" target="_blank" href="@Url.Action("Editor",new { id = item.MedicalProfileTemplateId})">Sửa cấu trúc</a>
+            <button class="btn btn-primary edit-button" data-id="@item.MedicalProfileTemplateId">Sửa</button>
+            <a class="btn btn-danger delete-button" data-id="@item.MedicalProfileTemplateId">Xóa</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="modal fade in" id="edit-model">
+    <div id="edit-container"></div>
+</div>
+
+<div class="modal fade in" id="create-model">
+    <div id="create-container"></div>
+</div>
+
+<div class="modal fade in" id="delete-model">
+    <div id="delete-container"></div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.edit-button').click(function () {
+            var url = "/AdminTemplate/Edit";
+            var id = $(this).attr('data-id');
+            $.get(url + '/' + id, function (data) {
+                $('#edit-container').html(data);
+                $('#edit-model').modal('show');
+                $("#edit-form").validate();
+            });
+        });
+
+        $('.delete-button').click(function () {
+            var url = "/AdminTemplate/Delete";
+            var id = $(this).attr('data-id');
+            $.get(url + '/' + id, function (data) {
+                $('#delete-container').html(data);
+                $('#delete-model').modal('show');
+            });
+        });
+
+        $('.create-button').click(function () {
+            var url = "/AdminTemplate/Create";
+            $.get(url, function (data) {
+                $('#create-container').html(data);
+                $('#create-model').modal('show');
+                $("#create-form").validate({
+                    submitHandler: function (e) {
+                        $("#create-template").attr("href", "@Url.Action("CreateFromName")" + "/?name=" + $("#MedicalProfileTemplateName").val());
+                        $("#create-template")[0].click();
+                        $('#create-model').modal('hide');
+                        return false;
+                    }
+                });
+            });
+        });
+    });
+</script>

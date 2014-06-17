@@ -28,8 +28,19 @@ namespace OMCS.Web.Controllers
 
         public ActionResult Editor(int id)
         {
-            string json = business.ShowTemplate(id);
-            ViewBag.formInJson = json;
+            if (id == 0)
+            {
+                //Create Mode
+                ViewBag.formInJson = "[]";
+            }
+            else
+            {
+                //Edit Mode
+                string json = business.ShowTemplate(id);
+                var template = db.MedicalProfileTemplates.Find(id);
+                ViewBag.formInJson = json;
+                ViewBag.template = template;
+            }
             ViewBag.medicalProfileTemplateId = id;
             return View();
         }
@@ -77,38 +88,9 @@ namespace OMCS.Web.Controllers
             return result;
         }
 
-        //
-        // GET: /MedicalProfileTemplate/Create
-
-        public ActionResult Create()
+        public JObject Edit(string jsonString, MedicalProfileTemplate template)
         {
-            ViewBag.MedicalProfileTypeId = new SelectList(db.MedicalProfileTypes, "MedicalProfileTypeId", "Name");
-            return View();
-        }
-
-        //
-        // POST: /MedicalProfileTemplate/Create
-
-        [HttpPost]
-        public ActionResult Create(MedicalProfileTemplate medicalrecordtemplate)
-        {
-            if (ModelState.IsValid)
-            {
-                db.MedicalProfileTemplates.Add(medicalrecordtemplate);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.MedicalProfileTypeId = new SelectList(db.MedicalProfileTypes, "MedicalProfileTypeId", "Name", medicalrecordtemplate.MedicalProfileTypeId);
-            return View(medicalrecordtemplate);
-        }
-
-        //
-        // GET: /MedicalProfileTemplate/Edit/5
-
-        public JObject Edit(string jsonString, int id)
-        {
-            business.SaveTemplate(jsonString, id);
+            business.SaveTemplate(jsonString, template);
             dynamic result = new JObject();
             result.status = "success";
             return result;
