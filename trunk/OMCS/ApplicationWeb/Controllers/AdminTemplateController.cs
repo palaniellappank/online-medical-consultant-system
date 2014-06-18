@@ -10,6 +10,7 @@ using System.IO;
 using PagedList;
 using Security.Controllers;
 using OMCS.BLL;
+using Newtonsoft.Json.Linq;
 
 namespace OMCS.Web.Controllers
 {
@@ -53,6 +54,14 @@ namespace OMCS.Web.Controllers
             _db.MedicalProfileTemplates.Add(template);
             _db.SaveChanges();
             return RedirectToAction("Editor", new { id = template.MedicalProfileTemplateId });
+        }
+
+        public JObject SaveTemplate(string jsonString, MedicalProfileTemplate template)
+        {
+            business.SaveTemplate(jsonString, template);
+            dynamic result = new JObject();
+            result.status = "success";
+            return result;
         }
 
         public ActionResult Edit(int id = 0)

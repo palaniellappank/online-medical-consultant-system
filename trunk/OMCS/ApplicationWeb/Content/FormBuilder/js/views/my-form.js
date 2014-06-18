@@ -35,7 +35,7 @@
         window.snippetCollection = new MyFormSnippetsCollection(this.collection.toJSON());
         $.ajax({
             type: "post",
-            url: "/MedicalProfileTemplate/Edit",
+            url: "/AdminTemplate/SaveTemplate",
             data: {
                 jsonString: JSON.stringify(snippetCollection.toJSON()),
                 MedicalProfileTemplateId: medicalProfileTemplateId

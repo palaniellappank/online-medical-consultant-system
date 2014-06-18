@@ -37,9 +37,13 @@
       $(document).scroll(function () {
           var scroll = $(this).scrollTop();
           var topDist = 90;
+          if (window.widthDefault == undefined) {
+              window.widthDefault = $('#tab-editor').css("width");
+          }
           if (scroll < topDist) {
               $('#tab-editor').css({ "position": "static", "top": "auto" });
           } else {
+              $('#tab-editor').css("width", window.widthDefault);
               $('#tab-editor').css({"position":"fixed","top":"60px"});
           }
       });

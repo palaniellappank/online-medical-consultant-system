@@ -88,17 +88,6 @@ namespace OMCS.Web.Controllers
             return result;
         }
 
-        public JObject Edit(string jsonString, MedicalProfileTemplate template)
-        {
-            business.SaveTemplate(jsonString, template);
-            dynamic result = new JObject();
-            result.status = "success";
-            return result;
-        }
-
-        //
-        // GET: /MedicalProfileTemplate/Delete/5
-
         public ActionResult Delete(int id = 0)
         {
             MedicalProfileTemplate medicalrecordtemplate = db.MedicalProfileTemplates.Find(id);
