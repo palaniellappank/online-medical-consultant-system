@@ -35,7 +35,6 @@ define([
         } else {
             this.template = _.template(_snippetTemplates["commonsnippettab"]);
         }
-        console.log(this.model.attributes);
         return this.$el.html(this.template(this.model.attributes));
     }
   });

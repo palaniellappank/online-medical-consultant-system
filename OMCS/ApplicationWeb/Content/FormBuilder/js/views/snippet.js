@@ -49,7 +49,6 @@ define([
           , "data-html"      : true
         });
       } else {
-          console.log(that.model.getValues());
           return this.$el.html(
           that.template(that.model.getValues())
         )

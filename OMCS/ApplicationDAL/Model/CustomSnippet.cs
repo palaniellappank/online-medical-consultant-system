@@ -36,7 +36,7 @@ namespace OMCS.DAL.Model
 
         public SnippetType SnippetType { get; set; }
 
-        public int SnippetFieldName { get; set; }
+        public String SnippetFieldName { get; set; }
 
         public virtual ICollection<CustomSnippetField> CustomSnippetFields { get; set; }
     }

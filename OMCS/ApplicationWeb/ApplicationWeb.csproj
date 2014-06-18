@@ -171,6 +171,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminDoctorController.cs" />
     <Compile Include="Controllers\AdminSpecialtyFieldController.cs" />
     <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -462,6 +463,9 @@
     <Content Include="Views\AdminTemplate\_Delete.cshtml" />
     <Content Include="Views\AdminTemplate\_Edit.cshtml" />
     <Content Include="Views\AdminTemplate\_Create.cshtml" />
+    <Content Include="Views\AdminDoctor\Create.cshtml" />
+    <Content Include="Views\AdminDoctor\Edit.cshtml" />
+    <Content Include="Views\AdminDoctor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

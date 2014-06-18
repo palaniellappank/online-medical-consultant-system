@@ -7,7 +7,7 @@
   <head>
     <title>Xây dựng hồ sơ bệnh án</title>
 
-    <link href="~/Content/FormBuilder/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/FormBuilder/css/lib/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="~/Content/FormBuilder/css/custom.css" rel="stylesheet">
 
@@ -21,24 +21,39 @@
               color: initial;
           }
 
+          .element-selector legend {
+            padding-bottom: 3px;
+            margin-bottom: 13px;
+            font-size: 17px;
+            padding-top: 5px;
+            color: #27ae60;
+          }
+
           #components .tab-content {
               max-height: 400px;
+              overflow-y: scroll;
+          }
+
+          #tab-editor .nav > li > a {
+              padding: 10px 3px;
           }
       </style>
   </head>
 
   <body>
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
+
+    <div class="navbar navbar-inverse navbar-static-top">
         <div class="container">
-          <a class="brand" href="#">Xây dựng hồ sơ bệnh án</a>
+            <div class="navbar-header">
+                  <a class="navbar-brand" href="#">Xây dựng hồ sơ bệnh án</a>
+            </div>
         </div>
-      </div>
     </div>
+
     <div class="container">
       <div class="row clearfix">
         <!-- Building Form. -->
-        <div class="span9">
+        <div class="col-md-9">
           <div class="clearfix">
             <h2>Mẫu hồ sơ <span style="color: #d35400">@Html.DisplayFor(model => model.MedicalProfileTemplateName)</span></h2>
             <hr>
@@ -47,7 +62,7 @@
                   <fieldset>
                   </fieldset>
               </form>
-              <div class="control-group">
+              <div class="form-group">
                 <div class="controls">
                 <button id="saveBtn" class="btn btn-primary">Lưu</button>
                 <button id="viewBtn" class="btn btn-primary">View</button>
@@ -60,7 +75,7 @@
         <!-- / Building Form. -->
 
         <!-- Components -->
-        <div class="span3">
+        <div class="col-md-3">
           <h2>Các đối tượng</h2>
           <hr>
           <div class="tabbable" id="tab-editor">

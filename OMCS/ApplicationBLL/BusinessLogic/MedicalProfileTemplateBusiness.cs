@@ -79,6 +79,21 @@ namespace OMCS.BLL
             foreach (dynamic snippet in listSnippets)
             {
                 CustomSnippet customSnippet = new CustomSnippet { Title = snippet.title, MedicalProfileTemplateId = template.MedicalProfileTemplateId };
+                
+                if (snippet.title == "Static Text")
+                {
+                    var SnippetTypeDic = new Dictionary<string, SnippetType> {
+                        { "Custom", SnippetType.Custom },
+                        { "User", SnippetType.User },
+                        { "Patient", SnippetType.Patient },
+                        { "PersonalHealthRecord", SnippetType.PersonalHealthRecord }
+                    };
+                    string str = ((object)snippet.snippettype).ToString();
+                    Debug.WriteLine("1" + str);
+                    customSnippet.SnippetType = SnippetTypeDic[((object)snippet.snippettype).ToString()];
+                    customSnippet.SnippetFieldName = snippet.fieldname;
+                }
+
                 db.CustomSnippets.Add(customSnippet);
                 db.SaveChanges();
                 customSnippet.CustomSnippetFields = new Collection<CustomSnippetField>();

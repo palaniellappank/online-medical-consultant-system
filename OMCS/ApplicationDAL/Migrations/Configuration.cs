@@ -18,18 +18,6 @@
 
         protected override void Seed(OMCS.DAL.Model.OMCSDBContext context)
         {
-            MedicalProfileTemplate benhAnTruyenNhiem = new MedicalProfileTemplate
-            {
-                IsDefault = false,
-                MedicalProfileTemplateName = "Bệnh Án Truyền Nhiễm"
-            };
-            MedicalProfileTemplate benhAnNoiKhoa = new MedicalProfileTemplate
-            {
-                IsDefault = false,
-                MedicalProfileTemplateName = "Bệnh Án Nội Khoa"
-            };
-            context.MedicalProfileTemplates.Add(benhAnNoiKhoa);
-            context.MedicalProfileTemplates.Add(benhAnTruyenNhiem);
             var Admin = context.Roles.Where(
                 role => (role.RoleName.Equals("Admin"))
             ).FirstOrDefault();
@@ -151,6 +139,19 @@
                 context.Users.Add(admin);
                 context.Users.Add(user3);
                 context.Patients.Add(suTran);
+
+                MedicalProfileTemplate benhAnTruyenNhiem = new MedicalProfileTemplate
+                {
+                    IsDefault = false,
+                    MedicalProfileTemplateName = "Bệnh Án Truyền Nhiễm"
+                };
+                MedicalProfileTemplate benhAnNoiKhoa = new MedicalProfileTemplate
+                {
+                    IsDefault = false,
+                    MedicalProfileTemplateName = "Bệnh Án Nội Khoa"
+                };
+                context.MedicalProfileTemplates.Add(benhAnNoiKhoa);
+                context.MedicalProfileTemplates.Add(benhAnTruyenNhiem);
             }
         }
     }
