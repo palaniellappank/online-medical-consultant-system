@@ -1,45 +1,62 @@
 ﻿@model IEnumerable<OMCS.DAL.Model.Conversation>
 
 @{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lịch Sử Tư Vấn</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
 </p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Patient.Username)
+<table class="table table-striped table-hover">
+    <tr class="active">
+        <th>Bệnh Nhân
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Doctor.Username)
+        <th>Bác Sĩ
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedDate)
+        <th>Ngày Tư Vấn
         </th>
-        <th></th>
+        <th>Thao Tác
+        </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Patient.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Doctor.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ConversationId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ConversationId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ConversationId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doctor.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateConsulted, "ShortDateTime")
+            </td>
+            <td>
+                @* @Html.ActionLink("Xem", "Details", new { id = item.ConversationId }, new { @class = "btn btn-primary" })*@
+                <button class="btn btn-primary details-button" data-id="@item.ConversationId">Xem</button>
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div class="modal fade in" id="details-model">
+    <div id="details-container"></div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".details-button").click(function () {
+            var url = "/Conversation/Details";
+            var id = $(this).attr("data-id");
+            $.get(url + "/" + id, function (data) {
+                $("#details-container").html(data);
+                $("#details-model").modal("show");
+            });
+        });
+
+    });
+</script>

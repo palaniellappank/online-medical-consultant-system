@@ -1,0 +1,55 @@
+﻿@model OMCS.DAL.Model.FilmType
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Cập Nhật</h4>
+        </div>
+
+        @using (Ajax.BeginForm("Edit", "FilmType", FormMethod.Post,
+                    new AjaxOptions
+                    {
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "POST",
+                        UpdateTargetId = "list-of-film-type"
+                    },
+                    new { id = "edit-form" }))
+        {
+            @Html.ValidationSummary(true)
+            @Html.AntiForgeryToken()
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.FilmTypeId)
+                <div class="form-group">
+                    <label for="Name">Tên</label>
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control required" })
+                </div>
+
+                <div class="form-group">
+                    <label for="Description">Mô Tả</label>
+                    @Html.TextBoxFor(model => model.Description, new { @class = "form-control required" })
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Lưu</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#edit-form").validate({
+            rules: {
+                Name: {
+                    remote: {
+                        url: "@Url.Action("CheckExistName", "FilmType", new { id = @Model.FilmTypeId })",
+                        timeout: 5000,
+                        type: "POST"
+                    }
+                }
+            },
+        });
+    });
+</script>

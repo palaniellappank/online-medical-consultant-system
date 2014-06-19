@@ -10,7 +10,7 @@
 <h2>Quản Lý Người Dùng</h2>
 
 <div>
-    @Html.ActionLink("Tạo Mới", "Create", FormMethod.Get, new { @class = "btn btn-primary" })
+    <button class="btn btn-primary create-button">Tạo Mới</button>
     @using (Html.BeginForm("Index", "AdminUser", FormMethod.Get, new { style = "float: right", @class = "form-inline" }))
     {
         <div class="form-group">
@@ -21,7 +21,7 @@
 </div>
 <p></p>
 
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover" id="list-of-user">
     <thead>
         <tr class="active">
             <th>
@@ -36,8 +36,7 @@
             <th>
                 @Html.ActionLink("Ngày tạo", "Index", new { sortOrder = ViewBag.DateSortParam, currentFilter = ViewBag.CurrentFilter })
             </th>
-            <th>
-                Thao Tác
+            <th>Thao Tác
             </th>
         </tr>
     </thead>
@@ -65,7 +64,7 @@
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
             <td>
-                @Html.ActionLink("Cập Nhật", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary" })
+                <button class="btn btn-primary edit-button" data-id="@item.UserId">Cập Nhật</button>
 
                 @if (item.IsActive == true)
                 {
@@ -85,8 +84,41 @@
 
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
-@*<script type="text/javascript">
+<div class="modal fade in" id="edit-model">
+    <div id="edit-container"></div>
+</div>
+
+<div class="modal fade in" id="create-model">
+    <div id="create-container"></div>
+</div>
+
+<div class="modal fade in" id="delete-model">
+    <div id="delete-container"></div>
+</div>
+
+<script type="text/javascript">
     $(document).ready(function () {
-        $("a").css("text-decoration", "none");
-    })
-</script>*@
+
+        $(".create-button").click(function () {
+            var url = "/AdminUser/Create";
+            $.get(url, function (data) {
+                $("#create-container").html(data);
+                $("#create-model").modal("show");
+                $("#create-form").validate({
+                });
+            });
+        });
+
+        $(".edit-button").click(function () {
+            var url = "/AdminUser/Edit";
+            var id = $(this).attr("data-id");
+            $.get(url + "/" + id, function (data) {
+                $("#edit-container").html(data);
+                $("#edit-model").modal("show");
+                $("#edit-form").validate({
+                });
+            });
+        });
+
+    });
+</script>

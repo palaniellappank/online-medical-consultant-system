@@ -177,6 +177,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ConversationController.cs" />
     <Compile Include="Controllers\AdminTemplateController.cs" />
+    <Compile Include="Controllers\FilmTypeController.cs" />
     <Compile Include="Controllers\UserMedicalProfileController.cs" />
     <Compile Include="Controllers\UserConversationController.cs" />
     <Compile Include="Controllers\UserHealthRecordController.cs" />
@@ -425,9 +426,6 @@
     <Content Include="Views\Doctor\Index.cshtml" />
     <Content Include="Views\Conversation\Index.cshtml" />
     <Content Include="Views\Conversation\Details.cshtml" />
-    <Content Include="Views\Conversation\Create.cshtml" />
-    <Content Include="Views\Conversation\Edit.cshtml" />
-    <Content Include="Views\Conversation\Delete.cshtml" />
     <Content Include="Views\Shared\_TemplateLayout.cshtml" />
     <Content Include="Views\Shared\_DoctorLayout.cshtml" />
     <Content Include="Views\MedicalProfileTemplate\Index.cshtml" />
@@ -455,9 +453,14 @@
     <Content Include="Views\UserConversation\Index.cshtml" />
     <Content Include="Views\UserHealthRecord\Index.cshtml" />
     <Content Include="Views\UserInfo\Index.cshtml" />
-    <Content Include="Views\AdminUser\Create.cshtml" />
-    <Content Include="Views\AdminUser\Edit.cshtml" />
     <Content Include="Views\AdminUser\Index.cshtml" />
+    <Content Include="Views\FilmType\Index.cshtml" />
+    <Content Include="Views\FilmType\_Create.cshtml" />
+    <Content Include="Views\FilmType\_Delete.cshtml" />
+    <Content Include="Views\FilmType\_Edit.cshtml" />
+    <Content Include="Views\AdminUser\_Create.cshtml" />
+    <Content Include="Views\AdminUser\_Edit.cshtml" />
+    <Content Include="Views\Conversation\_Details.cshtml" />
     <Content Include="Views\AdminTemplate\Index.cshtml" />
     <Content Include="Views\AdminTemplate\Editor.cshtml" />
     <Content Include="Views\AdminTemplate\_Delete.cshtml" />
@@ -469,6 +472,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\ModelValidation\" />
     <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
