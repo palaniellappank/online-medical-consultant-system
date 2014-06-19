@@ -1,49 +1,32 @@
-﻿.container {
+﻿.container
+{
 }
 /* Styles for validation helpers
 -----------------------------------------------------------*/
-.field-validation-error {
-    color: #ff0000;
-    color: rgba(255, 0, 0, 0.90)
+.field-validation-error
+{
+    color: #b94a48;
 }
 
-.field-validation-valid {
+.field-validation-valid
+{
     display: none;
 }
 
-.input-validation-error {
-    border: 1px solid #ff0000;
-    background-color: #ffeeee;
+.input-validation-error
+{
+    border-color: #b94a48;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
-.validation-summary-errors {
+.validation-summary-errors
+{
     font-weight: bold;
     color: #ff0000;
 }
 
-.validation-summary-valid {
+.validation-summary-valid
+{
     display: none;
-}
-/* Styles for editor and display helpers
-----------------------------------------------------------*/
-.display-label, 
-.editor-label {
-    margin: 1em 0 0 0;
-}
-
-.display-field, 
-.editor-field {
-    margin: 0.5em 0 0 0;
-}
-
-.text-box {
-    width: 30em;
-}
-
-.text-box.multi-line {
-    height: 6.5em;
-}
-
-.tri-state {
-    width: 6em;
 }

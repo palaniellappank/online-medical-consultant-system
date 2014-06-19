@@ -27,12 +27,12 @@ namespace OMCS.Web.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Conversation conversation = db.Conversations.Find(id);
-            if (conversation == null)
+            ConversationDetail conDetail = db.ConversationDetails.FirstOrDefault(d => d.ConversationId == id);
+            if (conDetail == null)
             {
                 return HttpNotFound();
             }
-            return View(conversation);
+            return PartialView("_Details",conDetail);
         }
 
         //

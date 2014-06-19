@@ -31,7 +31,7 @@
         creditcard: "Please enter a valid credit card number.",
         equalTo: "Giá trị này không khớp.",
         accept: "Định dạng không phù hợp.",
-        maxlength: jQuery.validator.format("Please enter no more than {0} characters."),
+        maxlength: jQuery.validator.format("Độ dài không được quá {0} ký tự."),
         minlength: jQuery.validator.format("Please enter at least {0} characters."),
         rangelength: jQuery.validator.format("Please enter a value between {0} and {1} characters long."),
         range: jQuery.validator.format("Please enter a value between {0} and {1}."),
