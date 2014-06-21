@@ -13,7 +13,6 @@
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
-
         }
 
         protected override void Seed(OMCS.DAL.Model.OMCSDBContext context)
@@ -21,6 +20,108 @@
             var Admin = context.Roles.Where(
                 role => (role.RoleName.Equals("Admin"))
             ).FirstOrDefault();
+
+            var rolePatient = context.Roles.Where(role => role.RoleName.Equals("User")).FirstOrDefault();
+
+            Patient danhtran = new Patient
+            {
+                FirstName = "Danh", LastName = "Trần Cao", Username = "danhtran", Email = "caodanh@gmail.com", Password = "123456",
+                IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>(), Gender = "M", Birthday = new DateTime(1992, 2, 19),
+                Phone = "0933056722", PrimaryAddress = "Tiền gian", SecondaryAddress = "Quận 12", Ethnicity = "Kinh", Nationality = "Việt Nam",
+                Job = "Lập trình viên", WhereToWork = "FPT Software", ContactPerson = "Mỹ Linh", ContactPersonAddress = "1 Lý Thường Kiệt",
+                HealthInsuranceId = "234234VSD", HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1)
+            };
+
+            PersonalHealthRecord danhtranHealthRecord = new PersonalHealthRecord
+            {
+                Patient = danhtran, Height = 170, Weight = 70.5, EyeColor = "Đen", HairColor = "Đen", BloodType = "B",
+                AlcoholPerWeek = 1.2, AlcoholNumOfYear = 4, IsBeer = true, SmokePackPerWeek = 1, SmokeNumOfYear = 2,
+                SportName = "Đá banh", SportPerWeek = 4, ExerciseType = "Yoga", ExercisePerWeek = 2
+            };
+
+            Patient tuanMai = new Patient
+            {
+                FirstName = "Tuấn", LastName = "Mai Anh", Username = "tuanmai", Email = "tuanmai@gmail.com", Password = "123456",
+                IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>(), Gender = "M", Birthday = new DateTime(1992, 2, 19),
+                Phone = "0933056722", PrimaryAddress = "Tiền gian", SecondaryAddress = "Quận 12", Ethnicity = "Kinh", Nationality = "Việt Nam",
+                Job = "Lập trình viên", WhereToWork = "FPT Software", ContactPerson = "Mỹ Linh", ContactPersonAddress = "1 Lý Thường Kiệt",
+                HealthInsuranceId = "234234VSD", HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1)
+            };
+
+            PersonalHealthRecord tuanMaiHealthRecord = new PersonalHealthRecord
+            {
+                Patient = tuanMai, Height = 170, Weight = 70.5, EyeColor = "Đen", HairColor = "Đen", BloodType = "B",
+                AlcoholPerWeek = 1.2, AlcoholNumOfYear = 4, IsBeer = true, SmokePackPerWeek = 1, SmokeNumOfYear = 2,
+                SportName = "Đá banh", SportPerWeek = 4, ExerciseType = "Yoga", ExercisePerWeek = 2
+            };
+
+            Patient nguonNguyen = new Patient
+            {
+                FirstName = "Nguồn", LastName = "Nguyễn Hồng Ngọc", Username = "nguonnguyen", Email = "nguonnguyen@gmail.com", Password = "123456",
+                IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>(), Gender = "F", Birthday = new DateTime(1992, 2, 19),
+                Phone = "0933056722", PrimaryAddress = "Tiền gian", SecondaryAddress = "Quận 12", Ethnicity = "Kinh", Nationality = "Việt Nam",
+                Job = "Sinh Vien", WhereToWork = "Hoa Sen", ContactPerson = "Mỹ Linh", ContactPersonAddress = "1 Lý Thường Kiệt",
+                HealthInsuranceId = "234234VSD", HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1)
+            };
+
+            PersonalHealthRecord nguonNguyenHealthRecord = new PersonalHealthRecord
+            {
+                Patient = nguonNguyen, Height = 170, Weight = 70.5, EyeColor = "Đen", HairColor = "Đen", BloodType = "B",
+                AlcoholPerWeek = 1.2, AlcoholNumOfYear = 4, IsBeer = true, SmokePackPerWeek = 1, SmokeNumOfYear = 2,
+                SportName = "Cầu Lông", SportPerWeek = 4, ExerciseType = "Yoga", ExercisePerWeek = 2
+            };
+
+            Patient nhanNguyen = new Patient
+            {
+                FirstName = "Nhân", LastName = "Nguyễn Toàn", Username = "nhannguyen", Email = "nhannguyen@gmail.com", Password = "123456",
+                IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>(), Gender = "F", Birthday = new DateTime(1992, 2, 19),
+                Phone = "0933056722", PrimaryAddress = "Tiền gian", SecondaryAddress = "Quận 12", Ethnicity = "Kinh", Nationality = "Việt Nam",
+                Job = "Sinh Vien", WhereToWork = "Hoa Sen", ContactPerson = "Mỹ Linh", ContactPersonAddress = "1 Lý Thường Kiệt",
+                HealthInsuranceId = "234234VSD", HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1)
+            };
+
+            PersonalHealthRecord nhanNguyenHealthRecord = new PersonalHealthRecord
+            {
+                Patient = nhanNguyen, Height = 170, Weight = 70.5, EyeColor = "Đen", HairColor = "Đen", BloodType = "B",
+                AlcoholPerWeek = 1.2, AlcoholNumOfYear = 4, IsBeer = true, SmokePackPerWeek = 1, SmokeNumOfYear = 2,
+                SportName = "Cầu Lông", SportPerWeek = 4, ExerciseType = "Yoga", ExercisePerWeek = 2
+            };
+            
+            Patient linhNguyen = new Patient
+            {
+                FirstName = "Lịnh", LastName = "Nguyễn Nhật", Username = "linhnguyen", Email = "linhnguyen@gmail.com", Password = "123456",
+                IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>(), Gender = "M", Birthday = new DateTime(1992, 2, 19),
+                Phone = "0933056722", PrimaryAddress = "Quảng Ngãi", SecondaryAddress = "Quận 12", Ethnicity = "Kinh", Nationality = "Việt Nam",
+                Job = "Sinh Vien", WhereToWork = "F Soft", ContactPerson = "Mỹ Linh", ContactPersonAddress = "1 Lý Thường Kiệt",
+                HealthInsuranceId = "234234VSD", HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1)
+            };
+
+            PersonalHealthRecord linhNguyenHealthRecord = new PersonalHealthRecord
+            {
+                Patient = linhNguyen, Height = 170, Weight = 70.5, EyeColor = "Đen", HairColor = "Đen", BloodType = "B",
+                AlcoholPerWeek = 1.2, AlcoholNumOfYear = 4, IsBeer = true, SmokePackPerWeek = 1, SmokeNumOfYear = 2,
+                SportName = "Cầu Lông", SportPerWeek = 4, ExerciseType = "Yoga", ExercisePerWeek = 2
+            };
+
+            context.PersonalHealthRecords.Add(danhtranHealthRecord);
+            danhtran.Roles.Add(rolePatient);
+            context.Patients.Add(danhtran);
+
+            tuanMai.Roles.Add(rolePatient);
+            context.Patients.Add(tuanMai);
+            context.PersonalHealthRecords.Add(tuanMaiHealthRecord);
+
+            nguonNguyen.Roles.Add(rolePatient);
+            context.Patients.Add(nguonNguyen);
+            context.PersonalHealthRecords.Add(nguonNguyenHealthRecord);
+
+            linhNguyen.Roles.Add(rolePatient);
+            context.Patients.Add(linhNguyen);
+            context.PersonalHealthRecords.Add(linhNguyenHealthRecord);
+
+            nhanNguyen.Roles.Add(rolePatient);
+            context.Patients.Add(nhanNguyen);
+            context.PersonalHealthRecords.Add(nhanNguyenHealthRecord);
 
             if (Admin == null)
             {

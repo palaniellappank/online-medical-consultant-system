@@ -177,7 +177,9 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ConversationController.cs" />
     <Compile Include="Controllers\AdminTemplateController.cs" />
+    <Compile Include="Controllers\DoctorMedicalProfileController.cs" />
     <Compile Include="Controllers\FilmTypeController.cs" />
+    <Compile Include="Controllers\DoctorUserController.cs" />
     <Compile Include="Controllers\UserMedicalProfileController.cs" />
     <Compile Include="Controllers\UserConversationController.cs" />
     <Compile Include="Controllers\UserHealthRecordController.cs" />
@@ -190,6 +192,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DTO\PatientInformation.cs" />
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="DTO\LoginViewModel.cs" />
     <Compile Include="DTO\Security\BaseViewPage.cs" />
@@ -207,6 +210,7 @@
     <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.js" />
     <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.min.js" />
     <Content Include="Content\FormBuilder\js\templates\snippet\static-text.html" />
+    <Content Include="Content\ProfilePicture\Su.JPG" />
     <Content Include="Content\select2\select2-spinner.gif" />
     <Content Include="Content\select2\select2.png" />
     <Content Include="Content\select2\select2x2.png" />
@@ -469,6 +473,9 @@
     <Content Include="Views\AdminDoctor\Create.cshtml" />
     <Content Include="Views\AdminDoctor\Edit.cshtml" />
     <Content Include="Views\AdminDoctor\Index.cshtml" />
+    <Content Include="Views\DoctorUser\Index.cshtml" />
+    <Content Include="Views\DoctorMedicalProfile\Index.cshtml" />
+    <Content Include="Views\DoctorUser\_View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
