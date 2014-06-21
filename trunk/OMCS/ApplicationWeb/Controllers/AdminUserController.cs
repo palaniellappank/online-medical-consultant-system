@@ -27,8 +27,8 @@ namespace OMCS.Web.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.UserSortParam = String.IsNullOrEmpty(sortOrder) ? "User_desc" : "";
             ViewBag.DateSortParam = sortOrder == "Date" ? "Date_desc" : "Date";
-            ViewBag.IsActiveParam = sortOrder == "Active" ? "Active_desc" : "Active";
             ViewBag.NameSortParam = sortOrder == "Name" ? "Name_desc" : "Name";
+            ViewBag.PhoneSortParam = sortOrder == "Phone" ? "Phone_desc" : "Phone";
 
             if (searchString != null)
             {

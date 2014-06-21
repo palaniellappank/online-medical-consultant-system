@@ -23,5 +23,11 @@ namespace OMCS.Web
 
             return returnActive ? "active" : "";
         }
+
+        public static string GetPictureUrl(this HtmlHelper html, string type)
+        {
+            if ("Profile".Equals(type)) return "/Content/ProfilePicture/";
+            return "";
+        }
     }
 }

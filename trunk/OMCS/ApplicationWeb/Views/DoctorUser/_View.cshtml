@@ -1,0 +1,122 @@
+﻿@model OMCS.Web.DTO.PatientInformation
+@using OMCS.Web
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Chi tiết bệnh nhân</h4>
+      </div>
+
+      <div class="modal-body">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">@Html.DisplayFor(model => model.Patient.FullName)</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="@Html.GetPictureUrl("Profile")Su.jpg" class="img-circle">
+                   <div class="tabbable tabs-left">
+                     <ul class="nav nav-tabs">
+                      <li class="active"><a href="#a" data-toggle="tab">Thông tin cơ bản</a></li>
+                      <li><a href="#b" data-toggle="tab">Thông tin bệnh nhân</a></li>
+                      <li><a href="#c" data-toggle="tab">Sức khỏe cá nhân</a></li>
+                    </ul>
+                  </div>
+                </div>
+                
+
+
+                <div class=" col-md-9 col-lg-9 scrolable"> 
+                    <div class="tabbable tabs-left">
+                        <div class="tab-content">
+                         <div class="tab-pane active" id="a">
+                             <table class="table">
+                                <tbody>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Patient.Gender)</td>
+                                    <td>@Html.DisplayFor(model => model.Patient.Gender)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Patient.Birthday)</td>
+                                    <td>@Html.DisplayFor(model => model.Patient.Birthday)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Patient.Phone)</td>
+                                    <td>@Html.DisplayFor(model => model.Patient.Phone)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Patient.PrimaryAddress)</td>
+                                    <td>@Html.DisplayFor(model => model.Patient.PrimaryAddress)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Patient.SecondaryAddress)</td>
+                                    <td>@Html.DisplayFor(model => model.Patient.SecondaryAddress)</td>
+                                  </tr>
+                                 </tbody>
+                                </table>
+                         </div>
+                         <div class="tab-pane" id="b">
+                             <table class="table">
+                                <tbody>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Patient.Nationality)</td>
+                                    <td>@Html.DisplayFor(model => model.Patient.Nationality)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Patient.Ethnicity)</td>
+                                    <td>@Html.DisplayFor(model => model.Patient.Ethnicity)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Patient.Job)</td>
+                                    <td>@Html.DisplayFor(model => model.Patient.Job)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Patient.WhereToWork)</td>
+                                    <td>@Html.DisplayFor(model => model.Patient.WhereToWork)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Patient.ContactPerson)</td>
+                                    <td>@Html.DisplayFor(model => model.Patient.ContactPerson)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Patient.ContactPersonAddress)</td>
+                                    <td>@Html.DisplayFor(model => model.Patient.ContactPersonAddress)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Patient.HealthInsuranceIssued)</td>
+                                    <td>@Html.DisplayFor(model => model.Patient.HealthInsuranceIssued)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Patient.HealthInsuranceDateExpired)</td>
+                                    <td>@Html.DisplayFor(model => model.Patient.HealthInsuranceDateExpired)</td>
+                                  </tr>
+                                 </tbody>
+                                </table>
+                         </div>
+                         <div class="tab-pane" id="c">
+                             <table class="table">
+                                <tbody>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.Height)</td>
+                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.Weight)</td>
+                                  </tr>
+                                 </tbody>
+                                </table>
+                            </div>
+                         </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+                <div class="panel-footer">
+                    <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
+                    <span class="pull-right">
+                        <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                        <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                    </span>
+                </div>
+          </div>
+      </div>
+    </div>
+  </div>

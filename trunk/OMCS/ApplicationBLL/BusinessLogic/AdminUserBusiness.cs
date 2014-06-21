@@ -37,6 +37,12 @@ namespace OMCS.BLL
                 case "Name_desc":
                     users = users.OrderByDescending(u => u.FullName);
                     break;
+                case "Phone":
+                    users = users.OrderBy(u => u.Phone);
+                    break;
+                case "Phone_desc":
+                    users = users.OrderByDescending(u => u.Phone);
+                    break;
                 default:
                     users = users.OrderBy(u => u.Username);
                     break;
@@ -48,8 +54,9 @@ namespace OMCS.BLL
         {
             if (!String.IsNullOrEmpty(searchString))
             {
-                users = users.Where(u => u.Username.ToUpper().Contains(searchString.ToUpper())
-                                    || u.FullName.ToUpper().Contains(searchString.ToUpper()));
+                users = users.Where(u => (!String.IsNullOrWhiteSpace(u.Username) && (u.Username.ToUpper().Contains(searchString.ToUpper())))
+                                    || (!String.IsNullOrWhiteSpace(u.FullName) && (u.FullName.ToUpper().Contains(searchString.ToUpper())))
+                                    || (!String.IsNullOrWhiteSpace(u.Phone) && (u.Phone.ToUpper().Contains(searchString.ToUpper()))));
             }
         }
     }

@@ -24,6 +24,11 @@ namespace OMCS.BLL
             {
                 dynamic snippet = new JObject();
                 snippet.title = customSnippet.Title;
+                if (snippet.title == "Static Text")
+                {
+                    snippet.snippettype = customSnippet.SnippetType.ToString();
+                    snippet.fieldname = customSnippet.SnippetFieldName;
+                }
                 snippet.fields = new JObject() as dynamic;
                 var listCustomSnippetFields = from snippetField in db.CustomSnippetFields
                                               where snippetField.CustomSnippetId == customSnippet.CustomSnippetId
