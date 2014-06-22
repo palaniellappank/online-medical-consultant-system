@@ -64,9 +64,9 @@
   <ItemGroup>
     <Compile Include="CustomMembershipProvider.cs" />
     <Compile Include="CustomRoleProvider.cs" />
-    <Compile Include="Migrations\201406101645101_initial.cs" />
-    <Compile Include="Migrations\201406101645101_initial.Designer.cs">
-      <DependentUpon>201406101645101_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201406220128384_init.cs" />
+    <Compile Include="Migrations\201406220128384_init.Designer.cs">
+      <DependentUpon>201406220128384_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Conversation.cs" />
@@ -98,8 +98,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201406101645101_initial.resx">
-      <DependentUpon>201406101645101_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201406220128384_init.resx">
+      <DependentUpon>201406220128384_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

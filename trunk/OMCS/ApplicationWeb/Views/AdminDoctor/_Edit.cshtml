@@ -7,7 +7,7 @@
             <h4 class="modal-title" id="myModalLabel">Cập Nhật</h4>
         </div>
 
-        @using (Ajax.BeginForm("Edit", "AdminUser", FormMethod.Post,
+        @using (Ajax.BeginForm("Edit", "AdminDoctor", FormMethod.Post,
                     new AjaxOptions
                     {
                         InsertionMode = InsertionMode.Replace,
@@ -67,8 +67,8 @@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Birthday)
-                    @Html.TextBoxFor(model => model.Birthday, "{0:dd-MM-yyyy}", new { type = "date", @class = "form-control datepicker" })
-                    @Html.EditorFor(model => model.Birthday)
+                    @Html.TextBoxFor(model => model.Birthday, new { type = "date", @class = "form-control" })
+                    
                 </div>
 
                 <div class="form-group">
@@ -100,7 +100,7 @@
             rules: {
                 Username: {
                     remote: {
-                        url: "@Url.Action("CheckExistUsername", "AdminUser", new { id = Model.UserId })",
+                        url: "@Url.Action("CheckExistUsername", "AdminDoctor", new { id = Model.UserId })",
                         timeout: 5000,
                         type: "POST"
                     },
@@ -108,7 +108,7 @@
                 },
                 Email: {
                     remote: {
-                        url: "@Url.Action("CheckExistEmail", "AdminUser", new { id = Model.UserId })",
+                        url: "@Url.Action("CheckExistEmail", "AdminDoctor", new { id = Model.UserId })",
                         timeout: 5000,
                         type: "POST"
                     }

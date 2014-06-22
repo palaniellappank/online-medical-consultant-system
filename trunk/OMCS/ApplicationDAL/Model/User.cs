@@ -61,7 +61,6 @@ namespace OMCS.DAL.Model
         public String ProfilePicture { get; set; }
 
         [Display(Name = "Giới tính")]
-        [StringLength(1)]
         public String Gender { get; set; }
 
         [DataType(DataType.Date)]

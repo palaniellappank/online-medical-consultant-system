@@ -1,0 +1,76 @@
+﻿@model OMCS.DAL.Model.User
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Tạo Mới</h4>
+        </div>
+
+        @using (Ajax.BeginForm("Create", "AdminDoctor", FormMethod.Post,
+                    new AjaxOptions
+                    {
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "POST",
+                        UpdateTargetId = "list-of-user"
+                    },
+                    new { id = "create-form" }))
+        {
+            @Html.ValidationSummary(true)
+            @Html.AntiForgeryToken()
+            <div class="modal-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Username)
+                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control required" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email)
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control required email" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password)
+                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control required" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName)
+                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control required" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName)
+                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control required" })
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Lưu</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#create-form").validate({
+            rules: {
+                Username: {
+                    remote: {
+                        url: "@Url.Action("CheckExistUsername", "AdminDoctor")",
+                        timeout: 5000,
+                        type: "POST"
+                    }
+                },
+                Email: {
+                    remote: {
+                        url: "@Url.Action("CheckExistEmail", "AdminDoctor")",
+                        timeout: 5000,
+                        type: "POST"
+                    }
+                }
+            }
+        });
+    });
+</script>
