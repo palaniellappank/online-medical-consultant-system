@@ -19,7 +19,13 @@ namespace OMCS.DAL.Model
         public int PatientId { get; set; }
         public virtual Patient Patient { get; set; }
 
+        [Display(Name = "Mã Bệnh Án")]
         public String MedicalProfileKey { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Ngày Tạo")]
+        public DateTime CreatedDate { get; set; }
 
         [ForeignKey("MedicalProfileTemplate")]
         public int MedicalProfileTemplateId { get; set; }

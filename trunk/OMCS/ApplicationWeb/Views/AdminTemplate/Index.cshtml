@@ -18,29 +18,30 @@
     </a>
 </p>
 <table class="table table-striped table-hover" id="list-of-template">
-    <tr>
-        <th>
-            Tên mẫu hồ sơ
-        </th>
-        <th>
-            Thao tác
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr class="info">
-        <td>
-            @Html.DisplayFor(modelItem => item.MedicalProfileTemplateName)
-        </td>
-        <td>
-            <a class="btn btn-primary" target="_blank" href="@Url.Action("Editor",new { id = item.MedicalProfileTemplateId})">Sửa cấu trúc</a>
-            <button class="btn btn-primary edit-button" data-id="@item.MedicalProfileTemplateId">Sửa</button>
-            <a class="btn btn-danger delete-button" data-id="@item.MedicalProfileTemplateId">Xóa</a>
-        </td>
-    </tr>
-}
-
+    <thead>
+        <tr>
+            <th>
+                Tên mẫu hồ sơ
+            </th>
+            <th>
+                Thao tác
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedicalProfileTemplateName)
+                </td>
+                <td>
+                    <a class="btn btn-primary" target="_blank" href="@Url.Action("Editor",new { id = item.MedicalProfileTemplateId})">Sửa cấu trúc</a>
+                    <button class="btn btn-primary edit-button" data-id="@item.MedicalProfileTemplateId">Sửa</button>
+                    <a class="btn btn-danger delete-button" data-id="@item.MedicalProfileTemplateId">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 <div class="modal fade in" id="edit-model">

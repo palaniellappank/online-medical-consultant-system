@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -130,6 +131,98 @@ namespace OMCS.BLL
                 db.Entry(customSnippet).State = EntityState.Modified;
                 db.SaveChanges();
             }
+        }
+
+        public string UpdateMedicalProfile(int id, int medicalProfileTemplateId)
+        {
+            var medicalProfile = _db.MedicalProfiles.Where(
+                mp => ((mp.PatientId == id) &&
+                    (mp.MedicalProfileTemplateId == medicalProfileTemplateId))
+            ).FirstOrDefault();
+            if (medicalProfile == null)
+            {
+                _db.MedicalProfiles.Add(new MedicalProfile
+                {
+                    PatientId = id,
+                    MedicalProfileTemplateId = medicalProfileTemplateId,
+                    CreatedDate = DateTime.UtcNow
+                });
+                _db.SaveChanges();
+            }
+            var listCustomSnippets = _db.CustomSnippets.Where(
+                s => s.MedicalProfileTemplateId == medicalProfileTemplateId
+            ).ToList();
+            dynamic result = new JArray();
+            foreach (var customSnippet in listCustomSnippets)
+            {
+                dynamic snippet = new JObject();
+                snippet.title = customSnippet.Title;
+                snippet.fields = new JObject() as dynamic;
+                Debug.WriteLine(customSnippet.SnippetType);
+                var valueStatic = "";
+                if (customSnippet.SnippetType != SnippetType.Custom)
+                {
+                    switch (customSnippet.SnippetType)
+                    {
+                        case SnippetType.User:
+                            var user = _db.Users.Where(pa => pa.UserId == id).SingleOrDefault();
+                            Type type = typeof(User);
+                            valueStatic = type.GetProperty
+                                (customSnippet.SnippetFieldName, BindingFlags.IgnoreCase 
+                                | BindingFlags.Public 
+                                | BindingFlags.Instance).GetValue(user,null).ToString();
+                            break;
+                        case SnippetType.Patient:
+                            var patient = _db.Patients.Where(pa => pa.UserId == id).SingleOrDefault();
+                            type = typeof(Patient);
+                            valueStatic = type.GetProperty
+                                (customSnippet.SnippetFieldName, BindingFlags.IgnoreCase 
+                                | BindingFlags.Public
+                                | BindingFlags.Instance).GetValue(patient, null).ToString();
+                            break;
+                        case SnippetType.PersonalHealthRecord:
+                            var personalHealthRecord = _db.PersonalHealthRecords.Where(pa => pa.PatientId == id).SingleOrDefault();
+                            type = typeof(PersonalHealthRecord);
+                            valueStatic = type.GetProperty
+                                (customSnippet.SnippetFieldName, BindingFlags.IgnoreCase 
+                                | BindingFlags.Public
+                                | BindingFlags.Instance).GetValue(personalHealthRecord, null).ToString();
+                            break;
+                    }
+                   // Debug.WriteLine(snippet.value);
+                }
+                var listCustomSnippetFields = from snippetField in db.CustomSnippetFields
+                                              where snippetField.CustomSnippetId == customSnippet.CustomSnippetId
+                                              select snippetField;
+                foreach (var customSnippetField in listCustomSnippetFields)
+                {
+                    dynamic metadata = new JObject();
+                    dynamic value;
+                    if (customSnippetField.Value.Contains("[") && customSnippetField.Value.Contains("]"))
+                    {
+                        value = JArray.Parse(customSnippetField.Value);
+                    }
+                    else
+                    {
+                        value = customSnippetField.Value;
+                    }
+                    metadata.label = customSnippetField.Label;
+                    metadata.type = customSnippetField.Type;
+                    metadata.value = value;
+                    metadata.name = customSnippetField.Name;
+                    snippet.fields.Add(customSnippetField.FieldName, metadata);
+                }
+                if (!String.IsNullOrEmpty(valueStatic))
+                {
+                    dynamic metadata = new JObject();
+                    metadata.value = valueStatic;
+                    snippet.fields.Add("value", metadata);
+                }
+                result.Add(snippet);
+            }
+            Debug.WriteLine("Haha ne");
+            string str = ((object)result).ToString();
+            return str;
         }
     }
 }

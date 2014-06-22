@@ -232,11 +232,27 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap3-editable\css\bootstrap-editable.css" />
     <Content Include="Content\bootstrap3-editable\img\clear.png" />
     <Content Include="Content\bootstrap3-editable\img\loading.gif" />
     <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.js" />
     <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.min.js" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\datepicker.html" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\formname.html" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\multiplecheckboxes.html" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\multiplecheckboxesinline.html" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\multipleradios.html" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\multipleradiosinline.html" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\selectbasic.html" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\selectmultiple.html" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\snippet-templates.js" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\static-text.html" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\textarea.html" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\textinput.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\static-text.html" />
     <Content Include="Content\ProfilePicture\Su.JPG" />
     <Content Include="Content\select2\select2-spinner.gif" />
@@ -311,10 +327,6 @@
     <Content Include="Content\FormBuilder\js\views\tab-snippet.js" />
     <Content Include="Content\FormBuilder\js\views\tab.js" />
     <Content Include="Content\FormBuilder\js\views\temp-snippet.js" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap-flatly.css" />
     <Content Include="Content\bootply.css" />
     <Content Include="Content\bootply-admin.css" />
@@ -390,15 +402,17 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\FormBuilder\js\data\buttons.json" />
     <Content Include="Content\FormBuilder\js\data\input.json" />
     <Content Include="Content\FormBuilder\js\data\radio.json" />
     <Content Include="Content\FormBuilder\js\data\select.json" />
     <Content Include="Content\FormBuilder\js\data\region.json" />
     <Content Include="Content\FormBuilder\js\data\data.json" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -504,6 +518,7 @@
     <Content Include="Views\DoctorUser\Index.cshtml" />
     <Content Include="Views\DoctorMedicalProfile\Index.cshtml" />
     <Content Include="Views\DoctorUser\_View.cshtml" />
+    <Content Include="Views\DoctorUser\UpdateMedicalProfile.cshtml" />
 	<Content Include="Views\UserConversation\Chat.cshtml" />
     <Content Include="Views\Shared\ChatLayout.cshtml" />
     <Content Include="Views\UserConversation\ShowConversation.cshtml" />

@@ -1,6 +1,6 @@
 ﻿@model OMCS.Web.DTO.PatientInformation
 @using OMCS.Web
-<div class="modal-dialog">
+<div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -17,9 +17,10 @@
                 <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="@Html.GetPictureUrl("Profile")Su.jpg" class="img-circle">
                    <div class="tabbable tabs-left">
                      <ul class="nav nav-tabs">
-                      <li class="active"><a href="#a" data-toggle="tab">Thông tin cơ bản</a></li>
-                      <li><a href="#b" data-toggle="tab">Thông tin bệnh nhân</a></li>
-                      <li><a href="#c" data-toggle="tab">Sức khỏe cá nhân</a></li>
+                      <li class="active"><a href="#basicInfo" data-toggle="tab">Thông tin cơ bản</a></li>
+                      <li><a href="#patientInfo" data-toggle="tab">Thông tin bệnh nhân</a></li>
+                      <li><a href="#healthRecord" data-toggle="tab">Sức khỏe cá nhân</a></li>
+                      <li><a href="#medicalRecord" data-toggle="tab">Bệnh án</a></li>
                     </ul>
                   </div>
                 </div>
@@ -29,7 +30,7 @@
                 <div class=" col-md-9 col-lg-9 scrolable"> 
                     <div class="tabbable tabs-left">
                         <div class="tab-content">
-                         <div class="tab-pane active" id="a">
+                         <div class="tab-pane active" id="basicInfo">
                              <table class="table">
                                 <tbody>
                                   <tr>
@@ -55,7 +56,7 @@
                                  </tbody>
                                 </table>
                          </div>
-                         <div class="tab-pane" id="b">
+                         <div class="tab-pane" id="patientInfo">
                              <table class="table">
                                 <tbody>
                                   <tr>
@@ -93,19 +94,108 @@
                                  </tbody>
                                 </table>
                          </div>
-                         <div class="tab-pane" id="c">
+                         <div class="tab-pane" id="healthRecord">
                              <table class="table">
                                 <tbody>
                                   <tr>
                                     <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.Height)</td>
                                     <td>@Html.DisplayFor(model => model.PersonalHealthRecord.Weight)</td>
                                   </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.EyeColor)</td>
+                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.EyeColor)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.HairColor)</td>
+                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.HairColor)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.BloodType)</td>
+                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.BloodType)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.AlcoholPerWeek)</td>
+                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.AlcoholPerWeek)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.AlcoholNumOfYear)</td>
+                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.AlcoholNumOfYear)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.SmokePackPerWeek)</td>
+                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.SmokePackPerWeek)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.SmokeNumOfYear)</td>
+                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.SmokeNumOfYear)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.SportName)</td>
+                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.SportName)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.SportPerWeek)</td>
+                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.SportPerWeek)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.ExerciseType)</td>
+                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.ExerciseType)</td>
+                                  </tr>
+                                  <tr>
+                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.ExercisePerWeek)</td>
+                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.ExercisePerWeek)</td>
+                                  </tr>
                                  </tbody>
-                                </table>
-                            </div>
+                             </table>
                          </div>
+                        <div class="tab-pane" id="medicalRecord">
+                            @if (Model.MedicalProfiles.Count == 0)
+                            {
+                                <div class="alert alert-info">Bệnh nhân này chưa có Hồ Sơ Bệnh Án
+                                    <br /> Hãy là người tạo đầu tiên!
+                                </div>
+                            }
+                            <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <h3 class="panel-title">Thêm mới Hồ Sơ Bệnh Án</h3>
+                              </div>
+                              <div class="panel-body">
+                                <div class="form-group">
+                                  <label class="col-md-3 control-label" style="padding-top: 8px;">Loại Bệnh Án</label>
+                                  <div class="col-md-7">                     
+                                      @Html.DropDownList("1", (SelectList)ViewBag.medicalProfileTemplateList, new { @class="form-control", @id = "medicalProfileTemplate"})
+                                  </div>
+                                  <a class="btn btn-primary" title="Tạo" id="newMedicalProfileBtn" target="_blank">                     
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+				            <ul class="event-list">
+                                @foreach (var item in Model.MedicalProfiles) {
+					                <li>
+						                <time>
+							                <span class="day">@item.CreatedDate.Day</span>
+							                <span class="month">Tháng @item.CreatedDate.Month</span>
+							                <span class="year">@item.CreatedDate.Year</span>
+						                </time>
+						                <div class="info">
+							                <h2 class="title">@Html.DisplayFor(modelItem => item.MedicalProfileTemplate.MedicalProfileTemplateName)</h2>
+							                <p class="desc">@Html.DisplayNameFor(modelItem => item.MedicalProfileKey): @Html.DisplayFor(modelItem => item.MedicalProfileKey)</p>
+						                </div>
+						                <div class="social">
+							                <ul>
+								                <li class="twitter" style="width:34%;"><a href="#twitter" target="_blank"><span class="glyphicon glyphicon-search"></span></a></li>
+								                <li class="google-plus" style="width:33%;"><a href="#google-plus" target="_blank"><span class="glyphicon glyphicon-pencil"></span></a></li>
+							                </ul>
+						                </div>
+					                </li>
+                                }
+				            </ul>
                         </div>
-                    </div>
+                     </div>
+                   </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -116,7 +206,6 @@
                         <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
                     </span>
                 </div>
-          </div>
-      </div>
-    </div>
-  </div>
+       </div>
+   </div>
+</div>

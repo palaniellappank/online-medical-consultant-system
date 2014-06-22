@@ -11,5 +11,6 @@ namespace OMCS.Web.DTO
     {
         public Patient Patient { get; set; }
         public PersonalHealthRecord PersonalHealthRecord { get; set; }
+        public List<MedicalProfile> MedicalProfiles { get; set; }
     }
 }
