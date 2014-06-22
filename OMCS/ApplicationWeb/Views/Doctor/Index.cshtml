@@ -2,3 +2,31 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_DoctorLayout.cshtml";
 }
+
+<script src="~/Scripts/ui/jquery.ui.core.js"></script>
+<script src="~/Scripts/ui/jquery.ui.widget.js"></script>
+<script src="~/Scripts/ui/jquery.ui.mouse.js"></script>
+<script src="~/Scripts/ui/jquery.ui.draggable.js"></script>
+<script src="~/Scripts/ui/jquery.ui.resizable.js"></script>
+<script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
+<script src="~/signalr/hubs"></script>
+
+<script>
+
+    $(function () {
+        // Declare a proxy to reference the hub. 
+        var chatHub = $.connection.chatHub;
+        registerClientMethods(chatHub);
+        // Start Hub
+        $.connection.hub.start().done(function () {
+            chatHub.server.connect("Doctor 1");
+        });
+    });
+    function registerClientMethods(chatHub) {
+        // Calls when user successfully logged in
+
+        chatHub.client.sendPrivateMessageToDoctor = function (countMessage) {
+            $("#countmessage").html(countMessage);
+        }
+    }
+</script>

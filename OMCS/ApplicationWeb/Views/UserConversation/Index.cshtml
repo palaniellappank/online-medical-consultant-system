@@ -3,5 +3,557 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<h1>User DashBoard</h1>
+@model IEnumerable<OMCS.DAL.Model.User>
+<link type="text/css" rel="stylesheet" href="~/Css/ChatStyle.css" />
+<link rel="stylesheet" href="~/Css/JQueryUI/themes/base/jquery.ui.all.css">
+
+<!--Script references. -->
+<script src="~/Scripts/jquery-1.9.0.js"></script>
+<script src="~/Scripts/underscore.js"></script>
+<script src="~/Scripts/ui/jquery.ui.core.js"></script>
+<script src="~/Scripts/ui/jquery.ui.widget.js"></script>
+<script src="~/Scripts/ui/jquery.ui.mouse.js"></script>
+<script src="~/Scripts/ui/jquery.ui.draggable.js"></script>
+<script src="~/Scripts/ui/jquery.ui.resizable.js"></script>
+<script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<style type="text/css">
+    /* Css for chatbox */
+    .chat
+    {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+        .chat li
+        {
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px dotted #B3A9A9;
+        }
+
+            .chat li.left .chat-body
+            {
+                margin-left: 60px;
+            }
+
+            .chat li.right .chat-body
+            {
+                margin-right: 60px;
+            }
+
+
+            .chat li .chat-body p
+            {
+                margin: 0;
+                color: #777777;
+            }
+
+        .panel .slidedown .glyphicon, .chat .glyphicon
+        {
+            margin-right: 5px;
+        }
+
+    .panel-body
+    {
+        overflow-y: scroll;
+        height: 250px;
+    }
+
+    /* Css for list contact */
+    .panel > .list-group .list-group-item:first-child
+    {
+        /*border-top: 1px solid rgb(204, 204, 204);*/
+    }
+
+    @@media (max-width: 767px)
+    {
+        .visible-xs
+        {
+            display: inline-block !important;
+        }
+
+        .block
+        {
+            display: block !important;
+            width: 100%;
+            height: 1px !important;
+        }
+    }
+
+    #back-to-bootsnipp
+    {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+    }
+
+
+    .c-search > .form-control
+    {
+        border-radius: 0px;
+        border-width: 0px;
+        border-bottom-width: 1px;
+        font-size: 1.3em;
+        padding: 12px 12px;
+        height: 44px;
+        outline: none !important;
+    }
+
+        .c-search > .form-control:focus
+        {
+            outline: 0px !important;
+            -webkit-appearance: none;
+            box-shadow: none;
+        }
+
+    .c-search > .input-group-btn .btn
+    {
+        border-radius: 0px;
+        border-width: 0px;
+        border-left-width: 1px;
+        border-bottom-width: 1px;
+        height: 44px;
+    }
+
+
+    .c-list
+    {
+        padding: 0px;
+        min-height: 44px;
+    }
+
+    .title
+    {
+        display: inline-block;
+        font-size: 1.7em;
+        font-weight: bold;
+        padding: 5px 15px;
+    }
+
+    ul.c-controls
+    {
+        list-style: none;
+        margin: 0px;
+        min-height: 44px;
+    }
+
+        ul.c-controls li
+        {
+            margin-top: 8px;
+            float: left;
+        }
+
+            ul.c-controls li a
+            {
+                font-size: 1.7em;
+                padding: 11px 10px 6px;
+            }
+
+                ul.c-controls li a i
+                {
+                    min-width: 24px;
+                    text-align: center;
+                }
+
+                ul.c-controls li a:hover
+                {
+                    background-color: rgba(51, 51, 51, 0.2);
+                }
+
+    .c-toggle
+    {
+        font-size: 1.7em;
+    }
+
+    .name
+    {
+        font-size: 1.7em;
+        font-weight: 700;
+    }
+
+    .speciaty
+    {
+        font-size: 1.0em;
+        color: #3498db;
+    }
+
+    .c-info
+    {
+        padding: 5px 10px;
+        font-size: 1.25em;
+    }
+
+    #contact-list
+    {
+        height: 400px;
+        overflow-y: scroll;
+    }
+
+    .list-group-item:hover
+    {
+        background-color: #eeecec;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <h1>Tư vấn trực tuyến
+    </h1>
+    <hr />
+    <input id="txtNickName" class="textBox" value="@ViewBag.Username" type="hidden"/>
+    <div class="row" id="chatbox">
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading c-list">
+                    <span class="title">Danh sách bác sĩ</span>
+                    <ul class="pull-right c-controls">
+                        <li><a href="#" class="hide-search" data-command="toggle-search" data-toggle="tooltip" data-placement="top" title="Toggle Search"><i class="glyphicon glyphicon-cog"></i></a></li>
+                    </ul>
+                </div>
+
+                <div class="row" style="display: none;">
+                    <div class="col-xs-12">
+                        <div class="input-group c-search">
+                            <input type="text" class="form-control" id="contact-list-search">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-group" id="contact-list">
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div id="divChat" class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment"></span>Tư vấn với bác sĩ
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <ul class="dropdown-menu slidedown">
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-refresh"></span>Refresh</a></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-ok-sign"></span>Available</a></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-remove"></span>Busy</a></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-time"></span>
+                                Away</a></li>
+                            <li class="divider"></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-off"></span>
+                                Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <ul class="chat">
+                        <li class="left clearfix"><span class="chat-img pull-left">
+                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                    dolor, quis ullamcorper ligula sodales.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="right clearfix"><span class="chat-img pull-right">
+                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
+                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                    dolor, quis ullamcorper ligula sodales.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="left clearfix"><span class="chat-img pull-left">
+                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                    dolor, quis ullamcorper ligula sodales.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="right clearfix"><span class="chat-img pull-right">
+                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>15 mins ago</small>
+                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                    dolor, quis ullamcorper ligula sodales.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btn-chat">
+                                Send</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script id="doctor-list-template" type="text/template">
+    <%
+        _.each(doctors, function(doctor){
+    %>
+    <li class="list-group-item">
+        <div class="col-xs-12 col-sm-3">
+            <img src="http://api.randomuser.me/portraits/men/97.jpg" alt="Seth Frazier" class="img-responsive img-circle" />
+        </div>
+        <div class="col-xs-12 col-sm-9">
+            <input class="username" type="hidden" value="<%= doctor.UserName %>" />
+            <span class="name"><%= doctor.FullName %></span><br />
+            <span class="speciaty"><%= doctor.SpeciatyField %></span><br />
+            <% if (doctor.IsOnline) {
+            %>
+                <i class="glyphicon glyphicon-ok" style="position: absolute; right: 0; top: 40px; color: #2980b9; font-size: 1.2em;"></i>
+            <% } %>
+        </div>
+        <div class="clearfix"></div>
+    </li>
+    <%
+        });
+    %>  
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        // Declare a proxy to reference the hub. 
+        var chatHub = $.connection.chatHub;
+        registerClientMethods(chatHub);
+        $("#divChat").hide();
+        // Start Hub
+        $.connection.hub.start().done(function () {
+            chatHub.server.connectPatient($("#txtNickName").val());
+            registerEvents(chatHub);
+        });
+    });
+
+    function registerEvents(chatHub) {
+
+        $('#btnSendMsg').click(function () {
+            var msg = $("#txtMessage").val();
+            if (msg.length > 0) {
+                var userName = $('#hdUserName').val();
+                chatHub.server.sendMessageToAll(userName, msg);
+                $("#txtMessage").val('');
+            }
+        });
+
+        $("#txtNickName").keypress(function (e) {
+            if (e.which == 13) {
+                $("#btnStartChat").click();
+            }
+        });
+
+        $("#txtMessage").keypress(function (e) {
+            if (e.which == 13) {
+                $('#btnSendMsg').click();
+            }
+        });
+    }
+
+    function registerClientMethods(chatHub) {
+        // Calls when user successfully logged in
+        chatHub.client.onConnected = function (id, userName, doctors) {
+            $('#hdId').val(id);
+            $('#hdUserName').val(userName);
+            $('#spanUser').html(userName);
+            window.doctor = doctors[0];
+            var template = $("#doctor-list-template").html();
+            $("#contact-list").html(_.template(template, { doctors: doctors }));
+            $(".list-group-item").click(function (e) {
+                $("#divChat").show();
+                var username = $(this).find(".username").val();
+                chatHub.server.getMessageFrom(username);
+            });
+        }
+
+        // On New User Connected
+        chatHub.client.onGetMessage = function (doctorDetail, messageDetails) {
+            console.log(doctorDetail);
+            console.log(messageDetails);
+        }
+
+        // On New User Connected
+        chatHub.client.onNewUserConnected = function (id, name) {
+            AddUser(chatHub, id, name);
+        }
+
+        // On User Disconnected
+        chatHub.client.onUserDisconnected = function (id, userName) {
+            $('#' + id).remove();
+            var ctrId = 'private_' + id;
+            $('#' + ctrId).remove();
+            var disc = $('<div class="disconnect">"' + userName + '" đã thoát.</div>');
+            $(disc).hide();
+            $('#divusers').prepend(disc);
+            $(disc).fadeIn(200).delay(2000).fadeOut(200);
+        }
+
+        chatHub.client.messageReceived = function (userName, message) {
+            AddMessage(userName, message);
+        }
+
+
+        chatHub.client.sendPrivateMessage = function (windowId, fromUserName, message) {
+            var ctrId = 'private_' + windowId;
+            if ($('#' + ctrId).length == 0) {
+                createPrivateChatWindow(chatHub, windowId, ctrId, fromUserName);
+            }
+            $('#' + ctrId).find('#divMessage').append('<div class="message"><span class="userName">' + fromUserName + '</span>: ' + message + '</div>');
+
+            // set scrollbar
+            var height = $('#' + ctrId).find('#divMessage')[0].scrollHeight;
+            $('#' + ctrId).find('#divMessage').scrollTop(height);
+        }
+    }
+
+    function AddUser(chatHub, id, name) {
+        var userId = $('#hdId').val();
+        var code = "";
+        if (userId == id) {
+            code = $('<div class="loginUser">' + name + "</div>");
+        }
+        else {
+            code = $('<a id="' + id + '" class="user" >' + name + '<a>');
+            $(code).dblclick(function () {
+                var id = $(this).attr('id');
+                if (userId != id)
+                    OpenPrivateChatWindow(chatHub, id, name);
+            });
+        }
+
+        $("#divusers").append(code);
+
+    }
+
+    function AddMessage(userName, message) {
+        $('#divChatWindow').append('<div class="message"><span class="userName">' + userName + '</span>: ' + message + '</div>');
+        var height = $('#divChatWindow')[0].scrollHeight;
+        $('#divChatWindow').scrollTop(height);
+    }
+
+    function OpenPrivateChatWindow(chatHub, id, userName) {
+        var ctrId = 'private_' + id;
+        if ($('#' + ctrId).length > 0) return;
+        createPrivateChatWindow(chatHub, id, ctrId, userName);
+    }
+
+    function createPrivateChatWindow(chatHub, userId, ctrId, userName) {
+        var div = '<div id="' + ctrId + '" class="ui-widget-content draggable" rel="0">' +
+                   '<div class="header">' +
+                      '<div  style="float:right;">' +
+                          '<img id="imgDelete"  style="cursor:pointer;" src="/Images/delete.png"/>' +
+                       '</div>' +
+                       '<span class="selText" rel="0">' + userName + '</span>' +
+                   '</div>' +
+                   '<div id="divMessage" class="messageArea">' +
+
+                   '</div>' +
+                   '<div class="buttonBar">' +
+                      '<input id="txtPrivateMessage" class="msgText" type="text"   />' +
+                      '<input type="hidden" id="txtconversationID" class="msgText" type="text" value="11"   />' +
+                      '<input type="hidden" id="txtusername" class="msgText" type="text" value="@ViewBag.Username"   />' +
+                      '<input id="btnSendMessage" class="submitButton button" type="button" value="Send"   />' +
+                   '</div>' +
+                '</div>';
+            var $div = $(div);
+
+        // DELETE BUTTON IMAGE
+            $div.find('#imgDelete').click(function () {
+                $('#' + ctrId).remove();
+            });
+
+        // Send Button event
+            $div.find("#btnSendMessage").click(function () {
+                $textBox = $div.find("#txtPrivateMessage");
+                $conversationID = $div.find("#txtconversationID");
+                $usernameChat = $div.find("#txtusername");
+                var msg = $textBox.val();
+                var conversation = $conversationID.val();
+                var user = $usernameChat.val();
+                if (msg.length > 0) {
+                    chatHub.server.sendPrivateMessage(userId, msg, conversation, user);
+                    $textBox.val('');
+                }
+            });
+
+        // Text Box event
+            $div.find("#txtPrivateMessage").keypress(function (e) {
+                if (e.which == 13) {
+                    $div.find("#btnSendMessage").click();
+                }
+            });
+
+            AddDivToContainer($div);
+
+        }
+
+        function AddDivToContainer($div) {
+            $('#divContainer').prepend($div);
+            $div.draggable({
+                handle: ".header",
+                stop: function () {
+                }
+            });
+        }
+
+        //$(function () {
+        //    $('[data-toggle="tooltip"]').tooltip();
+
+        //    $('[data-command="toggle-search"]').on('click', function (event) {
+        //        event.preventDefault();
+        //        $(this).toggleClass('hide-search');
+
+        //        if ($(this).hasClass('hide-search')) {
+        //            $('.c-search').closest('.row').slideUp(100);
+        //        } else {
+        //            $('.c-search').closest('.row').slideDown(100);
+        //        }
+        //    })
+
+        //    $('#contact-list').searchable({
+        //        searchField: '#contact-list-search',
+        //        selector: 'li',
+        //        childSelector: '.col-xs-12',
+        //        show: function (elem) {
+        //            elem.slideDown(100);
+        //        },
+        //        hide: function (elem) {
+        //            elem.slideUp(100);
+        //        }
+        //    })
+        //});
+</script>
+
+
 
