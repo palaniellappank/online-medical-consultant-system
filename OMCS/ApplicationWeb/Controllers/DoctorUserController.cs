@@ -8,6 +8,8 @@ using System.Web;
 using PagedList;
 using System.Web.Mvc;
 using OMCS.Web.DTO;
+using System.Diagnostics;
+using Newtonsoft.Json.Linq;
 
 namespace OMCS.Web.Controllers
 {
@@ -15,6 +17,7 @@ namespace OMCS.Web.Controllers
     public class DoctorUserController : BaseController
     {
         private AdminUserBusiness business = new AdminUserBusiness();
+        private MedicalProfileTemplateBusiness medicalProfileBusiness = new MedicalProfileTemplateBusiness();
 
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
@@ -48,12 +51,28 @@ namespace OMCS.Web.Controllers
         {
             var patient = _db.Patients.Find(id);
             var personalHealthRecord = _db.PersonalHealthRecords.Find(id);
+            var medicalProfiles = _db.MedicalProfiles.Where(mp => mp.PatientId == id).ToList();
+            var medicalProfileTemplates = _db.MedicalProfileTemplates.ToList();
+            SelectList medicalProfileTemplateList = new SelectList(medicalProfileTemplates, 
+                "MedicalProfileTemplateId", "MedicalProfileTemplateName", 
+                medicalProfileTemplates.First());
             PatientInformation PatientInformation = new PatientInformation
             {
                 Patient = patient,
-                PersonalHealthRecord = personalHealthRecord
+                PersonalHealthRecord = personalHealthRecord,
+                MedicalProfiles = medicalProfiles
             };
+            ViewBag.medicalProfileTemplateList = medicalProfileTemplateList;
             return PartialView("_View", PatientInformation);
+        }
+
+        public ActionResult UpdateMedicalProfile(int id, int medicalProfileTemplateId)
+        {
+            var str = medicalProfileBusiness.UpdateMedicalProfile(id, medicalProfileTemplateId);
+            ViewBag.formInJson = str;
+            ViewBag.patientId = id;
+            ViewBag.medicalProfileTemplateId = medicalProfileTemplateId;
+            return View();
         }
     }
 }

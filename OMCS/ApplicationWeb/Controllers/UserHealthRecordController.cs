@@ -27,10 +27,7 @@ namespace OMCS.Web.Controllers
             var personalHealthRecord = _db.PersonalHealthRecords.Where(pa => pa.PatientId == User.UserId).SingleOrDefault();
             Type type = typeof(PersonalHealthRecord);
             PropertyInfo pi = type.GetProperty(name, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-            Debug.WriteLine(personalHealthRecord.HairColor);
-            Debug.WriteLine("Df: " + value);
             pi.SetValue(personalHealthRecord, Convert.ChangeType(value, pi.PropertyType), null);
-            Debug.WriteLine(personalHealthRecord.HairColor);
             _db.SaveChanges();
             JObject result = new JObject();
             result.Add("status", "success");
