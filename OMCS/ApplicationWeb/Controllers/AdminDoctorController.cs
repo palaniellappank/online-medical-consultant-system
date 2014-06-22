@@ -52,7 +52,7 @@ namespace MvcApplication1.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return PartialView("_Create");
         }
 
         //
@@ -66,14 +66,14 @@ namespace MvcApplication1.Controllers
                 Role role = db.Roles.FirstOrDefault(r => r.RoleName == "Doctor");
                 user.Roles = new List<Role>();
                 user.Roles.Add(role);
-                user.CreatedDate = DateTime.Now;
+                user.CreatedDate = DateTime.UtcNow;
                 user.ProfilePicture = "/Content/ProfilePicture/anonymous-avatar.jpg";
                 user.IsActive = false;
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(user);
+            return PartialView("_Create", user);
 
         }
 
@@ -83,45 +83,48 @@ namespace MvcApplication1.Controllers
         public ActionResult Edit(int id = 0)
         {
             User user = db.Users.Find(id);
+            ViewBag.Roles = db.Roles.ToList();
             if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return PartialView("_Edit", user);
         }
 
         //
         // POST: /AdminDoctor/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(User user, HttpPostedFileBase file, int roleId)
+        public ActionResult Edit(User user, HttpPostedFileBase file)
         {
-            var role = db.Roles.Find(roleId);
-            user.Roles = new List<Role>();
-            try
+            //var role = db.Roles.Find(roleId);
+            //user.Roles = new List<Role>();
+
+            if (ModelState.IsValid)
             {
-                if (file.ContentLength > 0 && file != null)
+                try
                 {
                     var fileName = Path.GetFileName(file.FileName);
                     var path = HttpContext.Server.MapPath("~/Content/ProfilePicture/" + fileName);
                     var dbPath = string.Format("/Content/ProfilePicture/" + fileName);
                     file.SaveAs(path);
                     user.ProfilePicture = dbPath;
-                    user.Roles.Add(role);
+
+                }
+                catch (NullReferenceException ex)
+                {
+
+                }
+                finally
+                {
+                    //user.Roles.Add(role);
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
                 }
-            }
-            catch (NullReferenceException ex)
-            {
-                user.Roles.Add(role);
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(user);
+            return PartialView("_Edit", user);
         }
 
         //
@@ -146,22 +149,28 @@ namespace MvcApplication1.Controllers
 
         //
         // POST: /AdminUser/CheckUserNameExist
-        [HttpPost]
-        public JsonResult CheckUserNameExist(string userName, FormCollection form)
+        public JsonResult CheckExistUsername(string userName, int id = 0)
         {
             var user = db.Users.FirstOrDefault(u => u.Username == userName);
-            return Json(user == null);
+            if (user != null && id != user.UserId)
+            {
+                return new JsonResult { Data = false };
+            }
+            return new JsonResult { Data = true };
         }
 
         //
-        // POST: /AdminUser/CheckEmailExist
+        // POST: /AdminUser/CheckExistEmail
         [HttpPost]
-        public JsonResult CheckEmailExist(string email)
+        public JsonResult CheckExistEmail(string email, int id = 0)
         {
             var user = db.Users.FirstOrDefault(u => u.Email == email);
-            return Json(user == null);
+            if (user != null && id != user.UserId)
+            {
+                return new JsonResult { Data = false };
+            }
+            return new JsonResult { Data = true };
         }
-
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
