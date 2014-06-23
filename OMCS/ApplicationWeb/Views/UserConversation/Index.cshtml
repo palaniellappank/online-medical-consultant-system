@@ -1,207 +1,20 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Tư Vấn Online";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
 @model IEnumerable<OMCS.DAL.Model.User>
-<link type="text/css" rel="stylesheet" href="~/Css/ChatStyle.css" />
-<link rel="stylesheet" href="~/Css/JQueryUI/themes/base/jquery.ui.all.css">
 
 <!--Script references. -->
-<script src="~/Scripts/jquery-1.9.0.js"></script>
 <script src="~/Scripts/underscore.js"></script>
-<script src="~/Scripts/ui/jquery.ui.core.js"></script>
-<script src="~/Scripts/ui/jquery.ui.widget.js"></script>
-<script src="~/Scripts/ui/jquery.ui.mouse.js"></script>
-<script src="~/Scripts/ui/jquery.ui.draggable.js"></script>
-<script src="~/Scripts/ui/jquery.ui.resizable.js"></script>
 <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
 <script src="~/signalr/hubs"></script>
-<style type="text/css">
-    /* Css for chatbox */
-    .chat
-    {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-
-        .chat li
-        {
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 1px dotted #B3A9A9;
-        }
-
-            .chat li.left .chat-body
-            {
-                margin-left: 60px;
-            }
-
-            .chat li.right .chat-body
-            {
-                margin-right: 60px;
-            }
-
-
-            .chat li .chat-body p
-            {
-                margin: 0;
-                color: #777777;
-            }
-
-        .panel .slidedown .glyphicon, .chat .glyphicon
-        {
-            margin-right: 5px;
-        }
-
-    .panel-body
-    {
-        overflow-y: scroll;
-        height: 250px;
-    }
-
-    /* Css for list contact */
-    .panel > .list-group .list-group-item:first-child
-    {
-        /*border-top: 1px solid rgb(204, 204, 204);*/
-    }
-
-    @@media (max-width: 767px)
-    {
-        .visible-xs
-        {
-            display: inline-block !important;
-        }
-
-        .block
-        {
-            display: block !important;
-            width: 100%;
-            height: 1px !important;
-        }
-    }
-
-    #back-to-bootsnipp
-    {
-        position: fixed;
-        top: 10px;
-        right: 10px;
-    }
-
-
-    .c-search > .form-control
-    {
-        border-radius: 0px;
-        border-width: 0px;
-        border-bottom-width: 1px;
-        font-size: 1.3em;
-        padding: 12px 12px;
-        height: 44px;
-        outline: none !important;
-    }
-
-        .c-search > .form-control:focus
-        {
-            outline: 0px !important;
-            -webkit-appearance: none;
-            box-shadow: none;
-        }
-
-    .c-search > .input-group-btn .btn
-    {
-        border-radius: 0px;
-        border-width: 0px;
-        border-left-width: 1px;
-        border-bottom-width: 1px;
-        height: 44px;
-    }
-
-
-    .c-list
-    {
-        padding: 0px;
-        min-height: 44px;
-    }
-
-    .title
-    {
-        display: inline-block;
-        font-size: 1.7em;
-        font-weight: bold;
-        padding: 5px 15px;
-    }
-
-    ul.c-controls
-    {
-        list-style: none;
-        margin: 0px;
-        min-height: 44px;
-    }
-
-        ul.c-controls li
-        {
-            margin-top: 8px;
-            float: left;
-        }
-
-            ul.c-controls li a
-            {
-                font-size: 1.7em;
-                padding: 11px 10px 6px;
-            }
-
-                ul.c-controls li a i
-                {
-                    min-width: 24px;
-                    text-align: center;
-                }
-
-                ul.c-controls li a:hover
-                {
-                    background-color: rgba(51, 51, 51, 0.2);
-                }
-
-    .c-toggle
-    {
-        font-size: 1.7em;
-    }
-
-    .name
-    {
-        font-size: 1.7em;
-        font-weight: 700;
-    }
-
-    .speciaty
-    {
-        font-size: 1.0em;
-        color: #3498db;
-    }
-
-    .c-info
-    {
-        padding: 5px 10px;
-        font-size: 1.25em;
-    }
-
-    #contact-list
-    {
-        height: 400px;
-        overflow-y: scroll;
-    }
-
-    .list-group-item:hover
-    {
-        background-color: #eeecec;
-        cursor: pointer;
-    }
-</style>
 <body>
     <h1>Tư vấn trực tuyến
     </h1>
     <hr />
-    <input id="txtNickName" class="textBox" value="@ViewBag.Username" type="hidden"/>
+    <input id="txtFromUsername" class="textBox" value="@ViewBag.Username" type="hidden"/>
+    <input id="txtToUsername" class="textBox" value="" type="hidden"/>
     <div class="row" id="chatbox">
         <div class="col-xs-12 col-sm-6 col-md-4">
             <div class="panel panel-default">
@@ -228,90 +41,15 @@
         </div>
         <div class="col-md-8">
             <div id="divChat" class="panel panel-primary">
-                <div class="panel-heading">
-                    <span class="glyphicon glyphicon-comment"></span>Tư vấn với bác sĩ
-                    <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-chevron-down"></span>
-                        </button>
-                        <ul class="dropdown-menu slidedown">
-                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-refresh"></span>Refresh</a></li>
-                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-ok-sign"></span>Available</a></li>
-                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-remove"></span>Busy</a></li>
-                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-time"></span>
-                                Away</a></li>
-                            <li class="divider"></li>
-                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-off"></span>
-                                Sign Out</a></li>
-                        </ul>
-                    </div>
-                </div>
                 <div class="panel-body">
-                    <ul class="chat">
-                        <li class="left clearfix"><span class="chat-img pull-left">
-                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                        <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="right clearfix"><span class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="left clearfix"><span class="chat-img pull-left">
-                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                        <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="right clearfix"><span class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>15 mins ago</small>
-                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
+                    <ul class="chat" id="chat-content">
                     </ul>
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
-                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                        <input id="txtMessage" type="text" class="form-control input-sm" placeholder="Nội dung tin nhắn..." />
                         <span class="input-group-btn">
-                            <button class="btn btn-warning btn-sm" id="btn-chat">
-                                Send</button>
+                            <button class="btn btn-warning btn-sm" id="btnSendMsg">Gửi</button>
                         </span>
                     </div>
                 </div>
@@ -326,10 +64,10 @@
     %>
     <li class="list-group-item">
         <div class="col-xs-12 col-sm-3">
-            <img src="http://api.randomuser.me/portraits/men/97.jpg" alt="Seth Frazier" class="img-responsive img-circle" />
+            <img src="http://api.randomuser.me/portraits/men/97.jpg" alt="<%= doctor.FullName %>" class="img-responsive img-circle" />
         </div>
         <div class="col-xs-12 col-sm-9">
-            <input class="username" type="hidden" value="<%= doctor.UserName %>" />
+            <input class="username" type="hidden" value="<%= doctor.Username %>" />
             <span class="name"><%= doctor.FullName %></span><br />
             <span class="speciaty"><%= doctor.SpeciatyField %></span><br />
             <% if (doctor.IsOnline) {
@@ -344,6 +82,40 @@
     %>  
 </script>
 
+<script id="chat-left-template" type="text/template">
+<li class="left clearfix">
+    <span class="chat-img pull-left">
+        <img src="/Content/ProfilePicture/<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
+    </span>
+    <div class="chat-body clearfix">
+        <div class="header">
+            <strong class="primary-font"><%= user.FullName %></strong> <small class="pull-right text-muted">
+                <span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %></small>
+        </div>
+        <p>
+            <%= message.Content %>
+        </p>
+    </div>
+</li>
+</script>
+
+<script id="chat-right-template" type="text/template">
+<li class="right clearfix">
+    <span class="chat-img pull-right">
+        <img src="/Content/ProfilePicture/<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
+    </span>
+    <div class="chat-body clearfix">
+        <div class="header">
+            <small class=" text-muted"><span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %></small>
+            <strong class="pull-right primary-font"><%= user.FullName %></strong>
+        </div>
+        <p>
+            <%= message.Content %>
+        </p>
+    </div>
+</li>
+</script>
+
 <script type="text/javascript">
     $(function () {
         // Declare a proxy to reference the hub. 
@@ -352,7 +124,7 @@
         $("#divChat").hide();
         // Start Hub
         $.connection.hub.start().done(function () {
-            chatHub.server.connectPatient($("#txtNickName").val());
+            chatHub.server.connectPatient($("#txtFromUsername").val());
             registerEvents(chatHub);
         });
     });
@@ -362,15 +134,10 @@
         $('#btnSendMsg').click(function () {
             var msg = $("#txtMessage").val();
             if (msg.length > 0) {
-                var userName = $('#hdUserName').val();
-                chatHub.server.sendMessageToAll(userName, msg);
+                var toUsername = $('#txtToUsername').val();
+                var fromUsername = $('#txtFromUsername').val();
+                chatHub.server.sendMessageToDoctor(toUsername, msg);
                 $("#txtMessage").val('');
-            }
-        });
-
-        $("#txtNickName").keypress(function (e) {
-            if (e.which == 13) {
-                $("#btnStartChat").click();
             }
         });
 
@@ -383,22 +150,29 @@
 
     function registerClientMethods(chatHub) {
         // Calls when user successfully logged in
-        chatHub.client.onConnected = function (id, userName, doctors) {
-            $('#hdId').val(id);
-            $('#hdUserName').val(userName);
-            $('#spanUser').html(userName);
+        chatHub.client.onConnected = function (id, username, doctors) {
             window.doctor = doctors[0];
+            console.log(username);
             var template = $("#doctor-list-template").html();
             $("#contact-list").html(_.template(template, { doctors: doctors }));
             $(".list-group-item").click(function (e) {
                 $("#divChat").show();
                 var username = $(this).find(".username").val();
-                chatHub.server.getMessageFrom(username);
+                $('#txtToUsername').val(username);
+                chatHub.server.getMessageList(username);
             });
         }
 
-        // On New User Connected
+        // On Get Message
         chatHub.client.onGetMessage = function (doctorDetail, messageDetails) {
+            console.log("onGetMessage");
+            console.log(doctorDetail);
+            console.log(messageDetails);
+        }
+
+        // On Get Message
+        chatHub.client.onGetMessageList = function (doctorDetail, messageDetails) {
+            console.log("onGetMessage");
             console.log(doctorDetail);
             console.log(messageDetails);
         }
@@ -420,6 +194,9 @@
         }
 
         chatHub.client.messageReceived = function (userName, message) {
+            console.log("messageReceived");
+            console.dir(userName);
+            console.dir(message);
             AddMessage(userName, message);
         }
 
@@ -435,6 +212,12 @@
             var height = $('#' + ctrId).find('#divMessage')[0].scrollHeight;
             $('#' + ctrId).find('#divMessage').scrollTop(height);
         }
+    }
+
+    function AddMessage(user, message) {
+        var template = $("#chat-left-template").html();
+        $("#chat-content").append(_.template(template, { user: user, message: message }));
+        $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
     }
 
     function AddUser(chatHub, id, name) {
@@ -454,12 +237,6 @@
 
         $("#divusers").append(code);
 
-    }
-
-    function AddMessage(userName, message) {
-        $('#divChatWindow').append('<div class="message"><span class="userName">' + userName + '</span>: ' + message + '</div>');
-        var height = $('#divChatWindow')[0].scrollHeight;
-        $('#divChatWindow').scrollTop(height);
     }
 
     function OpenPrivateChatWindow(chatHub, id, userName) {

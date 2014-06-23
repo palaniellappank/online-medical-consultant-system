@@ -22,90 +22,163 @@ namespace SignalRChat.Hubs
 
         #region Methods
 
-        public void Connect(string userName)
+        public void Connect(string username)
         {
             var id = Context.ConnectionId;
+
+            var user = _db.Users.Where(x=>x.Username.Equals(username)).FirstOrDefault();
 
             //Debug.WriteLine(userName + id);
             if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
             {
-                ConnectedUsers.Add(new UserDetail { ConnectionId = id, UserName = userName, CountMessageUnRead = 0 });
+                ConnectedUsers.Add(new UserDetail { ConnectionId = id, 
+                    UserName = username, CountMessageUnRead = 0,
+                    FullName = user.FullName, ProfilePicture = user.ProfilePicture
+                });
 
                 // send to caller
-                Clients.Caller.onConnected(id, userName, ConnectedUsers, CurrentMessage);
+                Clients.Caller.onConnected(id, username, ConnectedUsers, CurrentMessage);
 
                 // send to all except caller client
-                Clients.AllExcept(id).onNewUserConnected(id, userName);
+                Clients.AllExcept(id).onNewUserConnected(id, username);
             }
         }
 
-        public void ConnectPatient(string userName)
+        public void ConnectPatient(string username)
         {
             var id = Context.ConnectionId;
-            var DoctorListDB = _db.Doctors.ToList();
-            foreach (var doctor in DoctorListDB)
-            {
-                DoctorDetail doctorDetail = new DoctorDetail
-                {
-                    FullName = doctor.FullName,
-                    IsOnline = false,
-                    SpeciatyField = doctor.SpecialtyField.Name,
-                    UserName = doctor.Username
-                };
-                Doctors.Add(doctorDetail);
-            }
             if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
             {
-                ConnectedUsers.Add(new UserDetail { ConnectionId = id, UserName = userName, CountMessageUnRead = 0 });
+                var user = _db.Users.Where(x => x.Username.Equals(username)).FirstOrDefault();
+                ConnectedUsers.Add(new UserDetail { ConnectionId = id, 
+                    UserName = username, CountMessageUnRead = 0,
+                    FullName = user.FullName, ProfilePicture = user.ProfilePicture
+                });
+
+                var DoctorListDB = _db.Doctors.ToList();
+                foreach (var doctor in DoctorListDB)
+                {
+                    if (Doctors.Where(d => d.Username.Equals(doctor.Username)).FirstOrDefault() == null)
+                    {
+                        DoctorDetail doctorDetail = new DoctorDetail
+                        {
+                            FullName = doctor.FullName,
+                            IsOnline = false,
+                            SpeciatyField = doctor.SpecialtyField.Name,
+                            Username = doctor.Username
+                        };
+                        Doctors.Add(doctorDetail);
+                    }
+                }
 
                 // send to caller
-                Clients.Caller.onConnected(id, userName, Doctors);
+                Clients.Caller.onConnected(id, username, Doctors);
             }
         }
 
-        public void GetMessageFrom(string username)
+        public void GetMessageList(string username)
         {
+            var id = Context.ConnectionId;
+            var fromUserDetail = ConnectedUsers.Where(x => x.ConnectionId == id).FirstOrDefault();
+            var fromUser = _db.Users.Where(x => x.Username.Equals(fromUserDetail.UserName)).FirstOrDefault();
+            var toUser = _db.Users.Where(x => x.Username.Equals(username)).FirstOrDefault();
+
             var doctor = _db.Doctors.Where(u => u.Username.Equals(username)).FirstOrDefault();
             Debug.WriteLine(doctor.Username);
             if (doctor != null)
             {
-                var id = Context.ConnectionId;
                 var patientDetail = ConnectedUsers.Where(cu => cu.ConnectionId.Equals(id)).FirstOrDefault();
                 Debug.WriteLine(patientDetail.UserName);
-                var patient = _db.Patients.Where(u => u.Username.Equals(username)).FirstOrDefault();
-
+                var patient = _db.Patients.Where(u => u.Username.Equals(patientDetail.UserName)).FirstOrDefault();
+                Debug.WriteLine("Patient: " + patient.Username + "  " + "Doctor: " + doctor.Username);
+                DoctorDetail doctorDetail = Doctors.Where(u => u.Username.Equals(username)).FirstOrDefault();
                 var newestConversation = _db.Conversations.Where(
-                    con => (con.Patient == patient) && (con.Doctor == doctor))
-                    .OrderByDescending(con => con.DateConsulted);
+                    con => (con.PatientId == patient.UserId) && (con.DoctorId == doctor.UserId))
+                    .OrderByDescending(con => con.DateConsulted).FirstOrDefault();
 
-                var conversationDetails = _db.ConversationDetails.Where(cd => cd.Conversation == newestConversation).
+                if (newestConversation != null)
+                {
+                    var conversationDetails = _db.ConversationDetails.Where(cd => cd.Conversation.ConversationId == newestConversation.ConversationId).
                     OrderBy(cd => cd.CreatedDate).ToList();
 
-                //Convert conversationDetails to MessageDetails
-                var messageDetails = new List<MessageDetail>();
-                foreach (var conversationDetail in conversationDetails)
-                {
-                    MessageDetail messageDetail = new MessageDetail
+                    //Convert conversationDetails to MessageDetails
+                    var messageDetails = new List<MessageDetail>();
+                    foreach (var conversationDetail in conversationDetails)
                     {
-                        Content = conversationDetail.Content,
-                        CreatedDate = conversationDetail.CreatedDate,
-                        Username = conversationDetail.User.Username
-                    };
-                    messageDetails.Add(messageDetail);
+                        String date = (DateTime.UtcNow.Subtract(conversationDetail.CreatedDate).Days) > 1 ?
+                            String.Format("{0:HH:mm:ss}", conversationDetail.CreatedDate) :
+                            String.Format("{0:dd/mm/yyyy HH:mm:ss}", conversationDetail.CreatedDate);
+                        MessageDetail messageDetail = new MessageDetail
+                        {
+                            Content = conversationDetail.Content,
+                            CreatedDate = String.Format("{0:HH mm ss}", DateTime.UtcNow)
+                            ,
+                            Username = conversationDetail.User.Username
+                        };
+                        messageDetails.Add(messageDetail);
+                    }
+                    Clients.Caller.onGetMessage(doctorDetail, messageDetails);
                 }
-
-                DoctorDetail doctorDetail = Doctors.Where(u => u.UserName.Equals(username)).FirstOrDefault();
-                Clients.Caller.onGetMessage(doctorDetail, messageDetails);
+                else
+                {
+                    Clients.Caller.onGetMessageList(doctorDetail, "");
+                }
             }
         }
 
-        public void SendMessageToAll(string userName, string message)
+        public void SendMessageToDoctor(string toUsername, string message)
         {
-            // store last 100 messages in cache
-            AddMessageinCache(userName, message);
+            Debug.WriteLine(toUsername + " " + message);
+            var id = Context.ConnectionId;
+            var fromUserDetail = ConnectedUsers.Where(x => x.ConnectionId == id).FirstOrDefault();
+            var fromUser = _db.Users.Where(x => x.Username.Equals(fromUserDetail.UserName)).FirstOrDefault();
+            var toUser = _db.Users.Where(x => x.Username.Equals(toUsername)).FirstOrDefault();
+            
 
-            // Broad cast message
-            Clients.All.messageReceived(userName, message);
+            //Store in database
+            Conversation conversation = _db.Conversations.Where(
+                x => (x.PatientId == fromUser.UserId && x.DoctorId == toUser.UserId))
+            .OrderByDescending(x => x.DateConsulted).FirstOrDefault();
+
+            Debug.WriteLine("DoctorId = " + toUser.UserId, "  PatientId = " + fromUser.UserId);
+            if (conversation == null)
+            {
+                conversation = new Conversation
+                {
+                    DoctorId = toUser.UserId,
+                    PatientId = fromUser.UserId,
+                    DateConsulted = DateTime.UtcNow
+                };
+                _db.Conversations.Add(conversation);
+            }
+
+            ConversationDetail conversationDetail = new ConversationDetail
+            {
+                UserId = fromUser.UserId,
+                Content = message,
+                Conversation = conversation,
+                CreatedDate = DateTime.UtcNow
+            };
+
+            MessageDetail messageDetail = new MessageDetail
+            {
+                 Content = message,
+                 Username = fromUser.Username,
+                 CreatedDate = String.Format("{0:H:mm:ss}", DateTime.Now)
+            };
+
+            _db.ConversationDetails.Add(conversationDetail);
+            _db.SaveChanges();
+
+            //Notify Receiver
+            var toUserDetail = ConnectedUsers.Where(x => x.UserName == toUsername).FirstOrDefault();
+            if (toUserDetail != null) 
+            {
+                Clients.Client(toUserDetail.ConnectionId).messageReceived(fromUserDetail, message);
+            }
+
+            //Notify Caller
+            Clients.Caller.messageReceived(fromUserDetail, messageDetail);
         }
 
         public void SendPrivateMessage(string toUserId, string message, int conversationid, string username)
@@ -160,18 +233,6 @@ namespace SignalRChat.Hubs
             }
 
             return base.OnDisconnected();
-        }
-
-        #endregion
-
-        #region private Messages
-
-        private void AddMessageinCache(string userName, string message)
-        {
-            CurrentMessage.Add(new MessageDetail { Username = userName, Content = message });
-
-            if (CurrentMessage.Count > 100)
-                CurrentMessage.RemoveAt(0);
         }
 
         #endregion
