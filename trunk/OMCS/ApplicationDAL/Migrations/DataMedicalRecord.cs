@@ -19,7 +19,7 @@
 
             MedicalProfileTemplate benhAnNgoaiDa1 = _db.MedicalProfileTemplates.Where(
                 mp => mp.MedicalProfileTypeId == loaiBenhAnNgoaiDa.MedicalProfileTypeId
-            ).Single();
+            ).FirstOrDefault();
 
             MedicalProfile suTranMedicalProfile1 = new MedicalProfile
             {
@@ -48,6 +48,7 @@
             _db.MedicalProfiles.Add(suTranMedicalProfile1);
             _db.MedicalProfiles.Add(suTranMedicalProfile2);
             _db.MedicalProfiles.Add(suTranMedicalProfile3);
+            _db.SaveChanges();
         }
     }
 }

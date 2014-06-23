@@ -9,9 +9,9 @@ namespace OMCS.DAL
 {
     class DataPatientInformation
     {
-        public void Seed(OMCS.DAL.Model.OMCSDBContext context)
+        public static void Seed(OMCS.DAL.Model.OMCSDBContext _db)
         {
-            var rolePatient = context.Roles.Where(role => role.RoleName.Equals("User")).FirstOrDefault();
+            var rolePatient = _db.Roles.Where(role => role.RoleName.Equals("User")).FirstOrDefault();
 
             Patient suTran = new Patient
             {
@@ -23,7 +23,7 @@ namespace OMCS.DAL
                 HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1)
             };
             suTran.Roles.Add(rolePatient);
-            context.Patients.Add(suTran);
+            _db.Patients.Add(suTran);
 
             PersonalHealthRecord sutranHealthRecord = new PersonalHealthRecord
             {
@@ -31,7 +31,7 @@ namespace OMCS.DAL
                 AlcoholNumOfYear = 4, IsBeer = true, SmokePackPerWeek = 1, SmokeNumOfYear = 2, SportName = "Đá banh", SportPerWeek = 4,
                 ExerciseType = "Yoga", ExercisePerWeek = 2
             };
-            context.PersonalHealthRecords.Add(sutranHealthRecord);
+            _db.PersonalHealthRecords.Add(sutranHealthRecord);
 
             Patient danhtran = new Patient
             {
@@ -113,25 +113,26 @@ namespace OMCS.DAL
                 SportName = "Cầu Lông", SportPerWeek = 4, ExerciseType = "Yoga", ExercisePerWeek = 2
             };
 
-            context.PersonalHealthRecords.Add(danhtranHealthRecord);
+            _db.PersonalHealthRecords.Add(danhtranHealthRecord);
             danhtran.Roles.Add(rolePatient);
-            context.Patients.Add(danhtran);
+            _db.Patients.Add(danhtran);
 
             tuanMai.Roles.Add(rolePatient);
-            context.Patients.Add(tuanMai);
-            context.PersonalHealthRecords.Add(tuanMaiHealthRecord);
+            _db.Patients.Add(tuanMai);
+            _db.PersonalHealthRecords.Add(tuanMaiHealthRecord);
 
             nguonNguyen.Roles.Add(rolePatient);
-            context.Patients.Add(nguonNguyen);
-            context.PersonalHealthRecords.Add(nguonNguyenHealthRecord);
+            _db.Patients.Add(nguonNguyen);
+            _db.PersonalHealthRecords.Add(nguonNguyenHealthRecord);
 
             linhNguyen.Roles.Add(rolePatient);
-            context.Patients.Add(linhNguyen);
-            context.PersonalHealthRecords.Add(linhNguyenHealthRecord);
+            _db.Patients.Add(linhNguyen);
+            _db.PersonalHealthRecords.Add(linhNguyenHealthRecord);
 
             nhanNguyen.Roles.Add(rolePatient);
-            context.Patients.Add(nhanNguyen);
-            context.PersonalHealthRecords.Add(nhanNguyenHealthRecord);
+            _db.Patients.Add(nhanNguyen);
+            _db.PersonalHealthRecords.Add(nhanNguyenHealthRecord);
+            _db.SaveChanges();
         }
     }
 }

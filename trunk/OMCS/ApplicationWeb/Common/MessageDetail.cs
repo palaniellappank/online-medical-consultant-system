@@ -9,7 +9,7 @@ namespace SignalRChat.Common
     {
         public string Content { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public string CreatedDate { get; set; }
 
         public string Username { get; set; }
     }
