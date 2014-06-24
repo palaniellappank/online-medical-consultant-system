@@ -28,6 +28,7 @@ namespace Security.DAL.Security
 
         public int UserId { get; set; }
         public string FirstName { get; set; }
+        public string Username { get; set; }
         public string LastName { get; set; }
         public string[] roles { get; set; }
     }
@@ -35,6 +36,7 @@ namespace Security.DAL.Security
     public class CustomPrincipalSerializeModel
     {
         public int UserId { get; set; }
+        public string Username { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string[] roles { get; set; }

@@ -8,11 +8,12 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootply-admin.css" rel="stylesheet" type="text/css" />
 	<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/jquery-1.9.0.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Scripts/site.js"></script>
+    
+    @Scripts.Render("~/bundles/jsOMCS")
+
+    <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+
     @if (IsSectionDefined("Styles"))
     {
         @RenderSection("Styles");
@@ -48,6 +49,7 @@
 
 <!-- Main -->
 <div class="container">
+
 <div class="row">
 	<div class="col-md-3">
       <!-- Left column -->
@@ -62,7 +64,7 @@
             <a href="@Url.Action("Index", "DoctorMedicalProfile")"><i class="glyphicon glyphicon-folder-open"></i> Quản lý bệnh án</a>
         </li>
           <li class="@Html.IsActive("AdminDoctor", "Index")">
-              <a href="@Url.Action("Index", "AdminDoctor")"><i class="glyphicon glyphicon-envelope"></i> Tin nhắn</a>
+              <a href="@Url.Action("Index", "AdminDoctor")"><i class="glyphicon glyphicon-envelope"></i> Tin nhắn <span class="badge unread-message"></span></a>
           </li>
         <li class="@Html.IsActive("AdminTemplate", "Index")">
             <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i> Xem mẫu hồ sơ</a>
@@ -97,6 +99,8 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dalog -->
 </div><!-- /.modal -->
+<input id="txtFromUsername" class="textBox" value="@User.Username" type="hidden"/>
+<input id="txtToUsername" class="textBox" value="" type="hidden"/>
     <script type='text/javascript'>
 
         $(document).ready(function () {
@@ -109,7 +113,34 @@
                 $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
             });
 
+
+            // Declare a proxy to reference the hub. 
+            var chatHub = $.connection.chatHub;
+            registerClientMethods(chatHub);
+            // Start Hub
+            $.connection.hub.start().done(function () {
+                var fromUser = $("#txtFromUsername").val();
+                chatHub.server.connectDoctor(fromUser);
+            });
         });
+        function registerClientMethods(chatHub) {
+            chatHub.client.sendPrivateMessageToDoctor = function (countMessage) {
+                $("#countmessage").html(countMessage);
+            }
+
+            chatHub.client.onConnected = function (id, doctorDetail) {
+                console.log(id);
+                console.log(doctorDetail);
+                $(".unread-message").html(doctorDetail.CountMessageUnRead);
+            }
+
+            chatHub.client.messageReceived = function (fromUserDetail, toUserDetail, messageDetail) {
+                console.log("messageReceived");
+                console.dir(fromUserDetail);
+                console.dir(toUserDetail);
+                $(".unread-message").html(toUserDetail.CountMessageUnRead);
+            }
+        }
 
     </script>
 </body>

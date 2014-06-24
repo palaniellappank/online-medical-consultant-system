@@ -41,6 +41,7 @@ namespace Security.Controllers
                     serializeModel.UserId = user.UserId;
                     serializeModel.FirstName = user.FirstName;
                     serializeModel.LastName = user.LastName;
+                    serializeModel.Username = user.Username;
                     serializeModel.roles = roles;
 
                    string userData = JsonConvert.SerializeObject(serializeModel);

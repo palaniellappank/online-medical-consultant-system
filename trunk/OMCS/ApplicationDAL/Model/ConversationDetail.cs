@@ -27,6 +27,8 @@ namespace OMCS.DAL.Model
 
         public string Attachment { get; set; }
 
+        public bool IsRead { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Thời gian gửi")]
