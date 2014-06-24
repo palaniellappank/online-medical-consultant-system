@@ -5,11 +5,10 @@ using System.Web;
 
 namespace SignalRChat.Common
 {
-    public class DoctorDetail
+    public class DoctorDetail : UserDetail
     {
-        public string Username { get; set; }
-        public string FullName { get; set; }
         public string SpeciatyField { get; set; }
         public bool IsOnline { get; set; }
+        public DateTime LastReceivedTime { get; set; }
     }
 }

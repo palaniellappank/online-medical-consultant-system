@@ -6,52 +6,83 @@ using Microsoft.AspNet.SignalR;
 using SignalRChat.Common;
 using OMCS.DAL.Model;
 using System.Diagnostics;
+using OMCS.BLL;
 
 namespace SignalRChat.Hubs
 {
     public class ChatHub : Hub
     {
         OMCSDBContext _db = new OMCSDBContext();
+        ConversationBusiness business = new ConversationBusiness();
         #region Data Members
 
+        //Hold all connection for Doctor or Patient
+        //One use can have many connection (by open tabs,...)
         static List<UserDetail> ConnectedUsers = new List<UserDetail>();
         static List<MessageDetail> CurrentMessage = new List<MessageDetail>();
+
+        //List of all Doctor and their Status
         static List<DoctorDetail> Doctors = new List<DoctorDetail>();
 
         #endregion
 
         #region Methods
 
-        public void Connect(string username)
+        public void ConnectDoctor(string username)
         {
             var id = Context.ConnectionId;
 
-            var user = _db.Users.Where(x=>x.Username.Equals(username)).FirstOrDefault();
+            var doctor = _db.Doctors.Where(x=>x.Username.Equals(username)).FirstOrDefault();
+            var doctorDetail = Doctors.Where(x => x.Username.Equals(username)).FirstOrDefault();
 
-            //Debug.WriteLine(userName + id);
-            if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
+            //Update Doctor list status
+            if (doctorDetail == null)
             {
-                ConnectedUsers.Add(new UserDetail { ConnectionId = id, 
-                    UserName = username, CountMessageUnRead = 0,
-                    FullName = user.FullName, ProfilePicture = user.ProfilePicture
-                });
-
-                // send to caller
-                Clients.Caller.onConnected(id, username, ConnectedUsers, CurrentMessage);
-
-                // send to all except caller client
-                Clients.AllExcept(id).onNewUserConnected(id, username);
+                doctorDetail = new DoctorDetail
+                {
+                    ConnectionId = id,
+                    CountMessageUnRead = business.CountMessageUnRead(doctor),
+                    ProfilePicture = doctor.ProfilePicture,
+                    IsOnline = doctor.IsOnline,
+                    FullName = doctor.FullName,
+                    Username = doctor.Username,
+                    SpeciatyField = doctor.SpecialtyField.Name
+                };
+                Doctors.Add(doctorDetail);
             }
+            else
+            {
+                doctorDetail.IsOnline = doctor.IsOnline;
+            }
+
+            //Add User
+            UserDetail userDetail = new UserDetail
+            {
+                ConnectionId = id,
+                CountMessageUnRead = business.CountMessageUnRead(doctor),
+                ProfilePicture = doctor.ProfilePicture,
+                FullName = doctor.FullName,
+                Username = doctor.Username,
+            };
+
+            ConnectedUsers.Add(userDetail);
+
+            // send to caller
+            Clients.Caller.onConnected(id, doctorDetail);
+
+            // send to all except caller client
+            Clients.AllExcept(id).onGetDoctorList(Doctors);
         }
 
         public void ConnectPatient(string username)
         {
             var id = Context.ConnectionId;
-            if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
+            var userDetail = ConnectedUsers.Where(x => x.Username.Equals(username)).FirstOrDefault();
+            if (userDetail == null)
             {
                 var user = _db.Users.Where(x => x.Username.Equals(username)).FirstOrDefault();
                 ConnectedUsers.Add(new UserDetail { ConnectionId = id, 
-                    UserName = username, CountMessageUnRead = 0,
+                    Username = username, CountMessageUnRead = 0,
                     FullName = user.FullName, ProfilePicture = user.ProfilePicture
                 });
 
@@ -72,7 +103,7 @@ namespace SignalRChat.Hubs
                 }
 
                 // send to caller
-                Clients.Caller.onConnected(id, username, Doctors);
+                Clients.Caller.onGetDoctorList(Doctors);
             }
         }
 
@@ -80,16 +111,16 @@ namespace SignalRChat.Hubs
         {
             var id = Context.ConnectionId;
             var fromUserDetail = ConnectedUsers.Where(x => x.ConnectionId == id).FirstOrDefault();
-            var fromUser = _db.Users.Where(x => x.Username.Equals(fromUserDetail.UserName)).FirstOrDefault();
+            var fromUser = _db.Users.Where(x => x.Username.Equals(fromUserDetail.Username)).FirstOrDefault();
             var toUser = _db.Users.Where(x => x.Username.Equals(username)).FirstOrDefault();
 
             var doctor = _db.Doctors.Where(u => u.Username.Equals(username)).FirstOrDefault();
             Debug.WriteLine(doctor.Username);
             if (doctor != null)
             {
-                var patientDetail = ConnectedUsers.Where(cu => cu.ConnectionId.Equals(id)).FirstOrDefault();
-                Debug.WriteLine(patientDetail.UserName);
-                var patient = _db.Patients.Where(u => u.Username.Equals(patientDetail.UserName)).FirstOrDefault();
+                var patientDetail = ConnectedUsers.Where(cu => cu.ConnectionId == id).FirstOrDefault();
+                Debug.WriteLine(patientDetail.Username);
+                var patient = _db.Patients.Where(u => u.Username.Equals(patientDetail.Username)).FirstOrDefault();
                 Debug.WriteLine("Patient: " + patient.Username + "  " + "Doctor: " + doctor.Username);
                 DoctorDetail doctorDetail = Doctors.Where(u => u.Username.Equals(username)).FirstOrDefault();
                 var newestConversation = _db.Conversations.Where(
@@ -111,17 +142,17 @@ namespace SignalRChat.Hubs
                         MessageDetail messageDetail = new MessageDetail
                         {
                             Content = conversationDetail.Content,
-                            CreatedDate = String.Format("{0:HH mm ss}", DateTime.UtcNow)
-                            ,
+                            CreatedDate = date,
                             Username = conversationDetail.User.Username
                         };
                         messageDetails.Add(messageDetail);
                     }
-                    Clients.Caller.onGetMessage(doctorDetail, messageDetails);
+                    Debug.WriteLine(messageDetails.Count);
+                    Clients.Caller.onGetMessageList(patientDetail, doctorDetail, messageDetails);
                 }
                 else
                 {
-                    Clients.Caller.onGetMessageList(doctorDetail, "");
+                    Clients.Caller.onGetMessageList(patientDetail, doctorDetail, "");
                 }
             }
         }
@@ -131,7 +162,7 @@ namespace SignalRChat.Hubs
             Debug.WriteLine(toUsername + " " + message);
             var id = Context.ConnectionId;
             var fromUserDetail = ConnectedUsers.Where(x => x.ConnectionId == id).FirstOrDefault();
-            var fromUser = _db.Users.Where(x => x.Username.Equals(fromUserDetail.UserName)).FirstOrDefault();
+            var fromUser = _db.Users.Where(x => x.Username.Equals(fromUserDetail.Username)).FirstOrDefault();
             var toUser = _db.Users.Where(x => x.Username.Equals(toUsername)).FirstOrDefault();
             
 
@@ -171,10 +202,15 @@ namespace SignalRChat.Hubs
             _db.SaveChanges();
 
             //Notify Receiver
-            var toUserDetail = ConnectedUsers.Where(x => x.UserName == toUsername).FirstOrDefault();
-            if (toUserDetail != null) 
+            var toUserDetails = ConnectedUsers.Where(x => x.Username == toUsername).ToList();
+            if (toUserDetails != null) 
             {
-                Clients.Client(toUserDetail.ConnectionId).messageReceived(fromUserDetail, message);
+                foreach(var toUserDetail in toUserDetails)
+                {
+                    toUserDetail.CountMessageUnRead = business.CountMessageUnRead(toUser);
+                    if (toUserDetail != null && toUserDetail.ConnectionId != null)
+                        Clients.Client(toUserDetail.ConnectionId).messageReceived(fromUserDetail, toUserDetail, messageDetail);
+                }
             }
 
             //Notify Caller
@@ -192,10 +228,10 @@ namespace SignalRChat.Hubs
             if (toUser != null && fromUser != null)
             {
                 // send to 
-                Clients.Client(toUserId).sendPrivateMessage(fromUserId, fromUser.UserName, message);
+                Clients.Client(toUserId).sendPrivateMessage(fromUserId, fromUser.Username, message);
 
-                // send to caller user
-                Clients.Caller.sendPrivateMessage(toUserId, fromUser.UserName, message);
+                // send to caller doctor
+                Clients.Caller.sendPrivateMessage(toUserId, fromUser.Username, message);
 
                 Clients.Client(toUserId).sendPrivateMessageToDoctor(toUser.CountMessageUnRead);
                 //Debug.WriteLine(toUser.CountMessageUnRead);
@@ -222,14 +258,23 @@ namespace SignalRChat.Hubs
 
         public override System.Threading.Tasks.Task OnDisconnected()
         {
-            var item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            var item = ConnectedUsers.FirstOrDefault(x => 
+                (x != null ) &&
+                (x.ConnectionId == Context.ConnectionId));
+            Debug.WriteLine("haha");
             if (item != null)
             {
                 ConnectedUsers.Remove(item);
-
                 var id = Context.ConnectionId;
-                Clients.All.onUserDisconnected(id, item.UserName);
-
+                Debug.WriteLine(id);
+                var doctor = Doctors.Where(x => x.Username == item.Username).FirstOrDefault();
+                var connectedUser = ConnectedUsers.Where(x => x.Username == item.Username).FirstOrDefault();
+                if ((connectedUser == null) && (doctor != null))
+                {
+                    Debug.WriteLine(doctor);
+                    doctor.IsOnline = false;
+                    Clients.AllExcept(id).onGetDoctorList(Doctors);
+                }
             }
 
             return base.OnDisconnected();

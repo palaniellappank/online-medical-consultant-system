@@ -14,5 +14,6 @@ namespace OMCS.DAL.Model
         [ForeignKey("SpecialtyField")]
         public int SpecialtyFieldId { get; set; }
         public virtual SpecialtyField SpecialtyField { get; set; }
+        public bool IsOnline { get; set; }
     }
 }

@@ -343,3 +343,8 @@ div .scrolable {
 		padding: 2px 0px 2px;
 	}
 }
+
+/* Common style */
+.unread-message {
+    background-color: red;
+}

@@ -6,7 +6,6 @@
 @model IEnumerable<OMCS.DAL.Model.User>
 
 <!--Script references. -->
-<script src="~/Scripts/underscore.js"></script>
 <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
 <script src="~/signalr/hubs"></script>
 <body>
@@ -149,10 +148,8 @@
     }
 
     function registerClientMethods(chatHub) {
-        // Calls when user successfully logged in
-        chatHub.client.onConnected = function (id, username, doctors) {
-            window.doctor = doctors[0];
-            console.log(username);
+        chatHub.client.onGetDoctorList = function (doctors) {
+            $("#contact-list").html("");
             var template = $("#doctor-list-template").html();
             $("#contact-list").html(_.template(template, { doctors: doctors }));
             $(".list-group-item").click(function (e) {
@@ -171,14 +168,27 @@
         }
 
         // On Get Message
-        chatHub.client.onGetMessageList = function (doctorDetail, messageDetails) {
-            console.log("onGetMessage");
-            console.log(doctorDetail);
+        chatHub.client.onGetMessageList = function (fromUser, toUser, messageDetails) {
+            console.log("onGetMessageList");
             console.log(messageDetails);
+            console.log(fromUser);
+            console.log(toUser);
+            $("#chat-content").html("");
+            var loginUsername = $('#txtFromUsername').val();
+            var templateLeft = $("#chat-left-template").html();
+            var templateRight = $("#chat-right-template").html();
+            _.forEach(messageDetails, function (message) {
+                if (loginUsername == message.Username) {
+                    $("#chat-content").append(_.template(templateLeft, { user: fromUser, message: message }));
+                } else {
+                    $("#chat-content").append(_.template(templateRight, { user: toUser, message: message }));
+                }
+            });
+            $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
         }
 
         // On New User Connected
-        chatHub.client.onNewUserConnected = function (id, name) {
+        chatHub.client.onNewDoctorConnected = function (id, name) {
             AddUser(chatHub, id, name);
         }
 
