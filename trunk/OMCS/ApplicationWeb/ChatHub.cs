@@ -201,7 +201,8 @@ namespace SignalRChat.Hubs
                         {
                             Content = conversationDetail.Content,
                             CreatedDate = date,
-                            Username = conversationDetail.User.Username
+                            Username = conversationDetail.User.Username,
+                            IsRead = conversationDetail.IsRead
                         };
                         messageDetails.Add(messageDetail);
                     }

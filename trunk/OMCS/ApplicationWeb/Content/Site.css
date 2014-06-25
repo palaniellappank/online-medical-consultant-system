@@ -551,3 +551,7 @@ ul.c-controls li a:hover
 {
     margin-right: 5px;
 }
+
+.unread-message-hightlight {
+    color: #d35400;
+}
