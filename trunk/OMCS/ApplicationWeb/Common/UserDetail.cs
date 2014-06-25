@@ -12,5 +12,9 @@ namespace SignalRChat.Common
         public string FullName { get; set; }
         public string ProfilePicture { get; set; }
         public int CountMessageUnRead { get; set; }
+        public string LastestContent { get; set; }
+        public DateTime LastestTime { get; set; }
+        public bool IsRead { get; set; }
+        public bool IsOnline { get; set; }
     }
 }

@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<div class="row" id="chatbox">
+    <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading c-list">
+                <span class="title">Lịch sử tư vấn</span>
+                <ul class="pull-right c-controls">
+                    <li><a href="#" class="hide-search" data-command="toggle-search" data-toggle="tooltip" data-placement="top" title="Toggle Search"><i class="glyphicon glyphicon-cog"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="row" style="display: none;">
+                <div class="col-xs-12">
+                    <div class="input-group c-search">
+                        <input type="text" class="form-control" id="contact-list-search">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-group" id="contact-list">
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div id="divChat" class="panel panel-primary">
+            <div class="panel-body">
+                <ul class="chat" id="chat-content">
+                </ul>
+            </div>
+            <div class="panel-footer">
+                <div class="input-group">
+                    <input id="txtMessage" type="text" class="form-control input-sm" placeholder="Nội dung tin nhắn..." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-warning btn-sm" id="btnSendMsg">Gửi</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="doctor-list-template" type="text/template">
+    <%
+        _.each(conversations, function(conversation){
+    %>
+    <li class="list-group-item">
+        <div class="col-xs-12 col-sm-12">
+            <input class="username" type="hidden" value="<%= conversation.Username %>" />
+            <span class="name"><%= conversation.FullName %></span><br />
+            <span class="speciaty"><%= conversation.LastestContent %></span><br />
+            <% if (conversation.IsOnline) {
+            %>
+                <i class="glyphicon glyphicon-ok" style="position: absolute; right: 0; top: 40px; color: #2980b9; font-size: 1.2em;"></i>
+            <% } %>
+
+            <% if (!conversation.IsRead) {
+            %>
+                <i class="glyphicon glyphicon-bell" style="position: absolute; right: 0; top: 21px; color: #e67e22; font-size: 1.2em;"></i>
+            <% } %>
+        </div>
+        <div class="clearfix"></div>
+    </li>
+    <%
+        });
+    %>  
+</script>
+
+<script id="chat-left-template" type="text/template">
+<li class="left clearfix">
+    <span class="chat-img pull-left">
+        <img src="/Content/ProfilePicture/<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
+    </span>
+    <div class="chat-body clearfix">
+        <div class="header">
+            <strong class="primary-font"><%= user.FullName %></strong> <small class="pull-right text-muted">
+                <span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %></small>
+        </div>
+        <p>
+            <%= message.Content %>
+        </p>
+    </div>
+</li>
+</script>
+
+<script id="chat-right-template" type="text/template">
+<li class="right clearfix">
+    <span class="chat-img pull-right">
+        <img src="/Content/ProfilePicture/<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
+    </span>
+    <div class="chat-body clearfix">
+        <div class="header">
+            <small class=" text-muted"><span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %></small>
+            <strong class="pull-right primary-font"><%= user.FullName %></strong>
+        </div>
+        <p>
+            <%= message.Content %>
+        </p>
+    </div>
+</li>
+</script>
+
+
+<script type='text/javascript'>
+
+    $(document).ready(function () {
+        var chatHub = $.connection.chatHub;
+        registerClientMethodsInConversation(chatHub);
+    });
+    function registerClientMethodsInConversation(chatHub) {
+        chatHub.client.messageReceived = function (fromUserDetail, toUserDetail, messageDetail) {
+            console.log(fromUserDetail);
+            $(".unread-message").html(toUserDetail.CountMessageUnRead);
+        }
+
+        chatHub.client.onGetConversationList = function (conversations) {
+            console.log(conversations);
+            $("#contact-list").html("");
+            var template = $("#doctor-list-template").html();
+            $("#contact-list").html(_.template(template, { conversations: conversations }));
+            $(".list-group-item").click(function (e) {
+                $("#divChat").show();
+                var username = $(this).find(".username").val();
+                $('#txtToUsername').val(username);
+                chatHub.server.getMessageList(username);
+            });
+        }
+
+        // On Get Message
+        chatHub.client.onGetMessage = function (doctorDetail, messageDetails) {
+            console.log("onGetMessage");
+            console.log(doctorDetail);
+            console.log(messageDetails);
+        }
+    }
+
+</script>
