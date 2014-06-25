@@ -107,28 +107,60 @@
 
 
 <script type='text/javascript'>
+    ChatBoxView = Backbone.View.extend({
+        el: $("#chatbox"),
+        doctorListEl: $("#contact-list"),
+        initialize: function () {
+            this.render();
+        },
+        events: {
+            "click .list-group-item": "getMessageList",
+            "click #btnSendMsg": "sendMessage",
+            "keypress #txtMessage": "sendMessagePress"
+        },
+        renderContactList: function (conversations) {
+            var template = _.template($("#doctor-list-template").html(), { conversations: conversations });
+            this.doctorListEl.html(template);
+        },
+        getMessageList: function (e) {
+            var username = $(e.currentTarget).find(".username").val();
+            $('#txtToUsername').val(username);
+            console.log("getMessageList from: " + username);
+            chatHub.server.getMessageList(username);
+        },
+        sendMessage: function () {
+            var msg = $("#txtMessage").val();
+            if (msg.length > 0) {
+                var toUsername = $('#txtToUsername').val();
+                var fromUsername = $('#txtFromUsername').val();
+                chatHub.server.sendMessageTo(toUsername, msg);
+                $("#txtMessage").val('');
+            }
+        },
+        sendMessagePress: function (e) {
+            if (e.which == 13) {
+                this.sendMessage();
+            }
+        }
+    });
+
+    var chatBoxView = new ChatBoxView();
+
+    var chatHub = $.connection.chatHub;
 
     $(document).ready(function () {
         var chatHub = $.connection.chatHub;
         registerClientMethodsInConversation(chatHub);
     });
     function registerClientMethodsInConversation(chatHub) {
-        chatHub.client.messageReceived = function (fromUserDetail, toUserDetail, messageDetail) {
-            console.log(fromUserDetail);
-            $(".unread-message").html(toUserDetail.CountMessageUnRead);
+        chatHub.client.messageReceived = function (fromUser, toUser, message) {
+            AddMessage(fromUser, message);
+            $(".unread-message").html(toUser.CountMessageUnRead);
         }
 
         chatHub.client.onGetConversationList = function (conversations) {
             console.log(conversations);
-            $("#contact-list").html("");
-            var template = $("#doctor-list-template").html();
-            $("#contact-list").html(_.template(template, { conversations: conversations }));
-            $(".list-group-item").click(function (e) {
-                $("#divChat").show();
-                var username = $(this).find(".username").val();
-                $('#txtToUsername').val(username);
-                chatHub.server.getMessageList(username);
-            });
+            chatBoxView.renderContactList(conversations);
         }
 
         // On Get Message
@@ -137,6 +169,35 @@
             console.log(doctorDetail);
             console.log(messageDetails);
         }
+
+        chatHub.client.onGetMessageList = function (fromUser, toUser, messageDetails) {
+            console.log("onGetMessageList");
+            console.log(messageDetails);
+            console.log(fromUser);
+            console.log(toUser);
+            $("#chat-content").html("");
+            var loginUsername = $('#txtFromUsername').val();
+            var templateLeft = $("#chat-left-template").html();
+            var templateRight = $("#chat-right-template").html();
+            _.forEach(messageDetails, function (message) {
+                if (loginUsername == message.Username) {
+                    $("#chat-content").append(_.template(templateLeft, { user: fromUser, message: message }));
+                } else {
+                    $("#chat-content").append(_.template(templateRight, { user: toUser, message: message }));
+                }
+            });
+            $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
+        }
+    }
+
+    function AddMessage(user, message) {
+        var loginUsername = $('#txtFromUsername').val();
+        var template = $("#chat-right-template").html();
+        if (loginUsername == user.Username) {
+            template = $("#chat-left-template").html();
+        }
+        $("#chat-content").append(_.template(template, { user: user, message: message }));
+        $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
     }
 
 </script>

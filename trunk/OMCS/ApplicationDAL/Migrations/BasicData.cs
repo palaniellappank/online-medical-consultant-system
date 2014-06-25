@@ -52,7 +52,8 @@
                 IsActive = true,
                 Birthday = DateTime.UtcNow,
                 CreatedDate = DateTime.UtcNow,
-                Roles = new List<Role>()
+                Roles = new List<Role>(),
+                ProfilePicture = "photo.jpg"
             };
 
             Doctor user3 = new Doctor
@@ -65,7 +66,8 @@
                 Birthday = DateTime.UtcNow,
                 CreatedDate = DateTime.UtcNow,
                 SpecialtyField = NhiKhoa,
-                Roles = new List<Role>()
+                Roles = new List<Role>(),
+                ProfilePicture = "photo.jpg"
             };
 
             Doctor bsNguyenVanA = new Doctor
@@ -79,7 +81,8 @@
                 Birthday = DateTime.UtcNow,
                 CreatedDate = DateTime.UtcNow,
                 SpecialtyField = NhiKhoa,
-                Roles = new List<Role>()
+                Roles = new List<Role>(),
+                ProfilePicture = "photo.jpg"
             };
 
             Doctor bsTonThatTung = new Doctor
@@ -87,7 +90,8 @@
                 Username = "tonthattung", Email = "tonthattung@gmail.com", 
                 FirstName = "Tùng", LastName = "Tôn Thất", Password = "123456", 
                 IsActive = true, Birthday = DateTime.UtcNow, CreatedDate = DateTime.UtcNow, 
-                SpecialtyField = NhiKhoa, Roles = new List<Role>()
+                SpecialtyField = NhiKhoa, Roles = new List<Role>(),
+                ProfilePicture = "photo.jpg"
             };
 
             Doctor bsHoDacDi = new Doctor
@@ -95,7 +99,8 @@
                 Username = "hodacdi", Email = "tonthattung@gmail.com", 
                 FirstName = "Di", LastName = "Hồ Đắc", Password = "123456", 
                 IsActive = true, Birthday = DateTime.UtcNow, CreatedDate = DateTime.UtcNow, 
-                SpecialtyField = NhiKhoa, Roles = new List<Role>()
+                SpecialtyField = NhiKhoa, Roles = new List<Role>(),
+                ProfilePicture = "photo.jpg"
             };
 
             Doctor bsDangVanNgu = new Doctor
@@ -103,7 +108,8 @@
                 Username = "dangvanngu", Email = "dangvanngu@gmail.com", 
                 FirstName = "Ngữ", LastName = "Đặng Văn", Password = "123456", 
                 IsActive = true, Birthday = DateTime.UtcNow, CreatedDate = DateTime.UtcNow, 
-                SpecialtyField = NhiKhoa, Roles = new List<Role>()
+                SpecialtyField = NhiKhoa, Roles = new List<Role>(),
+                ProfilePicture = "photo.jpg"
             };
 
             admin.Roles.Add(roleAdmin);

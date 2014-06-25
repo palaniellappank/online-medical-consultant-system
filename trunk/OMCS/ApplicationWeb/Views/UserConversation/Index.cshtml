@@ -63,7 +63,7 @@
     %>
     <li class="list-group-item">
         <div class="col-xs-12 col-sm-3">
-            <img src="http://api.randomuser.me/portraits/men/97.jpg" alt="<%= doctor.FullName %>" class="img-responsive img-circle" />
+            <img src="/Content/ProfilePicture/<%= doctor.ProfilePicture %>" alt="<%= doctor.FullName %>" class="img-responsive img-circle" />
         </div>
         <div class="col-xs-12 col-sm-9">
             <input class="username" type="hidden" value="<%= doctor.Username %>" />
@@ -116,48 +116,57 @@
 </script>
 
 <script type="text/javascript">
-    $(function () {
-        // Declare a proxy to reference the hub. 
-        var chatHub = $.connection.chatHub;
-        registerClientMethods(chatHub);
-        $("#divChat").hide();
-        // Start Hub
-        $.connection.hub.start().done(function () {
-            chatHub.server.connectPatient($("#txtFromUsername").val());
-            registerEvents(chatHub);
-        });
-    });
 
-    function registerEvents(chatHub) {
-
-        $('#btnSendMsg').click(function () {
+    ChatBoxView = Backbone.View.extend({
+        el: $("#chatbox"),
+        contactListEl: $("#contact-list"),
+        initialize: function () {
+            this.render();
+        },
+        events: {
+            "click .list-group-item": "getMessageList",
+            "click #btnSendMsg": "sendMessage",
+            "keypress #txtMessage": "sendMessagePress"
+        },
+        renderContactList: function (doctors) {
+            var template = _.template($("#doctor-list-template").html(), { doctors: doctors });
+            this.contactListEl.html(template);
+        },
+        getMessageList: function (e) {
+            var username = $(e.currentTarget).find(".username").val();
+            $('#txtToUsername').val(username);
+            chatHub.server.getMessageList(username);
+        },
+        sendMessage: function() {
             var msg = $("#txtMessage").val();
             if (msg.length > 0) {
                 var toUsername = $('#txtToUsername').val();
                 var fromUsername = $('#txtFromUsername').val();
-                chatHub.server.sendMessageToDoctor(toUsername, msg);
+                chatHub.server.sendMessageTo(toUsername, msg);
                 $("#txtMessage").val('');
             }
-        });
-
-        $("#txtMessage").keypress(function (e) {
+        },
+        sendMessagePress: function(e) {
             if (e.which == 13) {
-                $('#btnSendMsg').click();
+                this.sendMessage();
             }
+        }
+    });
+
+    var chatBoxView = new ChatBoxView();
+
+    var chatHub = $.connection.chatHub;
+
+    $(function () {
+        registerClientMethods(chatHub);
+        $.connection.hub.start().done(function () {
+            chatHub.server.connectPatient($("#txtFromUsername").val());
         });
-    }
+    });
 
     function registerClientMethods(chatHub) {
         chatHub.client.onGetDoctorList = function (doctors) {
-            $("#contact-list").html("");
-            var template = $("#doctor-list-template").html();
-            $("#contact-list").html(_.template(template, { doctors: doctors }));
-            $(".list-group-item").click(function (e) {
-                $("#divChat").show();
-                var username = $(this).find(".username").val();
-                $('#txtToUsername').val(username);
-                chatHub.server.getMessageList(username);
-            });
+            chatBoxView.renderContactList(doctors);
         }
 
         // On Get Message
@@ -203,11 +212,11 @@
             $(disc).fadeIn(200).delay(2000).fadeOut(200);
         }
 
-        chatHub.client.messageReceived = function (userName, message) {
+        chatHub.client.messageReceived = function (fromUser, toUser, message) {
             console.log("messageReceived");
-            console.dir(userName);
+            console.dir(fromUser);
             console.dir(message);
-            AddMessage(userName, message);
+            AddMessage(fromUser, message);
         }
 
 
@@ -225,7 +234,11 @@
     }
 
     function AddMessage(user, message) {
-        var template = $("#chat-left-template").html();
+        var loginUsername = $('#txtFromUsername').val();
+        var template = $("#chat-right-template").html();
+        if (loginUsername == user.Username) {
+            template = $("#chat-left-template").html();
+        }
         $("#chat-content").append(_.template(template, { user: user, message: message }));
         $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
     }

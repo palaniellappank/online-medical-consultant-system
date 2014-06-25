@@ -9,8 +9,13 @@ using OMCS.DAL.Model;
 
 namespace OMCS.BLL
 {
-    public class ConversationBusiness : BaseBusiness
+    public class ConversationBusiness
     {
+        private OMCSDBContext _db;
+        public ConversationBusiness(OMCSDBContext context)
+        {
+            _db = context;
+        }
         public int CountMessageUnRead(User user)
         {
             int countMessageUnRead = 0;
@@ -28,6 +33,20 @@ namespace OMCS.BLL
                 if (lastMessage != null) countMessageUnRead++;
             }
             return countMessageUnRead;
+        }
+
+        public void MarkConversationAsRead(Conversation conversation)
+        {
+            conversation.IsRead = true;
+            _db.Entry(conversation).State = EntityState.Modified;
+
+            List<ConversationDetail> conversationDetails = _db.ConversationDetails.Where(
+                x => x.ConversationId == conversation.ConversationId).ToList();
+            foreach (var conversationDetail in conversationDetails) {
+                conversationDetail.IsRead = true;
+                _db.Entry(conversationDetail).State = EntityState.Modified;
+            }
+            _db.SaveChanges();
         }
     }
 }
