@@ -31,5 +31,13 @@ namespace OMCS.DAL.Model
         public string HealthProblem { get; set; }
         public string ConditionStatus { get; set; }
         public string Note { get; set; }
+
+        public string LatestContentFromPatient { get; set; }
+        public string LatestContentFromDoctor { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime LatestTimeFromDoctor { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime LatestTimeFromPatient { get; set; }
+        public bool IsRead { get; set; }
     }
 }

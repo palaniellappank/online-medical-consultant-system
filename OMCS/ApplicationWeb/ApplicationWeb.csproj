@@ -534,8 +534,8 @@
     <Content Include="Views\Shared\ChatLayout.cshtml" />
     <Content Include="Views\UserConversation\ShowConversation.cshtml" />
     <Content Include="Views\UserConversation\ChatRoom.cshtml" />
-    <Content Include="Views\Doctor\ShowMessage.cshtml" />
     <Content Include="Scripts\underscore-min.map" />
+    <Content Include="Views\DoctorConversation\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

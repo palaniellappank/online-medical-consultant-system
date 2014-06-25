@@ -63,8 +63,8 @@
         <li class="@Html.IsActive("DoctorMedicalProfile", "Index")">
             <a href="@Url.Action("Index", "DoctorMedicalProfile")"><i class="glyphicon glyphicon-folder-open"></i> Quản lý bệnh án</a>
         </li>
-          <li class="@Html.IsActive("AdminDoctor", "Index")">
-              <a href="@Url.Action("Index", "AdminDoctor")"><i class="glyphicon glyphicon-envelope"></i> Tin nhắn <span class="badge unread-message"></span></a>
+          <li class="@Html.IsActive("DoctorConversation", "Index")">
+              <a href="@Url.Action("Index", "DoctorConversation")"><i class="glyphicon glyphicon-envelope"></i> Tin nhắn <span class="badge unread-message"></span></a>
           </li>
         <li class="@Html.IsActive("AdminTemplate", "Index")">
             <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i> Xem mẫu hồ sơ</a>
@@ -82,23 +82,6 @@
 
 <footer class="text-center">Copyright Group 2 - FPT University - 2014</footer>
 
-<div class="modal" id="addWidgetModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Add Widget</h4>
-      </div>
-      <div class="modal-body">
-        <p>Add a widget stuff here..</p>
-      </div>
-      <div class="modal-footer">
-        <a href="#" data-dismiss="modal" class="btn">Close</a>
-        <a href="#" class="btn btn-primary">Save changes</a>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dalog -->
-</div><!-- /.modal -->
 <input id="txtFromUsername" class="textBox" value="@User.Username" type="hidden"/>
 <input id="txtToUsername" class="textBox" value="" type="hidden"/>
     <script type='text/javascript'>
@@ -113,7 +96,6 @@
                 $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
             });
 
-
             // Declare a proxy to reference the hub. 
             var chatHub = $.connection.chatHub;
             registerClientMethods(chatHub);
@@ -124,22 +106,13 @@
             });
         });
         function registerClientMethods(chatHub) {
-            chatHub.client.sendPrivateMessageToDoctor = function (countMessage) {
-                $("#countmessage").html(countMessage);
-            }
-
             chatHub.client.onConnected = function (id, doctorDetail) {
-                console.log(id);
-                console.log(doctorDetail);
                 $(".unread-message").html(doctorDetail.CountMessageUnRead);
             }
 
-            chatHub.client.messageReceived = function (fromUserDetail, toUserDetail, messageDetail) {
-                console.log("messageReceived");
-                console.dir(fromUserDetail);
-                console.dir(toUserDetail);
-                $(".unread-message").html(toUserDetail.CountMessageUnRead);
-            }
+            //chatHub.client.messageReceived = function (fromUserDetail, toUserDetail, messageDetail) {
+            //    $(".unread-message").html(toUserDetail.CountMessageUnRead);
+            //}
         }
 
     </script>
