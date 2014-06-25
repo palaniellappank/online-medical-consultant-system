@@ -20,7 +20,8 @@ namespace OMCS.DAL
                 Phone = "0933056722", PrimaryAddress = "Thôn 1, xa CuEbur, Buôn Ma Thuột", SecondaryAddress = "201/9 Đường Số 9, Gò Vấp",
                 Ethnicity = "Kinh", Nationality = "Việt Nam", Job = "Lập trình viên", WhereToWork = "39B Trường Sơn, Tân Bình",
                 ContactPerson = "Mỹ Linh", ContactPersonAddress = "1 Lý Thường Kiệt", HealthInsuranceId = "234234VSD",
-                HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1)
+                HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1),
+                ProfilePicture = "Su.JPG"
             };
             suTran.Roles.Add(rolePatient);
             _db.Patients.Add(suTran);
@@ -39,7 +40,8 @@ namespace OMCS.DAL
                 IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>(), Gender = "M", Birthday = new DateTime(1992, 2, 19),
                 Phone = "0933056722", PrimaryAddress = "Tiền gian", SecondaryAddress = "Quận 12", Ethnicity = "Kinh", Nationality = "Việt Nam",
                 Job = "Lập trình viên", WhereToWork = "FPT Software", ContactPerson = "Mỹ Linh", ContactPersonAddress = "1 Lý Thường Kiệt",
-                HealthInsuranceId = "234234VSD", HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1)
+                HealthInsuranceId = "234234VSD", HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1),
+                ProfilePicture = "photo.jpg"
             };
 
             PersonalHealthRecord danhtranHealthRecord = new PersonalHealthRecord
@@ -55,7 +57,8 @@ namespace OMCS.DAL
                 IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>(), Gender = "M", Birthday = new DateTime(1992, 2, 19),
                 Phone = "0933056722", PrimaryAddress = "Tiền gian", SecondaryAddress = "Quận 12", Ethnicity = "Kinh", Nationality = "Việt Nam",
                 Job = "Lập trình viên", WhereToWork = "FPT Software", ContactPerson = "Mỹ Linh", ContactPersonAddress = "1 Lý Thường Kiệt",
-                HealthInsuranceId = "234234VSD", HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1)
+                HealthInsuranceId = "234234VSD", HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1),
+                ProfilePicture = "photo.jpg"
             };
 
             PersonalHealthRecord tuanMaiHealthRecord = new PersonalHealthRecord
@@ -71,7 +74,8 @@ namespace OMCS.DAL
                 IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>(), Gender = "F", Birthday = new DateTime(1992, 2, 19),
                 Phone = "0933056722", PrimaryAddress = "Tiền gian", SecondaryAddress = "Quận 12", Ethnicity = "Kinh", Nationality = "Việt Nam",
                 Job = "Sinh Vien", WhereToWork = "Hoa Sen", ContactPerson = "Mỹ Linh", ContactPersonAddress = "1 Lý Thường Kiệt",
-                HealthInsuranceId = "234234VSD", HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1)
+                HealthInsuranceId = "234234VSD", HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1),
+                ProfilePicture = "photo.jpg"
             };
 
             PersonalHealthRecord nguonNguyenHealthRecord = new PersonalHealthRecord
@@ -87,7 +91,8 @@ namespace OMCS.DAL
                 IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>(), Gender = "F", Birthday = new DateTime(1992, 2, 19),
                 Phone = "0933056722", PrimaryAddress = "Tiền gian", SecondaryAddress = "Quận 12", Ethnicity = "Kinh", Nationality = "Việt Nam",
                 Job = "Sinh Vien", WhereToWork = "Hoa Sen", ContactPerson = "Mỹ Linh", ContactPersonAddress = "1 Lý Thường Kiệt",
-                HealthInsuranceId = "234234VSD", HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1)
+                HealthInsuranceId = "234234VSD", HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1),
+                ProfilePicture = "photo.jpg"
             };
 
             PersonalHealthRecord nhanNguyenHealthRecord = new PersonalHealthRecord
@@ -103,7 +108,8 @@ namespace OMCS.DAL
                 IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>(), Gender = "M", Birthday = new DateTime(1992, 2, 19),
                 Phone = "0933056722", PrimaryAddress = "Quảng Ngãi", SecondaryAddress = "Quận 12", Ethnicity = "Kinh", Nationality = "Việt Nam",
                 Job = "Sinh Vien", WhereToWork = "F Soft", ContactPerson = "Mỹ Linh", ContactPersonAddress = "1 Lý Thường Kiệt",
-                HealthInsuranceId = "234234VSD", HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1)
+                HealthInsuranceId = "234234VSD", HealthInsuranceIssued = new DateTime(2013, 1, 1), HealthInsuranceDateExpired = new DateTime(2014, 1, 1),
+                ProfilePicture = "photo.jpg"
             };
 
             PersonalHealthRecord linhNguyenHealthRecord = new PersonalHealthRecord

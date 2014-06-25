@@ -13,7 +13,7 @@ namespace SignalRChat.Hubs
     public class ChatHub : Hub
     {
         OMCSDBContext _db = new OMCSDBContext();
-        ConversationBusiness business = new ConversationBusiness();
+        ConversationBusiness business;
         #region Data Members
 
         //Hold all connection for Doctor or Patient
@@ -30,6 +30,7 @@ namespace SignalRChat.Hubs
 
         public void ConnectDoctor(string username)
         {
+            business = new ConversationBusiness(_db);
             var id = Context.ConnectionId;
 
             var doctor = _db.Doctors.Where(x=>x.Username.Equals(username)).FirstOrDefault();
@@ -110,6 +111,7 @@ namespace SignalRChat.Hubs
 
         public void ConnectPatient(string username)
         {
+            business = new ConversationBusiness(_db);
             var id = Context.ConnectionId;
             var userDetail = ConnectedUsers.Where(x => x.Username.Equals(username)).FirstOrDefault();
             if (userDetail == null)
@@ -131,7 +133,8 @@ namespace SignalRChat.Hubs
                             FullName = doctor.FullName,
                             IsOnline = false,
                             SpeciatyField = doctor.SpecialtyField.Name,
-                            Username = doctor.Username
+                            Username = doctor.Username,
+                            ProfilePicture = doctor.ProfilePicture
                         };
                         Doctors.Add(doctorDetail);
                     }
@@ -144,10 +147,24 @@ namespace SignalRChat.Hubs
 
         public void GetMessageList(string username)
         {
+            business = new ConversationBusiness(_db);
             var id = Context.ConnectionId;
             var fromUserDetail = ConnectedUsers.Where(x => x.ConnectionId == id).FirstOrDefault();
             var fromUser = _db.Users.Where(x => x.Username.Equals(fromUserDetail.Username)).FirstOrDefault();
             var toUser = _db.Users.Where(x => x.Username.Equals(username)).FirstOrDefault();
+            var toUserDetail = ConnectedUsers.Where(x => x.Username.Equals(username)).FirstOrDefault();
+
+            //Check if toUserDetail is not online yet
+            if (toUserDetail == null)
+            {
+                toUserDetail = new UserDetail
+                {
+                    FullName = toUser.FullName,
+                    Username = toUser.Username,
+                    IsOnline = false,
+                    ProfilePicture = toUser.ProfilePicture
+                };
+            }
 
             var doctor = _db.Doctors.Where(u => u.Username.Equals(fromUser.Username)).FirstOrDefault();
             var patient = new Patient();
@@ -162,10 +179,8 @@ namespace SignalRChat.Hubs
             }
             if (doctor != null && patient != null)
             {
-                var patientDetail = ConnectedUsers.Where(cu => cu.ConnectionId == id).FirstOrDefault();
-                Debug.WriteLine(patientDetail.Username);
                 Debug.WriteLine("Patient: " + patient.Username + "  " + "Doctor: " + doctor.Username);
-                DoctorDetail doctorDetail = Doctors.Where(u => u.Username.Equals(username)).FirstOrDefault();
+                DoctorDetail doctorDetail = Doctors.Where(u => u.Username.Equals(doctor.Username)).FirstOrDefault();
                 var newestConversation = _db.Conversations.Where(
                     con => (con.PatientId == patient.UserId) && (con.DoctorId == doctor.UserId))
                     .OrderByDescending(con => con.DateConsulted).FirstOrDefault();
@@ -179,7 +194,7 @@ namespace SignalRChat.Hubs
                     var messageDetails = new List<MessageDetail>();
                     foreach (var conversationDetail in conversationDetails)
                     {
-                        String date = (DateTime.UtcNow.Subtract(conversationDetail.CreatedDate).Days) > 1 ?
+                        String date = (DateTime.Now.Subtract(conversationDetail.CreatedDate).Days) > 1 ?
                             String.Format("{0:HH:mm:ss}", conversationDetail.CreatedDate) :
                             String.Format("{0:dd/mm/yyyy HH:mm:ss}", conversationDetail.CreatedDate);
                         MessageDetail messageDetail = new MessageDetail
@@ -191,79 +206,101 @@ namespace SignalRChat.Hubs
                         messageDetails.Add(messageDetail);
                     }
                     Debug.WriteLine(messageDetails.Count);
-                    Clients.Caller.onGetMessageList(patientDetail, doctorDetail, messageDetails);
+                    if (fromUserDetail.Username.Equals(doctor.Username))
+                    {
+                        business.MarkConversationAsRead(newestConversation);
+                        this.ConnectDoctor(doctor.Username);
+                    }
+                    Clients.Caller.onGetMessageList(fromUserDetail, toUserDetail, messageDetails);
                 }
                 else
                 {
-                    Clients.Caller.onGetMessageList(patientDetail, doctorDetail, "");
+                    Clients.Caller.onGetMessageList(fromUserDetail, toUserDetail, "");
                 }
             }
         }
 
-        public void SendMessageToDoctor(string toUsername, string message)
+        public void SendMessageTo(string toUsername, string message)
         {
+            business = new ConversationBusiness(_db);
             Debug.WriteLine(toUsername + " " + message);
             var id = Context.ConnectionId;
             var fromUserDetail = ConnectedUsers.Where(x => x.ConnectionId == id).FirstOrDefault();
             var fromUser = _db.Users.Where(x => x.Username.Equals(fromUserDetail.Username)).FirstOrDefault();
             var toUser = _db.Users.Where(x => x.Username.Equals(toUsername)).FirstOrDefault();
-            
+            var toUserDetail = ConnectedUsers.Where(x => x.Username.Equals(toUsername)).FirstOrDefault();
 
-            //Store in database
-            Conversation conversation = _db.Conversations.Where(
-                x => (x.PatientId == fromUser.UserId && x.DoctorId == toUser.UserId))
-            .OrderByDescending(x => x.DateConsulted).FirstOrDefault();
-
-            Debug.WriteLine("DoctorId = " + toUser.UserId, "  PatientId = " + fromUser.UserId);
-            if (conversation == null)
+            var doctor = _db.Doctors.Where(u => u.Username.Equals(fromUser.Username)).FirstOrDefault();
+            var patient = new Patient();
+            if (doctor == null)
             {
-                conversation = new Conversation
-                {
-                    DoctorId = toUser.UserId,
-                    PatientId = fromUser.UserId,
-                    DateConsulted = DateTime.UtcNow,
-                };
-                _db.Conversations.Add(conversation);
+                doctor = _db.Doctors.Where(u => u.Username.Equals(toUser.Username)).FirstOrDefault();
+                patient = _db.Patients.Where(u => u.Username.Equals(fromUser.Username)).FirstOrDefault();
             }
-
-            conversation.LatestTimeFromPatient = DateTime.UtcNow;
-            conversation.LatestContentFromPatient = message;
-            conversation.IsRead = false;
-
-            ConversationDetail conversationDetail = new ConversationDetail
+            else
             {
-                UserId = fromUser.UserId,
-                Content = message,
-                Conversation = conversation,
-                CreatedDate = DateTime.UtcNow,
-                IsRead = false
-            };
-
-            MessageDetail messageDetail = new MessageDetail
+                patient = _db.Patients.Where(u => u.Username.Equals(toUser.Username)).FirstOrDefault();
+            }
+            if (doctor != null && patient != null)
             {
-                 Content = message,
-                 Username = fromUser.Username,
-                 CreatedDate = String.Format("{0:H:mm:ss}", DateTime.Now),
-                 IsRead = false
-            };
+                //Store in database
+                Conversation conversation = _db.Conversations.Where(
+                    x => (x.PatientId == patient.UserId && x.DoctorId == doctor.UserId))
+                .OrderByDescending(x => x.DateConsulted).FirstOrDefault();
 
-            _db.ConversationDetails.Add(conversationDetail);
-            _db.SaveChanges();
-
-            //Notify Receiver
-            var toUserDetails = ConnectedUsers.Where(x => x.Username == toUsername).ToList();
-            if (toUserDetails != null) 
-            {
-                foreach(var toUserDetail in toUserDetails)
+                Debug.WriteLine("DoctorId = " + toUser.UserId, "  PatientId = " + fromUser.UserId);
+                if (conversation == null)
                 {
-                    toUserDetail.CountMessageUnRead = business.CountMessageUnRead(toUser);
-                    if (toUserDetail != null && toUserDetail.ConnectionId != null)
-                        Clients.Client(toUserDetail.ConnectionId).messageReceived(fromUserDetail, toUserDetail, messageDetail);
+                    conversation = new Conversation
+                    {
+                        DoctorId = toUser.UserId,
+                        PatientId = fromUser.UserId,
+                        DateConsulted = DateTime.Now,
+                        LatestTimeFromDoctor = DateTime.Now,
+                        LatestTimeFromPatient = DateTime.Now
+                    };
+                    _db.Conversations.Add(conversation);
                 }
-            }
 
-            //Notify Caller
-            Clients.Caller.messageReceived(fromUserDetail, messageDetail);
+                conversation.LatestTimeFromPatient = DateTime.Now;
+                conversation.LatestContentFromPatient = message;
+                conversation.IsRead = false;
+
+                ConversationDetail conversationDetail = new ConversationDetail
+                {
+                    UserId = fromUser.UserId,
+                    Content = message,
+                    Conversation = conversation,
+                    CreatedDate = DateTime.Now,
+                    IsRead = false
+                };
+
+                MessageDetail messageDetail = new MessageDetail
+                {
+                    Content = message,
+                    Username = fromUser.Username,
+                    CreatedDate = String.Format("{0:H:mm:ss}", DateTime.Now),
+                    IsRead = false
+                };
+
+                _db.ConversationDetails.Add(conversationDetail);
+                _db.SaveChanges();
+
+                //Notify Receiver
+                var receivers = ConnectedUsers.Where(x => x.Username == toUsername).ToList();
+                if (receivers != null)
+                {
+                    foreach (var receiver in receivers)
+                    {
+                        receiver.CountMessageUnRead = business.CountMessageUnRead(toUser);
+                        if (receiver != null && receiver.ConnectionId != null)
+                            Clients.Client(receiver.ConnectionId).messageReceived(fromUserDetail, toUserDetail, messageDetail);
+                    }
+                }
+
+                //Notify Caller
+                Clients.Caller.messageReceived(fromUserDetail, toUserDetail, messageDetail);
+            }
         }
 
         public void SendPrivateMessage(string toUserId, string message, int conversationid, string username)
@@ -294,7 +331,7 @@ namespace SignalRChat.Hubs
             {
                 Conversation = conversation,
                 Content = message,
-                CreatedDate = DateTime.UtcNow,
+                CreatedDate = DateTime.Now,
                 User = user
             };
             //_db.Conversations.Add(conversation);

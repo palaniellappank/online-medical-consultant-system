@@ -16,6 +16,7 @@ namespace OMCS.Web
                         "~/Scripts/jquery-ui-{version}.js",
                         "~/Scripts/jquery.validate.js",
                         "~/Scripts/underscore.js",
+                        "~/Scripts/backbone.js",
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/site.js"));
 
