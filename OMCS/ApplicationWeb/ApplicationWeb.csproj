@@ -197,7 +197,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="ChatHub.cs" />
+    <Compile Include="Common\ChatHub.cs" />
+    <Compile Include="Common\ChatHubHelper.cs" />
     <Compile Include="Common\DoctorDetail.cs" />
     <Compile Include="Common\MessageDetail.cs" />
     <Compile Include="Common\UserDetail.cs" />
