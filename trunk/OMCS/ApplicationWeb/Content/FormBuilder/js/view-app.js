@@ -16,6 +16,13 @@
             collection: new SnippetsCollection(formInJson)
         });
 
+        $("#saveBtn").click(function (e) {
+            $.post(
+                $("form#target").attr("action"),
+                $("form#target").serialize()
+            );
+        });
+
         $(".datepicker").datepicker();
     }
   }

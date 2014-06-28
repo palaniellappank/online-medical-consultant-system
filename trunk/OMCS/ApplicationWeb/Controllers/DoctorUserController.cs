@@ -74,5 +74,12 @@ namespace OMCS.Web.Controllers
             ViewBag.medicalProfileTemplateId = medicalProfileTemplateId;
             return View();
         }
+
+        [HttpPost]
+        public ActionResult UpdateMedicalProfile(FormCollection formCollection)
+        {
+            medicalProfileBusiness.UpdateMedicalProfileForPatient(formCollection);
+            return View();
+        }
     }
 }

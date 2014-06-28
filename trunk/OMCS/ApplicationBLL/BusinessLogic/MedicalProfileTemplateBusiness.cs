@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace OMCS.BLL
 {
@@ -218,11 +219,57 @@ namespace OMCS.BLL
                     metadata.value = valueStatic;
                     snippet.fields.Add("value", metadata);
                 }
+                else
+                {
+                    dynamic metadata = new JObject();
+                    var customSnippietValue = _db.CustomSnippetValues.Where(
+                        x => x.CustomSnippetId == customSnippet.CustomSnippetId).FirstOrDefault();
+                    if (customSnippietValue != null)
+                    {
+                        metadata.value = customSnippietValue.Value;
+                        snippet.fields.Add("value", metadata);
+                    }
+                }
                 result.Add(snippet);
             }
             Debug.WriteLine("Haha ne");
             string str = ((object)result).ToString();
             return str;
+        }
+
+        public void UpdateMedicalProfileForPatient(FormCollection formCollection)
+        {
+            int medicalProfileTemplateId = Int32.Parse(formCollection["medicalProfileTemplateId"]);
+            int patientId = Int32.Parse(formCollection["patientId"]);
+            var medicalProfile = _db.MedicalProfiles.Where(
+                    x => ((x.MedicalProfileTemplateId == medicalProfileTemplateId)
+                    && (x.PatientId == patientId))).FirstOrDefault();
+            foreach (string _formData in formCollection)
+            {
+                if (!_formData.Equals("medicalProfileTemplateId") && !_formData.Equals("patientId"))
+                {
+                    Debug.WriteLine("Element: " + _formData + ". Form data: " + formCollection[_formData]);
+                    int customSnippetId = Int32.Parse(_formData);
+                    if (customSnippetId > 0)
+                    {
+                        var customSnippetValue = _db.CustomSnippetValues.Where(
+                            x => (x.MedicalProfileId == medicalProfile.MedicalProfileId)
+                                && (x.CustomSnippetId == customSnippetId)
+                            ).FirstOrDefault();
+                        if (customSnippetValue == null)
+                        {
+                            customSnippetValue = new CustomSnippetValue
+                            {
+                                MedicalProfile = medicalProfile,
+                                CustomSnippetId = customSnippetId
+                            };
+                            _db.CustomSnippetValues.Add(customSnippetValue);
+                        }
+                        customSnippetValue.Value = formCollection[_formData];
+                        _db.SaveChanges();
+                    }
+                }
+            }
         }
     }
 }
