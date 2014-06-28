@@ -38,6 +38,7 @@ namespace OMCS.DAL.Model
         public DateTime LatestTimeFromDoctor { get; set; }
         [DataType(DataType.Date)]
         public DateTime LatestTimeFromPatient { get; set; }
-        public bool IsRead { get; set; }
+        public bool IsDoctorRead { get; set; }
+        public bool IsPatientRead { get; set; }
     }
 }

@@ -20,24 +20,36 @@ namespace OMCS.BLL
         {
             int countMessageUnRead = 0;
 
-            List<Conversation> conversations = _db.Conversations.Where(
-                    x => (x.DoctorId == user.UserId)
-                    || (x.PatientId == user.UserId)).ToList();
+            List<Conversation> conversations;
 
-            foreach (var conversation in conversations)
+            var doctor = _db.Doctors.Where(
+                x => (x.Username == user.Username)).FirstOrDefault();
+            if (doctor != null)
             {
-                var lastMessage = _db.ConversationDetails.Where(
-                    x => (x.ConversationId == conversation.ConversationId)
-                    && (x.IsRead == false))
-                    .OrderByDescending(x => x.CreatedDate).FirstOrDefault();
-                if (lastMessage != null) countMessageUnRead++;
+                conversations = _db.Conversations.Where(
+                    x => (x.DoctorId == user.UserId)).ToList();
+                countMessageUnRead = conversations.Count(x => x.IsDoctorRead == false);
             }
+            else
+            {
+                conversations = _db.Conversations.Where(
+                    x => (x.PatientId == user.UserId)).ToList();
+                countMessageUnRead = conversations.Count(x => x.IsPatientRead == false);
+            }
+            
             return countMessageUnRead;
         }
 
-        public void MarkConversationAsRead(Conversation conversation)
+        public void MarkConversationAsRead(Conversation conversation, bool isDoctor)
         {
-            conversation.IsRead = true;
+            if (isDoctor)
+            {
+                conversation.IsDoctorRead = true;
+            }
+            else
+            {
+                conversation.IsPatientRead = true;
+            }
             _db.Entry(conversation).State = EntityState.Modified;
 
             List<ConversationDetail> conversationDetails = _db.ConversationDetails.Where(

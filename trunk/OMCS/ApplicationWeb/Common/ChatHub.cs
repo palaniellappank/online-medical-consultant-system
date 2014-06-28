@@ -45,7 +45,7 @@ namespace SignalRChat.Hubs
             var doctor = _db.Doctors.Where(x=>x.Username.Equals(username)).FirstOrDefault();
             var doctorDetail = Doctors.Where(x => x.Username.Equals(username)).FirstOrDefault();
 
-            helper.UpdateDoctorsStatus(id, username, Doctors);
+            helper.UpdateDoctorsStatus(id, username, Doctors, ConnectedUsers);
 
             //Add User
             UserDetail userDetail = new UserDetail
@@ -55,6 +55,7 @@ namespace SignalRChat.Hubs
                 ProfilePicture = doctor.ProfilePicture,
                 FullName = doctor.FullName,
                 Username = doctor.Username,
+                IsOnline = doctor.IsOnline
             };
 
             //Show List of Lastest contact
@@ -64,10 +65,8 @@ namespace SignalRChat.Hubs
 
             Debug.WriteLine("Size of userDetailList: " + userDetailList.Count);
 
-            // send to all except caller client
             Clients.Caller.onGetConversationList(userDetailList);
-
-            Clients.AllExcept(id).onGetDoctorList(Doctors);
+            Clients.AllExcept(id).onRefreshDoctorList();
         }
 
         public void ConnectPatient(string username)
@@ -77,15 +76,18 @@ namespace SignalRChat.Hubs
             if (userDetail == null)
             {
                 var user = _db.Users.Where(x => x.Username.Equals(username)).FirstOrDefault();
-                ConnectedUsers.Add(new UserDetail { ConnectionId = id, 
-                    Username = username, CountMessageUnRead = 0,
+                userDetail = new UserDetail { 
+                    ConnectionId = id,
+                    CountMessageUnRead = business.CountMessageUnRead(user),
+                    Username = username,
                     FullName = user.FullName, ProfilePicture = user.ProfilePicture,
                     IsOnline = true
-                });
-
-                // send to caller
-                Clients.Caller.onGetDoctorList(Doctors);
+                };
+                ConnectedUsers.Add(userDetail);
+                userDetail.DoctorList = helper.GetListDoctorConversation(username, ConnectedUsers);
             }
+            Clients.Caller.onGetDoctorList(userDetail.DoctorList);
+            Clients.Caller.onMessageUnRead(userDetail);
         }
 
         public void GetMessageList(string username)
@@ -99,13 +101,7 @@ namespace SignalRChat.Hubs
             //Check if toUserDetail is not online yet
             if (toUserDetail == null)
             {
-                toUserDetail = new UserDetail
-                {
-                    FullName = toUser.FullName,
-                    Username = toUser.Username,
-                    IsOnline = false,
-                    ProfilePicture = toUser.ProfilePicture
-                };
+                toUserDetail = helper.ConvertUserToUserDetail(toUser);
             }
             List<MessageDetail> userDetails = helper.GetMessageDetail(fromUser.Username, toUser.Username);
             Clients.Caller.onGetMessageList(fromUserDetail, toUserDetail, userDetails);
@@ -135,103 +131,30 @@ namespace SignalRChat.Hubs
             }
             if (doctor != null && patient != null)
             {
-                //Store in database
-                Conversation conversation = _db.Conversations.Where(
-                    x => (x.PatientId == patient.UserId && x.DoctorId == doctor.UserId))
-                .OrderByDescending(x => x.DateConsulted).FirstOrDefault();
-
-                Debug.WriteLine("DoctorId = " + toUser.UserId, "  PatientId = " + fromUser.UserId);
-                if (conversation == null)
+                //Check if toUserDetail is not online yet
+                if (toUserDetail == null)
                 {
-                    conversation = new Conversation
-                    {
-                        DoctorId = toUser.UserId,
-                        PatientId = fromUser.UserId,
-                        DateConsulted = DateTime.Now,
-                        LatestTimeFromDoctor = DateTime.Now,
-                        LatestTimeFromPatient = DateTime.Now
-                    };
-                    _db.Conversations.Add(conversation);
+                    toUserDetail = helper.ConvertUserToUserDetail(toUser);
                 }
 
-                conversation.LatestTimeFromPatient = DateTime.Now;
-                conversation.LatestContentFromPatient = message;
-                conversation.IsRead = false;
-
-                ConversationDetail conversationDetail = new ConversationDetail
-                {
-                    UserId = fromUser.UserId,
-                    Content = message,
-                    Conversation = conversation,
-                    CreatedDate = DateTime.Now,
-                    IsRead = false
-                };
-
-                MessageDetail messageDetail = new MessageDetail
-                {
-                    Content = message,
-                    Username = fromUser.Username,
-                    CreatedDate = String.Format("{0:H:mm:ss}", DateTime.Now),
-                    IsRead = false
-                };
-
-                _db.ConversationDetails.Add(conversationDetail);
-                _db.SaveChanges();
+                helper.SyncUserDetailWhenSendMessage(fromUserDetail, toUsername, message, ConnectedUsers);
+                
+                Debug.WriteLine("DoctorId = " + toUser.UserId, "  PatientId = " + fromUser.UserId);
+                
+                MessageDetail messageDetail = helper.SaveMessageToDatabase(fromUser, patient, doctor, message);
 
                 //Notify Receiver
-                var receivers = ConnectedUsers.Where(x => x.Username == toUsername).ToList();
-                if (receivers != null)
+                var receiver = ConnectedUsers.Where(x => x.Username == toUsername).FirstOrDefault();
+                
+                if (receiver != null && receiver.ConnectionId != null)
                 {
-                    foreach (var receiver in receivers)
-                    {
-                        receiver.CountMessageUnRead = business.CountMessageUnRead(toUser);
-                        if (receiver != null && receiver.ConnectionId != null)
-                            Clients.Client(receiver.ConnectionId).messageReceived(fromUserDetail, toUserDetail, messageDetail);
-                    }
+                    receiver.CountMessageUnRead = business.CountMessageUnRead(toUser);
+                    Clients.Client(receiver.ConnectionId).messageReceived(fromUserDetail, toUserDetail, messageDetail);
                 }
 
                 //Notify Caller
                 Clients.Caller.messageReceived(fromUserDetail, toUserDetail, messageDetail);
             }
-        }
-
-        public void SendPrivateMessage(string toUserId, string message, int conversationid, string username)
-        {
-            string fromUserId = Context.ConnectionId;
-
-            var toUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == toUserId);
-            toUser.CountMessageUnRead += 1;
-            var fromUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == fromUserId);
-
-            if (toUser != null && fromUser != null)
-            {
-                // send to 
-                Clients.Client(toUserId).sendPrivateMessage(fromUserId, fromUser.Username, message);
-
-                // send to caller doctor
-                Clients.Caller.sendPrivateMessage(toUserId, fromUser.Username, message);
-
-                Clients.Client(toUserId).sendPrivateMessageToDoctor(toUser.CountMessageUnRead);
-                //Debug.WriteLine(toUser.CountMessageUnRead);
-                //Debug.WriteLine("Da vao day roi ne");
-                //Debug.WriteLine(toUserId + fromUserId);
-            }
-
-            var conversation = _db.Conversations.Find(conversationid);
-            var user = _db.Users.Where(u => u.Username == username).FirstOrDefault();
-            var conversationDetail = new ConversationDetail
-            {
-                Conversation = conversation,
-                Content = message,
-                CreatedDate = DateTime.Now,
-                User = user
-            };
-            //_db.Conversations.Add(conversation);
-            Debug.WriteLine(conversationid);
-            Debug.WriteLine(username);
-            _db.ConversationDetails.Add(conversationDetail);
-            _db.SaveChanges();
-
         }
 
         public override System.Threading.Tasks.Task OnDisconnected()

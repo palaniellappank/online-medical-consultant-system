@@ -130,9 +130,9 @@
         },
         sendMessage: function () {
             var msg = $("#txtMessage").val();
-            if (msg.length > 0) {
-                var toUsername = $('#txtToUsername').val();
-                var fromUsername = $('#txtFromUsername').val();
+            var toUsername = $('#txtToUsername').val();
+            var fromUsername = $('#txtFromUsername').val();
+            if ((msg.length > 0) && (toUsername.length > 0)) {
                 chatHub.server.sendMessageTo(toUsername, msg);
                 $("#txtMessage").val('');
             }
@@ -146,28 +146,44 @@
 
     var chatBoxView = new ChatBoxView();
 
+    // Declare a proxy to reference the hub. 
     var chatHub = $.connection.chatHub;
 
     $(document).ready(function () {
         var chatHub = $.connection.chatHub;
         registerClientMethodsInConversation(chatHub);
+
+        // Start Hub
+        $.connection.hub.start().done(function () {
+            var fromUser = $("#txtFromUsername").val();
+            chatHub.server.connectDoctor(fromUser);
+        });
     });
     function registerClientMethodsInConversation(chatHub) {
-        chatHub.client.messageReceived = function (fromUser, toUser, message) {
-            AddMessage(fromUser, message);
-            $(".unread-message").html(toUser.CountMessageUnRead);
+        chatHub.client.messageReceived = function (sender, receiver, message) {
+            console.log("Message Receive:");
+            console.log(receiver);
+
+            var fromUsername = $('#txtFromUsername').val();
+            var toUsername = $('#txtToUsername').val();
+            if (receiver.Username == fromUsername) {
+                chatBoxView.renderContactList(receiver.ConversationList);
+                if (toUsername == sender.Username) {
+                    AddMessage(sender, message);
+                }
+            }
+
+            if (sender.Username == fromUsername) {
+                chatBoxView.renderContactList(sender.ConversationList);
+                if (toUsername == receiver.Username) {
+                    AddMessage(sender, message);
+                }
+            }
         }
 
         chatHub.client.onGetConversationList = function (conversations) {
             console.log(conversations);
             chatBoxView.renderContactList(conversations);
-        }
-
-        // On Get Message
-        chatHub.client.onGetMessage = function (doctorDetail, messageDetails) {
-            console.log("onGetMessage");
-            console.log(doctorDetail);
-            console.log(messageDetails);
         }
 
         chatHub.client.onGetMessageList = function (fromUser, toUser, messageDetails) {

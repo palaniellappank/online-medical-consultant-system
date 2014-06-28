@@ -64,7 +64,7 @@
             <a href="@Url.Action("Index", "DoctorMedicalProfile")"><i class="glyphicon glyphicon-folder-open"></i> Quản lý bệnh án</a>
         </li>
           <li class="@Html.IsActive("DoctorConversation", "Index")">
-              <a href="@Url.Action("Index", "DoctorConversation")"><i class="glyphicon glyphicon-envelope"></i> Tin nhắn <span class="badge unread-message"></span></a>
+              <a href="@Url.Action("Index", "DoctorConversation")"><i class="glyphicon glyphicon-envelope"></i> Tin nhắn <span class="badg1e unread-message"></span></a>
           </li>
         <li class="@Html.IsActive("AdminTemplate", "Index")">
             <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i> Xem mẫu hồ sơ</a>
@@ -95,24 +95,15 @@
                 // toggle icon
                 $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
             });
-
-            // Declare a proxy to reference the hub. 
-            var chatHub = $.connection.chatHub;
-            registerClientMethods(chatHub);
-            // Start Hub
-            $.connection.hub.start().done(function () {
-                var fromUser = $("#txtFromUsername").val();
-                chatHub.server.connectDoctor(fromUser);
-            });
         });
         function registerClientMethods(chatHub) {
             chatHub.client.onConnected = function (id, doctorDetail) {
                 $(".unread-message").html(doctorDetail.CountMessageUnRead);
             }
 
-            //chatHub.client.messageReceived = function (fromUserDetail, toUserDetail, messageDetail) {
-            //    $(".unread-message").html(toUserDetail.CountMessageUnRead);
-            //}
+            chatHub.client.onMessageUnRead = function (doctorDetail) {
+                $(".unread-message").html(doctorDetail.CountMessageUnRead);
+            }
         }
 
     </script>

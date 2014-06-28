@@ -12,8 +12,6 @@
     <h1>Tư vấn trực tuyến
     </h1>
     <hr />
-    <input id="txtFromUsername" class="textBox" value="@ViewBag.Username" type="hidden"/>
-    <input id="txtToUsername" class="textBox" value="" type="hidden"/>
     <div class="row" id="chatbox">
         <div class="col-xs-12 col-sm-6 col-md-4">
             <div class="panel panel-default">
@@ -68,10 +66,16 @@
         <div class="col-xs-12 col-sm-9">
             <input class="username" type="hidden" value="<%= doctor.Username %>" />
             <span class="name"><%= doctor.FullName %></span><br />
-            <span class="speciaty"><%= doctor.SpeciatyField %></span><br />
+            <span class="speciaty"><%= doctor.SpeciatyField %></span>
+            <span class="lastest-message"><%= doctor.LastestContent %></span><br />
             <% if (doctor.IsOnline) {
             %>
                 <i class="glyphicon glyphicon-ok" style="position: absolute; right: 0; top: 40px; color: #2980b9; font-size: 1.2em;"></i>
+            <% } %>
+
+            <% if (!doctor.IsRead) {
+            %>
+                <i class="glyphicon glyphicon-bell" style="position: absolute; right: 0; top: 21px; color: #e67e22; font-size: 1.2em;"></i>
             <% } %>
         </div>
         <div class="clearfix"></div>
@@ -99,7 +103,7 @@
 </script>
 
 <script id="chat-right-template" type="text/template">
-<li class="right clearfix">
+<li class="right clearfix <% if (!message.IsRead) { %> unread-message-hightlight<% } %>">
     <span class="chat-img pull-right">
         <img src="/Content/ProfilePicture/<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
     </span>
@@ -139,9 +143,9 @@
         },
         sendMessage: function() {
             var msg = $("#txtMessage").val();
-            if (msg.length > 0) {
-                var toUsername = $('#txtToUsername').val();
-                var fromUsername = $('#txtFromUsername').val();
+            var toUsername = $('#txtToUsername').val();
+            var fromUsername = $('#txtFromUsername').val();
+            if ((msg.length > 0) && (toUsername.length > 0)) {
                 chatHub.server.sendMessageTo(toUsername, msg);
                 $("#txtMessage").val('');
             }
@@ -158,6 +162,7 @@
     var chatHub = $.connection.chatHub;
 
     $(function () {
+        console.log("On ready Index");
         registerClientMethods(chatHub);
         $.connection.hub.start().done(function () {
             chatHub.server.connectPatient($("#txtFromUsername").val());
@@ -166,17 +171,14 @@
 
     function registerClientMethods(chatHub) {
         chatHub.client.onGetDoctorList = function (doctors) {
+            console.log("onGetDoctorList");
             chatBoxView.renderContactList(doctors);
         }
 
-        // On Get Message
-        chatHub.client.onGetMessage = function (doctorDetail, messageDetails) {
-            console.log("onGetMessage");
-            console.log(doctorDetail);
-            console.log(messageDetails);
+        chatHub.client.onRefreshDoctorList = function () {
+            chatHub.server.connectPatient($("#txtFromUsername").val());
         }
 
-        // On Get Message
         chatHub.client.onGetMessageList = function (fromUser, toUser, messageDetails) {
             console.log("onGetMessageList");
             console.log(messageDetails);
@@ -201,35 +203,26 @@
             AddUser(chatHub, id, name);
         }
 
-        // On User Disconnected
-        chatHub.client.onUserDisconnected = function (id, userName) {
-            $('#' + id).remove();
-            var ctrId = 'private_' + id;
-            $('#' + ctrId).remove();
-            var disc = $('<div class="disconnect">"' + userName + '" đã thoát.</div>');
-            $(disc).hide();
-            $('#divusers').prepend(disc);
-            $(disc).fadeIn(200).delay(2000).fadeOut(200);
-        }
-
-        chatHub.client.messageReceived = function (fromUser, toUser, message) {
-            console.log("messageReceived");
-            console.dir(fromUser);
-            console.dir(message);
-            AddMessage(fromUser, message);
-        }
-
-
-        chatHub.client.sendPrivateMessage = function (windowId, fromUserName, message) {
-            var ctrId = 'private_' + windowId;
-            if ($('#' + ctrId).length == 0) {
-                createPrivateChatWindow(chatHub, windowId, ctrId, fromUserName);
+        chatHub.client.messageReceived = function (sender, receiver, message) {
+            console.log("Message Receive:");
+            console.log(message);
+            var fromUsername = $('#txtFromUsername').val();
+            var toUsername = $('#txtToUsername').val();
+            if (receiver.Username == fromUsername) {
+                chatBoxView.renderContactList(receiver.DoctorList);
+                if (toUsername == sender.Username) {
+                    AddMessage(sender, message);
+                }
             }
-            $('#' + ctrId).find('#divMessage').append('<div class="message"><span class="userName">' + fromUserName + '</span>: ' + message + '</div>');
 
-            // set scrollbar
-            var height = $('#' + ctrId).find('#divMessage')[0].scrollHeight;
-            $('#' + ctrId).find('#divMessage').scrollTop(height);
+            if (sender.Username == fromUsername) {
+                chatBoxView.renderContactList(sender.DoctorList);
+                if (toUsername == receiver.Username) {
+                    AddMessage(sender, message);
+                }
+            }
+            
+            $(".unread-message").html(receiver.CountMessageUnRead);
         }
     }
 

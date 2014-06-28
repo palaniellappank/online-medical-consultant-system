@@ -474,6 +474,23 @@ ul.c-controls li a:hover
 {
     font-size: 1.0em;
     color: #3498db;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-height: 1;
+}
+
+.lastest-message
+{
+    font-size: 1.0em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-height: 1;
 }
 
 .c-info
