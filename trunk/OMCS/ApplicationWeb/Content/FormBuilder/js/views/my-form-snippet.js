@@ -1,9 +1,7 @@
 define([
-       "jquery", "underscore", "backbone",
        "views/snippet", "views/temp-snippet",
        "helper/pubsub"
 ], function(
-  $, _, Backbone,
   SnippetView, TempSnippetView,
   PubSub
 ){

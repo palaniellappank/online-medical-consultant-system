@@ -222,17 +222,22 @@ namespace OMCS.BLL
                 else
                 {
                     dynamic metadata = new JObject();
-                    var customSnippietValue = _db.CustomSnippetValues.Where(
+                    var customSnippetValue = _db.CustomSnippetValues.Where(
                         x => x.CustomSnippetId == customSnippet.CustomSnippetId).FirstOrDefault();
-                    if (customSnippietValue != null)
+                    if (customSnippetValue == null)
                     {
-                        metadata.value = customSnippietValue.Value;
-                        snippet.fields.Add("value", metadata);
+                        customSnippetValue = new CustomSnippetValue
+                        {
+                            CustomSnippet = customSnippet
+                        };
+                        _db.CustomSnippetValues.Add(customSnippetValue);
+                        _db.SaveChanges();
                     }
+                    metadata.value = customSnippetValue.Value;
+                    snippet.fields.Add("value", metadata);
                 }
                 result.Add(snippet);
             }
-            Debug.WriteLine("Haha ne");
             string str = ((object)result).ToString();
             return str;
         }
@@ -253,8 +258,7 @@ namespace OMCS.BLL
                     if (customSnippetId > 0)
                     {
                         var customSnippetValue = _db.CustomSnippetValues.Where(
-                            x => (x.MedicalProfileId == medicalProfile.MedicalProfileId)
-                                && (x.CustomSnippetId == customSnippetId)
+                            x => (x.CustomSnippetId == customSnippetId)
                             ).FirstOrDefault();
                         if (customSnippetValue == null)
                         {

@@ -1,11 +1,9 @@
 define([
-       "jquery"
-       , "views/snippet"
+       "views/snippet"
        , "text!templates/app/temp.html"
        , "helper/pubsub"
 ], function(
-  $
-  , SnippetView
+  SnippetView
   , _tempTemplate
   , PubSub
 ){

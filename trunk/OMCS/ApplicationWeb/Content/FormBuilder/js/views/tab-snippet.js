@@ -1,12 +1,10 @@
 define([
-       "jquery", "underscore", "backbone"
-       , "models/snippet"
+       "models/snippet"
        , "views/snippet", "views/temp-snippet"
        , "helper/pubsub"
        , "templates/snippet/snippet-templates"
 ], function(
-  $, _, Backbone
-  , SnippetModel
+  SnippetModel
   , SnippetView, TempSnippetView
   , PubSub
   , _snippetTemplates

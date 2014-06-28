@@ -1,6 +1,5 @@
 define([
-  "jquery", "underscore", "backbone"
-  , "text!templates/popover/popover-main.html"
+  "text!templates/popover/popover-main.html"
   , "text!templates/popover/popover-input.html"
   , "text!templates/popover/popover-select.html"
   , "text!templates/popover/popover-textarea.html"
@@ -9,8 +8,7 @@ define([
   , "templates/snippet/snippet-templates"
   , "bootstrap"
 ], function(
-  $, _, Backbone
-  , _PopoverMain
+  _PopoverMain
   , _PopoverInput
   , _PopoverSelect
   , _PopoverTextArea

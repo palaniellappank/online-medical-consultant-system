@@ -1,11 +1,9 @@
 ﻿define([
-       "jquery" , "underscore" , "backbone", "jquery-ui"
-       , "collections/my-form-input-mode"
+       "collections/my-form-input-mode"
        , "views/my-form-input-mode" , "views/my-form"
        , "text!data/input.json",
 ], function(
-  $, _, Backbone, jqueryUI
-  , SnippetsCollection
+  SnippetsCollection
   , InputView, MyFormView
   , inputJSON
 ){
@@ -17,10 +15,23 @@
         });
 
         $("#saveBtn").click(function (e) {
-            $.post(
-                $("form#target").attr("action"),
-                $("form#target").serialize()
-            );
+            $("form#target").validate({
+                messages: {
+                    Name: "Hãy điền tên chuyên khoa."
+                },
+                submitHandler: function () {
+                    console.log(submitHandler);
+                    $.ajax({
+                        type: "POST",
+                        url: $("form#target").attr("action"),
+                        data: $("form#target").serialize(),
+                        success: function () {
+                            bootbox.alert("Cập nhật thành công!");
+                        }
+                    });
+                }
+            });
+            
         });
 
         $(".datepicker").datepicker();

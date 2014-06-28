@@ -72,6 +72,7 @@ namespace OMCS.Web.Controllers
             ViewBag.formInJson = str;
             ViewBag.patientId = id;
             ViewBag.medicalProfileTemplateId = medicalProfileTemplateId;
+            ViewBag.medicalProfileName = _db.MedicalProfileTemplates.Find(medicalProfileTemplateId).MedicalProfileTemplateName;
             return View();
         }
 

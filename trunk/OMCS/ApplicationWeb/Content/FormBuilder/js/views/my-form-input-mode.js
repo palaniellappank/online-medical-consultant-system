@@ -1,9 +1,7 @@
 ﻿define([
-       "jquery", "underscore", "backbone"
-      , "text!templates/app/renderform.html"
+      "text!templates/app/renderform.html"
 ], function (
-  $, _, Backbone
-  , _renderForm
+  _renderForm
 ) {
     return Backbone.View.extend({
         el: "#build"

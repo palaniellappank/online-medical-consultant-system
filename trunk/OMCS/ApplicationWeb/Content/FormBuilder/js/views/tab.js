@@ -1,8 +1,7 @@
 define([
-       'jquery', 'underscore', 'backbone'
-       , "text!templates/app/tab-nav.html"
+       "text!templates/app/tab-nav.html"
 
-], function($, _, Backbone,
+], function(
            _tabNavTemplate){
   return Backbone.View.extend({
     tagName: "div"
