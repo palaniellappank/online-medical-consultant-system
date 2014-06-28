@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Xây dựng hồ sơ bệnh án";
+    ViewBag.Title = "Cập nhật hồ sơ bệnh án";
     Layout = "~/Views/Shared/_DoctorLayout.cshtml";
 }
 @section Styles{
@@ -17,25 +17,24 @@
 <div class="container">
     <div class="col-md-9">
         <div id="build">
-            <form id="target" class="form-horizontal">
+            <form id="target" class="form-horizontal" action="@Url.Action("UpdateMedicalProfile")">
+                <input name="medicalProfileTemplateId" type="hidden" value="@(ViewBag.medicalProfileTemplateId)"/>
+                <input name="patientId" type="hidden" value="@(ViewBag.patientId)"/>
                 <fieldset>
                 </fieldset>
             </form>
             <div class="control-group">
-            <div class="controls">
-            <button id="saveBtn" class="btn btn-primary">Save</button>
-            <button id="viewBtn" class="btn btn-primary">View</button>
-            <button id="cancelBtn" class="btn btn-danger">Cancel</button>
-            </div>
+                <div class="controls">
+                    <button id="saveBtn" class="btn btn-primary">Save</button>
+                    <button id="viewBtn" class="btn btn-primary">View</button>
+                    <button id="cancelBtn" class="btn btn-danger">Cancel</button>
+                </div>
             </div>
         </div>
-        </div>
     </div>
-    </div>
+</div>
 
     <div class="row clearfix">
     </div>
-
-</div>
 <script src="~/Content/FormBuilder/js/config.js"></script>
 <script data-main="../view" src="~/Content/FormBuilder/js/lib/require.js" ></script>
