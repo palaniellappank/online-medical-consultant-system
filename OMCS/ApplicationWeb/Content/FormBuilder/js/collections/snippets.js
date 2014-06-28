@@ -1,10 +1,8 @@
 define([
-       "jquery" , "underscore" , "backbone"
-       , "models/snippet"
+       "models/snippet"
        , "views/tab-snippet"
 ], function(
-  $, _, Backbone
-  , SnippetModel
+  SnippetModel
   , TabSnippetView
 ){
   return Backbone.Collection.extend({

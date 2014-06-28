@@ -4,7 +4,6 @@
 }
 @section Styles{
     <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet">
-    <link href="~/Content/FormBuilder/css/custom.css" rel="stylesheet">
 }
 
 <script type="text/javascript">
@@ -13,23 +12,21 @@
     var patientId = @(ViewBag.patientId);
 </script>
 
-<h2>Xây dựng hồ sơ bệnh án</h2>
 <div class="container">
     <div class="col-md-9">
         <div id="build">
             <form id="target" class="form-horizontal" action="@Url.Action("UpdateMedicalProfile")">
+                <div class="control-group">
+                    <h2>@(ViewBag.medicalProfileName)</h2>
+                    <div class="controls">
+                        <button type="submit" id="saveBtn" class="btn btn-primary" style="position: absolute;top: 18px;right: 0;">Cập nhật</button>
+                    </div>
+                </div>
                 <input name="medicalProfileTemplateId" type="hidden" value="@(ViewBag.medicalProfileTemplateId)"/>
                 <input name="patientId" type="hidden" value="@(ViewBag.patientId)"/>
                 <fieldset>
                 </fieldset>
             </form>
-            <div class="control-group">
-                <div class="controls">
-                    <button id="saveBtn" class="btn btn-primary">Save</button>
-                    <button id="viewBtn" class="btn btn-primary">View</button>
-                    <button id="cancelBtn" class="btn btn-danger">Cancel</button>
-                </div>
-            </div>
         </div>
     </div>
 </div>

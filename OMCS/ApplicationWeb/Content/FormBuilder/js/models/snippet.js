@@ -1,6 +1,5 @@
 define([
-      'jquery', 'underscore', 'backbone'
-], function($, _, Backbone) {
+], function() {
   return Backbone.Model.extend({
       getValues: function () {
           return _.reduce(this.get("fields"), function (o, v, k) {

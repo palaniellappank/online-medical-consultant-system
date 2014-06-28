@@ -1,12 +1,10 @@
 ﻿define([
-       "jquery", "underscore", "backbone"
-      , "collections/my-form-snippets"
+      "collections/my-form-snippets"
       , "views/temp-snippet"
       , "helper/pubsub"
       , "text!templates/app/renderform.html"
 ], function(
-  $, _, Backbone
-  , MyFormSnippetsCollection
+  MyFormSnippetsCollection
   , TempSnippetView
   , PubSub
   , _renderForm

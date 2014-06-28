@@ -155,6 +155,10 @@ namespace SignalRChat.Hubs
                         && (x.DoctorId == doctor.UserId)).
                     OrderByDescending(x => x.LatestTimeFromPatient
                     ).FirstOrDefault();
+                if (lastestConversation == null)
+                {
+                    lastestConversation = new Conversation();
+                }
                 //Check user online or not
                 var connectedUser = ConnectedUsers.Where
                     (x => x.Username == doctor.Username).FirstOrDefault();

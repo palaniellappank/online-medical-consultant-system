@@ -1,10 +1,8 @@
 define([
-       "jquery" , "underscore" , "backbone"
-       , "models/snippet"
+       "models/snippet"
        , "views/input-mode-snippet"
 ], function(
-  $, _, Backbone
-  , SnippetModel
+  SnippetModel
   , SnippetView
 ){
   return Backbone.Collection.extend({

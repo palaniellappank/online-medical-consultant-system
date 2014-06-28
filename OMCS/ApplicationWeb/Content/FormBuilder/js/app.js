@@ -1,5 +1,4 @@
 ﻿define([
-       "jquery" , "underscore" , "backbone"
        , "collections/snippets" , "collections/my-form-snippets"
        , "views/tab" , "views/my-form"
        , "text!data/input.json"
@@ -7,8 +6,7 @@
        , "text!data/data.json"
        , "text!templates/app/render.html", 
 ], function(
-  $, _, Backbone
-  , SnippetsCollection, MyFormSnippetsCollection
+  SnippetsCollection, MyFormSnippetsCollection
   , TabView, MyFormView
   , inputJSON, regionJSON, dataJSON, renderTab
 ){
