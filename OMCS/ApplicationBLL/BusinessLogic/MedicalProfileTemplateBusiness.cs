@@ -16,7 +16,14 @@ namespace OMCS.BLL
 {
     public class MedicalProfileTemplateBusiness: BaseBusiness
     {
+        CustomSnippetBusiness snippetBusiness;
+
         private readonly OMCSDBContext db = new OMCSDBContext();
+
+        public MedicalProfileTemplateBusiness()
+        {
+            snippetBusiness = new CustomSnippetBusiness(_db);
+        }
 
         public string ShowTemplate(int id)
         {
@@ -64,7 +71,7 @@ namespace OMCS.BLL
             return json;
         }
 
-        public void SaveTemplate(string jsonString, MedicalProfileTemplate template)
+        public JObject SaveTemplate(string jsonString, MedicalProfileTemplate template)
         {
             if (template.MedicalProfileTemplateId == 0)
             {
@@ -76,66 +83,34 @@ namespace OMCS.BLL
             else
             {
                 //Edit Mode
-                var listCustomSnippets = db.CustomSnippets.Where(s => s.MedicalProfileTemplateId == template.MedicalProfileTemplateId);
-                foreach (var entity in listCustomSnippets)
-                {
-                    db.CustomSnippets.Remove(entity);
-                }
-                db.SaveChanges();
+                //var listCustomSnippets = db.CustomSnippets.Where(s => s.MedicalProfileTemplateId == template.MedicalProfileTemplateId);
+                //foreach (var entity in listCustomSnippets)
+                //{
+                //    db.CustomSnippets.Remove(entity);
+                //}
+                //db.SaveChanges();
             }
-            
 
-            JArray listSnippets = JArray.Parse(jsonString) as JArray;
-
-            foreach (dynamic snippet in listSnippets)
-            {
-                CustomSnippet customSnippet = new CustomSnippet { Title = snippet.title, MedicalProfileTemplateId = template.MedicalProfileTemplateId };
-                
-                if (snippet.title == "Static Text")
-                {
-                    var SnippetTypeDic = new Dictionary<string, SnippetType> {
-                        { "Custom", SnippetType.Custom },
-                        { "User", SnippetType.User },
-                        { "Patient", SnippetType.Patient },
-                        { "PersonalHealthRecord", SnippetType.PersonalHealthRecord }
-                    };
-                    string str = ((object)snippet.snippettype).ToString();
-                    customSnippet.SnippetType = SnippetTypeDic[((object)snippet.snippettype).ToString()];
-                    customSnippet.SnippetFieldName = snippet.fieldname;
-                }
-
-                db.CustomSnippets.Add(customSnippet);
-                db.SaveChanges();
-                customSnippet.CustomSnippetFields = new Collection<CustomSnippetField>();
-                if (snippet.fields != null)
-                {
-                    foreach (dynamic snippetField in snippet.fields)
-                    {
-                        //string str = ((object)snippetField).ToString();
-                        //Debug.WriteLine("1" + str);
-                        dynamic metadata = snippetField.Value;
-
-                        if ("id".Equals(snippetField.Name))
-                        {
-                            metadata.value = customSnippet.CustomSnippetId;
-                        }
-                        //str = ((object)metadata).ToString();
-                        CustomSnippetField customSnippetField = new CustomSnippetField
-                        {
-                            CustomSnippet = customSnippet,
-                            FieldName = snippetField.Name,
-                            Label = metadata.label,
-                            Type = metadata.type,
-                            Value = ((object)metadata.value).ToString(),
-                            Name = metadata.name
-                        };
-                        customSnippet.CustomSnippetFields.Add(customSnippetField);
-                    }
-                }
-                db.Entry(customSnippet).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            List<CustomSnippet> snippetChanged = snippetBusiness.ConvertJsonStringToCustomSnippetList(jsonString, template);
+            List<CustomSnippet> snippetDB = _db.CustomSnippets.Where(
+                s => s.MedicalProfileTemplateId == template.MedicalProfileTemplateId)
+                .OrderBy(s=>s.Position)
+                .ToList();
+            Debug.WriteLine(snippetChanged);
+            Debug.WriteLine(snippetDB);
+            JObject result = snippetBusiness.CompareChanges(snippetDB, snippetChanged, template);
+            return result;
         }
 
+        public JObject CheckTemplateChanged(string jsonString, MedicalProfileTemplate template)
+        {
+            List<CustomSnippet> snippetChanged = snippetBusiness.ConvertJsonStringToCustomSnippetList(jsonString, template);
+            List<CustomSnippet> snippetDB = _db.CustomSnippets.Where(
+                s => s.MedicalProfileTemplateId == template.MedicalProfileTemplateId)
+                .OrderBy(s => s.Position)
+                .ToList();
+            JObject result = snippetBusiness.CompareChanges(snippetDB, snippetChanged, template);
+            return result;
+        }
     }
 }

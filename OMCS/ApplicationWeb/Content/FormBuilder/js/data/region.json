@@ -3,6 +3,11 @@
     "title" : "Form Name",
 	"name" : "Khu vực",
     "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
         "name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -14,6 +19,11 @@
     "title" : "Form Name",
 	"name" : "Lịch sử khám bệnh",
     "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
         "name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -25,6 +35,11 @@
     "title" : "Form Name",
 	"name" : "Hồ sơ",
     "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
         "name" : {
             "label": "Tên hiển thị",
             "type" : "input",
