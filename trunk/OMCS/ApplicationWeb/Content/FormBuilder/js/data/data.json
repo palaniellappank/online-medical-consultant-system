@@ -3,6 +3,11 @@
 	"name" : "Thông tin cá nhân",
     "title": "Form Name",
 	"fields": {
+	  "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+      },
       "ignore": {
         "value": true
 		}
@@ -14,6 +19,11 @@
 	"snippettype": "User",
 	"fieldname": "FullName",
     "fields": {
+	    "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -27,6 +37,11 @@
 	"snippettype": "User",
 	"fieldname": "Gender",
     "fields": {
+	    "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -40,6 +55,11 @@
 	"snippettype": "User",
 	"fieldname": "Birthday",
     "fields": {
+	    "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -53,6 +73,11 @@
 	"snippettype": "User",
 	"fieldname": "Phone",
     "fields": {
+	    "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -66,6 +91,11 @@
 	"snippettype": "User",
 	"fieldname": "PrimaryAddress",
     "fields": {
+	    "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -79,6 +109,11 @@
 	"snippettype": "User",
 	"fieldname": "SecondaryAddress",
     "fields": {
+	    "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -90,6 +125,11 @@
 	"name" : "Thông tin bệnh nhân",
     "title": "Form Name",
 	"fields": {
+	  "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+      },
       "ignore": {
         "value": true
 		}
@@ -101,6 +141,11 @@
 	"snippettype": "Patient",
 	"fieldname": "Ethnicity",
     "fields": {
+	    "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -114,6 +159,11 @@
 	"snippettype": "Patient",
 	"fieldname": "Nationality",
     "fields": {
+	    "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -127,6 +177,11 @@
 	"snippettype": "Patient",
 	"fieldname": "Job",
     "fields": {
+	    "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -140,6 +195,11 @@
 	"snippettype": "Patient",
 	"fieldname": "WhereToWork",
     "fields": {
+	    "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -153,6 +213,11 @@
 	"snippettype": "Patient",
 	"fieldname": "ContactPerson",
     "fields": {
+	    "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -166,6 +231,11 @@
 	"snippettype": "Patient",
 	"fieldname": "ContactPersonAddress",
     "fields": {
+	    "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -179,6 +249,11 @@
 	"snippettype": "Patient",
 	"fieldname": "HealthInsuranceId",
     "fields": {
+		"id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -192,6 +267,11 @@
 	"snippettype": "Patient",
 	"fieldname": "HealthInsuranceIssued",
     "fields": {
+	    "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -205,6 +285,11 @@
 	"snippettype": "Patient",
 	"fieldname": "HealthInsuranceDateExpired",
     "fields": {
+	    "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -216,6 +301,11 @@
 	"name" : "Sức khỏe cơ bản",
     "title": "Form Name",
 	"fields": {
+	  "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+      },
       "ignore": {
         "value": true
 		}
@@ -227,6 +317,11 @@
 	"snippettype": "PersonalHealthRecord",
 	"fieldname": "Height",
     "fields": {
+	    "id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -240,6 +335,11 @@
 	"snippettype": "PersonalHealthRecord",
 	"fieldname": "Weight",
     "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -253,6 +353,11 @@
 	"snippettype": "PersonalHealthRecord",
 	"fieldname": "EyeColor",
     "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+        },
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -266,6 +371,11 @@
 	"snippettype": "PersonalHealthRecord",
 	"fieldname": "HairColor",
     "fields": {
+	    "id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -279,6 +389,11 @@
 	"snippettype": "PersonalHealthRecord",
 	"fieldname": "BloodType",
     "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -292,6 +407,11 @@
 	"snippettype": "PersonalHealthRecord",
 	"fieldname": "AlcoholPerWeek",
     "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -305,6 +425,11 @@
 	"snippettype": "PersonalHealthRecord",
 	"fieldname": "AlcoholNumOfYear",
     "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -318,6 +443,11 @@
 	"snippettype": "PersonalHealthRecord",
 	"fieldname": "SmokePackPerWeek",
     "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -331,6 +461,11 @@
 	"snippettype": "PersonalHealthRecord",
 	"fieldname": "SmokeNumOfYear",
     "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -344,6 +479,11 @@
 	"snippettype": "PersonalHealthRecord",
 	"fieldname": "SportName",
     "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -357,6 +497,11 @@
 	"snippettype": "PersonalHealthRecord",
 	"fieldname": "SportPerWeek",
     "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -370,6 +515,11 @@
 	"snippettype": "PersonalHealthRecord",
 	"fieldname": "ExerciseType",
     "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",
@@ -383,6 +533,11 @@
 	"snippettype": "PersonalHealthRecord",
 	"fieldname": "ExercisePerWeek",
     "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
 		"name" : {
             "label": "Tên hiển thị",
             "type" : "input",

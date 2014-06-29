@@ -3,11 +3,13 @@
       , "views/temp-snippet"
       , "helper/pubsub"
       , "text!templates/app/renderform.html"
+      , "text!templates/app/changenotice.html"
 ], function(
   MyFormSnippetsCollection
   , TempSnippetView
   , PubSub
   , _renderForm
+  , _changeNotice
 ){
   return Backbone.View.extend({
       el: "#build"
@@ -32,16 +34,15 @@
         window.snippetCollection = new MyFormSnippetsCollection(this.collection.toJSON());
         $.ajax({
             type: "post",
-            url: "/AdminTemplate/SaveTemplate",
+            url: "/AdminTemplate/CheckTemplateChanged",
             data: {
                 jsonString: JSON.stringify(snippetCollection.toJSON()),
                 MedicalProfileTemplateId: medicalProfileTemplateId
             },
             success: function (data) {
-                var result = JSON.parse(data);
-                if (result.status == "success") {
-                    bootbox.alert("Cập nhật thành công!");
-                }
+                var template = _.template(_changeNotice, {result : JSON.parse(data)});
+                $("#change-notice").html(template);
+                $("#modal-change-notice").modal("show");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 bootbox.alert("Có lỗi xảy ra: " + textStatus);

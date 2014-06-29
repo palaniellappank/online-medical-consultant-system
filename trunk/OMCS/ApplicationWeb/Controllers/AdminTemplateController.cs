@@ -56,6 +56,12 @@ namespace OMCS.Web.Controllers
             return RedirectToAction("Editor", new { id = template.MedicalProfileTemplateId });
         }
 
+        public JObject CheckTemplateChanged(string jsonString, MedicalProfileTemplate template)
+        {
+            dynamic result = business.CheckTemplateChanged(jsonString, template);
+            return result;
+        }
+
         public JObject SaveTemplate(string jsonString, MedicalProfileTemplate template)
         {
             business.SaveTemplate(jsonString, template);
