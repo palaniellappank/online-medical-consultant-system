@@ -2,8 +2,13 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="<%= id %>"><%= label %></label>
   <div class="col-md-8">
+      <% 
+        var valueArray = [];
+        if (value)
+            valueArray = value.split("~~") 
+      %>
     <select id="<%= id %>" name="<%= id %>" class="<%= inputsize %> form-control" multiple="multiple"><% _.each(options, function(option) { %>
-      <option><%= option %></option><% }); %>
+      <option <% if (valueArray.indexOf(option) > -1) { %> selected <% } %>><%= option %></option><% }); %>
     </select>
   </div>
 </div>

@@ -12,23 +12,19 @@
     var patientId = @(ViewBag.patientId);
 </script>
 
-<div class="container">
-    <div class="col-md-9">
-        <div id="build">
-            <form id="target" class="form-horizontal" action="@Url.Action("UpdateMedicalProfile")">
-                <div class="control-group">
-                    <h2>@(ViewBag.medicalProfileName)</h2>
-                    <div class="controls">
-                        <button type="submit" id="saveBtn" class="btn btn-primary" style="position: absolute;top: 18px;right: 0;">Cập nhật</button>
-                    </div>
-                </div>
-                <input name="medicalProfileTemplateId" type="hidden" value="@(ViewBag.medicalProfileTemplateId)"/>
-                <input name="patientId" type="hidden" value="@(ViewBag.patientId)"/>
-                <fieldset>
-                </fieldset>
-            </form>
+<div id="build">
+    <form id="target" class="form-horizontal" action="@Url.Action("UpdateMedicalProfile")">
+        <div class="control-group">
+            <h2>@(ViewBag.medicalProfileName)</h2>
+            <div class="controls">
+                <button type="submit" id="saveBtn" class="btn btn-primary" style="position: absolute;top: 18px;right: 0;">Cập nhật</button>
+            </div>
         </div>
-    </div>
+        <input name="medicalProfileTemplateId" type="hidden" value="@(ViewBag.medicalProfileTemplateId)"/>
+        <input name="patientId" type="hidden" value="@(ViewBag.patientId)"/>
+        <fieldset>
+        </fieldset>
+    </form>
 </div>
 
     <div class="row clearfix">

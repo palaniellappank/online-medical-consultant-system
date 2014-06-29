@@ -49,6 +49,11 @@
         "label": "Tên đối tượng",
         "value": "Tên đối tượng"
       },
+	  "defaultvalue": {
+        "type": "input",
+        "label": "Giá trị mặc định",
+        "value": "Giá trị mặc định"
+      },
       "placeholder": {
         "type": "input",
         "label": "Nhắc nhở",
@@ -96,10 +101,20 @@
         "label": "Tên đối tượng",
         "value": "Tên đối tượng"
       },
-      "textarea": {
+      "defaultvalue": {
         "type": "textarea",
         "label": "Giá trị mặc định",
         "value": "Giá trị mặc định"
+      },
+	  "placeholder": {
+        "type": "input",
+        "label": "Nhắc nhở",
+        "value": "Nhắc nhở..."
+      },
+      "required": {
+        "type": "checkbox",
+        "label": "Bắt buộc",
+        "value": false
       }
     }
   },
@@ -110,7 +125,7 @@
 	  "id": {
 		"type": "input",
 		"label": "ID / Name",
-		"value": "radios"
+		"value": null
 	  },
       "label": {
         "type": "input",
@@ -124,11 +139,6 @@
           "Tùy chọn 1",
           "Tùy chọn 2"
         ]
-      },
-      "required": {
-        "type": "checkbox",
-        "label": "Bắt buộc",
-        "value": false
       }
     }
   },
@@ -139,7 +149,7 @@
 	  "id": {
 		"type": "input",
 		"label": "ID / Name",
-		"value": "radios"
+		"value": null
 	  },
       "label": {
         "type": "input",
@@ -153,11 +163,6 @@
           "Tùy chọn 1",
           "Tùy chọn 2"
         ]
-      },
-      "required": {
-        "type": "checkbox",
-        "label": "Bắt buộc",
-        "value": false
       }
     }
   },
@@ -168,7 +173,7 @@
 	  "id": {
 		"type": "input",
 		"label": "ID / Name",
-		"value": ""
+		"value": null
 	  },
       "label": {
         "type": "input",
@@ -182,11 +187,6 @@
           "Tùy chọn 2",
           "Tùy chọn 2"
         ]
-      },
-      "required": {
-        "type": "checkbox",
-        "label": "Bắt buộc",
-        "value": false
       }
     }
   },
@@ -197,7 +197,7 @@
 	  "id": {
 		"type": "input",
 		"label": "ID / Name",
-		"value": "inlinecheckboxes"
+		"value": null
 	  },
       "label": {
         "type": "input",
@@ -211,11 +211,6 @@
           "Tùy chọn 2",
           "Tùy chọn 2"
         ]
-      },
-      "required": {
-        "type": "checkbox",
-        "label": "Bắt buộc",
-        "value": false
       }
     }
   },
@@ -226,7 +221,7 @@
 	  "id": {
 		"type": "input",
 		"label": "ID / Name",
-		"value": "selectbasic"
+		"value": null
 	  },
       "options": {
         "type": "textarea-split",
@@ -286,7 +281,7 @@
       "id": {
         "type": "input",
         "label": "ID / Name",
-        "value": "selectmultiple"
+        "value": null
       },
       "options": {
         "type": "textarea-split",

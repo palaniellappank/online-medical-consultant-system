@@ -52,7 +52,6 @@ define([
           var $e = $(e)
           , type = $e.attr("data-type")
           , name = $e.attr("id");
-
           switch(type) {
             case "checkbox":
               boundContext.model.setField(name, $e.is(":checked"));

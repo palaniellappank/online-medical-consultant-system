@@ -49,13 +49,18 @@ namespace OMCS.BLL
                     }
                     metadata.label = customSnippetField.Label;
                     metadata.type = customSnippetField.Type;
-                    metadata.value = value;
+                    if (customSnippetField.Type.Equals("checkbox"))
+                    {
+                        metadata.value = customSnippetField.Value.Equals("True") ? true : false;
+                    }
+                    else
+                        metadata.value = value;
                     metadata.name = customSnippetField.Name;
                     snippet.fields.Add(customSnippetField.FieldName, metadata);
                 }
                 result.Add(snippet);
             }
-            string json = JsonConvert.SerializeObject(result, Formatting.None);
+            string json = ((object)result).ToString();
             return json;
         }
 
@@ -65,9 +70,8 @@ namespace OMCS.BLL
             {
                 //Create Mode
                 db.MedicalProfileTemplates.Add(template);
-                template.MedicalProfileTemplateName = "Su Tran";
+                template.MedicalProfileTemplateName = "Mẫu chưa được đặt tên";
                 db.SaveChanges();
-                Debug.WriteLine("Su Tran" + template.MedicalProfileTemplateId);
             }
             else
             {
@@ -96,7 +100,6 @@ namespace OMCS.BLL
                         { "PersonalHealthRecord", SnippetType.PersonalHealthRecord }
                     };
                     string str = ((object)snippet.snippettype).ToString();
-                    Debug.WriteLine("1" + str);
                     customSnippet.SnippetType = SnippetTypeDic[((object)snippet.snippettype).ToString()];
                     customSnippet.SnippetFieldName = snippet.fieldname;
                 }
@@ -134,146 +137,5 @@ namespace OMCS.BLL
             }
         }
 
-        public string UpdateMedicalProfile(int id, int medicalProfileTemplateId)
-        {
-            var medicalProfile = _db.MedicalProfiles.Where(
-                mp => ((mp.PatientId == id) &&
-                    (mp.MedicalProfileTemplateId == medicalProfileTemplateId))
-            ).FirstOrDefault();
-            if (medicalProfile == null)
-            {
-                _db.MedicalProfiles.Add(new MedicalProfile
-                {
-                    PatientId = id,
-                    MedicalProfileTemplateId = medicalProfileTemplateId,
-                    CreatedDate = DateTime.UtcNow
-                });
-                _db.SaveChanges();
-            }
-            var listCustomSnippets = _db.CustomSnippets.Where(
-                s => s.MedicalProfileTemplateId == medicalProfileTemplateId
-            ).ToList();
-            dynamic result = new JArray();
-            foreach (var customSnippet in listCustomSnippets)
-            {
-                dynamic snippet = new JObject();
-                snippet.title = customSnippet.Title;
-                snippet.fields = new JObject() as dynamic;
-                Debug.WriteLine(customSnippet.SnippetType);
-                var valueStatic = "";
-                if (customSnippet.SnippetType != SnippetType.Custom)
-                {
-                    switch (customSnippet.SnippetType)
-                    {
-                        case SnippetType.User:
-                            var user = _db.Users.Where(pa => pa.UserId == id).SingleOrDefault();
-                            Type type = typeof(User);
-                            valueStatic = type.GetProperty
-                                (customSnippet.SnippetFieldName, BindingFlags.IgnoreCase 
-                                | BindingFlags.Public 
-                                | BindingFlags.Instance).GetValue(user,null).ToString();
-                            break;
-                        case SnippetType.Patient:
-                            var patient = _db.Patients.Where(pa => pa.UserId == id).SingleOrDefault();
-                            type = typeof(Patient);
-                            valueStatic = type.GetProperty
-                                (customSnippet.SnippetFieldName, BindingFlags.IgnoreCase 
-                                | BindingFlags.Public
-                                | BindingFlags.Instance).GetValue(patient, null).ToString();
-                            break;
-                        case SnippetType.PersonalHealthRecord:
-                            var personalHealthRecord = _db.PersonalHealthRecords.Where(pa => pa.PatientId == id).SingleOrDefault();
-                            type = typeof(PersonalHealthRecord);
-                            valueStatic = type.GetProperty
-                                (customSnippet.SnippetFieldName, BindingFlags.IgnoreCase 
-                                | BindingFlags.Public
-                                | BindingFlags.Instance).GetValue(personalHealthRecord, null).ToString();
-                            break;
-                    }
-                   // Debug.WriteLine(snippet.value);
-                }
-                var listCustomSnippetFields = from snippetField in db.CustomSnippetFields
-                                              where snippetField.CustomSnippetId == customSnippet.CustomSnippetId
-                                              select snippetField;
-                foreach (var customSnippetField in listCustomSnippetFields)
-                {
-                    dynamic metadata = new JObject();
-                    dynamic value;
-                    if (customSnippetField.Value.Contains("[") && customSnippetField.Value.Contains("]"))
-                    {
-                        value = JArray.Parse(customSnippetField.Value);
-                    }
-                    else
-                    {
-                        value = customSnippetField.Value;
-                    }
-                    metadata.label = customSnippetField.Label;
-                    metadata.type = customSnippetField.Type;
-                    metadata.value = value;
-                    metadata.name = customSnippetField.Name;
-                    snippet.fields.Add(customSnippetField.FieldName, metadata);
-                }
-                if (!String.IsNullOrEmpty(valueStatic))
-                {
-                    dynamic metadata = new JObject();
-                    metadata.value = valueStatic;
-                    snippet.fields.Add("value", metadata);
-                }
-                else
-                {
-                    dynamic metadata = new JObject();
-                    var customSnippetValue = _db.CustomSnippetValues.Where(
-                        x => x.CustomSnippetId == customSnippet.CustomSnippetId).FirstOrDefault();
-                    if (customSnippetValue == null)
-                    {
-                        customSnippetValue = new CustomSnippetValue
-                        {
-                            CustomSnippet = customSnippet
-                        };
-                        _db.CustomSnippetValues.Add(customSnippetValue);
-                        _db.SaveChanges();
-                    }
-                    metadata.value = customSnippetValue.Value;
-                    snippet.fields.Add("value", metadata);
-                }
-                result.Add(snippet);
-            }
-            string str = ((object)result).ToString();
-            return str;
-        }
-
-        public void UpdateMedicalProfileForPatient(FormCollection formCollection)
-        {
-            int medicalProfileTemplateId = Int32.Parse(formCollection["medicalProfileTemplateId"]);
-            int patientId = Int32.Parse(formCollection["patientId"]);
-            var medicalProfile = _db.MedicalProfiles.Where(
-                    x => ((x.MedicalProfileTemplateId == medicalProfileTemplateId)
-                    && (x.PatientId == patientId))).FirstOrDefault();
-            foreach (string _formData in formCollection)
-            {
-                if (!_formData.Equals("medicalProfileTemplateId") && !_formData.Equals("patientId"))
-                {
-                    Debug.WriteLine("Element: " + _formData + ". Form data: " + formCollection[_formData]);
-                    int customSnippetId = Int32.Parse(_formData);
-                    if (customSnippetId > 0)
-                    {
-                        var customSnippetValue = _db.CustomSnippetValues.Where(
-                            x => (x.CustomSnippetId == customSnippetId)
-                            ).FirstOrDefault();
-                        if (customSnippetValue == null)
-                        {
-                            customSnippetValue = new CustomSnippetValue
-                            {
-                                MedicalProfile = medicalProfile,
-                                CustomSnippetId = customSnippetId
-                            };
-                            _db.CustomSnippetValues.Add(customSnippetValue);
-                        }
-                        customSnippetValue.Value = formCollection[_formData];
-                        _db.SaveChanges();
-                    }
-                }
-            }
-        }
     }
 }

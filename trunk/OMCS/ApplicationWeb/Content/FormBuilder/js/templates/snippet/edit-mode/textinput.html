@@ -2,6 +2,6 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="<%= id %>"><%= label %></label>
   <div class="col-md-8">
-    <input id="<%= id %>" name="<%= id %>" type="text" placeholder="<%= placeholder %>" class="<%= inputsize %> form-control" <% if(required) {%> required <% } %> />
+    <input id="<%= id %>" name="<%= id %>" type="text" placeholder="<%= placeholder %>" class="<%= inputsize %> form-control" <% if(required) {%> required <% } %> value="<% if (value==null) {%><%= defaultvalue %><% } else { %><%= value %> <% } %>"/>
   </div>
 </div>

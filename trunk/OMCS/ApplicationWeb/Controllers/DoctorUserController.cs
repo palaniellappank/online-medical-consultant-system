@@ -17,7 +17,7 @@ namespace OMCS.Web.Controllers
     public class DoctorUserController : BaseController
     {
         private AdminUserBusiness business = new AdminUserBusiness();
-        private MedicalProfileTemplateBusiness medicalProfileBusiness = new MedicalProfileTemplateBusiness();
+        private MedicalProfileBusiness medicalProfileBusiness = new MedicalProfileBusiness();
 
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {

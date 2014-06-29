@@ -16,25 +16,25 @@
 
         $("#saveBtn").click(function (e) {
             $("form#target").validate({
-                messages: {
-                    Name: "Hãy điền tên chuyên khoa."
-                },
                 submitHandler: function () {
-                    console.log(submitHandler);
                     $.ajax({
                         type: "POST",
                         url: $("form#target").attr("action"),
                         data: $("form#target").serialize(),
                         success: function () {
                             bootbox.alert("Cập nhật thành công!");
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            bootbox.alert("Có lỗi xảy ra: " + textStatus);
                         }
                     });
+                    return false;
                 }
             });
             
         });
 
-        $(".datepicker").datepicker();
+        $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
     }
   }
 });

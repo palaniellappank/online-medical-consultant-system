@@ -25,8 +25,7 @@
     },
     events: {
         "click #saveBtn":   "saveForm",
-        "click #viewBtn":   "viewForm",
-        "click #cancelBtn": "cancelForm",
+        "click #viewBtn":   "viewForm"
     },
 
     saveForm: function () {
@@ -41,23 +40,19 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 if (result.status == "success") {
-                    alert("Mẫu hồ sơ lưu thành công");
+                    bootbox.alert("Cập nhật thành công!");
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert("Có lỗi xảy ra: " + textStatus);
-            },
+                bootbox.alert("Có lỗi xảy ra: " + textStatus);
+            }
         })
     },
 
     viewForm: function () {
-        this.collection = window.snippetCollection;
-        this.initialize();
-        this.render();
-    },
+        console.log(this.collection.toJSON());
 
-    cancelForm: function () {
-        alert("hehe");
+        console.log(new MyFormSnippetsCollection(this.collection.toJSON()));
     }
     
     , render: function(){
