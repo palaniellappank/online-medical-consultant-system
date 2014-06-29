@@ -1,5 +1,5 @@
 ﻿define([
-       , "collections/snippets" , "collections/my-form-snippets"
+       "collections/snippets" , "collections/my-form-snippets"
        , "views/tab" , "views/my-form"
        , "text!data/input.json"
        , "text!data/region.json"

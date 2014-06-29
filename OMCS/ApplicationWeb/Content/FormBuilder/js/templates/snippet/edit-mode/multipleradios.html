@@ -5,7 +5,7 @@
       <% _.each(radios, function(radio, i){ %>
         <div class="radio">
             <label for="<%= id+'-'+i %>">
-              <input type="radio" name="<%= id %>" id="<%= id+'-'+i %>" value="<%= radio %>"  <% if (i < 1) { %> checked="checked" <% } %><% if(required){ %> required="required"<% } %>>
+              <input type="radio" name="<%= id %>" id="<%= id+'-'+i %>" value="<%= radio %>"  <% if (value == radio) { %> checked="checked" <% } %>>
               <%= radio %>
             </label>
         </div>

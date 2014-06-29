@@ -3,7 +3,7 @@
   <label class="col-md-4 control-label" for="<%= id %>"><%= label %></label>
   <div class="col-md-8">
     <select id="<%= id %>" name="<%= id %>" class="<%= inputsize %> form-control"><% _.each(options, function(option) { %>
-      <option><%= option %></option><% }); %>
+      <option <% if (value == option) { %> selected="selected" <% } %>><%= option %></option><% }); %>
     </select>
   </div>
 </div>

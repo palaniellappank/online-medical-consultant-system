@@ -5,7 +5,7 @@
       <% _.each(checkboxes, function(checkbox, i){ %>
         <div class="checkbox">
             <label for="<%= id+'-'+i %>">
-              <input type="checkbox" name="<%= id %>" id="<%= id+'-'+i %>" value="<%= checkbox %>"<% if(required){ %> required="required"<% } %>>
+              <input type="checkbox" name="<%= id %>" id="<%= id+'-'+i %>" value="<%= checkbox %>">
               <%= checkbox %>
             </label>
         </div>
