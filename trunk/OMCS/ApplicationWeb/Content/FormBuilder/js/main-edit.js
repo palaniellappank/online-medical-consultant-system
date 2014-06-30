@@ -14,6 +14,6 @@
     , views: "../views"
   }
 });
-require(['app/view-app'], function (app) {
+require(['app/app-edit'], function (app) {
     app.initialize();
 });

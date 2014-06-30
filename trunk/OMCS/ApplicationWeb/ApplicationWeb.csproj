@@ -249,6 +249,7 @@
     <Content Include="Content\bootstrap3-editable\img\loading.gif" />
     <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.js" />
     <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.min.js" />
+    <Content Include="Content\FormBuilder\js\templates\app\changenotice.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\datepicker.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\formname.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\multiplecheckboxes.html" />
@@ -286,8 +287,8 @@
     <Content Include="Content\FormBuilder\js\lib\jquery-ui.js" />
     <Content Include="Content\FormBuilder\js\templates\snippet\common-snippet-tab.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\datepicker.html" />
-    <Content Include="Content\FormBuilder\js\view-app.js" />
-    <Content Include="Content\FormBuilder\js\view.js" />
+    <Content Include="Content\FormBuilder\js\app-edit.js" />
+    <Content Include="Content\FormBuilder\js\main-edit.js" />
     <Content Include="Content\FormBuilder\js\helper\pubsub.js" />
     <Content Include="Content\FormBuilder\js\lib\backbone.js" />
     <Content Include="Content\FormBuilder\js\lib\bootstrap.js" />

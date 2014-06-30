@@ -35,17 +35,19 @@ namespace OMCS.BLL
             ).FirstOrDefault();
             if (medicalProfile == null)
             {
-                _db.MedicalProfiles.Add(new MedicalProfile
+                medicalProfile = new MedicalProfile
                 {
                     PatientId = patientId,
                     MedicalProfileTemplateId = medicalProfileTemplateId,
                     CreatedDate = DateTime.UtcNow
-                });
+                };
+                _db.MedicalProfiles.Add(medicalProfile);
                 _db.SaveChanges();
             }
             var listCustomSnippets = _db.CustomSnippets.Where(
                 s => s.MedicalProfileTemplateId == medicalProfileTemplateId
-            ).ToList();
+                ).OrderBy(s => s.Position)
+                .ToList();
             dynamic result = new JArray();
             foreach (var customSnippet in listCustomSnippets)
             {

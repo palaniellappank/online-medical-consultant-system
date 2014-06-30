@@ -119,7 +119,10 @@ namespace OMCS.BLL
 
                         if ("id".Equals(snippetField.Name))
                         {
-                            customSnippet.CustomSnippetId = metadata.value;
+                            if (metadata.value == null)
+                                customSnippet.CustomSnippetId = 0;
+                            else
+                                customSnippet.CustomSnippetId = metadata.value;
                         }
 
                         CustomSnippetField customSnippetField = new CustomSnippetField
@@ -137,7 +140,6 @@ namespace OMCS.BLL
             }
             return resultCustomSnippetList;
         }
-       // public CheckTemplateChanges(string jsonString , MedicalProfileTemplate template)
 
         public JObject CompareChanges(List<CustomSnippet> snippetDB, List<CustomSnippet> snippetChanged, MedicalProfileTemplate template)
         {
@@ -150,7 +152,7 @@ namespace OMCS.BLL
             dynamic changedList = new JArray();
             dynamic removeList = new JArray();
 
-            //Loop to file which item have been changed
+            //Loop to find which item have been changed
             foreach (CustomSnippet snippetChangeItem in snippetChanged)
             {
                 //Existing item
@@ -237,6 +239,43 @@ namespace OMCS.BLL
             result.removeList = removeList;
             result.numMedicalProfileUsage = numMedicalProfileUsage;
             return result;
+        }
+
+        public void SaveSnippetList(List<CustomSnippet> snippetDB, List<CustomSnippet> snippetChanged, MedicalProfileTemplate template)
+        {
+            //Loop to file which item have been changed
+            foreach (CustomSnippet snippetChangeItem in snippetChanged)
+            {
+                //Existing item
+                if (snippetChangeItem.CustomSnippetId > 0)
+                {
+                    var existItem = snippetDB.Where(x => x.CustomSnippetId == snippetChangeItem.CustomSnippetId).Single();
+                    for (int i = 0; i < existItem.CustomSnippetFields.Count; i++)
+                    {
+                        var oldField = existItem.CustomSnippetFields.ElementAt(i);
+                        var newField = snippetChangeItem.CustomSnippetFields.ElementAt(i);
+                        oldField.Value = newField.Value;
+                        existItem.Position = snippetChangeItem.Position;
+                    }
+                }
+                //New added item
+                else
+                {
+                    _db.CustomSnippets.Add(snippetChangeItem);
+                }
+            }
+
+            //Loop to file which item have been removed
+            foreach (CustomSnippet snippetExistItem in snippetDB)
+            {
+                var snippetChangedItem = snippetChanged.Where(x => x.CustomSnippetId == snippetExistItem.CustomSnippetId).SingleOrDefault();
+
+                if (snippetChangedItem == null)
+                {
+                    _db.CustomSnippets.Remove(snippetExistItem);
+                }
+            }
+            _db.SaveChanges();
         }
     }
 }

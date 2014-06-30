@@ -43,6 +43,23 @@
                 var template = _.template(_changeNotice, {result : JSON.parse(data)});
                 $("#change-notice").html(template);
                 $("#modal-change-notice").modal("show");
+                $("#save-confirm").click(function (e) {
+                    $("#modal-change-notice").modal("hide");
+                    $.ajax({
+                        type: "post",
+                        url: "/AdminTemplate/SaveTemplate",
+                        data: {
+                            jsonString: JSON.stringify(snippetCollection.toJSON()),
+                            MedicalProfileTemplateId: medicalProfileTemplateId
+                        },
+                        success: function (data) {
+                            bootbox.alert("Mẫu hồ sơ đã được cập nhật thành công");
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            bootbox.alert("Có lỗi xảy ra: " + textStatus);
+                        }
+                    });
+                });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 bootbox.alert("Có lỗi xảy ra: " + textStatus);
