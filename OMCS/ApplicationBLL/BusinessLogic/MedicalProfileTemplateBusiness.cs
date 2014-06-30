@@ -27,7 +27,10 @@ namespace OMCS.BLL
 
         public string ShowTemplate(int id)
         {
-            var listCustomSnippets = db.CustomSnippets.Where(s => s.MedicalProfileTemplateId == id).ToList();
+            var listCustomSnippets = db.CustomSnippets.Where
+                (s => s.MedicalProfileTemplateId == id)
+                .OrderBy(s => s.Position)
+                .ToList();
             dynamic result = new JArray();
             foreach (var customSnippet in listCustomSnippets)
             {
@@ -52,7 +55,11 @@ namespace OMCS.BLL
                     }
                     else
                     {
-                        value = customSnippetField.Value;
+                        //Mapping correct id
+                        if ("id".Equals(customSnippetField.FieldName))
+                            value = customSnippet.CustomSnippetId;
+                        else
+                            value = customSnippetField.Value;
                     }
                     metadata.label = customSnippetField.Label;
                     metadata.type = customSnippetField.Type;
@@ -71,35 +78,14 @@ namespace OMCS.BLL
             return json;
         }
 
-        public JObject SaveTemplate(string jsonString, MedicalProfileTemplate template)
+        public void SaveTemplate(string jsonString, MedicalProfileTemplate template)
         {
-            if (template.MedicalProfileTemplateId == 0)
-            {
-                //Create Mode
-                db.MedicalProfileTemplates.Add(template);
-                template.MedicalProfileTemplateName = "Mẫu chưa được đặt tên";
-                db.SaveChanges();
-            }
-            else
-            {
-                //Edit Mode
-                //var listCustomSnippets = db.CustomSnippets.Where(s => s.MedicalProfileTemplateId == template.MedicalProfileTemplateId);
-                //foreach (var entity in listCustomSnippets)
-                //{
-                //    db.CustomSnippets.Remove(entity);
-                //}
-                //db.SaveChanges();
-            }
-
             List<CustomSnippet> snippetChanged = snippetBusiness.ConvertJsonStringToCustomSnippetList(jsonString, template);
             List<CustomSnippet> snippetDB = _db.CustomSnippets.Where(
                 s => s.MedicalProfileTemplateId == template.MedicalProfileTemplateId)
                 .OrderBy(s=>s.Position)
                 .ToList();
-            Debug.WriteLine(snippetChanged);
-            Debug.WriteLine(snippetDB);
-            JObject result = snippetBusiness.CompareChanges(snippetDB, snippetChanged, template);
-            return result;
+            snippetBusiness.SaveSnippetList(snippetDB, snippetChanged, template);
         }
 
         public JObject CheckTemplateChanged(string jsonString, MedicalProfileTemplate template)

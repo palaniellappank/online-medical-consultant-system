@@ -1,0 +1,81 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="modal-change-notice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Chú ý</h4>
+      </div>
+      <div class="modal-body">
+          <div class="alert alert-warning" role="alert">Hiện tại có <%= result.numMedicalProfileUsage %> hồ sơ bệnh án đang
+              sử dụng mẫu hồ sơ này.
+          </div>
+
+          <div class="alert alert-warning" role="alert">Cập nhật mẫu bệnh án không đúng có thể 
+              khiến mất mát dữ liệu xảy ra, hãy xem lại những những thay đổi sau:</div>
+          <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <%= result.numDeleteStaticItem %> đối tượng "Có sẵn" và <%= result.numDeleteDynamicItem %> đối tượng động "Tùy chỉnh" bị xóa
+                  </h4>
+                </div>
+                <div id="collapseOne">
+                  <div class="panel-body">
+                      <% if (result.removeList.length > 0) { %>
+                          <table class="table table-striped table-hover ">
+                            <thead>
+                              <tr>
+                                <th>Đối tượng bị xóa</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% _.each(result.removeList, function(removeItem, i) { %>
+                                <tr>
+                                    <td><%= removeItem.oldValue %></td>
+                                </tr>
+                              <% }); %>
+                            </tbody>
+                          </table>
+                      <% } %>
+                  </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                      Có <%= result.numChangeStaticItem %> giá trị "Có sẵn" và <%= result.numChangeDynamicItem %> giá trị "Tùy chỉnh" bị thay đổi
+                  </h4>
+                </div>
+                <div id="collapseTwo">
+                  <div class="panel-body">
+                      <% if (result.changedList.length > 0) { %>
+                          <table class="table table-striped table-hover ">
+                            <thead>
+                              <tr>
+                                <th>Giá trị trước khi thay đổi</th>
+                                <th>Giá trị sau khi thay đổi</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% _.each(result.changedList, function(changeItem, i){ %>
+                                <tr>
+                                    <td><%= changeItem.oldValue %></td>
+                                    <td><%= changeItem.newValue %></td>
+                                </tr>
+                              <% }); %>
+                            </tbody>
+                          </table>
+                      <% } %>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
+        <button type="button" class="btn btn-primary" id="save-confirm">Lưu</button>
+      </div>
+    </div>
+  </div>
+</div>

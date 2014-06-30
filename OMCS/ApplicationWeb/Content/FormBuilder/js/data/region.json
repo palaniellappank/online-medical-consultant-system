@@ -12,6 +12,11 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Khu vực"
+        },
+		"mapping" : {
+            "label": "Khu vực",
+            "type" : "input",
+            "value" : ""
         }
     }
   },
@@ -28,6 +33,11 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Lịch sử khám bệnh"
+        },
+		"mapping" : {
+            "label": "Khu vực",
+            "type" : "input",
+            "value" : "TreatmentHistory"
         }
     }
   },
@@ -44,6 +54,11 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Hồ sơ"
+        },
+		"mapping" : {
+            "label": "Khu vực",
+            "type" : "input",
+            "value" : "FilmDocument"
         }
     }
   }
