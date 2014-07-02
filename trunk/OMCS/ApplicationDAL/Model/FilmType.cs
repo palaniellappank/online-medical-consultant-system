@@ -17,7 +17,6 @@ namespace OMCS.DAL.Model
         [Key]
         public int FilmTypeId { get; set; }
 
-        [Required(ErrorMessage = "Bạn cần nhập thông tin này", AllowEmptyStrings = true)]
         [Display(Name = "Tên")]
         public string Name { get; set; }
 

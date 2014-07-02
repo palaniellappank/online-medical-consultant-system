@@ -24,7 +24,7 @@ namespace OMCS.DAL.Model
         public virtual Doctor Doctor { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Ngày tư vấn")]
         public DateTime DateConsulted { get; set; }
 
