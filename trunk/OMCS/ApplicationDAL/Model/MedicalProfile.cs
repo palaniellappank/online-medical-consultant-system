@@ -30,17 +30,5 @@ namespace OMCS.DAL.Model
         [ForeignKey("MedicalProfileTemplate")]
         public int MedicalProfileTemplateId { get; set; }
         public virtual MedicalProfileTemplate MedicalProfileTemplate { get; set; }
-
-        [Display(Name = "Nhịp tim")]
-        public string HeartRate { get; set; }
-
-        [Display(Name = "Thân Nhiệt")]
-        public string Temperature { get; set; }
-
-        [Display(Name = "Huyết Áp")]
-        public string BloodPressure { get; set; }
-
-        [Display(Name = "Nhịp Thở")]
-        public string BreathingRate { get; set; }
     }
 }

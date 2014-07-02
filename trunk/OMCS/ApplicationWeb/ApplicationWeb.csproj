@@ -202,7 +202,9 @@
     <Compile Include="Common\DoctorDetail.cs" />
     <Compile Include="Common\MessageDetail.cs" />
     <Compile Include="Common\UserDetail.cs" />
+    <Compile Include="Controllers\TreatmentHistoryController.cs" />
     <Compile Include="Controllers\DoctorConversationController.cs" />
+    <Compile Include="Helpers\DateTimeBinder.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -263,6 +265,7 @@
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\textarea.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\textinput.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\static-text.html" />
+    <Content Include="Content\FormBuilder\js\views\treatment-list.js" />
     <Content Include="Content\ProfilePicture\photo.jpg" />
     <Content Include="Content\ProfilePicture\Su.JPG" />
     <Content Include="Content\select2\select2-spinner.gif" />
@@ -539,6 +542,9 @@
     <Content Include="Views\UserConversation\ChatRoom.cshtml" />
     <Content Include="Scripts\underscore-min.map" />
     <Content Include="Views\DoctorConversation\Index.cshtml" />
+    <Content Include="Views\TreatmentHistory\_List.cshtml" />
+    <Content Include="Views\TreatmentHistory\_Create.cshtml" />
+    <Content Include="Views\TreatmentHistory\_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

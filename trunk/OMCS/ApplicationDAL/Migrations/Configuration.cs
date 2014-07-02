@@ -20,6 +20,8 @@
             var Admin = context.Roles.Where(
                 role => (role.RoleName.Equals("Admin"))
             ).FirstOrDefault();
+
+            DataTreatmentHistory.Seed(context);
             
             if (Admin == null)
             {

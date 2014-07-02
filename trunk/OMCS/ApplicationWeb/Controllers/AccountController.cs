@@ -49,7 +49,7 @@ namespace Security.Controllers
                              1,
                             user.Email,
                              DateTime.Now,
-                             DateTime.Now.AddMinutes(15),
+                             DateTime.Now.AddDays(1),
                              false,
                              userData);
 

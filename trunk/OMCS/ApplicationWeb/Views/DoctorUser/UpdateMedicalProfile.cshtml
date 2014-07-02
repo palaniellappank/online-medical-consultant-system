@@ -9,7 +9,9 @@
 <script type="text/javascript">
     var formInJson = @Html.Raw(ViewBag.formInJson);
     var medicalProfileTemplateId = @(ViewBag.medicalProfileTemplateId);
+    var medicalProfileId = @(ViewBag.medicalProfileId);
     var patientId = @(ViewBag.patientId);
+    var treatmentHistoryUrl = "@Url.Action("List", "TreatmentHistory")";
 </script>
 
 <div id="build">

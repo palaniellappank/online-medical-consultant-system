@@ -31,10 +31,6 @@ namespace OMCS.DAL.Model
             .WithMany()
             .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<TreatmentHistory>()
-            .HasRequired(c => c.DiseaseType)
-            .WithMany()
-            .WillCascadeOnDelete(false);
         }
          public DbSet<User> Users { get; set; }
          public DbSet<Role> Roles { get; set; }
