@@ -26,6 +26,7 @@ namespace OMCS.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ModelBinders.Binders.Add(typeof(DateTime), new DateTimeBinder());
             //AuthConfig.RegisterAuth();
             //Database.SetInitializer<OMCS.DAL.Model.OMCSDBContext>(new DataContextInitilizer());
         }

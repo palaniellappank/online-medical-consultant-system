@@ -1,0 +1,70 @@
+﻿@model IEnumerable<OMCS.DAL.Model.TreatmentHistory>
+@using OMCS.Web
+
+<a id="newTreatmentHistoryBtn" class="btn btn-primary" style="position: absolute;right: 15px;margin-top: -57px;">Thêm lịch sử khám</a>
+@foreach (var item in Model) {
+  <div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Ngày khám: @Html.DisplayFor(modelItem => item.OnSetDate)</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="form-group">
+                <label class="col-md-4 control-label">@Html.DisplayNameFor(model=>model.OnSetDate)</label>
+                <div class="col-md-8 form-control-static">
+                    @item.DateCreated.ToShortDateString()
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">@Html.DisplayNameFor(model=>model.Symptom)</label>
+                <div class="col-md-8 form-control-static">
+                    @item.Symptom
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">@Html.DisplayNameFor(model=>model.Diagnosis)</label>
+                <div class="col-md-8 form-control-static">
+                    @item.Diagnosis
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">@Html.DisplayNameFor(model=>model.Treatment)</label>
+                <div class="col-md-8 form-control-static">
+                    @item.Treatment
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">@Html.DisplayNameFor(model=>model.Condition)</label>
+                <div class="col-md-8 form-control-static">
+                    @item.Condition
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">@Html.DisplayNameFor(model=>model.Note)</label>
+                <div class="col-md-8 form-control-static">
+                    @item.Note
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            @if (item.TreatmentHistoryType.ToString().Equals("Online")) {
+                <span class="label label-warning" style="padding: 5px;">Online</span>
+            } else {
+                <span class="label label-success" style="padding: 5px;">Trực tiếp</span>
+            }
+            <span class="pull-right">
+                <a class="edit-btn" data-id="@item.TreatmentHistoryId" data-original-title="Thay đổi" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                <a class="delete-btn" data-id="@item.TreatmentHistoryId" data-original-title="Xóa" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+            </span>
+        </div>
+    </div>
+  </div>
+}
+
+<div class="modal fade in" id="edit-treatment-history-modal">
+    <div id="edit-treatment-history-container"></div>
+</div>
+
+<div class="modal fade in" id="create-treatment-history-modal">
+    <div id="create-treatment-history-container"></div>
+</div>

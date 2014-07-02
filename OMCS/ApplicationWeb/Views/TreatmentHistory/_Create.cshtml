@@ -1,0 +1,67 @@
+﻿@model OMCS.DAL.Model.TreatmentHistory
+<form></form>
+@using (Ajax.BeginForm("Create", "TreatmentHistory", null, new { @class = "create-form" }))    
+{
+    <style>
+        .create-form .form-group {
+            margin: 0;
+        }
+    </style>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <input name="medicalProfileId" type="hidden" value="@Html.ValueFor(model=>model.MedicalProfileId)"/>
+      <input name="doctorId" type="hidden" value="@Html.ValueFor(model=>model.DoctorId)"/>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Thêm Lượt khám bệnh</h4>
+        <div id ="treatment-type" class="pull-right" style="margin-top: -29px;margin-right: 27px;">
+            <select class="form-control" name="TreatmentHistoryType">
+                <option value="Online">Online</option>
+                <option value="Offline">Trực tiếp</option>
+            </select>
+        </div>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+          <div class="col-lg-6">
+            <div>
+                <label class="control-label">Ngày khám</label>
+                <input name="DateCreated" readonly="readonly" class="datepicker form-control required" value="@Model.DateCreated.ToShortDateString()"/>
+            </div>
+            <div class="form-group">
+                <label for="Symptom" class="control-label">@Html.DisplayNameFor(model=>model.Symptom)</label>
+                <textarea id="Symptom" name="Symptom" class="form-control required"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="Treatment" class="control-label">@Html.DisplayNameFor(model=>model.Treatment)</label>
+                <textarea id="Treatment" name="Treatment" class="form-control"></textarea>
+            </div>
+          </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="OnSetDate" class="control-label">@Html.DisplayNameFor(model=>model.OnSetDate)</label>
+                <input id="OnSetDate" readonly="readonly" name="OnSetDate" value="@Model.DateCreated.ToShortDateString()" class="datepicker form-control required" />
+            </div>
+            <div class="form-group">
+                <label for="Diagnosis" class="control-label">@Html.DisplayNameFor(model=>model.Diagnosis)</label>
+                <textarea id="Diagnosis" name="Diagnosis" class="form-control required"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="Condition">@Html.DisplayNameFor(model=>model.Condition)</label>
+                <textarea id="Condition" name="Condition" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Note">@Html.DisplayNameFor(model=>model.Note)</label>
+            <textarea id="Note" name="Note" class="form-control"></textarea>
+        </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
+        <button class="btn btn-primary saveCreateBtn">Lưu</button>
+      </div>
+    </div>
+  </div>
+}

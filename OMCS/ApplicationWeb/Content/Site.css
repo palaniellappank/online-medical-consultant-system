@@ -522,11 +522,6 @@ ul.c-controls li a:hover
     border-radius: 0;
 }
 
-.panel-body
-{
-    overflow-y: scroll;
-    height: 394px;
-}
 
 /* Css for chatbox */
 .chat

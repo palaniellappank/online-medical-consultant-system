@@ -11,10 +11,10 @@ namespace OMCS.DAL.Model
 {
     public enum TreatmentHistoryType
     {
-        [Description("Qua mạng internet")]
+        [Display(Name = "Online")]
         Online = 0,
 
-        [Description("Trực tiếp")]
+        [Display(Name = "Trực tiếp")]
         Offline = 1
     };
 
@@ -28,24 +28,48 @@ namespace OMCS.DAL.Model
         public int MedicalProfileId { get; set; }
         public virtual MedicalProfile MedicalProfile { get; set; }
 
+        public TreatmentHistoryType TreatmentHistoryType { get; set; }
+
         [ForeignKey("Doctor")]
         public int DoctorId { get; set; }
         public virtual Doctor Doctor { get; set; }
 
-        [ForeignKey("DiseaseType")]
-        public int DiseaseTypeId { get; set; }
-        public virtual DiseaseType DiseaseType { get; set; }
+        [Display(Name = "Triệu chứng")]
+        public string Symptom { get; set; }
+
+        [Display(Name = "Chẩn đoán")]
+        public string Diagnosis { get; set; }
+
+        [Display(Name = "Phương pháp điều trị")]
+        public string Treatment { get; set; }
+
+        [Display(Name = "Tình trạng điều trị")]
+        public string Condition { get; set; }
+        
+        [Display(Name = "Nhịp tim")]
+        public string HeartRate { get; set; }
+
+        [Display(Name = "Thân Nhiệt")]
+        public string Temperature { get; set; }
+
+        [Display(Name = "Huyết Áp")]
+        public string BloodPressure { get; set; }
+
+        [Display(Name = "Nhịp Thở")]
+        public string BreathingRate { get; set; }
+        
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Ngày khám")]
         public DateTime DateCreated { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Ngày phát bệnh")]
 	    public DateTime OnSetDate { get; set; }
 
+        [Display(Name = "Ghi chú")]
 	    public string Note { get; set; }
     }
 }
