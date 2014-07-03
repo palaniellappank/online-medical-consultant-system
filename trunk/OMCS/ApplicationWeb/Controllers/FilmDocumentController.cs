@@ -14,7 +14,7 @@ using System.Data;
 
 namespace OMCS.Web.Controllers
 {
-    public class TreatmentHistoryController : BaseController
+    public class FilmDocumentController : BaseController
     {
         private AdminUserBusiness business = new AdminUserBusiness();
         private MedicalProfileBusiness medicalProfileBusiness = new MedicalProfileBusiness();
@@ -28,16 +28,16 @@ namespace OMCS.Web.Controllers
             return PartialView("_List", treatments);
         }
 
-        public ActionResult Create(int medicalProfileId)
+        public ActionResult Create(int treatmentHistoryId)
         {
-            var treatmentHistory = new TreatmentHistory
+            var filmTypeList = _db.FilmTypes.ToList();
+            ViewBag.FilmTypeSelect = new SelectList(filmTypeList, "FilmTypeId", "Name");
+            var filmDocument = new FilmDocument
             {
-                MedicalProfileId = medicalProfileId,
-                DoctorId = User.UserId,
-                OnSetDate = DateTime.Now,
-                DateCreated = DateTime.Now
+                TreatmentHistoryId = treatmentHistoryId,
+                DoctorId = User.UserId
             };
-            return PartialView("_Create", treatmentHistory);
+            return PartialView("_Create", filmDocument);
         }
 
         [HttpPost]
@@ -59,6 +59,7 @@ namespace OMCS.Web.Controllers
         [HttpPost]
         public ActionResult Edit(TreatmentHistory treatmentHistory)
         {
+            var existTreatment = _db.TreatmentHistories.Find(treatmentHistory.TreatmentHistoryId);
             _db.Entry(treatmentHistory).State = EntityState.Modified;
             _db.SaveChanges();
             return RedirectToAction("Index");

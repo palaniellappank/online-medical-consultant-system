@@ -202,6 +202,7 @@
     <Compile Include="Common\DoctorDetail.cs" />
     <Compile Include="Common\MessageDetail.cs" />
     <Compile Include="Common\UserDetail.cs" />
+    <Compile Include="Controllers\FilmDocumentController.cs" />
     <Compile Include="Controllers\TreatmentHistoryController.cs" />
     <Compile Include="Controllers\DoctorConversationController.cs" />
     <Compile Include="Helpers\DateTimeBinder.cs" />
@@ -266,8 +267,10 @@
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\textinput.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\static-text.html" />
     <Content Include="Content\FormBuilder\js\views\treatment-list.js" />
-    <Content Include="Content\ProfilePicture\photo.jpg" />
-    <Content Include="Content\ProfilePicture\Su.JPG" />
+    <Content Include="Content\Image\FilmDocument\viemphoidotucau.gif" />
+    <Content Include="Content\Image\FilmDocument\viem_amydal_cap.jpg" />
+    <Content Include="Content\Image\ProfilePicture\photo.jpg" />
+    <Content Include="Content\Image\ProfilePicture\Su.JPG" />
     <Content Include="Content\select2\select2-spinner.gif" />
     <Content Include="Content\select2\select2.png" />
     <Content Include="Content\select2\select2x2.png" />
@@ -349,7 +352,7 @@
     <Content Include="Content\Image\slider1.jpg" />
     <Content Include="Content\Image\slider2.jpg" />
     <Content Include="Content\Image\slider3.gif" />
-    <Content Include="Content\ProfilePicture\anonymous-avatar.jpg" />
+    <Content Include="Content\Image\ProfilePicture\anonymous-avatar.jpg" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -545,6 +548,9 @@
     <Content Include="Views\TreatmentHistory\_List.cshtml" />
     <Content Include="Views\TreatmentHistory\_Create.cshtml" />
     <Content Include="Views\TreatmentHistory\_Edit.cshtml" />
+    <Content Include="Views\FilmDocument\_Create.cshtml" />
+    <Content Include="Views\FilmDocument\_Edit.cshtml" />
+    <Content Include="Views\FilmDocument\_List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

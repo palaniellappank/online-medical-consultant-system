@@ -26,7 +26,14 @@ namespace OMCS.Web
 
         public static string GetPictureUrl(this HtmlHelper html, string type)
         {
-            if ("Profile".Equals(type)) return "/Content/ProfilePicture/";
+            if ("Profile".Equals(type))
+            {
+                return "/Content/Image/ProfilePicture/";
+            }
+            else if ("FilmDocument".Equals(type))
+            {
+                return "/Content/Image/FilmDocument/";
+            }
             return "";
         }
     }

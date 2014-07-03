@@ -71,5 +71,7 @@ namespace OMCS.DAL.Model
 
         [Display(Name = "Ghi chú")]
 	    public string Note { get; set; }
+
+        public virtual ICollection<FilmDocument> FilmDocuments { get; set; }
     }
 }

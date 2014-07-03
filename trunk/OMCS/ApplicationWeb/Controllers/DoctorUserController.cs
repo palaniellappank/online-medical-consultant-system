@@ -79,7 +79,7 @@ namespace OMCS.Web.Controllers
             ViewBag.medicalProfileName = _db.MedicalProfileTemplates.Find(medicalProfileTemplateId).MedicalProfileTemplateName;
             if (medicalProfile != null)
                 ViewBag.medicalProfileId = medicalProfile.MedicalProfileId;
-            else ViewBag.medicalProfileId = null;
+            else ViewBag.medicalProfileId = 0;
             return View();
         }
 

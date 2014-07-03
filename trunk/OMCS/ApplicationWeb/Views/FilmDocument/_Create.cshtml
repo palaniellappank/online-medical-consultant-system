@@ -1,0 +1,48 @@
+﻿@model OMCS.DAL.Model.FilmDocument
+<form></form>
+@using (Ajax.BeginForm("Create", "FilmDocument", null, new { @class = "add-film-form" }))    
+{
+    <style>
+        .add-film-form .form-group {
+            margin: 0;
+        }
+    </style>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <input name="treatmentHistoryId" type="hidden" value="@Html.ValueFor(model=>model.TreatmentHistoryId)"/>
+      <input name="doctorId" type="hidden" value="@Html.ValueFor(model=>model.DoctorId)"/>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Thêm Hồ Sơ ảnh</h4>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+          <div class="col-lg-6">
+            
+          </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="FilmType" class="control-label">@Html.DisplayNameFor(model=>model.FilmType)</label>
+                    @Html.DropDownList("FilmTypeSelect", null, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Description" class="control-label">@Html.DisplayNameFor(model=>model.Description)</label>
+                <textarea id="Description" name="Description" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="Conclusion" class="control-label">@Html.DisplayNameFor(model=>model.Conclusion)</label>
+                <textarea id="Conclusion" name="Conclusion" class="form-control"></textarea>
+            </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
+        <button class="btn btn-primary addFilmBtn">Lưu</button>
+      </div>
+    </div>
+  </div>
+}
