@@ -117,6 +117,59 @@ var validationRegex = {
     number99: /^\d{1,2}$/
 }
 
-function validationForm() {
+function validationForm(form) {
+    form.validate();
     $('<span style="color:red;">*</span>').insertBefore('.required');
+}
+
+function initModalWithData(data) {
+    $('#modal-popup').html(data);
+    $('#modal-popup').modal('show');
+    var form = $('#modal-popup').find("form");  
+    validationForm(form);
+    $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+    $('#modal-popup').find(".saveBtn").click(function (e) {
+        e.preventDefault();
+        if (form.valid()) {
+            var formData = new FormData(form[0]);
+            $.ajax({
+                url: form.attr("action"),
+                method: "post",
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function () {
+                    window.location.reload();
+                }
+            });
+        }
+    });
+    var deleteBtn = $('#modal-popup').find(".deleteBtn");
+    if (deleteBtn[0] != undefined) {
+        deleteBtn.click(function (e) {
+            e.preventDefault();
+            var id = deleteBtn.attr("data-id");
+            var url = deleteBtn.attr("data-url");
+            bootbox.confirm("Bạn muốn xóa đối tượng này?", function (result) {
+                if (result) {
+                    $.post(
+                        url,
+                        { id: id },
+                        function () {
+                            window.location.reload();
+                        });
+                }
+            });
+        });
+    }
+}
+
+function readImgFromURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#targetImg').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
 }

@@ -1,12 +1,6 @@
 ﻿@model OMCS.DAL.Model.TreatmentHistory
-<form></form>
-@using (Ajax.BeginForm("Create", "TreatmentHistory", null, new { @class = "create-form" }))    
+@using (Ajax.BeginForm("Create", "TreatmentHistory", null))
 {
-    <style>
-        .create-form .form-group {
-            margin: 0;
-        }
-    </style>
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <input name="medicalProfileId" type="hidden" value="@Html.ValueFor(model=>model.MedicalProfileId)"/>
@@ -24,7 +18,7 @@
       <div class="modal-body">
           <div class="row">
           <div class="col-lg-6">
-            <div>
+            <div class="form-group">
                 <label class="control-label">Ngày khám</label>
                 <input name="DateCreated" readonly="readonly" class="datepicker form-control required" value="@Model.DateCreated.ToShortDateString()"/>
             </div>
@@ -62,7 +56,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
-        <button class="btn btn-primary saveCreateBtn">Lưu</button>
+        <button class="btn btn-primary saveBtn">Lưu</button>
       </div>
     </div>
   </div>

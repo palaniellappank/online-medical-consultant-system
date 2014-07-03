@@ -1,12 +1,6 @@
 ﻿@model OMCS.DAL.Model.FilmDocument
-<form></form>
-@using (Ajax.BeginForm("Create", "FilmDocument", null, new { @class = "add-film-form" }))    
+@using (Ajax.BeginForm("Create", "FilmDocument", null, new { EncType = "multipart/form-data" }))    
 {
-    <style>
-        .add-film-form .form-group {
-            margin: 0;
-        }
-    </style>
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <input name="treatmentHistoryId" type="hidden" value="@Html.ValueFor(model=>model.TreatmentHistoryId)"/>
@@ -18,14 +12,15 @@
       <div class="modal-body">
           <div class="row">
           <div class="col-lg-6">
-            
+            <form runat="server">
+                <img id="targetImg" src="#" data-src="holder.js/400x300" alt="your image" class="img-responsive"/>
+                <input type='file' name="file" id="imgInp" style="padding-top: 10px;"/>
+            </form>
           </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <div class="form-group">
-                    <label for="FilmType" class="control-label">@Html.DisplayNameFor(model=>model.FilmType)</label>
-                    @Html.DropDownList("FilmTypeSelect", null, new { @class = "form-control" })
-                </div>
+                <label for="FilmType" class="control-label">@Html.DisplayNameFor(model=>model.FilmType)</label>
+                @Html.DropDownList("FilmTypeId", null, new { @class = "form-control" })
             </div>
             <div class="form-group">
                 <label for="Description" class="control-label">@Html.DisplayNameFor(model=>model.Description)</label>
@@ -41,7 +36,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
-        <button class="btn btn-primary addFilmBtn">Lưu</button>
+        <button class="btn btn-primary saveBtn">Lưu</button>
       </div>
     </div>
   </div>

@@ -57,11 +57,13 @@ namespace OMCS.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(TreatmentHistory treatmentHistory)
+        public JObject Edit(TreatmentHistory treatmentHistory)
         {
             _db.Entry(treatmentHistory).State = EntityState.Modified;
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            dynamic result = new JObject();
+            result.result = "ok";
+            return result;
         }
 
         [HttpPost, ActionName("Delete")]

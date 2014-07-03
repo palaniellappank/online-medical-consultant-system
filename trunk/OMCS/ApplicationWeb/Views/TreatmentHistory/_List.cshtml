@@ -51,7 +51,7 @@
                     @foreach (var film in item.FilmDocuments)
                     {
                         <div class="col-md-3 col-sm-4 col-xs-6">
-                            <img class="slider-img img-responsive" src="@Html.GetPictureUrl("FilmDocument")@film.ImagePath" />
+                            <img class="slider-img img-responsive" data-id="@film.FilmDocumentId" src="@Html.GetPictureUrl("FilmDocument")@film.ImagePath" />
                         </div>
                     }
                 </div>
@@ -72,15 +72,3 @@
     </div>
   </div>
 }
-
-<div class="modal fade in" id="edit-treatment-history-modal">
-    <div id="edit-treatment-history-container"></div>
-</div>
-
-<div class="modal fade in" id="create-treatment-history-modal">
-    <div id="create-treatment-history-container"></div>
-</div>
-
-<div class="modal fade in" id="add-film-modal">
-    <div id="add-film-container"></div>
-</div>
