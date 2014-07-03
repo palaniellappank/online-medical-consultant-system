@@ -10,33 +10,37 @@
       },
       events: {
           "click #newTreatmentHistoryBtn": "createNew",
-          "click .saveCreateBtn": "saveTreatment",
           "click .edit-btn": "editTreatment",
-          "click .saveEditBtn": "saveEditTreatment",
           "click .delete-btn": "deleteTreatment",
-          "click .add-film-btn": "addFilmDocument"
+          "click .add-film-btn": "addFilmDocument",
+          "click .slider-img": "editFilmDocument"
       },
       createNew: function() {
           var url = "/TreatmentHistory/Create";
-          var that = this;
           $.get(url + "?medicalProfileId=" + medicalProfileId, function (data) {
-            $('#create-treatment-history-container').html(data);
-            $('#create-treatment-history-modal').modal('show');
-            that.$el.find(".create-form").validate();
-            $('<span style="color:red;">*</span>').insertBefore('.required');
-            $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+              initModalWithData(data);
           });
       },
       addFilmDocument: function (e) {
           var url = "/FilmDocument/Create";
-          var that = this;
           var treatmentId = $(e.currentTarget).attr("data-id");
           $.get(url + "?treatmentHistoryId=" + treatmentId, function (data) {
-              $('#add-film-container').html(data);
-              $('#add-film-modal').modal('show');
-              that.$el.find(".add-film-form").validate();
-              $('<span style="color:red;">*</span>').insertBefore('.required');
-              $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+              initModalWithData(data);
+              Holder.run();
+              $("#imgInp").change(function () {
+                  readImgFromURL(this);
+              });
+          });
+      },
+      editFilmDocument: function (e) {
+          var url = "/FilmDocument/Edit";
+          var filmDocumentId = $(e.currentTarget).attr("data-id");
+          $.get(url + "?id=" + filmDocumentId, function (data) {
+              initModalWithData(data);
+              Holder.run();
+              $("#imgInp").change(function () {
+                  readImgFromURL(this);
+              });
           });
       },
       editTreatment: function (e) {
@@ -44,37 +48,8 @@
           var treatmentId = $(e.currentTarget).attr("data-id");
           var that = this;
           $.get(url + "?id=" + treatmentId, function (data) {
-              $('#edit-treatment-history-container').html(data);
-              $('#edit-treatment-history-modal').modal('show');
-              that.$el.find(".edit-form").validate();
-              $('<span style="color:red;">*</span>').insertBefore('.required');
-              $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+              initModalWithData(data);
           });
-      },
-      saveTreatment: function (e) {
-          e.preventDefault();
-          var form = this.$el.find(".create-form");
-          if (form.valid()) {
-              $.post(
-                  form.attr("action"),
-                  form.serializeArray(),
-                  function () {
-                      window.location.reload();
-              });
-          }  
-      },
-      saveEditTreatment: function (e) {
-          e.preventDefault();
-          var form = this.$el.find(".edit-form");
-          console.log(form.attr("action"));
-          if (form.valid()) {
-              $.post(
-                  "/TreatmentHistory/Edit",
-                  form.serializeArray(),
-                  function () {
-                      window.location.reload();
-              });
-          }
       },
       deleteTreatment: function (e) {
           e.preventDefault();

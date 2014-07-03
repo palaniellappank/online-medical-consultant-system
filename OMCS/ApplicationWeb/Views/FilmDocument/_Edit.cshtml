@@ -1,61 +1,38 @@
-﻿@model OMCS.DAL.Model.TreatmentHistory
-<form></form>
-@using (Ajax.BeginForm("Edit", "TreatmentHistory", null, new { @class = "edit-form" }))    
+﻿@model OMCS.DAL.Model.FilmDocument
+@using OMCS.Web
+@using (Ajax.BeginForm("Edit", "FilmDocument", null, new { EncType = "multipart/form-data" }))    
 {
-    <style>
-        .edit-form .form-group {
-            margin: 0;
-        }
-    </style>
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <input name="treatmentHistoryId" type="hidden" value="@Html.ValueFor(model=>model.TreatmentHistoryId)"/>
-      <input name="medicalProfileId" type="hidden" value="@Html.ValueFor(model=>model.MedicalProfileId)"/>
       <input name="doctorId" type="hidden" value="@Html.ValueFor(model=>model.DoctorId)"/>
+      <input name="filmDocumentId" type="hidden" value="@Html.ValueFor(model=>model.FilmDocumentId)"/>
+      <input name="dateCreated" type="hidden" value="@Html.ValueFor(model=>model.DateCreated)"/>
+      <input type='hidden' name="imagePath" value="@Model.ImagePath"/>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Cập nhật lượt khám</h4>
-        <div id ="treatment-type" class="pull-right" style="margin-top: -29px;margin-right: 27px;">
-            <select class="form-control" name="TreatmentHistoryType">
-                <option value="Online">Online</option>
-                <option value="Offline">Trực tiếp</option>
-            </select>
-        </div>
+        <h4 class="modal-title">Chỉnh sửa Hồ Sơ ảnh</h4>
       </div>
       <div class="modal-body">
-        <div class="row">
+          <div class="row">
           <div class="col-lg-6">
-            <div>
-                <label class="control-label">Ngày khám</label>
-                <input name="DateCreated" readonly="readonly" class="datepicker form-control required" value="@Model.DateCreated.ToShortDateString()"/>
-            </div>
-            <div class="form-group">
-                <label for="Symptom" class="control-label">@Html.DisplayNameFor(model=>model.Symptom)</label>
-                <textarea id="Symptom" name="Symptom" class="form-control required"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="Treatment" class="control-label">@Html.DisplayNameFor(model=>model.Treatment)</label>
-                <textarea id="Treatment" name="Treatment" class="form-control"></textarea>
-            </div>
+            <form runat="server">
+                <img id="targetImg" src="@Html.GetPictureUrl("FilmDocument")@Model.ImagePath" alt="your image" class="img-responsive"/>
+                <input type='file' name="file" id="imgInp" style="padding-top: 10px;"/>
+            </form>
           </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <label for="OnSetDate" class="control-label">@Html.DisplayNameFor(model=>model.OnSetDate)</label>
-                <input id="OnSetDate" readonly="readonly" name="OnSetDate" value="@Model.DateCreated.ToShortDateString()" class="datepicker form-control required" />
+                <label for="FilmType" class="control-label">@Html.DisplayNameFor(model=>model.FilmType)</label>
+                @Html.DropDownList("FilmTypeId", null, new { @class = "form-control" })
             </div>
             <div class="form-group">
-                <label for="Diagnosis" class="control-label">@Html.DisplayNameFor(model=>model.Diagnosis)</label>
-                <textarea id="Diagnosis" name="Diagnosis" class="form-control required"></textarea>
+                <label for="Description" class="control-label">@Html.DisplayNameFor(model=>model.Description)</label>
+                <textarea id="Description" name="Description" class="form-control">@Model.Description</textarea>
             </div>
             <div class="form-group">
-                <label for="Condition">@Html.DisplayNameFor(model=>model.Condition)</label>
-                <textarea id="Condition" name="Condition" class="form-control"></textarea>
-            </div>
-        </div>
-        <div class="col-lg-12">
-            <div class="form-group">
-                <label for="Note">@Html.DisplayNameFor(model=>model.Note)</label>
-                <textarea id="Note" name="Note" class="form-control"></textarea>
+                <label for="Conclusion" class="control-label">@Html.DisplayNameFor(model=>model.Conclusion)</label>
+                <textarea id="Conclusion" name="Conclusion" class="form-control">@Model.Conclusion</textarea>
             </div>
         </div>
         </div>
@@ -63,7 +40,8 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
-        <button class="btn btn-primary saveEditBtn">Lưu</button>
+        <button class="btn btn-warning deleteBtn" data-id="@Model.FilmDocumentId" data-url="@Url.Action("Delete")">Xóa</button>
+        <button class="btn btn-primary saveBtn">Cập nhật</button>
       </div>
     </div>
   </div>

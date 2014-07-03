@@ -11,6 +11,7 @@ using OMCS.Web.DTO;
 using System.Diagnostics;
 using Newtonsoft.Json.Linq;
 using System.Data;
+using System.IO;
 
 namespace OMCS.Web.Controllers
 {
@@ -31,7 +32,7 @@ namespace OMCS.Web.Controllers
         public ActionResult Create(int treatmentHistoryId)
         {
             var filmTypeList = _db.FilmTypes.ToList();
-            ViewBag.FilmTypeSelect = new SelectList(filmTypeList, "FilmTypeId", "Name");
+            ViewBag.FilmTypeId = new SelectList(filmTypeList, "FilmTypeId", "Name");
             var filmDocument = new FilmDocument
             {
                 TreatmentHistoryId = treatmentHistoryId,
@@ -41,9 +42,19 @@ namespace OMCS.Web.Controllers
         }
 
         [HttpPost]
-        public JObject Create(TreatmentHistory treatmentHistory)
+        public JObject Create(FilmDocument filmDocument, HttpPostedFileBase file)
         {
-            _db.TreatmentHistories.Add(treatmentHistory);
+            if (file != null)
+            {
+                var fileName = DateTime.Now.Millisecond + "_" + Path.GetFileName(file.FileName);
+                var path = HttpContext.Server.MapPath("~/Content/Image/FilmDocument/" + fileName);
+                var dbPath = fileName;
+                file.SaveAs(path);
+                filmDocument.ImagePath = dbPath;
+            }
+            filmDocument.DateCreated = DateTime.Now;
+
+            _db.FilmDocuments.Add(filmDocument);
             _db.SaveChanges();
             dynamic result = new JObject();
             result.result = "ok";
@@ -52,24 +63,35 @@ namespace OMCS.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            TreatmentHistory treatmentHistory = _db.TreatmentHistories.Find(id);
-            return PartialView("_Edit", treatmentHistory);
+            FilmDocument filmDocument = _db.FilmDocuments.Find(id);
+            var filmTypeList = _db.FilmTypes.ToList();
+            ViewBag.FilmTypeId = new SelectList(filmTypeList, "FilmTypeId", "Name", filmDocument.FilmTypeId);
+            return PartialView("_Edit", filmDocument);
         }
 
         [HttpPost]
-        public ActionResult Edit(TreatmentHistory treatmentHistory)
+        public JObject Edit(FilmDocument filmDocument, HttpPostedFileBase file)
         {
-            var existTreatment = _db.TreatmentHistories.Find(treatmentHistory.TreatmentHistoryId);
-            _db.Entry(treatmentHistory).State = EntityState.Modified;
+            if (file != null)
+            {
+                var fileName = DateTime.Now.Millisecond + "_" + Path.GetFileName(file.FileName);
+                var path = HttpContext.Server.MapPath("~/Content/Image/FilmDocument/" + fileName);
+                var dbPath = fileName;
+                file.SaveAs(path);
+                filmDocument.ImagePath = dbPath;
+            }
+            _db.Entry(filmDocument).State = EntityState.Modified;
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            dynamic result = new JObject();
+            result.result = "ok";
+            return result;
         }
 
         [HttpPost, ActionName("Delete")]
         public JObject DeleteConfirmed(int id)
         {
-            TreatmentHistory treatmentHistory = _db.TreatmentHistories.Find(id);
-            _db.TreatmentHistories.Remove(treatmentHistory);
+            FilmDocument filmDocument = _db.FilmDocuments.Find(id);
+            _db.FilmDocuments.Remove(filmDocument);
             _db.SaveChanges();
             dynamic result = new JObject();
             result.result = "ok";
