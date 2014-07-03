@@ -31,6 +31,11 @@ namespace OMCS.DAL.Model
             .WithMany()
             .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<FilmDocument>()
+                .HasRequired(c => c.Doctor)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
         }
          public DbSet<User> Users { get; set; }
          public DbSet<Role> Roles { get; set; }

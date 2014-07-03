@@ -14,6 +14,7 @@
           "click .edit-btn": "editTreatment",
           "click .saveEditBtn": "saveEditTreatment",
           "click .delete-btn": "deleteTreatment",
+          "click .add-film-btn": "addFilmDocument"
       },
       createNew: function() {
           var url = "/TreatmentHistory/Create";
@@ -24,6 +25,18 @@
             that.$el.find(".create-form").validate();
             $('<span style="color:red;">*</span>').insertBefore('.required');
             $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+          });
+      },
+      addFilmDocument: function (e) {
+          var url = "/FilmDocument/Create";
+          var that = this;
+          var treatmentId = $(e.currentTarget).attr("data-id");
+          $.get(url + "?treatmentHistoryId=" + treatmentId, function (data) {
+              $('#add-film-container').html(data);
+              $('#add-film-modal').modal('show');
+              that.$el.find(".add-film-form").validate();
+              $('<span style="color:red;">*</span>').insertBefore('.required');
+              $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
           });
       },
       editTreatment: function (e) {
@@ -50,12 +63,13 @@
               });
           }  
       },
-      saveEditTreatment: function () {
+      saveEditTreatment: function (e) {
           e.preventDefault();
           var form = this.$el.find(".edit-form");
+          console.log(form.attr("action"));
           if (form.valid()) {
               $.post(
-                  form.attr("action"),
+                  "/TreatmentHistory/Edit",
                   form.serializeArray(),
                   function () {
                       window.location.reload();
@@ -67,13 +81,15 @@
           var url = "/TreatmentHistory/Delete";
           var treatmentId = $(e.currentTarget).attr("data-id");
           var that = this;
-          bootbox.confirm("Bạn muốn xóa lượt tư vấn này?", function () {
-              $.post(
-                  url,
-                  {id : treatmentId},
-                  function () {
-                      window.location.reload();
-              });
+          bootbox.confirm("Bạn muốn xóa lượt tư vấn này?", function (result) {
+              if (result) {
+                  $.post(
+                      url,
+                      { id: treatmentId },
+                      function () {
+                          window.location.reload();
+                  });
+              }
           });
       },
       render: function () {
@@ -84,7 +100,7 @@
               data: { medicalProfileId: medicalProfileId },
               success: function (data) {
                   that.$el.append(data);
-               //   bootbox.alert("abc");
+                  $('[data-toggle="tooltip"]').tooltip();
               },
               error: function (jqXHR, textStatus, errorThrown) {
                   bootbox.alert("Có lỗi xảy ra: " + textStatus);

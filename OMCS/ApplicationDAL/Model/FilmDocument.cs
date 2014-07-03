@@ -18,9 +18,24 @@ namespace OMCS.DAL.Model
         public int TreatmentHistoryId { get; set; }
         public virtual TreatmentHistory TreatmentHistory { get; set; }
 
+        [ForeignKey("Doctor")]
+        public int DoctorId { get; set; }
+        public virtual Doctor Doctor { get; set; }
+
         [ForeignKey("FilmType")]
         public int FilmTypeId { get; set; }
         public virtual FilmType FilmType { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Ngày tạo")]
+        public DateTime DateCreated { get; set; }
+
+        [Display(Name = "Mô tả")]
+        public string Description { get; set; }
+
+        [Display(Name = "Kết luận")]
+        public string Conclusion { get; set; }
 
         public int FilmTypePosition { get; set; }
 

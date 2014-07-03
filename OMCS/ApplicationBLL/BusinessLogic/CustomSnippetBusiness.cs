@@ -168,9 +168,10 @@ namespace OMCS.BLL
                     {
                         for (int i = 0; i < existItem.CustomSnippetFields.Count; i++)
                         {
+                            string fieldName = existItem.CustomSnippetFields.ElementAt(i).FieldName;
                             string oldValue = existItem.CustomSnippetFields.ElementAt(i).Value;
                             string newValue = snippetChangeItem.CustomSnippetFields.ElementAt(i).Value;
-                            if (!oldValue.Equals(newValue))
+                            if (!oldValue.Equals(newValue) && !fieldName.Equals("id"))
                             {
                                 dynamic changedItem = new JObject();
                                 changedItem.oldValue = oldValue;
@@ -189,9 +190,10 @@ namespace OMCS.BLL
                     {
                         for (int i = 0; i < existItem.CustomSnippetFields.Count; i++)
                         {
+                            string fieldName = existItem.CustomSnippetFields.ElementAt(i).FieldName;
                             string oldValue = existItem.CustomSnippetFields.ElementAt(i).Value;
                             string newValue = snippetChangeItem.CustomSnippetFields.ElementAt(i).Value;
-                            if (!oldValue.Equals(newValue))
+                            if (!oldValue.Equals(newValue) && !fieldName.Equals("id"))
                             {
                                 dynamic changedItem = new JObject();
                                 changedItem.oldValue = oldValue;
@@ -273,6 +275,25 @@ namespace OMCS.BLL
                 if (snippetChangedItem == null)
                 {
                     _db.CustomSnippets.Remove(snippetExistItem);
+                }
+            }
+            _db.SaveChanges();
+
+            
+            //Store Id to CustomSnippetField
+            List<CustomSnippet> snippetLatest = _db.CustomSnippets.Where(
+                s => s.MedicalProfileTemplateId == template.MedicalProfileTemplateId)
+                .OrderBy(s => s.Position)
+                .ToList();
+            foreach (CustomSnippet snippetItem in snippetLatest)
+            {
+                for (int i = 0; i < snippetItem.CustomSnippetFields.Count; i++)
+                {
+                    var field = snippetItem.CustomSnippetFields.ElementAt(i);
+                    if (field.FieldName.Equals("id"))
+                    {
+                        field.Value = snippetItem.CustomSnippetId.ToString();
+                    }
                 }
             }
             _db.SaveChanges();

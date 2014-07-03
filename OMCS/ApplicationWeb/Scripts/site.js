@@ -116,3 +116,7 @@ var validationRegex = {
     double: /^\d+.?\d{0,2}$/,
     number99: /^\d{1,2}$/
 }
+
+function validationForm() {
+    $('<span style="color:red;">*</span>').insertBefore('.required');
+}
