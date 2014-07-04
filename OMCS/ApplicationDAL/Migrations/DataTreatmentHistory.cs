@@ -99,21 +99,6 @@
 
             #endregion FilmDocument
 
-            #region Immunization
-
-            var imunizations = new List<Immunization> {
-                new Immunization {
-                    BoosterTime = 1,
-                    MedicalProfileId = suTranMedicalProfile.MedicalProfileId,
-                    DateImmunized = new DateTime(1992, 2, 30),
-                    Name = "Sởi"
-                }
-            };
-
-            imunizations.ForEach(s => _db.Immunizations.AddOrUpdate(p => (p.Name), s));
-
-            #endregion Immunization
-
             _db.SaveChanges();
         }
     }

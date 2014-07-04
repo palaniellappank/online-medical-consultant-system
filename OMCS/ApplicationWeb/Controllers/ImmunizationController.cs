@@ -6,120 +6,66 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using OMCS.DAL.Model;
+using Newtonsoft.Json.Linq;
 
 namespace OMCS.Web.Controllers
 {
-    public class ImmunizationController : Controller
+    public class ImmunizationController : BaseController
     {
-        private OMCSDBContext db = new OMCSDBContext();
-
-        //
-        // GET: /Immunization/
-
-        public ActionResult Index()
+        public ActionResult List(int medicalProfileId)
         {
-            var immunizations = db.Immunizations.Include(i => i.MedicalProfile);
-            return View(immunizations.ToList());
+            var immunizations = _db.Immunizations.Where(
+                x => (x.MedicalProfileId == medicalProfileId))
+                .OrderByDescending(x => x.DateImmunized)
+                .ToList();
+            return PartialView("_List", immunizations);
         }
 
-        //
-        // GET: /Immunization/Details/5
-
-        public ActionResult Details(int id = 0)
+        public ActionResult Create(int medicalProfileId)
         {
-            Immunization immunization = db.Immunizations.Find(id);
-            if (immunization == null)
+            var immunization = new Immunization
             {
-                return HttpNotFound();
-            }
-            return View(immunization);
+                MedicalProfileId = medicalProfileId,
+                DateImmunized = DateTime.Now
+            };
+            return PartialView("_Create", immunization);
         }
-
-        //
-        // GET: /Immunization/Create
-
-        public ActionResult Create()
-        {
-            ViewBag.MedicalProfileId = new SelectList(db.MedicalProfiles, "MedicalProfileId", "HeartRate");
-            return View();
-        }
-
-        //
-        // POST: /Immunization/Create
 
         [HttpPost]
-        public ActionResult Create(Immunization immunization)
+        public JObject Create(Immunization immunization)
         {
-            if (ModelState.IsValid)
-            {
-                db.Immunizations.Add(immunization);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.MedicalProfileId = new SelectList(db.MedicalProfiles, "MedicalProfileId", "HeartRate", immunization.MedicalProfileId);
-            return View(immunization);
+            _db.Immunizations.Add(immunization);
+            _db.SaveChanges();
+            dynamic result = new JObject();
+            result.result = "ok";
+            return result;
         }
-
-        //
-        // GET: /Immunization/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Immunization immunization = db.Immunizations.Find(id);
-            if (immunization == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.MedicalProfileId = new SelectList(db.MedicalProfiles, "MedicalProfileId", "HeartRate", immunization.MedicalProfileId);
-            return View(immunization);
+            Immunization immunization = _db.Immunizations.Find(id);
+            return PartialView("_Edit", immunization);
         }
-
-        //
-        // POST: /Immunization/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Immunization immunization)
+        public JObject Edit(Immunization immunization)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(immunization).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.MedicalProfileId = new SelectList(db.MedicalProfiles, "MedicalProfileId", "HeartRate", immunization.MedicalProfileId);
-            return View(immunization);
+            _db.Entry(immunization).State = EntityState.Modified;
+            _db.SaveChanges();
+            dynamic result = new JObject();
+            result.result = "ok";
+            return result;
         }
-
-        //
-        // GET: /Immunization/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            Immunization immunization = db.Immunizations.Find(id);
-            if (immunization == null)
-            {
-                return HttpNotFound();
-            }
-            return View(immunization);
-        }
-
-        //
-        // POST: /Immunization/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public JObject DeleteConfirmed(int id)
         {
-            Immunization immunization = db.Immunizations.Find(id);
-            db.Immunizations.Remove(immunization);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
+            Immunization immunization = _db.Immunizations.Find(id);
+            _db.Immunizations.Remove(immunization);
+            _db.SaveChanges();
+            dynamic result = new JObject();
+            result.result = "ok";
+            return result;
         }
     }
 }

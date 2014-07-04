@@ -4,11 +4,12 @@
        , "views/modules/treatment"
        , "views/modules/film-document"
        , "views/modules/allergy"
+       , "views/modules/immunization"
        , "text!data/input.json",
 ], function(
   SnippetsCollection
   , InputView, MyFormView
-  , TreatmentView, FilmDocument, AllergyView
+  , TreatmentView, FilmDocument, AllergyView, ImmunizationView
   , inputJSON
 ){
   return {
@@ -39,7 +40,12 @@
             });
         };
 
-        
+        if ($(".ImmunizationRegion").length != 0) {
+            $(".ImmunizationRegion").parent().attr("id", "ImmunizationRegion");
+            new ImmunizationView({
+                el: "#ImmunizationRegion"
+            });
+        };
 
         $("#saveBtn").click(function (e) {
             $("form#target").validate({
@@ -60,7 +66,6 @@
             });
             
         });
-
         $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
     }
   }

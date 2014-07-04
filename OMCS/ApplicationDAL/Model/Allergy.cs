@@ -11,16 +11,16 @@ namespace OMCS.DAL.Model
 {
     public enum AllergyType
     {
-        [Description("Thuốc")]
+        [Display(Name = "Thuốc")]
         Medication = 0,
 
-        [Description("Thức Ăn")]
+        [Display(Name = "Thức Ăn")]
         Food = 1,
 
-        [Description("Môi Trường")]
+        [Display(Name = "Môi Trường")]
         Environmental = 2,
 
-        [Description("Khác")]
+        [Display(Name = "Khác")]
         Other = 4
     };
 
@@ -28,11 +28,14 @@ namespace OMCS.DAL.Model
     public class Allergy
     {   
         [Key]
-        public int AllergyTypeId { get; set; }
+        public int AllergyId { get; set; }
 
         [ForeignKey("MedicalProfile")]
         public int MedicalProfileId { get; set; }
         public virtual MedicalProfile MedicalProfile { get; set; }
+
+        [Display(Name = "Tên dị ứng")]
+        public string Name { get; set; }
 
         [Display(Name = "Loại dị ứng")]
         public AllergyType AllergyType { get; set; }

@@ -1,38 +1,36 @@
-﻿@model OMCS.DAL.Model.FilmDocument
-@using (Ajax.BeginForm("Create", "FilmDocument", null, new { EncType = "multipart/form-data" }))    
+﻿@model OMCS.DAL.Model.Allergy
+@using (Ajax.BeginForm("Create", "Allergy", null))    
 {
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
-      <input name="treatmentHistoryId" type="hidden" value="@Html.ValueFor(model=>model.TreatmentHistoryId)"/>
-      <input name="medicalProfileId" type="hidden" value="@Html.ValueFor(model=>model.MedicalProfileId)"/>
-      <input name="doctorId" type="hidden" value="@Html.ValueFor(model=>model.DoctorId)"/>
+      <input name="MedicalProfileId" type="hidden" value="@Html.ValueFor(model=>model.MedicalProfileId)"/>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Thêm Hồ Sơ ảnh</h4>
+        <h4 class="modal-title">Thêm dị ứng</h4>
       </div>
       <div class="modal-body">
           <div class="row">
-          <div class="col-lg-6">
-            <form runat="server">
-                <img id="targetImg" src="#" data-src="holder.js/400x300" alt="your image" class="img-responsive"/>
-                <input type='file' name="file" id="imgInp" style="padding-top: 10px;"/>
-            </form>
+            <div class="form-group">
+                <label for="FilmType" class="control-label">Loại dị ứng</label>
+                @Html.DropDownList("AllergyType", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label">@Html.DisplayNameFor(model=>model.Name)</label>
+                <input id="Name" name="Name" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label for="DateLastOccurred" class="control-label">@Html.DisplayNameFor(model=>model.DateLastOccurred)</label>
+                <input class="datepicker form-control" readonly name="DateLastOccurred" />
+            </div>
+            <div class="form-group">
+                <label for="Reaction" class="control-label">@Html.DisplayNameFor(model=>model.Reaction)</label>
+                <textarea id="Reaction" name="Reaction" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="Note" class="control-label">@Html.DisplayNameFor(model=>model.Note)</label>
+                <textarea id="Note" name="Note" class="form-control"></textarea>
+            </div>
           </div>
-        <div class="col-lg-6">
-            <div class="form-group">
-                <label for="FilmType" class="control-label">Loại phim</label>
-                @Html.DropDownList("FilmTypeId", null, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                <label for="Description" class="control-label">@Html.DisplayNameFor(model=>model.Description)</label>
-                <textarea id="Description" name="Description" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="Conclusion" class="control-label">@Html.DisplayNameFor(model=>model.Conclusion)</label>
-                <textarea id="Conclusion" name="Conclusion" class="form-control"></textarea>
-            </div>
-        </div>
-        </div>
       </div>
 
       <div class="modal-footer">
