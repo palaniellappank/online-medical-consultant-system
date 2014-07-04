@@ -1,48 +1,42 @@
-﻿@model OMCS.DAL.Model.FilmDocument
-@using OMCS.Web
-@using (Ajax.BeginForm("Edit", "FilmDocument", null, new { EncType = "multipart/form-data" }))    
+﻿@model OMCS.DAL.Model.Allergy
+@using (Ajax.BeginForm("Edit", "Allergy", null))
 {
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
-      <input name="treatmentHistoryId" type="hidden" value="@Html.ValueFor(model=>model.TreatmentHistoryId)"/>
-      <input name="medicalProfileId" type="hidden" value="@Html.ValueFor(model=>model.MedicalProfileId)"/>
-      <input name="doctorId" type="hidden" value="@Html.ValueFor(model=>model.DoctorId)"/>
-      <input name="filmDocumentId" type="hidden" value="@Html.ValueFor(model=>model.FilmDocumentId)"/>
-      <input name="dateCreated" type="hidden" value="@Html.ValueFor(model=>model.DateCreated)"/>
-      <input type='hidden' name="imagePath" value="@Model.ImagePath"/>
+      <input name="MedicalProfileId" type="hidden" value="@Html.ValueFor(model=>model.MedicalProfileId)"/>
+      <input name="AllergyId" type="hidden" value="@Html.ValueFor(model=>model.AllergyId)"/>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Chỉnh sửa Hồ Sơ ảnh</h4>
+        <h4 class="modal-title">Cập nhật</h4>
       </div>
       <div class="modal-body">
           <div class="row">
-          <div class="col-lg-6">
-            <form runat="server">
-                <img id="targetImg" src="@Html.GetPictureUrl("FilmDocument")@Model.ImagePath" class="img-responsive img-modal"/>
-                <input type='file' name="file" id="imgInp" style="padding-top: 10px;"/>
-            </form>
+            <div class="form-group">
+                <label for="FilmType" class="control-label">Loại dị ứng</label>
+                @Html.DropDownList("AllergyType", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label">@Html.DisplayNameFor(model=>model.Name)</label>
+                <input id="Name" name="Name" class="form-control" value="@Model.Name"/>
+            </div>
+            <div class="form-group">
+                <label for="DateLastOccurred" class="control-label">@Html.DisplayNameFor(model=>model.DateLastOccurred)</label>
+                <input class="datepicker form-control" readonly name="DateLastOccurred" value="@Model.DateLastOccurred.ToShortDateString()"/>
+            </div>
+            <div class="form-group">
+                <label for="Reaction" class="control-label">@Html.DisplayNameFor(model=>model.Reaction)</label>
+                <textarea id="Reaction" name="Reaction" class="form-control">@Model.Reaction</textarea>
+            </div>
+            <div class="form-group">
+                <label for="Note" class="control-label">@Html.DisplayNameFor(model=>model.Note)</label>
+                <textarea id="Note" name="Note" class="form-control">@Model.Note</textarea>
+            </div>
           </div>
-          <div class="col-lg-6">
-            <div class="form-group">
-                <label for="FilmType" class="control-label">Loại phim</label>
-                @Html.DropDownList("FilmTypeId", null, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                <label for="Description" class="control-label">@Html.DisplayNameFor(model=>model.Description)</label>
-                <textarea id="Description" name="Description" class="form-control">@Model.Description</textarea>
-            </div>
-            <div class="form-group">
-                <label for="Conclusion" class="control-label">@Html.DisplayNameFor(model=>model.Conclusion)</label>
-                <textarea id="Conclusion" name="Conclusion" class="form-control">@Model.Conclusion</textarea>
-            </div>
-        </div>
-        </div>
       </div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
-        <button class="btn btn-warning deleteBtn" data-id="@Model.FilmDocumentId" data-url="@Url.Action("Delete")">Xóa</button>
-        <button class="btn btn-primary saveBtn">Cập nhật</button>
+        <button class="btn btn-primary saveBtn">Lưu</button>
       </div>
     </div>
   </div>

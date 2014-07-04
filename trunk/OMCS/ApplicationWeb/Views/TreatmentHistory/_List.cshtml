@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<OMCS.DAL.Model.TreatmentHistory>
 @using OMCS.Web
 
-<a id="newTreatmentHistoryBtn" class="btn btn-primary" style="position: absolute;right: 15px;margin-top: -57px;">Thêm lịch sử khám</a>
+<a id="newTreatmentHistoryBtn" class="btn btn-sm btn-primary" data-original-title="Thêm lịch sử khám" style="position: absolute;right: 15px;margin-top: -57px;" data-toggle="tooltip"><i class="glyphicon glyphicon-plus"></i></a>
+
 @foreach (var item in Model) {
   <div class="panel panel-info">
     <div class="panel-heading">

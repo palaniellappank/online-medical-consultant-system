@@ -1,43 +1,49 @@
 ﻿@model IEnumerable<OMCS.DAL.Model.Allergy>
 @using OMCS.Web
 
-<a id="newAllergyBtn" class="btn btn-primary" style="position: absolute;right: 15px;margin-top: -57px;">Thêm dị ứng</a>
-@for (var i = 0; i < Model.Count();i++) {
-    var item = Model.ElementAt(i);
-    if (i == 0 || item.AllergyTypeId != Model.ElementAt(i - 1).AllergyTypeId)
-    {
-        <div class="panel panel-info">
-        <div class="panel-heading">
-            <h3 class="panel-title">Ngày thực hiện: @item.</h3>
-        </div>
-    }
-  
-    <div class="panel-body">
-        <div class="row">
-          <div class="col-lg-6">
-            <form runat="server">
-                <img src="@Html.GetPictureUrl("FilmDocument")@item.ImagePath" class="img-responsive img-modal"/>
-            </form>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group">
-                <label for="FilmType" class="control-label">Loại phim</label>
-                <div class="form-control-static">@item.FilmType.Name</div>
-            </div>
-            <div class="form-group">
-                <label for="Description" class="control-label">@Html.DisplayNameFor(model=>model.Description)</label>
-                <div class="form-control-static">@item.Description</div>
-            </div>
-            <div class="form-group">
-                <label for="Conclusion" class="control-label">@Html.DisplayNameFor(model=>model.Conclusion)</label>
-                <div class="form-control-static">@item.Conclusion</div>
-            </div>
-            <span class="pull-right">
-                <a class="edit-btn btn btn-sm btn-warning" data-id="@item.FilmDocumentId" data-original-title="Thay đổi" data-toggle="tooltip"><i class="glyphicon glyphicon-edit"></i></a>
-                <a class="delete-btn btn btn-sm btn-danger" data-id="@item.FilmDocumentId" data-original-title="Xóa" data-toggle="tooltip"><i class="glyphicon glyphicon-remove"></i></a>
-            </span>
-          </div>
-        </div>
-    </div>
-  </div>
+<a id="newAllergyBtn" class="btn btn-sm btn-primary" data-original-title="Thêm dị ứng" style="position: absolute;right: 15px;margin-top: -57px;" data-toggle="tooltip"><i class="glyphicon glyphicon-plus"></i></a>
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            Loại dị ứng
+        </th>
+        <th>
+            Tên
+        </th>
+        <th>
+            Ngày bị dị ứng gần nhất
+        </th>
+        <th>
+            Phản ứng
+        </th>
+        <th>
+            Ghi chú
+        </th>
+        <th>
+        </th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.AllergyType
+        </td>
+        <td>
+            @item.Name
+        </td>
+        <td>
+            @item.DateLastOccurred.ToShortDateString()
+        </td>
+        <td>
+           @item.Reaction 
+        </td>
+        <td>
+           @item.Note
+        </td>
+        <td>
+            <a class="edit-btn btn btn-sm btn-warning" data-id="@item.AllergyId" data-original-title="Thay đổi" data-toggle="tooltip"><i class="glyphicon glyphicon-edit"></i></a>
+            <a class="delete-btn btn btn-sm btn-danger" data-id="@item.AllergyId" data-original-title="Xóa" data-toggle="tooltip"><i class="glyphicon glyphicon-remove"></i></a>
+        </td>
+    </tr>
 }
+</table>

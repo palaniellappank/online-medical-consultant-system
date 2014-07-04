@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<OMCS.DAL.Model.FilmDocument>
 @using OMCS.Web
 
-<a id="newFilmDocumentBtn" class="btn btn-primary" style="position: absolute;right: 15px;margin-top: -57px;">Thêm hồ sơ ảnh</a>
+<a id="newFilmDocumentBtn" class="btn btn-sm btn-primary" data-original-title="Thêm hồ sơ ảnh" style="position: absolute;right: 15px;margin-top: -57px;" data-toggle="tooltip"><i class="glyphicon glyphicon-plus"></i></a>
+
 @foreach (var item in Model) {
   <div class="panel panel-info">
     <div class="panel-heading">
