@@ -12,6 +12,7 @@
     var medicalProfileId = @(ViewBag.medicalProfileId);
     var patientId = @(ViewBag.patientId);
     var treatmentHistoryUrl = "@Url.Action("List", "TreatmentHistory")";
+    var filmDocumentUrl = "@Url.Action("List", "FilmDocument")";
 </script>
 
 <div id="build">
@@ -35,4 +36,19 @@
 <script data-main="../main-edit" src="~/Content/FormBuilder/js/lib/require.js" ></script>
 
 <div class="modal fade in" id="modal-popup">
+</div>
+
+<div class="modal fade in" id="modal-popup-img">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-content">
+            <img src="#" class="img-responsive">
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
