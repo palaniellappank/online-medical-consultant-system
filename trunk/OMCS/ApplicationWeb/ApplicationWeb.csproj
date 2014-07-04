@@ -266,7 +266,8 @@
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\textarea.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\textinput.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\static-text.html" />
-    <Content Include="Content\FormBuilder\js\views\treatment-list.js" />
+    <Content Include="Content\FormBuilder\js\views\modules\film-document.js" />
+    <Content Include="Content\FormBuilder\js\views\modules\treatment.js" />
     <Content Include="Content\Image\FilmDocument\viemphoidotucau.gif" />
     <Content Include="Content\Image\FilmDocument\viem_amydal_cap.jpg" />
     <Content Include="Content\Image\ProfilePicture\photo.jpg" />
@@ -556,6 +557,7 @@
     <Content Include="Views\FilmDocument\_Create.cshtml" />
     <Content Include="Views\FilmDocument\_Edit.cshtml" />
     <Content Include="Views\Template\None.cshtml" />
+    <Content Include="Views\FilmDocument\_List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

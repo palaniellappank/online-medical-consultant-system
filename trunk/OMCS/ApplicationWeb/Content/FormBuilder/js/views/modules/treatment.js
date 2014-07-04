@@ -22,7 +22,7 @@
           });
       },
       addFilmDocument: function (e) {
-          var url = "/FilmDocument/Create";
+          var url = "/FilmDocument/CreateForTreatment";
           var treatmentId = $(e.currentTarget).attr("data-id");
           $.get(url + "?treatmentHistoryId=" + treatmentId, function (data) {
               initModalWithData(data);

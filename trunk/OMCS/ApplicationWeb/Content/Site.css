@@ -568,6 +568,14 @@ ul.c-controls li a:hover
     color: #d35400;
 }
 
+img.img-modal {
+    cursor: pointer;
+    -webkit-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+    margin-bottom:20px;
+}
+
 
 /* Image slider */
 img.slider-img {
@@ -582,5 +590,4 @@ img.slider-img {
 img.slider-img:hover {
   filter: none; /* IE6-9 */
   -webkit-filter: grayscale(0); /* Google Chrome, Safari 6+ & Opera 15+ */
- 
 }

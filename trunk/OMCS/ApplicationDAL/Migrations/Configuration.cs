@@ -21,7 +21,7 @@
                 role => (role.RoleName.Equals("Admin"))
             ).FirstOrDefault();
 
-            DataTreatmentHistory.Seed(context);
+//            DataTreatmentHistory.Seed(context);
             
             if (Admin == null)
             {

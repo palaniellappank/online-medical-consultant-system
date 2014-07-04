@@ -17,25 +17,35 @@ namespace OMCS.Web.Controllers
 {
     public class FilmDocumentController : BaseController
     {
-        private AdminUserBusiness business = new AdminUserBusiness();
-        private MedicalProfileBusiness medicalProfileBusiness = new MedicalProfileBusiness();
-
         public ActionResult List(int medicalProfileId)
         {
-            var treatments = _db.TreatmentHistories.Where(
-                x => x.MedicalProfileId == medicalProfileId)
-                .OrderByDescending(x=>x.DateCreated)
+            var filmDocuments = _db.FilmDocuments.Where(
+                x => (x.MedicalProfileId.HasValue && x.MedicalProfileId.Value == medicalProfileId)
+                    || (x.TreatmentHistory != null && x.TreatmentHistory.MedicalProfileId == medicalProfileId))
+                .OrderByDescending(x => x.DateCreated)
                 .ToList();
-            return PartialView("_List", treatments);
+            return PartialView("_List", filmDocuments);
         }
 
-        public ActionResult Create(int treatmentHistoryId)
+        public ActionResult CreateForTreatment(int treatmentHistoryId)
         {
             var filmTypeList = _db.FilmTypes.ToList();
             ViewBag.FilmTypeId = new SelectList(filmTypeList, "FilmTypeId", "Name");
             var filmDocument = new FilmDocument
             {
                 TreatmentHistoryId = treatmentHistoryId,
+                DoctorId = User.UserId
+            };
+            return PartialView("_Create", filmDocument);
+        }
+
+        public ActionResult CreateForMedicalProfile(int medicalProfileId)
+        {
+            var filmTypeList = _db.FilmTypes.ToList();
+            ViewBag.FilmTypeId = new SelectList(filmTypeList, "FilmTypeId", "Name");
+            var filmDocument = new FilmDocument
+            {
+                MedicalProfileId = medicalProfileId,
                 DoctorId = User.UserId
             };
             return PartialView("_Create", filmDocument);

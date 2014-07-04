@@ -162,6 +162,14 @@ function initModalWithData(data) {
             });
         });
     }
+    var imgViewBtn = $('#modal-popup').find(".img-modal");
+    if (imgViewBtn[0] != undefined) {
+        imgViewBtn.click(function (e) {
+            e.preventDefault();
+            $("#modal-popup-img").find("img").attr("src", imgViewBtn.attr("src"));
+            $("#modal-popup-img").modal("show");
+        });
+    }
 }
 
 function readImgFromURL(input) {

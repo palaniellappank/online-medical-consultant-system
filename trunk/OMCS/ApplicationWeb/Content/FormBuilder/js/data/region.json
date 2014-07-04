@@ -43,7 +43,7 @@
   },
   {
     "title" : "Form Name",
-	"name" : "Hồ sơ",
+	"name" : "Hồ sơ phim",
     "fields": {
 		"id": {
 			"type": "input",
@@ -59,6 +59,48 @@
             "label": "Khu vực",
             "type" : "input",
             "value" : "FilmDocument"
+        }
+    }
+  },
+  {
+    "title" : "Form Name",
+	"name" : "Dị ứng",
+    "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
+        "name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Dị ứng"
+        },
+		"mapping" : {
+            "label": "Khu vực",
+            "type" : "input",
+            "value" : "AllergyRegion"
+        }
+    }
+  },
+  {
+    "title" : "Form Name",
+	"name" : "Tiêm chủng",
+    "fields": {
+		"id": {
+			"type": "input",
+			"label": "ID / Name",
+			"value": null
+		},
+        "name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Tiêm chủng"
+        },
+		"mapping" : {
+            "label": "Khu vực",
+            "type" : "input",
+            "value" : "ImmunizationRegion"
         }
     }
   }

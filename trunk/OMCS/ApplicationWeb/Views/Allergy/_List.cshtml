@@ -1,12 +1,17 @@
-﻿@model IEnumerable<OMCS.DAL.Model.FilmDocument>
+﻿@model IEnumerable<OMCS.DAL.Model.Allergy>
 @using OMCS.Web
 
-<a id="newFilmDocumentBtn" class="btn btn-primary" style="position: absolute;right: 15px;margin-top: -57px;">Thêm hồ sơ ảnh</a>
-@foreach (var item in Model) {
-  <div class="panel panel-info">
-    <div class="panel-heading">
-        <h3 class="panel-title">Ngày thực hiện: @item.DateCreated.ToShortDateString()</h3>
-    </div>
+<a id="newAllergyBtn" class="btn btn-primary" style="position: absolute;right: 15px;margin-top: -57px;">Thêm dị ứng</a>
+@for (var i = 0; i < Model.Count();i++) {
+    var item = Model.ElementAt(i);
+    if (i == 0 || item.AllergyTypeId != Model.ElementAt(i - 1).AllergyTypeId)
+    {
+        <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Ngày thực hiện: @item.</h3>
+        </div>
+    }
+  
     <div class="panel-body">
         <div class="row">
           <div class="col-lg-6">

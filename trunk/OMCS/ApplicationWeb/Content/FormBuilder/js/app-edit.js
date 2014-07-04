@@ -1,11 +1,14 @@
 ﻿define([
        "collections/my-form-input-mode"
        , "views/my-form-input-mode", "views/my-form"
-       , "views/treatment-list"
+       , "views/modules/treatment"
+       , "views/modules/film-document"
+       , "views/modules/allergy"
        , "text!data/input.json",
 ], function(
   SnippetsCollection
-  , InputView, MyFormView, TreatmentView
+  , InputView, MyFormView
+  , TreatmentView, FilmDocument, AllergyView
   , inputJSON
 ){
   return {
@@ -14,10 +17,29 @@
             collection: new SnippetsCollection(formInJson)
         });
 
-        $(".TreatmentHistory").parent().attr("id", "TreatmentHistory");
-        new TreatmentView({
-            el: "#TreatmentHistory"
-        });
+          //Detect module TreatmentHistory
+        if ($(".TreatmentHistory").length != 0) {
+            $(".TreatmentHistory").parent().attr("id", "TreatmentHistory");
+            new TreatmentView({
+                el: "#TreatmentHistory"
+            });
+        };
+
+        if ($(".FilmDocument").length != 0) {
+            $(".FilmDocument").parent().attr("id", "FilmDocument");
+            new FilmDocument({
+                el: "#FilmDocument"
+            });
+        };
+
+        if ($(".AllergyRegion").length != 0) {
+            $(".AllergyRegion").parent().attr("id", "AllergyRegion");
+            new AllergyView({
+                el: "#AllergyRegion"
+            });
+        };
+
+        
 
         $("#saveBtn").click(function (e) {
             $("form#target").validate({

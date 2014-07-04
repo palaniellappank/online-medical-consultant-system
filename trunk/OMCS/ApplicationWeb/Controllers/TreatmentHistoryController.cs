@@ -69,6 +69,9 @@ namespace OMCS.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public JObject DeleteConfirmed(int id)
         {
+            List<FilmDocument> filmDocuments = _db.FilmDocuments.Where(
+                x => x.TreatmentHistoryId == id).ToList();
+            filmDocuments.ForEach(x => _db.FilmDocuments.Remove(x));
             TreatmentHistory treatmentHistory = _db.TreatmentHistories.Find(id);
             _db.TreatmentHistories.Remove(treatmentHistory);
             _db.SaveChanges();
