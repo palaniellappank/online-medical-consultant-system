@@ -7,25 +7,23 @@
 <div class="row">
     <div class="col-xs-4" style="float: right">
         <label class="switch-light progress progress-striped active" onclick="">
-	        <input type="checkbox" id="enable">
-	        <span>
-		        Thay đổi
+            <input type="checkbox" id="enable">
+            <span>Thay đổi
                 <span aria-label="Tắt" title="Tắt">O</span>
-				<span aria-label="Bật" title="Bật">I</span>
-	        </span>
-	        <a class="progress-bar progress-bar-success"></a>
+                <span aria-label="Bật" title="Bật">I</span>
+            </span>
+            <a class="progress-bar progress-bar-success"></a>
         </label>
     </div>
     <div class="clearfix"></div>
     <div class="col-xs-4" style="float: right; display: none" id="autoopendiv">
         <label class="switch-light progress progress-striped active" onclick="">
-	        <input type="checkbox" id="autoopen">
-	        <span>
-		        Liên tiếp
+            <input type="checkbox" id="autoopen">
+            <span>Liên tiếp
                 <span aria-label="Tắt" title="Tắt">O</span>
-				<span aria-label="Bật" title="Bật">I</span>
-	        </span>
-	        <a class="progress-bar progress-bar-success"></a>
+                <span aria-label="Bật" title="Bật">I</span>
+            </span>
+            <a class="progress-bar progress-bar-success"></a>
         </label>
     </div>
 </div>
@@ -35,8 +33,8 @@
 </fieldset>
 
 <table class="table table-data table-bordered table-striped" style="clear: both">
-    <tbody> 
-        <tr>         
+    <tbody>
+        <tr>
             <td style="width: 35%;">@Html.DisplayNameFor(model => model.Height)</td>
             <td style="width: 65%;">
                 <a href="#" id="height" data-type="text"
@@ -45,7 +43,7 @@
                 </a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.Weight)</td>
             <td>
                 <a href="#" id="weight" data-type="text" 
@@ -54,100 +52,180 @@
                 </a>
             </td>
         </tr>
-         
-        <tr>         
+
+        <tr>
             <td>@Html.DisplayNameFor(model => model.EyeColor)</td>
             <td>
                 <a href="#" id="eyeColor" data-type="text" data-value="@Html.DisplayFor(model => model.EyeColor)"
-                    data-title="@Html.DisplayNameFor(model => model.EyeColor)" class="editable editable-click">
-                </a>
+                    data-title="@Html.DisplayNameFor(model => model.EyeColor)" class="editable editable-click"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.HairColor)</td>
             <td>
                 <a href="#" id="hairColor" data-type="text" data-value="@Html.DisplayFor(model => model.HairColor)"
-                    data-title="@Html.DisplayNameFor(model => model.HairColor)" class="editable editable-click">
-                </a>
+                    data-title="@Html.DisplayNameFor(model => model.HairColor)" class="editable editable-click"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.BloodType)</td>
             <td>
                 <a href="#" id="bloodType" data-type="text" data-value="@Html.DisplayFor(model => model.BloodType)"
-                    data-title="@Html.DisplayNameFor(model => model.BloodType)" class="editable editable-click">
-                </a>
+                    data-title="@Html.DisplayNameFor(model => model.BloodType)" class="editable editable-click"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.AlcoholPerWeek)</td>
             <td>
                 <a href="#" id="alcoholPerWeek" data-type="text" data-value="@Html.DisplayFor(model => model.AlcoholPerWeek)"
-                    data-title="@Html.DisplayNameFor(model => model.AlcoholPerWeek)" class="editable editable-click">
-                </a>
+                    data-title="@Html.DisplayNameFor(model => model.AlcoholPerWeek)" class="editable editable-click"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.AlcoholNumOfYear)</td>
             <td>
                 <a href="#" id="alcoholNumOfYear" data-type="text" data-value="@Html.DisplayFor(model => model.AlcoholNumOfYear)"
-                    data-title="@Html.DisplayNameFor(model => model.AlcoholNumOfYear)" class="editable editable-click">
-                </a>
+                    data-title="@Html.DisplayNameFor(model => model.AlcoholNumOfYear)" class="editable editable-click"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.SmokePackPerWeek)</td>
             <td>
                 <a href="#" id="smokePackPerWeek" data-type="text" data-value="@Html.DisplayFor(model => model.SmokePackPerWeek)"
-                    data-title="@Html.DisplayNameFor(model => model.SmokePackPerWeek)" class="editable editable-click">
-                </a>
+                    data-title="@Html.DisplayNameFor(model => model.SmokePackPerWeek)" class="editable editable-click"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.SmokeNumOfYear)</td>
             <td>
                 <a href="#" id="smokeNumOfYear" data-type="text" data-value="@Html.DisplayFor(model => model.SmokeNumOfYear)"
-                    data-title="@Html.DisplayNameFor(model => model.SmokeNumOfYear)" class="editable editable-click">
-                </a>
+                    data-title="@Html.DisplayNameFor(model => model.SmokeNumOfYear)" class="editable editable-click"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.SportName)</td>
             <td>
                 <a href="#" id="sportName" data-type="text" data-value="@Html.DisplayFor(model => model.SportName)"
-                    data-title="@Html.DisplayNameFor(model => model.SportName)" class="editable editable-click">
-                </a>
+                    data-title="@Html.DisplayNameFor(model => model.SportName)" class="editable editable-click"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.SportPerWeek)</td>
             <td>
                 <a href="#" id="sportPerWeek" data-type="text" data-value="@Html.DisplayFor(model => model.SportPerWeek)"
-                    data-title="@Html.DisplayNameFor(model => model.SportPerWeek)" class="editable editable-click">
-                </a>
+                    data-title="@Html.DisplayNameFor(model => model.SportPerWeek)" class="editable editable-click"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.ExerciseType)</td>
             <td>
                 <a href="#" id="exerciseType" data-type="text" data-value="@Html.DisplayFor(model => model.ExerciseType)"
-                    data-title="@Html.DisplayNameFor(model => model.ExerciseType)" class="editable editable-click">
-                </a>
+                    data-title="@Html.DisplayNameFor(model => model.ExerciseType)" class="editable editable-click"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.ExercisePerWeek)</td>
             <td>
                 <a href="#" id="exercisePerWeek" data-type="text" data-value="@Html.DisplayFor(model => model.ExercisePerWeek)"
-                    data-title="@Html.DisplayNameFor(model => model.ExercisePerWeek)" class="editable editable-click">
-                </a>
+                    data-title="@Html.DisplayNameFor(model => model.ExercisePerWeek)" class="editable editable-click"></a>
             </td>
         </tr>
     </tbody>
 </table>
 
+<fieldset>
+    <legend>Dị ứng</legend>
+</fieldset>
+
+<table class="table table-data table-bordered table-striped" style="clear: both">
+    <tbody>
+        @foreach (var a in ViewBag.Allergy)
+        {        
+            <tr>
+                <td style="width: 35%;">Loại dị ứng</td>
+
+                @{ if (Convert.ToInt32(@a.AllergyType) == 1)
+                   {
+                    <td style="width: 65%;">Thức ăn </td>
+                   }
+                   else if (Convert.ToInt32(@a.AllergyType) == 2)
+                   {
+                    <td style="width: 65%;">Môi trường </td>
+                   }
+                   else if (Convert.ToInt32(@a.AllergyType) == 0)
+                   {
+                    <td style="width: 65%;">Thuốc </td>
+                   }
+                   else
+                   {
+                    <td style="width: 65%;">Khác </td>
+                   }
+                }
+                <td>
+                    <button class="btn btn-primary" data-toggle="modal" data-target=".@a.AllergyTypeId">Xem chi tiết</button>
+
+                    <div class="modal fade @a.AllergyTypeId" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <span aria-hidden="true">×</span>
+                                    <span class="sr-only">Đóng</span>
+                                </button>
+                                <h4 class="modal-title" id="myLargeModalLabel">Dị ứng</h4>
+                                <div class="modal-body">
+                                    <table class="table table-data table-bordered table-striped" style="clear: both">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 35%;">Loại dị ứng</td>
+                                                @{ if (Convert.ToInt32(@a.AllergyType) == 1)
+                                                   {
+                                                    <td style="width: 65%;">Thức ăn </td>
+                                                   }
+                                                   else if (Convert.ToInt32(@a.AllergyType) == 2)
+                                                   {
+                                                    <td style="width: 65%;">Môi trường </td>
+                                                   }
+                                                   else if (Convert.ToInt32(@a.AllergyType) == 0)
+                                                   {
+                                                    <td style="width: 65%;">Thuốc </td>
+                                                   }
+                                                   else
+                                                   {
+                                                    <td style="width: 65%;">Khác </td>
+                                                   }
+                                                }
+                                                @* <td style="width: 65%;">@a.AllergyType</td>*@
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 35%;">Ngày bị dị ứng gần nhất</td>
+                                                <td style="width: 65%;">@a.DateLastOccurred</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 35%;">Phản ứng</td>
+                                                <td style="width: 65%;">@a.Reaction</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 35%;">Ghi chú</td>
+                                                <td style="width: 65%;">@a.Note</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+                
+        }
+    </tbody>
+</table>
+
 <script type="text/javascript">
     $(function () {
+        //Show allergy
+
+
 
         //defaults
         $.fn.editable.defaults.url = '/UserHealthRecord/Save';

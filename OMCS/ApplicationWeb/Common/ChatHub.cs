@@ -55,7 +55,7 @@ namespace SignalRChat.Hubs
                 ProfilePicture = doctor.ProfilePicture,
                 FullName = doctor.FullName,
                 Username = doctor.Username,
-                IsOnline = doctor.IsOnline
+                IsOnline = true
             };
 
             //Show List of Lastest contact
@@ -111,7 +111,7 @@ namespace SignalRChat.Hubs
         public void SendMessageTo(string toUsername, string message)
         {
             business = new ConversationBusiness(_db);
-            Debug.WriteLine(toUsername + " " + message);
+            Debug.WriteLine(toUsername + " " + message.Trim());
             var id = Context.ConnectionId;
             var fromUserDetail = ConnectedUsers.Where(x => x.ConnectionId == id).FirstOrDefault();
             var fromUser = _db.Users.Where(x => x.Username.Equals(fromUserDetail.Username)).FirstOrDefault();
