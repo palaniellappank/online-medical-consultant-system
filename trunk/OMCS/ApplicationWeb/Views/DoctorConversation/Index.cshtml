@@ -35,7 +35,8 @@
             </div>
             <div class="panel-footer">
                 <div class="input-group">
-                    <input id="txtMessage" type="text" class="form-control input-sm" placeholder="Nội dung tin nhắn..." />
+                    <textarea id="txtMessage" class="form-control" rows="2" placeholder="Nội dung tin nhắn..."></textarea>
+                    @*<input id="txtMessage" type="text" class="form-control input-sm" placeholder="Nội dung tin nhắn..." />*@
                     <span class="input-group-btn">
                         <button class="btn btn-warning btn-sm" id="btnSendMsg">Gửi</button>
                     </span>
@@ -56,7 +57,7 @@
             <span class="speciaty"><%= conversation.LastestContent %></span><br />
             <% if (conversation.IsOnline) {
             %>
-                <i class="glyphicon glyphicon-ok" style="position: absolute; right: 0; top: 40px; color: #2980b9; font-size: 1.2em;"></i>
+                <i class="glyphicon glyphicon-user" style="position: absolute; right: 0; top: 40px; color: #2980b9; font-size: 1.2em;"></i>
             <% } %>
 
             <% if (!conversation.IsRead) {
@@ -72,37 +73,35 @@
 </script>
 
 <script id="chat-left-template" type="text/template">
-<li class="left clearfix">
-    <span class="chat-img pull-left">
-        <img src="/Content/ProfilePicture/<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
-    </span>
-    <div class="chat-body clearfix">
-        <div class="header">
-            <strong class="primary-font"><%= user.FullName %></strong> <small class="pull-right text-muted">
-                <span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %></small>
+    <li class="left clearfix">
+        <span class="chat-img pull-left">
+            <img src="/Content/ProfilePicture/<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
+        </span>
+        <div class="chat-body clearfix">
+            <div class="header">
+                <strong class="primary-font"><%= user.FullName %></strong>
+                <small class="pull-right text-muted">
+                    <span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %>
+                </small>
+            </div>
+            <p style="white-space:pre-line"><%= message.Content %></p>
         </div>
-        <p>
-            <%= message.Content %>
-        </p>
-    </div>
-</li>
+    </li>
 </script>
 
 <script id="chat-right-template" type="text/template">
-<li class="right clearfix <% if (!message.IsRead) { %> unread-message-hightlight<% } %>">
-    <span class="chat-img pull-right">
-        <img src="/Content/ProfilePicture/<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
-    </span>
-    <div class="chat-body clearfix">
-        <div class="header">
-            <small class=" text-muted"><span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %></small>
-            <strong class="pull-right primary-font"><%= user.FullName %></strong>
+    <li class="right clearfix <% if (!message.IsRead) { %> unread-message-hightlight<% } %>">
+        <span class="chat-img pull-right">
+            <img src="/Content/ProfilePicture/<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
+        </span>
+        <div class="chat-body clearfix">
+            <div class="header">
+                <small class=" text-muted"><span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %></small>
+                <strong class="pull-right primary-font"><%= user.FullName %></strong>
+            </div>
+            <p style="white-space:pre-line"><%= message.Content %></p>
         </div>
-        <p>
-            <%= message.Content %>
-        </p>
-    </div>
-</li>
+    </li>
 </script>
 
 
@@ -128,7 +127,7 @@
             console.log("getMessageList from: " + username);
             chatHub.server.getMessageList(username);
         },
-        sendMessage: function () {
+        sendMessage: function (e) {
             var msg = $("#txtMessage").val();
             var toUsername = $('#txtToUsername').val();
             var fromUsername = $('#txtFromUsername').val();
@@ -136,10 +135,22 @@
                 chatHub.server.sendMessageTo(toUsername, msg);
                 $("#txtMessage").val('');
             }
+            return;
         },
         sendMessagePress: function (e) {
-            if (e.which == 13) {
-                this.sendMessage();
+            if (e.keyCode == 13 && !e.shiftKey) {
+                e.preventDefault();
+                var msg = $("#txtMessage").val();
+                var toUsername = $('#txtToUsername').val();
+                var fromUsername = $('#txtFromUsername').val();
+                if ((msg.length > 0) && (toUsername.length > 0)) {
+                    chatHub.server.sendMessageTo(toUsername, msg);
+                    $("#txtMessage").val('');
+                }
+                return;
+            }
+
+            if (e.keyCode == 13 && e.shiftKey) {
             }
         }
     });

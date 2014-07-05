@@ -18,7 +18,7 @@
                 <div class="panel-heading c-list">
                     <span class="title">Danh sách bác sĩ</span>
                     <ul class="pull-right c-controls">
-                        <li><a href="#" class="hide-search" data-command="toggle-search" data-toggle="tooltip" data-placement="top" title="Toggle Search"><i class="glyphicon glyphicon-cog"></i></a></li>
+                        <li></li>
                     </ul>
                 </div>
 
@@ -38,13 +38,19 @@
         </div>
         <div class="col-md-8">
             <div id="divChat" class="panel panel-primary">
+                <div class="panel-heading c-list">
+                    <div id="chat-doctor"></div>
+                </div>
                 <div class="panel-body">
                     <ul class="chat" id="chat-content">
                     </ul>
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
-                        <input id="txtMessage" type="text" class="form-control input-sm" placeholder="Nội dung tin nhắn..." />
+                        <textarea id="txtMessage" class="form-control input-sm" rows="2" cols="80" placeholder="Nội dung tin nhắn..."></textarea>                      
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btnUpload">Upload</button>
+                        </span>
                         <span class="input-group-btn">
                             <button class="btn btn-warning btn-sm" id="btnSendMsg">Gửi</button>
                         </span>
@@ -70,7 +76,7 @@
             <span class="lastest-message"><%= doctor.LastestContent %></span><br />
             <% if (doctor.IsOnline) {
             %>
-                <i class="glyphicon glyphicon-ok" style="position: absolute; right: 0; top: 40px; color: #2980b9; font-size: 1.2em;"></i>
+                <i class="glyphicon glyphicon-user" style="position: absolute; right: 0; top: 40px; color: #2980b9; font-size: 1.2em;"></i>
             <% } %>
 
             <% if (!doctor.IsRead) {
@@ -85,42 +91,45 @@
     %>  
 </script>
 
-<script id="chat-left-template" type="text/template">
-<li class="left clearfix">
-    <span class="chat-img pull-left">
-        <img src="/Content/ProfilePicture/<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
-    </span>
+<script id="chat-top-template" type="text/template">
     <div class="chat-body clearfix">
         <div class="header">
-            <strong class="primary-font"><%= user.FullName %></strong> <small class="pull-right text-muted">
-                <span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %></small>
+            <strong class="title">Bác sĩ tư vấn: <%= user.FullName %></strong>
         </div>
-        <p>
-            <%= message.Content %>
-        </p>
     </div>
-</li>
+</script>
+
+<script id="chat-left-template" type="text/template">
+    <li class="left clearfix">
+        <span class="chat-img pull-left">
+            <img src="/Content/ProfilePicture/<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
+        </span>
+        <div class="chat-body clearfix">
+            <div class="header">
+                <strong class="primary-font"><%= user.FullName %></strong> <small class="pull-right text-muted">
+                    <span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %></small>
+            </div>
+            <p style="white-space: pre-line"><%= message.Content %></p>
+        </div>
+    </li>
 </script>
 
 <script id="chat-right-template" type="text/template">
-<li class="right clearfix <% if (!message.IsRead) { %> unread-message-hightlight<% } %>">
-    <span class="chat-img pull-right">
-        <img src="/Content/ProfilePicture/<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
-    </span>
-    <div class="chat-body clearfix">
-        <div class="header">
-            <small class=" text-muted"><span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %></small>
-            <strong class="pull-right primary-font"><%= user.FullName %></strong>
+    <li class="right clearfix <% if (!message.IsRead) { %> unread-message-hightlight<% } %>">
+        <span class="chat-img pull-right">
+            <img src="/Content/ProfilePicture/<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
+        </span>
+        <div class="chat-body clearfix">
+            <div class="header">
+                <small class=" text-muted"><span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %></small>
+                <strong class="pull-right primary-font"><%= user.FullName %></strong>
+            </div>
+            <p style="white-space: pre-line"><%= message.Content %></p>
         </div>
-        <p>
-            <%= message.Content %>
-        </p>
-    </div>
-</li>
+    </li>
 </script>
 
 <script type="text/javascript">
-
     ChatBoxView = Backbone.View.extend({
         el: $("#chatbox"),
         contactListEl: $("#contact-list"),
@@ -141,7 +150,21 @@
             $('#txtToUsername').val(username);
             chatHub.server.getMessageList(username);
         },
-        sendMessage: function() {
+        //sendMessage: function () {
+        //    var msg = $("#txtMessage").val();
+        //    var toUsername = $('#txtToUsername').val();
+        //    var fromUsername = $('#txtFromUsername').val();
+        //    if ((msg.length > 0) && (toUsername.length > 0)) {
+        //        chatHub.server.sendMessageTo(toUsername, msg);
+        //        $("#txtMessage").val('');
+        //    }
+        //},
+        //sendMessagePress: function (e) {
+        //    if (e.which == 13) {
+        //        this.sendMessage();
+        //    }
+        //}
+        sendMessage: function (e) {
             var msg = $("#txtMessage").val();
             var toUsername = $('#txtToUsername').val();
             var fromUsername = $('#txtFromUsername').val();
@@ -149,10 +172,22 @@
                 chatHub.server.sendMessageTo(toUsername, msg);
                 $("#txtMessage").val('');
             }
+            return;
         },
-        sendMessagePress: function(e) {
-            if (e.which == 13) {
-                this.sendMessage();
+        sendMessagePress: function (e) {
+            if (e.keyCode == 13 && !e.shiftKey) {
+                e.preventDefault();
+                var msg = $("#txtMessage").val().replace('\r', '&lt;br/&gt;');
+                var toUsername = $('#txtToUsername').val();
+                var fromUsername = $('#txtFromUsername').val();
+                if ((msg.length > 0) && (toUsername.length > 0)) {
+                    chatHub.server.sendMessageTo(toUsername, msg);
+                    $("#txtMessage").val('');
+                }
+                return;
+            }
+
+            if (e.keyCode == 13 && e.shiftKey) {
             }
         }
     });
@@ -184,6 +219,11 @@
             console.log(messageDetails);
             console.log(fromUser);
             console.log(toUser);
+            $("#chat-doctor").html("");
+            var templateTop = $("#chat-top-template").html();
+            if (loginUsername == loginUsername) {
+                $("#chat-doctor").append(_.template(templateTop, { user: toUser }));
+            }
             $("#chat-content").html("");
             var loginUsername = $('#txtFromUsername').val();
             var templateLeft = $("#chat-left-template").html();
@@ -221,7 +261,6 @@
                     AddMessage(sender, message);
                 }
             }
-            
             $(".unread-message").html(receiver.CountMessageUnRead);
         }
     }
@@ -236,32 +275,32 @@
         $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
     }
 
-        //$(function () {
-        //    $('[data-toggle="tooltip"]').tooltip();
+    //$(function () {
+    //    $('[data-toggle="tooltip"]').tooltip();
 
-        //    $('[data-command="toggle-search"]').on('click', function (event) {
-        //        event.preventDefault();
-        //        $(this).toggleClass('hide-search');
+    //    $('[data-command="toggle-search"]').on('click', function (event) {
+    //        event.preventDefault();
+    //        $(this).toggleClass('hide-search');
 
-        //        if ($(this).hasClass('hide-search')) {
-        //            $('.c-search').closest('.row').slideUp(100);
-        //        } else {
-        //            $('.c-search').closest('.row').slideDown(100);
-        //        }
-        //    })
+    //        if ($(this).hasClass('hide-search')) {
+    //            $('.c-search').closest('.row').slideUp(100);
+    //        } else {
+    //            $('.c-search').closest('.row').slideDown(100);
+    //        }
+    //    })
 
-        //    $('#contact-list').searchable({
-        //        searchField: '#contact-list-search',
-        //        selector: 'li',
-        //        childSelector: '.col-xs-12',
-        //        show: function (elem) {
-        //            elem.slideDown(100);
-        //        },
-        //        hide: function (elem) {
-        //            elem.slideUp(100);
-        //        }
-        //    })
-        //});
+    //    $('#contact-list').searchable({
+    //        searchField: '#contact-list-search',
+    //        selector: 'li',
+    //        childSelector: '.col-xs-12',
+    //        show: function (elem) {
+    //            elem.slideDown(100);
+    //        },
+    //        hide: function (elem) {
+    //            elem.slideUp(100);
+    //        }
+    //    })
+    //});    
 </script>
 
 

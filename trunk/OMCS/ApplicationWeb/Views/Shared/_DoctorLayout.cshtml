@@ -7,8 +7,8 @@
     <title>@ViewBag.Title - Trang quản lý Bác Sĩ</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootply-admin.css" rel="stylesheet" type="text/css" />
-	<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+
     @Scripts.Render("~/bundles/jsOMCS")
 
     <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
@@ -22,69 +22,65 @@
 </head>
 <body>
     <!-- Header -->
-<div id="top-nav" class="navbar navbar-inverse navbar-static-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Quản lý Bác Sĩ</a>
+    <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="~/Doctor/Index">Bác Sĩ: @User.LastName @User.FirstName</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="~/Account/Logout"><i class="glyphicon glyphicon-lock"></i>Đăng Xuất</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /container -->
     </div>
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-        
-        <li class="dropdown">
-          <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
-          <ul id="g-account-menu" class="dropdown-menu" role="menu">
-            <li><a href="#">My Profile</a></li>
-          </ul>
-        </li>
-        <li><a href="Account/Logout"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
-      </ul>
+    <!-- /Header -->
+
+    <!-- Main -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Left column -->
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="nav-header"></li>
+                    <li><a href="#"><i class="glyphicon glyphicon-plus-sign"></i>Thêm bệnh nhân</a></li>
+                    <li class="@Html.IsActive("DoctorUser", "Index")">
+                        <a href="@Url.Action("Index", "DoctorUser")"><i class="glyphicon glyphicon-user"></i>Quản lý bệnh nhân</a>
+                    </li>
+                    <li class="@Html.IsActive("DoctorMedicalProfile", "Index")">
+                        <a href="@Url.Action("Index", "DoctorMedicalProfile")"><i class="glyphicon glyphicon-folder-open"></i>Quản lý bệnh án</a>
+                    </li>
+                    <li class="@Html.IsActive("DoctorConversation", "Index")">
+                        <a href="@Url.Action("Index", "DoctorConversation")"><i class="glyphicon glyphicon-envelope"></i>Tư vấn trực tuyến    <span class="badg1e unread-message"></span></a>
+                    </li>
+                    <li class="@Html.IsActive("AdminTemplate", "Index")">
+                        <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i>Xem mẫu hồ sơ</a>
+                    </li>
+                </ul>
+
+                <hr>
+            </div>
+            <!-- /col-3 -->
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+            <!--/col-span-9-->
+        </div>
     </div>
-  </div><!-- /container -->
-</div>
-<!-- /Header -->
+    <!-- /Main -->
 
-<!-- Main -->
-<div class="container">
+    <footer class="text-center">Copyright Group 2 - FPT University - 2014</footer>
 
-<div class="row">
-	<div class="col-md-3">
-      <!-- Left column -->
-
-      <ul class="nav nav-pills nav-stacked">
-        <li class="nav-header"></li>
-        <li><a href="#"><i class="glyphicon glyphicon-plus-sign"></i> Thêm bệnh nhân</a></li>
-        <li class="@Html.IsActive("DoctorUser", "Index")">
-            <a href="@Url.Action("Index", "DoctorUser")"><i class="glyphicon glyphicon-user"></i> Quản lý bệnh nhân</a>
-        </li>
-        <li class="@Html.IsActive("DoctorMedicalProfile", "Index")">
-            <a href="@Url.Action("Index", "DoctorMedicalProfile")"><i class="glyphicon glyphicon-folder-open"></i> Quản lý bệnh án</a>
-        </li>
-          <li class="@Html.IsActive("DoctorConversation", "Index")">
-              <a href="@Url.Action("Index", "DoctorConversation")"><i class="glyphicon glyphicon-envelope"></i> Tin nhắn <span class="badg1e unread-message"></span></a>
-          </li>
-        <li class="@Html.IsActive("AdminTemplate", "Index")">
-            <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i> Xem mẫu hồ sơ</a>
-        </li>
-      </ul>
-      
-      <hr>
-  	</div><!-- /col-3 -->
-    <div class="col-md-9">
-      	@RenderBody()
-  	</div><!--/col-span-9-->
-</div>
-</div>
-<!-- /Main -->
-
-<footer class="text-center">Copyright Group 2 - FPT University - 2014</footer>
-
-<input id="txtFromUsername" class="textBox" value="@User.Username" type="hidden"/>
-<input id="txtToUsername" class="textBox" value="" type="hidden"/>
+    <input id="txtFromUsername" class="textBox" value="@User.Username" type="hidden"/>
+    <input id="txtToUsername" class="textBox" value="" type="hidden" />
     <script type='text/javascript'>
 
         $(document).ready(function () {
