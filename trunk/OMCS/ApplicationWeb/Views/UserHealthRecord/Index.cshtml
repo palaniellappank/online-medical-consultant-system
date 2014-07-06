@@ -220,6 +220,28 @@
         }
     </tbody>
 </table>
+<fieldset>
+    <legend>Lịch sử tiêm chủng</legend>
+</fieldset>
+<table class="table table-data table-bordered table-striped" style="clear: both">
+    <tbody>
+        @foreach (var i in ViewBag.Immunizations)
+        {
+              <tr>
+                <td style="width: 35%;">Tên Bệnh</td>
+                <td style="width: 65%;">@i.Name </td>
+              </tr>
+            <tr>
+                <td style="width: 35%;">Ngày tiêm chủng</td>
+                <td style="width: 65%;">@i.DateImmunized</td>
+            </tr>
+            <tr>
+                <td style="width: 35%;">Thời gian hiệu lực</td>
+                <td style="width: 65%;">@i.BoosterTime</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 <script type="text/javascript">
     $(function () {
