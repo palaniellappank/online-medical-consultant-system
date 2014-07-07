@@ -17,7 +17,6 @@
             MedicalProfile suTranMedicalProfile = _db.MedicalProfiles.Where(
                 mp => mp.MedicalProfileKey.Equals("OMCS.0000001.01")).FirstOrDefault();
 
-
             #region TreatmentHistory
 
             var treatmentHistories = new List<TreatmentHistory>
@@ -38,7 +37,8 @@
                     OnSetDate = new DateTime(2014, 6, 1, 8, 20, 40)
                 }
             };
-            treatmentHistories.ForEach(s => _db.TreatmentHistories.AddOrUpdate(p => p.OnSetDate, s));
+            treatmentHistories.ForEach(s => _db.TreatmentHistories.AddOrUpdate(p => p.DateCreated, s));
+            _db.SaveChanges();
             #endregion TreatmentHistory
 
             var treatmentOne = treatmentHistories.ElementAt(0);
@@ -68,6 +68,7 @@
             };
             filmTypes.ForEach(s => _db.FilmTypes.AddOrUpdate(p => p.Name, s));
             var filmTypeOne = filmTypes.ElementAt(0);
+            _db.SaveChanges();
 
             #endregion FilmType
 
