@@ -11,6 +11,39 @@
     {
         public static void Seed(OMCS.DAL.Model.OMCSDBContext _db)
         {
+            #region MedicalProfile
+
+            MedicalProfileType loaiBenhAnNgoaiDa2 = new MedicalProfileType { Name = "Bệnh án Ngoài Da" };
+            MedicalProfileTemplate mauCoSan = new MedicalProfileTemplate { IsDefault = true, MedicalProfileType = loaiBenhAnNgoaiDa2 };
+
+            MedicalProfileTemplate benhAnNgoaiDa = new MedicalProfileTemplate
+            {
+                IsDefault = false,
+                MedicalProfileTemplateName = "Bệnh Án Ngoài Da - BV Da Liễu",
+                MedicalProfileType = loaiBenhAnNgoaiDa2
+            };
+            _db.MedicalProfileTemplates.Add(benhAnNgoaiDa);
+
+            _db.MedicalProfileTemplates.Add(mauCoSan);
+
+
+            MedicalProfileTemplate benhAnTruyenNhiem = new MedicalProfileTemplate
+            {
+                IsDefault = false,
+                MedicalProfileTemplateName = "Bệnh Án Truyền Nhiễm"
+            };
+            MedicalProfileTemplate benhAnNoiKhoa = new MedicalProfileTemplate
+            {
+                IsDefault = false,
+                MedicalProfileTemplateName = "Bệnh Án Nội Khoa"
+            };
+            _db.MedicalProfileTemplates.Add(benhAnNoiKhoa);
+            _db.MedicalProfileTemplates.Add(benhAnTruyenNhiem);
+            _db.SaveChanges();
+
+
+            #endregion MedicalProfile
+
             Patient suTran = _db.Patients.Where(pt => pt.Username.Equals("sutran")).Single();
 
 
@@ -40,7 +73,7 @@
                 new MedicalProfile
                 {
                     Patient = suTran,
-                    CreatedDate = DateTime.Today.AddDays(10),
+                    CreatedDate = DateTime.Today.AddDays(-5),
                     MedicalProfileTemplate = benhAnNgoaiDa1,
                     MedicalProfileKey = "OMCS.0000001.03"
                 }
@@ -57,13 +90,13 @@
                 new Immunization {
                     BoosterTime = 1,
                     MedicalProfileId = suTranMedicalProfile.MedicalProfileId,
-                    DateImmunized = new DateTime(1992, 2, 30),
+                    DateImmunized = new DateTime(1992, 3, 15),
                     Name = "Sởi"
                 }
             };
 
             imunizations.ForEach(s => _db.Immunizations.AddOrUpdate(p => (p.Name), s));
-
+            _db.SaveChanges();
             #endregion Immunization
 
             #region Allergy
@@ -73,12 +106,13 @@
                     Name = "Thuốc kháng sinh",
                     MedicalProfileId = suTranMedicalProfile.MedicalProfileId,
                     AllergyType = AllergyType.Medication,
-                    Reaction = "Đau bụng nhẹ"
+                    Reaction = "Đau bụng nhẹ",
+                    DateLastOccurred = new DateTime(2013,1,1)
                 }
             };
 
             allergies.ForEach(s => _db.Allergies.AddOrUpdate(p => (p.Name), s));
-
+            _db.SaveChanges();
             #endregion Allergy
         }
     }
