@@ -8,6 +8,9 @@
 <!--Script references. -->
 <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
 <script src="~/signalr/hubs"></script>
+<script src="~/Scripts/webrtc/adapter.js"></script>
+<script src="~/Scripts/webrtc/connectionManager.js"></script>
+<script src="~/Scripts/webrtc/app-patient.js"></script>
 <body>
     <h1>Tư vấn trực tuyến
     </h1>
@@ -60,6 +63,15 @@
         </div>
     </div>
 </body>
+
+<div class="panel panel-info draggable" id="patientWebcam" style="width: 300px; border-radius: 0px; z-index:100; display:none">
+    <div class="panel-heading">
+        <h3 class="panel-title">Chia sẻ Webcam</h3>
+    </div>
+    <div class="panel-body" style="padding:0">
+        <video class="video mine cool-background" autoplay="autoplay" style="width:100%;height:100%"></video>
+    </div>
+</div>
 
 <script id="doctor-list-template" type="text/template">
     <%
@@ -197,7 +209,7 @@
     var chatHub = $.connection.chatHub;
 
     $(function () {
-        console.log("On ready Index");
+        $(".draggable").draggable();
         registerClientMethods(chatHub);
         $.connection.hub.start().done(function () {
             chatHub.server.connectPatient($("#txtFromUsername").val());
