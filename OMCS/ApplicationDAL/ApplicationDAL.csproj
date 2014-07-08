@@ -64,11 +64,16 @@
   <ItemGroup>
     <Compile Include="CustomMembershipProvider.cs" />
     <Compile Include="CustomRoleProvider.cs" />
-    <Compile Include="Migrations\201406220128384_init.cs" />
-    <Compile Include="Migrations\201406220128384_init.Designer.cs">
-      <DependentUpon>201406220128384_init.cs</DependentUpon>
+    <Compile Include="Migrations\201407071309556_Init.cs" />
+    <Compile Include="Migrations\201407071309556_Init.Designer.cs">
+      <DependentUpon>201407071309556_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\BasicData.cs" />
+    <Compile Include="Migrations\ConversationData.cs" />
+    <Compile Include="Migrations\DataTreatmentHistory.cs" />
+    <Compile Include="Migrations\DataPatientInformation.cs" />
+    <Compile Include="Migrations\DataMedicalRecord.cs" />
     <Compile Include="Model\Conversation.cs" />
     <Compile Include="Model\ConversationDetail.cs" />
     <Compile Include="Model\CustomSnippetValue.cs" />
@@ -80,7 +85,6 @@
     <Compile Include="Model\Patient.cs" />
     <Compile Include="Model\FilmDocument.cs" />
     <Compile Include="Model\FilmType.cs" />
-    <Compile Include="Model\DynamicField.cs" />
     <Compile Include="Model\MedicalProfileType.cs" />
     <Compile Include="Model\MedicalProfileTemplate.cs" />
     <Compile Include="Model\MedicalProfile.cs" />
@@ -98,8 +102,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201406220128384_init.resx">
-      <DependentUpon>201406220128384_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201407071309556_Init.resx">
+      <DependentUpon>201407071309556_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

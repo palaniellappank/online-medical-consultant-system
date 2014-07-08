@@ -162,23 +162,74 @@ namespace SignalRChat.Hubs
             var item = ConnectedUsers.FirstOrDefault(x => 
                 (x != null ) &&
                 (x.ConnectionId == Context.ConnectionId));
-            Debug.WriteLine("haha");
             if (item != null)
             {
                 ConnectedUsers.Remove(item);
                 var id = Context.ConnectionId;
-                Debug.WriteLine(id);
                 var doctor = Doctors.Where(x => x.Username == item.Username).FirstOrDefault();
                 var connectedUser = ConnectedUsers.Where(x => x.Username == item.Username).FirstOrDefault();
                 if ((connectedUser == null) && (doctor != null))
                 {
-                    Debug.WriteLine(doctor);
                     doctor.IsOnline = false;
                     Clients.AllExcept(id).onGetDoctorList(Doctors);
                 }
             }
 
             return base.OnDisconnected();
+        }
+
+        #endregion
+
+        #region WebRTC related things
+
+        //Doctor send request for patient to view webcam
+        public void RequestWebcam(string toUsername)
+        {
+            var id = Context.ConnectionId;
+            var fromUserDetail = ConnectedUsers.Where(x => x.ConnectionId == id).FirstOrDefault();
+            var fromUser = _db.Users.Where(x => x.Username.Equals(fromUserDetail.Username)).FirstOrDefault();
+            var toUser = _db.Users.Where(x => x.Username.Equals(toUsername)).FirstOrDefault();
+            var toUserDetail = ConnectedUsers.Where(x => x.Username.Equals(toUsername)).FirstOrDefault();
+            Clients.Client(toUserDetail.ConnectionId).RequestWebcamReceived(fromUserDetail);
+        }
+
+        public void AnswerCall(bool acceptCall, string targetConnectionId)
+        {
+            var callingUser = ConnectedUsers.SingleOrDefault(u => u.ConnectionId == Context.ConnectionId);
+            var targetUser = ConnectedUsers.SingleOrDefault(u => u.ConnectionId == targetConnectionId);
+
+            if (callingUser != null && targetUser != null)
+            {
+
+                // Send a decline message if the callee said no
+                if (acceptCall == false)
+                {
+                    Clients.Client(targetConnectionId).callDeclined(callingUser, string.Format("{0} did not accept your call.", callingUser.Username));
+                    return;
+                }
+
+                // Tell the original caller that the call was accepted
+                Clients.Client(targetConnectionId).callAccepted(callingUser);
+            }
+        }
+
+        // WebRTC Signal Handler
+        public void SendSignal(string signal, string targetConnectionId)
+        {
+            //Doctor
+            var callingUser = ConnectedUsers.SingleOrDefault(u => u.ConnectionId == Context.ConnectionId);
+
+            //Patient
+            var targetUser = ConnectedUsers.SingleOrDefault(u => u.ConnectionId == targetConnectionId);
+
+            // Make sure both users are valid
+            if (callingUser == null || targetUser == null)
+            {
+                return;
+            }
+
+            // These folks are in a call together, let's let em talk WebRTC
+            Clients.Client(targetConnectionId).receiveSignal(callingUser, signal);
         }
 
         #endregion
