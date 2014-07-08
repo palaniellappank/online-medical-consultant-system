@@ -11,12 +11,15 @@ using System.Web.Script.Serialization;
 using System.Web.Security;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using Recaptcha.Web.Mvc;
+using Recaptcha.Web;
+
 namespace Security.Controllers
 {
     public class AccountController : Controller
     {
         OMCSDBContext db = new OMCSDBContext();
-        
+
         //public ActionResult Index()
         //{
         //    return View();
@@ -35,7 +38,7 @@ namespace Security.Controllers
                 var user = db.Users.Where(u => u.Username == model.Username && u.Password == model.Password).FirstOrDefault();
                 if (user != null)
                 {
-                    var roles=user.Roles.Select(m => m.RoleName).ToArray();
+                    var roles = user.Roles.Select(m => m.RoleName).ToArray();
 
                     CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
                     serializeModel.UserId = user.UserId;
@@ -44,7 +47,7 @@ namespace Security.Controllers
                     serializeModel.Username = user.Username;
                     serializeModel.roles = roles;
 
-                   string userData = JsonConvert.SerializeObject(serializeModel);
+                    string userData = JsonConvert.SerializeObject(serializeModel);
                     FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
                              1,
                             user.Email,
@@ -57,7 +60,7 @@ namespace Security.Controllers
                     HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
                     Response.Cookies.Add(faCookie);
 
-                    if(roles.Contains("Admin"))
+                    if (roles.Contains("Admin"))
                     {
                         return RedirectToAction("Index", "Admin");
                     }
@@ -94,19 +97,51 @@ namespace Security.Controllers
         // POST: /UserTemp/Create
 
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult Register(User user)
         {
-            user.CreatedDate = DateTime.UtcNow;
-            db.Patients.Add((Patient) user);
-            db.SaveChanges();
-            return RedirectToAction("Register");
+            if (ModelState.IsValid)
+            {
+                var recaptchaHelper = this.GetRecaptchaVerificationHelper();
+
+                if (String.IsNullOrEmpty(recaptchaHelper.Response))
+                {
+                    ModelState.AddModelError("", "Captcha answer cannot be empty");                    
+                    return View(user);
+                }
+
+                var recaptchaResult = recaptchaHelper.VerifyRecaptchaResponse();
+
+                if (recaptchaResult != RecaptchaVerificationResult.Success)
+                {
+                    ModelState.AddModelError("", "Incorrect captcha answer");                    
+                    return View(user);
+                }
+
+                // Attempt to register the user
+                try
+                {
+                    user.CreatedDate = DateTime.UtcNow;
+                    //db.Patients.Add((Patient)user);
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    return RedirectToAction("Register");
+                }
+                catch (MembershipCreateUserException e)
+                {
+                }
+            }
+            // If we got this far, something failed, redisplay form
+            return View(user);
+
         }
 
         public bool CheckUsername(string data)
         {
             Debug.WriteLine(data);
-            var username = (from user in db.Users 
-                            where user.Username.Equals(data,StringComparison.InvariantCultureIgnoreCase)
+            var username = (from user in db.Users
+                            where user.Username.Equals(data, StringComparison.InvariantCultureIgnoreCase)
                             select user).FirstOrDefault();
             if (username != null) return false;
             else return true;
