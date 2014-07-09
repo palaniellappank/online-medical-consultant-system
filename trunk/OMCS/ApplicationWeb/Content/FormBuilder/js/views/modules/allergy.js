@@ -14,6 +14,10 @@
           "click .delete-btn": "deleteAllergy"
       },
       addAllergy: function () {
+          if (medicalProfileId == 0) {
+              bootbox.alert("Bạn cần lưu lại hồ sơ trước khi thực hiện thao tác này!");
+              return;
+          };
           var url = "/Allergy/Create";
           $.get(url + "?medicalProfileId=" + medicalProfileId, function (data) {
               initModalWithData(data);

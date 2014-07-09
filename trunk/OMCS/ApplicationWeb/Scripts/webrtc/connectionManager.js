@@ -156,9 +156,9 @@ OMCSChat.ConnectionManager = (function () {
             // Get a connection for the given partner
             var connection = _getConnection(partnerClientId);
 
-            var streamer = new Streamer();
+            //var streamer = new Streamer();
             // Add our audio/video stream
-            connection.addStream(streamer);
+            //connection.addStream(streamer);
 
             console.log('stream added on my end');
 
