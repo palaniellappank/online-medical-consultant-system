@@ -225,19 +225,18 @@
 </fieldset>
 <table class="table table-data table-bordered table-striped" style="clear: both">
     <tbody>
+
+              <tr>
+                <td style="width: auto;">Tên Bệnh</td>
+                <td style="width: auto;">Ngày tiêm chủng</td>
+                <td style="width: auto;">Thời gian hiệu lực</td>
+              </tr>
         @foreach (var i in ViewBag.Immunizations)
         {
-              <tr>
-                <td style="width: 35%;">Tên Bệnh</td>
-                <td style="width: 65%;">@i.Name </td>
-              </tr>
             <tr>
-                <td style="width: 35%;">Ngày tiêm chủng</td>
-                <td style="width: 65%;">@i.DateImmunized</td>
-            </tr>
-            <tr>
-                <td style="width: 35%;">Thời gian hiệu lực</td>
-                <td style="width: 65%;">@i.BoosterTime</td>
+                <td style="width: auto;">@i.Name </td>
+                <td style="width: auto;">@i.DateImmunized</td>
+                <td style="width: auto;">@i.BoosterTime</td>
             </tr>
         }
     </tbody>
