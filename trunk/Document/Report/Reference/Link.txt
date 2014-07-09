@@ -1,0 +1,4 @@
+asp-net-routing
+	http://www.dotnetcurry.com/showarticle.aspx?ID=922
+mvcpattern
+	http://www.dotnet-tricks.com/Tutorial/mvc/DIYG060113-Understanding-Model-View-Controller-in-Asp.Net-MVC.html
