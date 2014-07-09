@@ -64,10 +64,6 @@
   <ItemGroup>
     <Compile Include="CustomMembershipProvider.cs" />
     <Compile Include="CustomRoleProvider.cs" />
-    <Compile Include="Migrations\201407071309556_Init.cs" />
-    <Compile Include="Migrations\201407071309556_Init.Designer.cs">
-      <DependentUpon>201407071309556_Init.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\BasicData.cs" />
     <Compile Include="Migrations\ConversationData.cs" />
@@ -100,11 +96,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407071309556_Init.resx">
-      <DependentUpon>201407071309556_Init.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
