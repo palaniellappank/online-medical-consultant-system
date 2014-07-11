@@ -3,5 +3,36 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<h1>User DashBoard</h1>
+<fieldset>
+    <legend>Medical Profile</legend>
+</fieldset>
+
+<table class="table table-data table-bordered table-striped" style="clear: both">
+    <tbody>
+
+              <tr>
+                <td style="width: auto;">Loại bệnh án</td>
+                <td style="width: auto;">Ngày tạo</td>
+              </tr>
+        @foreach (var a in ViewBag.medic)
+        {
+            <tr>
+                @{ if (Convert.ToInt32(@a.MedicalProfileTemplateId) == 1)
+                   {
+                    <td style="width: auto;">Bệnh Án Nội Khoa</td>
+                    }
+                   else if (Convert.ToInt32(@a.MedicalProfileTemplateId) == 2)
+                   {
+                    <td style="width: auto;">Bệnh Án Truyền Nhiễm</td>    
+                   }
+                   else if (Convert.ToInt32(@a.MedicalProfileTemplateId) == 3)
+                   {
+                    <td style="width: auto;">Bệnh Án Ngoài Da - BV Da Liễu</td>    
+                   }
+                   }
+                <td style="width: auto;">@a.CreatedDate </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
