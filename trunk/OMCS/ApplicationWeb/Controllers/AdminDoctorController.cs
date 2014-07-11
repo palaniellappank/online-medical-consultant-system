@@ -88,7 +88,7 @@ namespace MvcApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("_Edit", user);
+            return PartialView("Edit", user);
         }
 
         //
@@ -105,8 +105,8 @@ namespace MvcApplication1.Controllers
                 try
                 {
                     var fileName = Path.GetFileName(file.FileName);
-                    var path = HttpContext.Server.MapPath("~/Content/ProfilePicture/" + fileName);
-                    var dbPath = string.Format("/Content/ProfilePicture/" + fileName);
+                    var path = HttpContext.Server.MapPath("~/Content/Image/ProfilePicture/" + fileName);
+                    var dbPath = string.Format("/Content/Image/ProfilePicture/" + fileName);
                     file.SaveAs(path);
                     user.ProfilePicture = fileName;
 
@@ -125,7 +125,7 @@ namespace MvcApplication1.Controllers
                 return RedirectToAction("Index");
             }
 
-            return PartialView("_Edit", user);
+            return PartialView("Edit", user);
         }
 
         //
