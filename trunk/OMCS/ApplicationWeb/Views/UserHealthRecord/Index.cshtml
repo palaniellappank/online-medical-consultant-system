@@ -142,7 +142,7 @@
         @foreach (var a in ViewBag.Allergy)
         {        
             <tr>
-                <td style="width: 35%;">Loại dị ứng</td>
+                <td style="width: 35%;">@Html.DisplayName("Loại dị ứng")</td>
 
                 @{ if (Convert.ToInt32(@a.AllergyType) == 1)
                    {
@@ -176,7 +176,7 @@
                                     <table class="table table-data table-bordered table-striped" style="clear: both">
                                         <tbody>
                                             <tr>
-                                                <td style="width: 35%;">Loại dị ứng</td>
+                                                <td style="width: 35%;">@Html.DisplayName("Loại dị ứng")</td>
                                                 @{ if (Convert.ToInt32(@a.AllergyType) == 1)
                                                    {
                                                     <td style="width: 65%;">Thức ăn </td>
@@ -197,15 +197,15 @@
                                                 @* <td style="width: 65%;">@a.AllergyType</td>*@
                                             </tr>
                                             <tr>
-                                                <td style="width: 35%;">Ngày bị dị ứng gần nhất</td>
+                                                <td style="width: 35%;">@Html.DisplayName("Ngày bị dị ứng gần nhất")</td>
                                                 <td style="width: 65%;">@a.DateLastOccurred</td>
                                             </tr>
                                             <tr>
-                                                <td style="width: 35%;">Phản ứng</td>
+                                                <td style="width: 35%;">@Html.DisplayName("Phản ứng")</td>
                                                 <td style="width: 65%;">@a.Reaction</td>
                                             </tr>
                                             <tr>
-                                                <td style="width: 35%;">Ghi chú</td>
+                                                <td style="width: 35%;">@Html.DisplayName("Ghi chú")</td>
                                                 <td style="width: 65%;">@a.Note</td>
                                             </tr>
                                         </tbody>
@@ -226,11 +226,11 @@
 <table class="table table-data table-bordered table-striped" style="clear: both">
     <tbody>
 
-              <tr>
+            <tr>
                 <td style="width: auto;">Tên Bệnh</td>
                 <td style="width: auto;">Ngày tiêm chủng</td>
                 <td style="width: auto;">Thời gian hiệu lực</td>
-              </tr>
+            </tr>
         @foreach (var i in ViewBag.Immunizations)
         {
             <tr>
@@ -245,9 +245,6 @@
 <script type="text/javascript">
     $(function () {
         //Show allergy
-
-
-
         //defaults
         $.fn.editable.defaults.url = '/UserHealthRecord/Save';
         $.fn.editable.defaults.emptytext = 'Trống';

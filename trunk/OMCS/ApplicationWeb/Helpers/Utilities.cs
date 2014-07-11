@@ -34,6 +34,10 @@ namespace OMCS.Web
             {
                 return "/Content/Image/FilmDocument/";
             }
+            else if ("Upload".Equals(type)) 
+            {
+                return "/Content/Upload/";
+            }
             return "";
         }
     }

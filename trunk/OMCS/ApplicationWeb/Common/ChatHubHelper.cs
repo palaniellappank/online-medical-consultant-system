@@ -80,10 +80,11 @@ namespace SignalRChat.Hubs
                     {
                         String date = (DateTime.Now.Subtract(conversationDetail.CreatedDate).Days) > 1 ?
                             String.Format("{0:HH:mm:ss}", conversationDetail.CreatedDate) :
-                            String.Format("{0:dd/mm/yyyy HH:mm:ss}", conversationDetail.CreatedDate);
+                            String.Format("{0:dd/MM/yyyy HH:mm:ss}", conversationDetail.CreatedDate);
                         MessageDetail messageDetail = new MessageDetail
                         {
                             Content = conversationDetail.Content,
+                            Attachment = conversationDetail.Attachment,
                             CreatedDate = date,
                             Username = conversationDetail.User.Username,
                             IsRead = conversationDetail.IsRead
@@ -155,6 +156,7 @@ namespace SignalRChat.Hubs
                         && (x.DoctorId == doctor.UserId)).
                     OrderByDescending(x => x.LatestTimeFromPatient
                     ).FirstOrDefault();
+                // If not conversation then create new 
                 if (lastestConversation == null)
                 {
                     lastestConversation = new Conversation();
@@ -250,7 +252,7 @@ namespace SignalRChat.Hubs
                     doctor.LastestContent = message;
                     doctor.IsRead = false;
                     doctor.LastestTime = DateTime.Now;
-                }
+                }             
                 if (receiveUser.ConversationList != null)
                 {
                     UserDetail patient = receiveUser.ConversationList.Where(
@@ -297,7 +299,6 @@ namespace SignalRChat.Hubs
                 conversation.IsPatientRead = false;
             }
             
-
             ConversationDetail conversationDetail = new ConversationDetail
             {
                 UserId = fromUser.UserId,
@@ -311,7 +312,8 @@ namespace SignalRChat.Hubs
             {
                 Content = message,
                 Username = fromUser.Username,
-                CreatedDate = String.Format("{0:H:mm:ss}", DateTime.Now),
+                //CreatedDate = String.Format("{0:H:mm:ss}", DateTime.Now),
+                CreatedDate = String.Format("{0:dd/MM/yyyy HH:mm:ss}", DateTime.Now),
                 IsRead = false
             };
 

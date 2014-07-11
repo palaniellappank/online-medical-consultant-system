@@ -59,7 +59,7 @@
                         <a href="@Url.Action("Index", "DoctorMedicalProfile")"><i class="glyphicon glyphicon-folder-open"></i>Quản lý bệnh án</a>
                     </li>
                     <li class="@Html.IsActive("DoctorConversation", "Index")">
-                        <a href="@Url.Action("Index", "DoctorConversation")"><i class="glyphicon glyphicon-envelope"></i>Tư vấn trực tuyến    <span class="badg1e unread-message"></span></a>
+                        <a href="@Url.Action("Index", "DoctorConversation")"><i class="glyphicon glyphicon-envelope"></i>Tư vấn trực tuyến<span class="badge">1</span></a>
                     </li>
                     <li class="@Html.IsActive("AdminTemplate", "Index")">
                         <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i>Xem mẫu hồ sơ</a>
@@ -82,17 +82,25 @@
     <input id="txtFromUsername" class="textBox" value="@User.Username" type="hidden"/>
     <input id="txtToUsername" class="textBox" value="" type="hidden" />
     <script type='text/javascript'>
+        //var chatHub = $.connection.chatHub;
+        //$(document).ready(function () {
 
-        $(document).ready(function () {
+        //    $(".alert").addClass("in").fadeOut(4500);
 
-            $(".alert").addClass("in").fadeOut(4500);
+        //    var chatHub = $.connection.chatHub;
+        //    registerClientMethodsInConversation(chatHub);
 
-            /* swap open/close side menu icons */
-            $('[data-toggle=collapse]').click(function () {
-                // toggle icon
-                $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
-            });
-        });
+        //    // Start Hub
+        //    $.connection.hub.start().done(function () {
+        //        var fromUser = $("#txtFromUsername").val();
+        //        chatHub.server.connectDoctor(fromUser);
+        //    });
+        //    /* swap open/close side menu icons */
+        //    $('[data-toggle=collapse]').click(function () {
+        //        // toggle icon
+        //        $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
+        //    });
+        //});
         function registerClientMethods(chatHub) {
             chatHub.client.onConnected = function (id, doctorDetail) {
                 $(".unread-message").html(doctorDetail.CountMessageUnRead);

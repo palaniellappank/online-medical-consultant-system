@@ -501,7 +501,7 @@ ul.c-controls li a:hover
 
 #contact-list
 {
-    height: 400px;
+    height: 489px;
     overflow-y: scroll;
 }
 
@@ -590,4 +590,10 @@ img.slider-img {
 img.slider-img:hover {
   filter: none; /* IE6-9 */
   -webkit-filter: grayscale(0); /* Google Chrome, Safari 6+ & Opera 15+ */
+}
+
+.picture-thumbnail {
+    max-height: 70px;
+    max-width: 70px;
+    cursor: pointer;
 }

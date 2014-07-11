@@ -40,7 +40,19 @@
             <div class="panel-footer">
                 <div class="input-group">
                     <textarea id="txtMessage" class="form-control" rows="2" placeholder="Nội dung tin nhắn..."></textarea>
-                    @*<input id="txtMessage" type="text" class="form-control input-sm" placeholder="Nội dung tin nhắn..." />*@
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Upload file <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div id="uploader">
+                                    <input type="file" name="file" id="file" title="Upload" />
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <span class="input-group-btn">
+                        <button class="btn btn-warning btn-sm" id="btnUpload">Upload</button>
+                    </span>&nbsp
                     <span class="input-group-btn">
                         <button class="btn btn-warning btn-sm" id="btnSendMsg">Gửi</button>
                         <button class="btn btn-info btn-sm" id="requestWebcam"><i class="glyphicon glyphicon-facetime-video" style="font-size: 12px;"></i></button>
@@ -51,14 +63,30 @@
     </div>
 </div>
 
-<div class="panel panel-info draggable" id="patientWebcam" style="width: 300px; border-radius: 0px; z-index:100; display:none">
+<div class="panel panel-info draggable" id="patientWebcam" style="width: 300px; border-radius: 0px; z-index: 100; display: none">
     <div class="panel-heading">
         <h3 class="panel-title">Webcam</h3>
     </div>
-    <div class="panel-body" style="padding:0">
-        <video class="video patient cool-background" autoplay="autoplay" style="width:100%;height:100%"></video>
+    <div class="panel-body" style="padding: 0">
+        <video class="video patient cool-background" autoplay="autoplay" style="width: 100%; height: 100%"></video>
     </div>
 </div>
+
+<div class="modal fade in" id="modal-popup-img" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-content">
+                    <img src="#" class="img-responsive">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script id="doctor-list-template" type="text/template">
     <%
@@ -98,7 +126,17 @@
                     <span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %>
                 </small>
             </div>
-            <p style="white-space:pre-line"><%= message.Content %></p>
+            <% if (message.Content != null) { %>
+            <p style="white-space: pre-line"><%= message.Content %></p>
+            <% } else if (isImage(message.Attachment)) { %>
+                <img src="/Content/Image/Chat/<%= message.Attachment %>" class="picture-thumbnail" />
+            <a href="/Content/Image/Chat/<%= message.Attachment %>" target="_blank">
+                <i class="glyphicon glyphicon-paperclip"></i><%= message.Attachment %>
+            </a>
+            <% } else { %>
+                <a href="/Content/Image/Chat/<%= message.Attachment %>" target="_blank">
+                    <i class="glyphicon glyphicon-paperclip"></i><%= message.Attachment %>
+                </a><% } %>
         </div>
     </li>
 </script>
@@ -113,7 +151,17 @@
                 <small class=" text-muted"><span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %></small>
                 <strong class="pull-right primary-font"><%= user.FullName %></strong>
             </div>
-            <p style="white-space:pre-line"><%= message.Content %></p>
+            <% if (message.Content != null) { %>
+            <p style="white-space: pre-line"><%= message.Content %></p>
+            <% } else if (isImage(message.Attachment)) { %>
+                <img src="/Content/Image/Chat/<%= message.Attachment %>" class="picture-thumbnail" />
+            <a href="/Content/Image/Chat/<%= message.Attachment %>" target="_blank">
+                <i class="glyphicon glyphicon-paperclip"></i><%= message.Attachment %>
+            </a>
+            <% } else { %>
+                <a href="/Content/Image/Chat/<%= message.Attachment %>" target="_blank">
+                    <i class="glyphicon glyphicon-paperclip"></i><%= message.Attachment %>
+                </a><% } %>
         </div>
     </li>
 </script>
@@ -130,7 +178,14 @@
             "click .list-group-item": "getMessageList",
             "click #btnSendMsg": "sendMessage",
             "click #requestWebcam": "requestWebcam",
-            "keypress #txtMessage": "sendMessagePress"
+            "keypress #txtMessage": "sendMessagePress",
+            "click .picture-thumbnail": "showFullPicture"
+            //"click #btnUpload": "upload"
+        },
+        showFullPicture: function (e) {
+            var target = $(e.currentTarget);
+            $("#modal-popup-img").find("img").attr("src", target.attr("src"));
+            $("#modal-popup-img").modal("show");
         },
         requestWebcam: function () {
             var toUsername = $('#txtToUsername').val();
@@ -181,7 +236,7 @@
     // Declare a proxy to reference the hub. 
     var chatHub = $.connection.chatHub;
 
-    $(document).ready(function () {
+    $(function () {
         var chatHub = $.connection.chatHub;
         registerClientMethodsInConversation(chatHub);
 
@@ -190,7 +245,33 @@
             var fromUser = $("#txtFromUsername").val();
             chatHub.server.connectDoctor(fromUser);
         });
+
+
+        $('#btnUpload').click(function () {
+            var formdata = new FormData(); //FormData object
+            var fileInput = document.getElementById('file');
+            var toUsername = $('#txtToUsername').val();
+            var fromUsername = $('#txtFromUsername').val();
+            formdata.append("toUsername", toUsername);
+            formdata.append("fromUsername", fromUsername);
+            //Iterating through each files selected in fileInput
+            for (i = 0; i < fileInput.files.length; i++) {
+                //Appending each file to FormData object
+                formdata.append(fileInput.files[i].name, fileInput.files[i]);
+            }
+            $.ajax({
+                type: "POST",
+                url: '/UserConversation/Upload',
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    chatHub.server.getMessageList(toUsername);
+                }
+            });
+        });
     });
+
     function registerClientMethodsInConversation(chatHub) {
         chatHub.client.messageReceived = function (sender, receiver, message) {
             console.log("Message Receive:");
