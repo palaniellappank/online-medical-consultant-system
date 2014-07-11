@@ -35,7 +35,7 @@ namespace Security.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = db.Users.Where(u => u.Username == model.Username && u.Password == model.Password).FirstOrDefault();
+                var user = db.Users.Where(u => u.Username == model.Username && u.Password == model.Password && u.IsActive == true).FirstOrDefault();
                 if (user != null)
                 {
                     var roles = user.Roles.Select(m => m.RoleName).ToArray();
@@ -123,7 +123,7 @@ namespace Security.Controllers
                 try
                 {
                     user.CreatedDate = DateTime.UtcNow;
-                    //db.Patients.Add((Patient)user);
+                    //db.Patients.Add((User)user);
                     db.Users.Add(user);
                     db.SaveChanges();
                     return RedirectToAction("Register");

@@ -67,8 +67,8 @@ namespace MvcApplication1.Controllers
                 user.Roles = new List<Role>();
                 user.Roles.Add(role);
                 user.CreatedDate = DateTime.UtcNow;
-                user.ProfilePicture = "/Content/ProfilePicture/anonymous-avatar.jpg";
-                user.IsActive = false;
+                user.ProfilePicture = "photo.jpg";
+                user.IsActive = true;
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -108,7 +108,7 @@ namespace MvcApplication1.Controllers
                     var path = HttpContext.Server.MapPath("~/Content/ProfilePicture/" + fileName);
                     var dbPath = string.Format("/Content/ProfilePicture/" + fileName);
                     file.SaveAs(path);
-                    user.ProfilePicture = dbPath;
+                    user.ProfilePicture = fileName;
 
                 }
                 catch (NullReferenceException ex)
@@ -118,6 +118,7 @@ namespace MvcApplication1.Controllers
                 finally
                 {
                     //user.Roles.Add(role);
+                    user.IsActive = true;
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();
                 }

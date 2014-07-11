@@ -4,6 +4,7 @@
 }
 
 @model IEnumerable<OMCS.DAL.Model.User>
+@using OMCS.Web
 
 <!--Script references. -->
 <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
@@ -15,48 +16,56 @@
     <h1>Tư vấn trực tuyến
     </h1>
     <hr />
-    <div class="row" id="chatbox">
-        <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading c-list">
-                    <span class="title">Danh sách bác sĩ</span>
-                    <ul class="pull-right c-controls">
-                        <li></li>
-                    </ul>
-                </div>
-
-                <div class="row" style="display: none;">
-                    <div class="col-xs-12">
-                        <div class="input-group c-search">
-                            <input type="text" class="form-control" id="contact-list-search">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
-                            </span>
+    <div class="container">
+        <div class="row" id="chatbox">
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading c-list">
+                        <span class="title">Danh sách bác sĩ</span>
+                    </div>
+                    <div class="row" style="display: none;">
+                        <div class="col-xs-12">
+                            <div class="input-group c-search">
+                                <input type="text" class="form-control" id="contact-list-search">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <ul class="list-group" id="contact-list">
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div id="divChat" class="panel panel-primary">
-                <div class="panel-heading c-list">
-                    <div id="chat-doctor"></div>
-                </div>
-                <div class="panel-body">
-                    <ul class="chat" id="chat-content">
+                    <ul class="list-group" id="contact-list">
                     </ul>
                 </div>
-                <div class="panel-footer">
-                    <div class="input-group">
-                        <textarea id="txtMessage" class="form-control input-sm" rows="2" cols="80" placeholder="Nội dung tin nhắn..."></textarea>                      
-                        <span class="input-group-btn">
-                            <button class="btn btn-warning btn-sm" id="btnUpload">Upload</button>
-                        </span>
+            </div>
+            <div class="col-md-7">
+                <div id="divChat" class="panel panel-primary">
+                    <div class="panel-heading c-list">
+                        <span id="chat-doctor"></span>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="chat" id="chat-content">
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <textarea id="txtMessage" class="form-control input-sm" rows="2" cols="80" placeholder="Nội dung tin nhắn..."></textarea>
+                            <div class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Upload file <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <div id="uploader">
+                                            <input type="file" name="file" id="file" title="Upload" />
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span class="input-group-btn">
+                                <button class="btn btn-warning btn-sm" id="btnUpload">Upload</button>
+                            </span>&nbsp
                         <span class="input-group-btn">
                             <button class="btn btn-warning btn-sm" id="btnSendMsg">Gửi</button>
                         </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,12 +73,27 @@
     </div>
 </body>
 
-<div class="panel panel-info draggable" id="patientWebcam" style="width: 300px; border-radius: 0px; z-index:100; display:none">
+<div class="panel panel-info draggable" id="patientWebcam" style="width: 300px; border-radius: 0px; z-index: 100; display: none">
     <div class="panel-heading">
         <h3 class="panel-title">Chia sẻ Webcam</h3>
     </div>
-    <div class="panel-body" style="padding:0">
-        <video class="video mine cool-background" autoplay="autoplay" style="width:100%;height:100%"></video>
+    <div class="panel-body" style="padding: 0">
+        <video class="video mine cool-background" autoplay="autoplay" style="width: 100%; height: 100%"></video>
+    </div>
+</div>
+
+<div class="modal fade in" id="modal-popup-img" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-content">
+                    <img src="#" class="img-responsive">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -104,24 +128,30 @@
 </script>
 
 <script id="chat-top-template" type="text/template">
-    <div class="chat-body clearfix">
-        <div class="header">
-            <strong class="title">Bác sĩ tư vấn: <%= user.FullName %></strong>
-        </div>
-    </div>
+    <strong class="title">Bác sĩ tư vấn: <%= user.FullName %></strong>
 </script>
 
 <script id="chat-left-template" type="text/template">
     <li class="left clearfix">
         <span class="chat-img pull-left">
-            <img src="/Content/ProfilePicture/<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
+            <img src="@Html.GetPictureUrl("Profile")<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
         </span>
         <div class="chat-body clearfix">
             <div class="header">
                 <strong class="primary-font"><%= user.FullName %></strong> <small class="pull-right text-muted">
                     <span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %></small>
             </div>
+            <% if (message.Content != null) { %>
             <p style="white-space: pre-line"><%= message.Content %></p>
+            <% } else if (isImage(message.Attachment)) { %>
+                <img src="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" class="picture-thumbnail" />
+            <a href="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" target="_blank">
+                <i class="glyphicon glyphicon-paperclip"></i><%= message.Attachment %>
+            </a>
+            <% } else { %>
+                <a href="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" target="_blank">
+                    <i class="glyphicon glyphicon-paperclip"></i><%= message.Attachment %>
+                </a><% } %>
         </div>
     </li>
 </script>
@@ -129,14 +159,24 @@
 <script id="chat-right-template" type="text/template">
     <li class="right clearfix <% if (!message.IsRead) { %> unread-message-hightlight<% } %>">
         <span class="chat-img pull-right">
-            <img src="/Content/ProfilePicture/<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
+            <img src="@Html.GetPictureUrl("Profile")<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
         </span>
         <div class="chat-body clearfix">
             <div class="header">
                 <small class=" text-muted"><span class="glyphicon glyphicon-time"></span><%= message.CreatedDate %></small>
                 <strong class="pull-right primary-font"><%= user.FullName %></strong>
             </div>
+            <% if (message.Content != null) { %>
             <p style="white-space: pre-line"><%= message.Content %></p>
+            <% } else if (isImage(message.Attachment)) { %>
+                <img src="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" class="picture-thumbnail" />
+            <a href="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" target="_blank">
+                <i class="glyphicon glyphicon-paperclip"></i><%= message.Attachment %>
+            </a>
+            <% } else { %>
+                <a href="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" target="_blank">
+                    <i class="glyphicon glyphicon-paperclip"></i><%= message.Attachment %>
+                </a><% } %>
         </div>
     </li>
 </script>
@@ -151,7 +191,14 @@
         events: {
             "click .list-group-item": "getMessageList",
             "click #btnSendMsg": "sendMessage",
-            "keypress #txtMessage": "sendMessagePress"
+            "keypress #txtMessage": "sendMessagePress",
+            "click .picture-thumbnail": "showFullPicture"
+            //"click #btnUpload": "upload"
+        },
+        showFullPicture: function (e) {
+            var target = $(e.currentTarget);
+            $("#modal-popup-img").find("img").attr("src", target.attr("src"));
+            $("#modal-popup-img").modal("show");
         },
         renderContactList: function (doctors) {
             var template = _.template($("#doctor-list-template").html(), { doctors: doctors });
@@ -162,24 +209,11 @@
             $('#txtToUsername').val(username);
             chatHub.server.getMessageList(username);
         },
-        //sendMessage: function () {
-        //    var msg = $("#txtMessage").val();
-        //    var toUsername = $('#txtToUsername').val();
-        //    var fromUsername = $('#txtFromUsername').val();
-        //    if ((msg.length > 0) && (toUsername.length > 0)) {
-        //        chatHub.server.sendMessageTo(toUsername, msg);
-        //        $("#txtMessage").val('');
-        //    }
-        //},
-        //sendMessagePress: function (e) {
-        //    if (e.which == 13) {
-        //        this.sendMessage();
-        //    }
-        //}
         sendMessage: function (e) {
             var msg = $("#txtMessage").val();
             var toUsername = $('#txtToUsername').val();
             var fromUsername = $('#txtFromUsername').val();
+            //var fileInput = document.getElementById('file');
             if ((msg.length > 0) && (toUsername.length > 0)) {
                 chatHub.server.sendMessageTo(toUsername, msg);
                 $("#txtMessage").val('');
@@ -201,6 +235,10 @@
 
             if (e.keyCode == 13 && e.shiftKey) {
             }
+        },
+        upload: function () {
+            alert('hehe')
+
         }
     });
 
@@ -213,6 +251,31 @@
         registerClientMethods(chatHub);
         $.connection.hub.start().done(function () {
             chatHub.server.connectPatient($("#txtFromUsername").val());
+        });
+
+        $('#btnUpload').click(function () {
+            var formdata = new FormData(); //FormData object
+            var fileInput = document.getElementById('file');
+            var toUsername = $('#txtToUsername').val();
+            var fromUsername = $('#txtFromUsername').val();
+            formdata.append("toUsername", toUsername);
+            formdata.append("fromUsername", fromUsername);
+            //Iterating through each files selected in fileInput
+            for (i = 0; i < fileInput.files.length; i++) {
+                //Appending each file to FormData object
+                formdata.append(fileInput.files[i].name, fileInput.files[i]);
+            }
+            $.ajax({
+                type: "POST",
+                url: '/UserConversation/Upload',
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    chatHub.server.getMessageList(toUsername);
+
+                }
+            });
         });
     });
 
@@ -287,32 +350,7 @@
         $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
     }
 
-    //$(function () {
-    //    $('[data-toggle="tooltip"]').tooltip();
 
-    //    $('[data-command="toggle-search"]').on('click', function (event) {
-    //        event.preventDefault();
-    //        $(this).toggleClass('hide-search');
-
-    //        if ($(this).hasClass('hide-search')) {
-    //            $('.c-search').closest('.row').slideUp(100);
-    //        } else {
-    //            $('.c-search').closest('.row').slideDown(100);
-    //        }
-    //    })
-
-    //    $('#contact-list').searchable({
-    //        searchField: '#contact-list-search',
-    //        selector: 'li',
-    //        childSelector: '.col-xs-12',
-    //        show: function (elem) {
-    //            elem.slideDown(100);
-    //        },
-    //        hide: function (elem) {
-    //            elem.slideUp(100);
-    //        }
-    //    })
-    //});    
 </script>
 
 

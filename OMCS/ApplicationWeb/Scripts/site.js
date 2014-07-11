@@ -181,3 +181,12 @@ function readImgFromURL(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+function isImage(fileName) {
+    var extension = fileName.substr(fileName.indexOf(".") + 1, fileName.length);
+    if (extension == "jpg" || extension == "png"
+        || extension == "jpeg" || extension == "gif" || extension == "JPG") {
+        return true;
+    }
+    return false;
+}

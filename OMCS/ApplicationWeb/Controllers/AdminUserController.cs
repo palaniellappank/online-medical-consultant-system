@@ -10,6 +10,7 @@ using System.IO;
 using PagedList;
 using OMCS.BLL;
 using Security.Models;
+using Newtonsoft.Json.Linq;
 
 namespace OMCS.Web.Controllers
 {
@@ -68,8 +69,8 @@ namespace OMCS.Web.Controllers
                 user.Roles = new List<Role>();
                 user.Roles.Add(role);
                 user.CreatedDate = DateTime.UtcNow;
-                user.ProfilePicture = "/Content/ProfilePicture/anonymous-avatar.jpg";
-                user.IsActive = false;
+                user.ProfilePicture = "photo.jpg";
+                user.IsActive = true;
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -98,18 +99,15 @@ namespace OMCS.Web.Controllers
         [HttpPost]
         public ActionResult Edit(User user, HttpPostedFileBase file)
         {
-            //var role = db.Roles.Find(roleId);
-            //user.Roles = new List<Role>();
-
             if (ModelState.IsValid)
             {
                 try
                 {
                     var fileName = Path.GetFileName(file.FileName);
-                    var path = HttpContext.Server.MapPath("~/Content/ProfilePicture/" + fileName);
-                    var dbPath = string.Format("/Content/ProfilePicture/" + fileName);
+                    var path = HttpContext.Server.MapPath("~/Content/Image/ProfilePicture/" + fileName);
+                    var dbPath = string.Format("/Content/Image/ProfilePicture/" + fileName);
                     file.SaveAs(path);
-                    user.ProfilePicture = dbPath;
+                    user.ProfilePicture = fileName;
 
                 }
                 catch (NullReferenceException ex)
@@ -119,6 +117,7 @@ namespace OMCS.Web.Controllers
                 finally
                 {
                     //user.Roles.Add(role);
+                    user.IsActive = true;
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();
                 }
