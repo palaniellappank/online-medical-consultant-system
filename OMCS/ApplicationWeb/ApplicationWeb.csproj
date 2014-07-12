@@ -230,7 +230,6 @@
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\ImmunizationController.cs" />
-    <Compile Include="Controllers\MedicalProfileTemplateController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -495,7 +494,6 @@
     <Content Include="Images\orderedList7.png" />
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -505,7 +503,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_UserLayout.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Template\Index.cshtml" />
@@ -555,7 +552,6 @@
     <Content Include="Views\DoctorMedicalProfile\Index.cshtml" />
     <Content Include="Views\DoctorUser\_View.cshtml" />
     <Content Include="Views\DoctorUser\UpdateMedicalProfile.cshtml" />
-    <Content Include="Views\Shared\ChatLayout.cshtml" />
     <Content Include="Scripts\underscore-min.map" />
     <Content Include="Views\DoctorConversation\Index.cshtml" />
     <Content Include="Views\TreatmentHistory\_List.cshtml" />
@@ -570,6 +566,7 @@
     <Content Include="Views\Immunization\_Create.cshtml" />
     <Content Include="Views\Immunization\_Edit.cshtml" />
     <Content Include="Views\Immunization\_List.cshtml" />
+    <Content Include="Views\Shared\_DoctorChatLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

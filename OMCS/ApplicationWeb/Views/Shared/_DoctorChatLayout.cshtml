@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @using OMCS.Web
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Trang quản lý Bác Sĩ</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootply-admin.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+
+    @Scripts.Render("~/bundles/jsOMCS")
+
+    <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
+    <script src="~/Scripts/holder.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+    @if (IsSectionDefined("Styles"))
+    {
+        @RenderSection("Styles");
+    }
+</head>
+<body>
+    <!-- Header -->
+    <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="~/Doctor/Index">Bác Sĩ: @User.LastName @User.FirstName</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="~/Account/Logout"><i class="glyphicon glyphicon-lock"></i>Đăng Xuất</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /Header -->
+
+    <!-- Main -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                @RenderBody()
+            </div>
+            <!--/col-span-9-->
+        </div>
+    </div>
+    <!-- /Main -->
+
+    <footer class="text-center">Copyright Group 2 - FPT University - 2014</footer>
+
+    <input id="txtFromUsername" class="textBox" value="@User.Username" type="hidden"/>
+    <input id="txtToUsername" class="textBox" value="" type="hidden" />
+    <script type='text/javascript'>
+
+        $(document).ready(function () {
+
+            $(".alert").addClass("in").fadeOut(4500);
+
+            /* swap open/close side menu icons */
+            $('[data-toggle=collapse]').click(function () {
+                // toggle icon
+                $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
+            });
+        });
+    </script>
+</body>
+</html>

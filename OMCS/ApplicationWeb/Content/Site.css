@@ -591,9 +591,17 @@ img.slider-img:hover {
   filter: none; /* IE6-9 */
   -webkit-filter: grayscale(0); /* Google Chrome, Safari 6+ & Opera 15+ */
 }
+}
 
 .picture-thumbnail {
     max-height: 70px;
     max-width: 70px;
     cursor: pointer;
+
+/* Webcam */
+#patientWebcam {
+    width: 300px; 
+    border-radius: 0px; 
+    z-index:100; 
+    display:none;
 }

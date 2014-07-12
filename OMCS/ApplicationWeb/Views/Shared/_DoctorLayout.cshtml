@@ -10,10 +10,7 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 
     @Scripts.Render("~/bundles/jsOMCS")
-
-    <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
     <script src="~/Scripts/holder.js"></script>
-    <script src="~/signalr/hubs"></script>
 
     @if (IsSectionDefined("Styles"))
     {
@@ -59,7 +56,7 @@
                         <a href="@Url.Action("Index", "DoctorMedicalProfile")"><i class="glyphicon glyphicon-folder-open"></i>Quản lý bệnh án</a>
                     </li>
                     <li class="@Html.IsActive("DoctorConversation", "Index")">
-                        <a href="@Url.Action("Index", "DoctorConversation")"><i class="glyphicon glyphicon-envelope"></i>Tư vấn trực tuyến<span class="badge">1</span></a>
+                        <a href="@Url.Action("Index", "DoctorConversation")" target="_blank"><i class="glyphicon glyphicon-envelope"></i>Tư vấn trực tuyến    <span class="badg1e unread-message"></span></a>
                     </li>
                     <li class="@Html.IsActive("AdminTemplate", "Index")">
                         <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i>Xem mẫu hồ sơ</a>
@@ -101,16 +98,6 @@
         //        $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
         //    });
         //});
-        function registerClientMethods(chatHub) {
-            chatHub.client.onConnected = function (id, doctorDetail) {
-                $(".unread-message").html(doctorDetail.CountMessageUnRead);
-            }
-
-            chatHub.client.onMessageUnRead = function (doctorDetail) {
-                $(".unread-message").html(doctorDetail.CountMessageUnRead);
-            }
-        }
-
     </script>
 </body>
 </html>

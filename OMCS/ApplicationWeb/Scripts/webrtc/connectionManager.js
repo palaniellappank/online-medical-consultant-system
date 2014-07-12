@@ -58,8 +58,6 @@ OMCSChat.ConnectionManager = (function () {
                     'readyState': connection.readyState,
                     'signalingState': connection.signalingState
                 };
-
-                console.log(JSON.stringify(states));
             };
 
             // Stream handlers
@@ -158,7 +156,7 @@ OMCSChat.ConnectionManager = (function () {
 
             //var streamer = new Streamer();
             // Add our audio/video stream
-            //connection.addStream(streamer);
+            connection.addStream(stream);
 
             console.log('stream added on my end');
 

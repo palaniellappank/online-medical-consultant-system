@@ -33,13 +33,17 @@ namespace SignalRChat.Hubs
             {
                 doctorDetail.CountMessageUnRead = business.CountMessageUnRead(doctor);
                 doctorDetail.IsOnline = doctor.IsOnline;
-            }
 
-            foreach (UserDetail userDetail in ConnectedUsers)
-            {
-                var doctorDetailForUser = userDetail.DoctorList.Where(
-                    x => x.Username == username).FirstOrDefault();
-                doctorDetailForUser.IsOnline = doctorDetail.IsOnline;
+                foreach (UserDetail userDetail in ConnectedUsers)
+                {
+                    //Doctor always have DoctorList = null
+                    if (userDetail.DoctorList != null)
+                    {
+                        var doctorDetailForUser = userDetail.DoctorList.Where(
+                        x => x.Username == username).FirstOrDefault();
+                        doctorDetailForUser.IsOnline = doctorDetail.IsOnline;
+                    }
+                }
             }
         }
 
@@ -160,6 +164,7 @@ namespace SignalRChat.Hubs
                 if (lastestConversation == null)
                 {
                     lastestConversation = new Conversation();
+                    lastestConversation.IsPatientRead = true;
                 }
                 //Check user online or not
                 var connectedUser = ConnectedUsers.Where
@@ -213,6 +218,7 @@ namespace SignalRChat.Hubs
         }
 
         /* 
+         * user: send message user
          * toUsername: User who receive message
          * Update DoctorList for Patient
          * And ConversationList for Doctor
@@ -258,6 +264,19 @@ namespace SignalRChat.Hubs
                     UserDetail patient = receiveUser.ConversationList.Where(
                             x => x.Username == user.Username
                         ).FirstOrDefault();
+
+                    //This is the first time patient send message to doctor
+                    if (patient == null)
+                    {
+                        patient = new UserDetail
+                        {
+                            FullName = user.FullName,
+                            ProfilePicture = user.ProfilePicture,
+                            Username = user.Username,
+                            IsOnline = true
+                        };
+                        receiveUser.ConversationList.Add(patient);
+                    }
                     patient.LastestContent = message;
                     patient.IsRead = false;
                     patient.LastestTime = DateTime.Now;
