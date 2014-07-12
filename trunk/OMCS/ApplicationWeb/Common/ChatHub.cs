@@ -51,7 +51,7 @@ namespace SignalRChat.Hubs
             UserDetail userDetail = new UserDetail
             {
                 ConnectionId = id,
-                CountMessageUnRead = business.CountMessageUnRead(doctor),
+             //   CountMessageUnRead = business.CountMessageUnRead(doctor),
                 ProfilePicture = doctor.ProfilePicture,
                 FullName = doctor.FullName,
                 Username = doctor.Username,
@@ -209,7 +209,7 @@ namespace SignalRChat.Hubs
                 }
 
                 // Tell the original caller that the call was accepted
-                Clients.Client(targetConnectionId).callAccepted(callingUser);
+                Clients.Caller.callAccepted(targetUser);
             }
         }
 

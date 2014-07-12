@@ -38,9 +38,8 @@ OMCSChat.App = (function (connectionManager) {
                     // Store off the stream reference so we can share it later
                     _mediaStream = stream;
 
-
                     $("#patientWebcam").css("display", "block");
-                    var videoElement = document.querySelector('.video.mine');
+                    var videoElement = document.querySelector('.video.patient');
                     attachMediaStream(videoElement, _mediaStream);
                     var bottom = window.innerHeight - Number.parseInt($(".draggable").css("height")) - 90;
                     if (bottom < 0) bottom = 0;
@@ -50,7 +49,7 @@ OMCSChat.App = (function (connectionManager) {
                     _hub.server.answerCall(true, _doctor.ConnectionId);
                 },
                 function (error) { // error callback
-                    alertify.alert('<h4>Failed to get hardware access!</h4> Do you have another browser type open and using your cam/mic?<br/><br/>You were not connected to the server, because I didn\'t code to make browsers without media access work well. <br/><br/>Actual Error: ' + JSON.stringify(error));
+                    bootbox.alert('<h4>Failed to get hardware access!</h4> Do you have another browser type open and using your cam/mic?<br/><br/>You were not connected to the server, because I didn\'t code to make browsers without media access work well. <br/><br/>Actual Error: ' + JSON.stringify(error));
                 }
             );
         },
@@ -84,7 +83,7 @@ OMCSChat.App = (function (connectionManager) {
                 console.log('call declined from: ' + decliningConnectionId);
 
                 // Let the user know that the callee declined to talk
-                alertify.error(reason);
+                bootbox.error(reason);
 
             };
 
@@ -93,7 +92,7 @@ OMCSChat.App = (function (connectionManager) {
                 console.log('call with ' + connectionId + ' has ended: ' + reason);
 
                 // Let the user know why the server says the call is over
-                alertify.error(reason);
+                bootbox.error(reason);
 
                 // Close the WebRTC connection
                 connectionManager.closeConnection(connectionId);
@@ -136,5 +135,3 @@ OMCSChat.App = (function (connectionManager) {
         }
     };
 })(OMCSChat.ConnectionManager);
-
-OMCSChat.App.init("sutran");
