@@ -495,7 +495,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
     if (this.transitioning || this.$element.hasClass('in')) return
 
     var startEvent = $.Event('show.bs.collapse')
-    this.$element.triggerHandler(startEvent)
+    this.$element.trigger(startEvent)
     if (startEvent.isDefaultPrevented()) return
 
     var actives = this.$parent && this.$parent.find('> .panel > .in')
@@ -539,7 +539,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
     if (this.transitioning || !this.$element.hasClass('in')) return
 
     var startEvent = $.Event('hide.bs.collapse')
-    this.$element.triggerHandler(startEvent)
+    this.$element.trigger(startEvent)
     if (startEvent.isDefaultPrevented()) return
 
     var dimension = this.dimension()
