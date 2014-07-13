@@ -13,32 +13,46 @@
         {
             #region MedicalProfile
 
-            MedicalProfileType loaiBenhAnNgoaiDa2 = new MedicalProfileType { Name = "Bệnh án Ngoài Da" };
-            MedicalProfileTemplate mauCoSan = new MedicalProfileTemplate { IsDefault = true, MedicalProfileType = loaiBenhAnNgoaiDa2 };
-
-            MedicalProfileTemplate benhAnNgoaiDa = new MedicalProfileTemplate
-            {
-                IsDefault = false,
-                MedicalProfileTemplateName = "Bệnh Án Ngoài Da - BV Da Liễu",
-                MedicalProfileType = loaiBenhAnNgoaiDa2
+            List<MedicalProfileType> medicalProfileTypes = new List<MedicalProfileType>{
+                new MedicalProfileType
+                {
+                    Name = "Bệnh án Ngoài Da"
+                }
             };
-            _db.MedicalProfileTemplates.Add(benhAnNgoaiDa);
 
-            _db.MedicalProfileTemplates.Add(mauCoSan);
+            medicalProfileTypes.ForEach(s => _db.MedicalProfileTypes.AddOrUpdate(p => (p.Name), s));
+            _db.SaveChanges();
+
+            MedicalProfileType loaiBenhAnNgoaiDa2 = _db.MedicalProfileTypes.FirstOrDefault();
 
 
-            MedicalProfileTemplate benhAnTruyenNhiem = new MedicalProfileTemplate
-            {
-                IsDefault = false,
-                MedicalProfileTemplateName = "Bệnh Án Truyền Nhiễm"
+            List<MedicalProfileTemplate> medicalProfileTemplates = new List<MedicalProfileTemplate>{
+                //Default medical profile
+                new MedicalProfileTemplate
+                {
+                    IsDefault = true, MedicalProfileType = loaiBenhAnNgoaiDa2 
+                },
+                new MedicalProfileTemplate
+                {
+                    IsDefault = false,
+                    MedicalProfileTemplateName = "Bệnh Án Ngoài Da - BV Da Liễu",
+                    MedicalProfileType = loaiBenhAnNgoaiDa2
+                },
+                new MedicalProfileTemplate
+                {
+                    IsDefault = false,
+                    MedicalProfileTemplateName = "Bệnh Án Truyền Nhiễm"
+                },
+                new MedicalProfileTemplate
+                {
+                    IsDefault = false,
+                    MedicalProfileTemplateName = "Bệnh Án Nội Khoa"
+                },
+                
             };
-            MedicalProfileTemplate benhAnNoiKhoa = new MedicalProfileTemplate
-            {
-                IsDefault = false,
-                MedicalProfileTemplateName = "Bệnh Án Nội Khoa"
-            };
-            _db.MedicalProfileTemplates.Add(benhAnNoiKhoa);
-            _db.MedicalProfileTemplates.Add(benhAnTruyenNhiem);
+
+            medicalProfileTemplates.ForEach(s => _db.MedicalProfileTemplates.
+                AddOrUpdate(p => (p.MedicalProfileTemplateName), s));
             _db.SaveChanges();
 
 
@@ -101,11 +115,33 @@
 
             #region Allergy
 
+            var allergyTypes = new List<AllergyType>
+            {
+                new AllergyType {
+                    Name = "Thuốc",
+                    Description = "Dị ứng với các loại thuốc"
+                },
+                new AllergyType {
+                    Name = "Thức Ăn"
+                },
+                new AllergyType {
+                    Name = "Môi Trường"
+                },
+                new AllergyType {
+                    Name = "Khác"
+                }
+            };
+
+            allergyTypes.ForEach(s => _db.AllergyTypes.AddOrUpdate(p => (p.Name), s));
+            _db.SaveChanges();
+
+            var allergyTypeThuoc = allergyTypes.Where(x => x.Name == "Thuốc").Single();
+
             var allergies = new List<Allergy> {
                 new Allergy {
                     Name = "Thuốc kháng sinh",
                     MedicalProfileId = suTranMedicalProfile.MedicalProfileId,
-                    AllergyType = AllergyType.Medication,
+                    AllergyType = allergyTypeThuoc,
                     Reaction = "Đau bụng nhẹ",
                     DateLastOccurred = new DateTime(2013,1,1)
                 }
