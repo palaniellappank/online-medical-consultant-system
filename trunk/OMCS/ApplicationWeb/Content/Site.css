@@ -34,12 +34,12 @@
 {
     display: none;
 }
-
+/*
 .img-circle {
     width: 100%;
     height: 100%;
 }
-
+    */
 div .scrolable {
     max-height: 350px;
     overflow-y: scroll;
