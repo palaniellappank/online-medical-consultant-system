@@ -1,0 +1,20 @@
+﻿@model OMCS.DAL.Model.AllergyType
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
+            <h4 class="modal-title" id="myModalLabel">Xác Nhận</h4>
+        </div>
+        <div class="modal-body">
+            <p>Bạn có muốn xóa loại dị ứng "@Html.DisplayFor(model => model.Name)".</p>
+        </div>
+        <div class="modal-footer">
+            @using (Html.BeginForm())
+            {
+                <button type="submit" class="btn btn-primary">Đồng ý</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
+            }
+        </div>
+    </div>
+</div>

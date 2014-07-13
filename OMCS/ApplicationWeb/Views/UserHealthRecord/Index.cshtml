@@ -139,98 +139,37 @@
 
 <table class="table table-data table-bordered table-striped" style="clear: both">
     <tbody>
+        <tr class="info">
+            <td style="width: auto;">Loại dị ứng</td>
+            <td style="width: auto;">Mô tả</td>
+            <td style="width: auto;">Ngày bị dị ứng gần nhất</td>
+            <td style="width: auto;">Phản ứng</td>
+            <td style="width: auto;">Ghi chú</td>
+        </tr>
         @foreach (var a in ViewBag.Allergy)
-        {        
+        {
             <tr>
-                <td style="width: 35%;">@Html.DisplayName("Loại dị ứng")</td>
-
-                @{ if (Convert.ToInt32(@a.AllergyType) == 1)
-                   {
-                    <td style="width: 65%;">Thức ăn </td>
-                   }
-                   else if (Convert.ToInt32(@a.AllergyType) == 2)
-                   {
-                    <td style="width: 65%;">Môi trường </td>
-                   }
-                   else if (Convert.ToInt32(@a.AllergyType) == 0)
-                   {
-                    <td style="width: 65%;">Thuốc </td>
-                   }
-                   else
-                   {
-                    <td style="width: 65%;">Khác </td>
-                   }
-                }
-                <td>
-                    <button class="btn btn-primary" data-toggle="modal" data-target=".@a.AllergyType">Xem chi tiết</button>
-
-                    <div class="modal fade @a.AllergyType" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <button type="button" class="close" data-dismiss="modal">
-                                    <span aria-hidden="true">×</span>
-                                    <span class="sr-only">Đóng</span>
-                                </button>
-                                <h4 class="modal-title" id="myLargeModalLabel">Dị ứng</h4>
-                                <div class="modal-body">
-                                    <table class="table table-data table-bordered table-striped" style="clear: both">
-                                        <tbody>
-                                            <tr>
-                                                <td style="width: 35%;">@Html.DisplayName("Loại dị ứng")</td>
-                                                @{ if (Convert.ToInt32(@a.AllergyType) == 1)
-                                                   {
-                                                    <td style="width: 65%;">Thức ăn </td>
-                                                   }
-                                                   else if (Convert.ToInt32(@a.AllergyType) == 2)
-                                                   {
-                                                    <td style="width: 65%;">Môi trường </td>
-                                                   }
-                                                   else if (Convert.ToInt32(@a.AllergyType) == 0)
-                                                   {
-                                                    <td style="width: 65%;">Thuốc </td>
-                                                   }
-                                                   else
-                                                   {
-                                                    <td style="width: 65%;">Khác </td>
-                                                   }
-                                                }
-                                                @* <td style="width: 65%;">@a.AllergyType</td>*@
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 35%;">@Html.DisplayName("Ngày bị dị ứng gần nhất")</td>
-                                                <td style="width: 65%;">@a.DateLastOccurred</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 35%;">@Html.DisplayName("Phản ứng")</td>
-                                                <td style="width: 65%;">@a.Reaction</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 35%;">@Html.DisplayName("Ghi chú")</td>
-                                                <td style="width: 65%;">@a.Note</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
+                <td style="width: auto;">@a.AllergyType.Name </td>
+                <td style="width: auto;">@a.AllergyType.Description</td>
+                <td style="width: auto;">@a.DateLastOccurred</td>
+                <td style="width: auto;">@a.Reaction </td>
+                <td style="width: auto;">@a.Note</td>
             </tr>
-                
         }
     </tbody>
 </table>
+
+
 <fieldset>
     <legend>Lịch sử tiêm chủng</legend>
 </fieldset>
 <table class="table table-data table-bordered table-striped" style="clear: both">
     <tbody>
-
-            <tr>
-                <td style="width: auto;">Tên Bệnh</td>
-                <td style="width: auto;">Ngày tiêm chủng</td>
-                <td style="width: auto;">Thời gian hiệu lực</td>
-            </tr>
+        <tr class="info">
+            <td style="width: auto;">Loại tiêm chủng</td>
+            <td style="width: auto;">Ngày tiêm chủng</td>
+            <td style="width: auto;">Số lần tiêm chủng</td>
+        </tr>
         @foreach (var i in ViewBag.Immunizations)
         {
             <tr>

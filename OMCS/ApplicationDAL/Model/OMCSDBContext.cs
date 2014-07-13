@@ -40,6 +40,7 @@ namespace OMCS.DAL.Model
          public DbSet<User> Users { get; set; }
          public DbSet<Role> Roles { get; set; }
          public DbSet<Allergy> Allergies { get; set; }
+         public DbSet<AllergyType> AllergyTypes { get; set; }
          public DbSet<Conversation> Conversations { get; set; }
          public DbSet<ConversationDetail> ConversationDetails { get; set; }
          public DbSet<TreatmentHistory> TreatmentHistories { get; set; }
