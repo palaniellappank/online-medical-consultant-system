@@ -17,18 +17,10 @@
 
         protected override void Seed(OMCS.DAL.Model.OMCSDBContext context)
         {
-            var Admin = context.Roles.Where(
-                role => (role.RoleName.Equals("Admin"))
-            ).FirstOrDefault();
-
             BasicData.Seed(context);
-
-            if (Admin == null)
-            {
-                DataPatientInformation.Seed(context);
-                DataMedicalRecord.Seed(context);
-                DataTreatmentHistory.Seed(context);
-            }
+            DataPatientInformation.Seed(context);
+            DataMedicalRecord.Seed(context);
+            DataTreatmentHistory.Seed(context);
         }
     }
 }

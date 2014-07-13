@@ -38,6 +38,8 @@ namespace OMCS.DAL.Model
         public int AllergyTypeId { get; set; }
         public virtual AllergyType AllergyType { get; set; }
 
+        public string Name { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Ngày bị dị ứng gần nhất")]
