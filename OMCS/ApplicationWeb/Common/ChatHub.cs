@@ -88,6 +88,18 @@ namespace SignalRChat.Hubs
             }
             Clients.Caller.onGetDoctorList(userDetail.DoctorList);
             Clients.Caller.onMessageUnRead(userDetail);
+
+            //Update status for others
+            var doctorList = ConnectedUsers.Where(x=>x.ConversationList != null).ToList();
+            foreach (UserDetail doctor in doctorList)
+            {
+                var patient = doctor.ConversationList.Find(x => x.Username == userDetail.Username);
+                if (patient != null)
+                {
+                    patient.IsOnline = true;
+                }
+                Clients.Client(doctor.ConnectionId).onGetConversationList(doctor.ConversationList);
+            }
         }
 
         public void GetMessageList(string username)

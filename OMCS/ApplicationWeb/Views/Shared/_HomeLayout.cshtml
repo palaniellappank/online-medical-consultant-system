@@ -5,48 +5,146 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - OMCS</title>
-    <link href="~/Content/bootstrap-flatly.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootply.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/home-page.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/jquery-1.9.0.js"></script>
     @if (IsSectionDefined("Scripts"))
     {
         @RenderSection("Scripts");
     }
+
+    <!-- Fonts -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Open Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
 </head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
 
-<body>
-    <div class="navbar-wrapper">
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
-            <div class="navbar navbar-static-top navbar-default">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#page-top">
+                    <i class="fa fa-play-circle"></i>Đăng nhập
+                </a>
+            </div>
 
-                <div class="navbar-header">
-                    <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="navbar-brand" href="#">OMCS</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class='@Html.IsActive("Home", "Index")'>
-                            @Html.ActionLink("Trang chủ", "Index", "Home")
-                        </li>
-                         <li class='@Html.IsActive("Account", "Login")'>
-                            @Html.ActionLink("Đăng nhập", "Login", "Account")
-                        </li>
-                         <li class='@Html.IsActive("Account", "Register")'>
-                            @Html.ActionLink("Đăng kí", "Register", "Account")
-                        </li>           
-                    </ul>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#about">Giới thiệu</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a>Đăng kí</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#contact">Liên hệ</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <section class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h1 class="brand-heading">Tư vấn y khoa trực tuyến</h1>
+                        <p class="intro-text">Xây dựng hồ sơ bệnh án</br>
+                            Quản lý thông tin sức khỏe cá nhân</br>
+                            Tư vấn y khoa
+                        </p>
+                        <div class="page-scroll">
+                            <a href="#about" class="btn btn-circle">
+                                <i class="fa fa-angle-double-down animated"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            @RenderBody()
         </div>
-        <!-- /container -->
-    </div>
-    <!-- /navbar wrapper -->
+    </section>
+
+    <section id="about" class="container content-section text-center">
+        <div class="row">
+            <!-- START THE FEATURETTES -->
+
+              <hr class="featurette-divider">
+
+              <div class="featurette">
+                <img class="featurette-image img-circle pull-right col-md-6" src="img/feature-medical-profile.jpg">
+                <h2 class="featurette-heading"><span class="text-muted">Xây dựng </span>Hồ sơ bệnh án</h2>
+                <p class="lead">Xây dựng hồ sơ dựa trên thông tin có sẵn của bệnh nhân</p>
+              </div>
+
+              <hr class="featurette-divider">
+
+              <div class="featurette">
+                <img class="featurette-image img-circle pull-left col-md-6" src="img/feature-medical-profile.jpg">
+                <h2 class="featurette-heading"><span class="text-muted">Liên kết </span>Hồ sơ bệnh án</h2>
+                <p class="lead">Bác sĩ sẽ có cái nhìn tổng quát về tình trạng bệnh lí, dị ứng, các lần tiêm chủng</p>
+              </div>
+
+              <hr class="featurette-divider">
+
+              <div class="featurette">
+                <img class="featurette-image img-circle pull-right col-md-6" src="img/feature-medical-profile.jpg">
+                <h2 class="featurette-heading"><span class="text-muted">Tư vấn </span>sức khỏe trực tuyến</h2>
+                <p class="lead">Bệnh nhân và bác sĩ có thể trò chuyện bằng cách gửi tin nhắn hay chia sẻ webcam</p>
+              </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Liên hệ với chúng tôi</h2>
+                <p>Bạn có thể gửi ý kiến đóng góp, thắc mắc về địa chỉ mail</p>
+                <p>trannguyentiensu@gmail.com</p>
+                <ul class="list-inline banner-social-buttons">
+                    <li><a href="https://twitter.com/" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                    </li>
+                    <li><a href="https://facebook.com/" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
+                    </li>
+                    <li><a href="https://plus.google.com/" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center">Copyright Group 2 - FPT University - 2014</footer>
+
+    <script type="text/javascript">
+        //jQuery to collapse the navbar on scroll
+        $(window).scroll(function () {
+            if ($(".navbar").offset().top > 50) {
+                $(".navbar-fixed-top").addClass("top-nav-collapse");
+            } else {
+                $(".navbar-fixed-top").removeClass("top-nav-collapse");
+            }
+        });
+
+        //jQuery for page scrolling feature - requires jQuery Easing plugin
+        $(function () {
+            $('.page-scroll a').bind('click', function (event) {
+                var $anchor = $(this);
+                $('html, body').stop().animate({
+                    scrollTop: $($anchor.attr('href')).offset().top
+                }, 1500, 'easeInOutExpo');
+                event.preventDefault();
+            });
+        });
+    </script>
 </body>
 
 </html>
