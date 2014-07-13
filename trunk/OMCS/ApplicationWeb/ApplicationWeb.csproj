@@ -207,6 +207,7 @@
     <Compile Include="Common\MessageDetail.cs" />
     <Compile Include="Common\UserDetail.cs" />
     <Compile Include="Controllers\AllergyController.cs" />
+    <Compile Include="Controllers\AllergyTypeController.cs" />
     <Compile Include="Controllers\FilmDocumentController.cs" />
     <Compile Include="Controllers\TreatmentHistoryController.cs" />
     <Compile Include="Controllers\DoctorConversationController.cs" />
@@ -567,6 +568,10 @@
     <Content Include="Views\Immunization\_Edit.cshtml" />
     <Content Include="Views\Immunization\_List.cshtml" />
     <Content Include="Views\Shared\_DoctorChatLayout.cshtml" />
+    <Content Include="Views\AllergyType\Index.cshtml" />
+    <Content Include="Views\AllergyType\_Create.cshtml" />
+    <Content Include="Views\AllergyType\_Edit.cshtml" />
+    <Content Include="Views\AllergyType\_Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

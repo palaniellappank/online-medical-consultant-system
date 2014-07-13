@@ -58,8 +58,12 @@
         <li class="@Html.IsActive("AdminTemplate", "Index")">
             <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i> Mẫu hồ sơ</a>
         </li>
-        <li><a href="#"><i class="glyphicon glyphicon-list-alt"></i> Danh mục bệnh</a></li>
-        <li><a href="#"><i class="glyphicon glyphicon-book"></i> Thống kê</a></li>
+         <li class="@Html.IsActive("FilmType", "Index")">
+            <a href="@Url.Action("Index", "FilmType")"><i class="glyphicon glyphicon-list-alt"></i> Quản lý thể loại film</a>
+        </li>
+           <li class="@Html.IsActive("AllergyType", "Index")">
+            <a href="@Url.Action("Index", "AllergyType")"><i class="glyphicon glyphicon-list-alt"></i> Quản lý thể loại dị ứng</a>
+        </li>
       </ul>
       
       <hr>
