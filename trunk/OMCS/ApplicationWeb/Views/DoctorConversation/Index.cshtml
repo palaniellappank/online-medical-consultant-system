@@ -19,102 +19,102 @@
 
 </head>
 <!-- Header -->
-    <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="~/Doctor/Index">Bác Sĩ: @User.LastName @User.FirstName</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="~/Account/Logout"><i class="glyphicon glyphicon-lock"></i>Đăng Xuất</a></li>
-                </ul>
-            </div>
-        </div>
-        <!-- /container -->
-    </div>
-    <!-- /Header -->
-
-    <!-- Main -->
+<div id="top-nav" class="navbar navbar-inverse navbar-static-top">
     <div class="container">
-
-        <div class="row">
-            <div class="col-md-12">
-<div class="row" id="chatbox">
-    <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading c-list">
-                <span class="title">Lịch sử tư vấn</span>
-                <ul class="pull-right c-controls">
-                    <li><a href="#" class="hide-search" data-command="toggle-search" data-toggle="tooltip" data-placement="top" title="Toggle Search"><i class="glyphicon glyphicon-cog"></i></a></li>
-                </ul>
-            </div>
-
-            <div class="row" style="display: none;">
-                <div class="col-xs-12">
-                    <div class="input-group c-search">
-                        <input type="text" class="form-control" id="contact-list-search">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <ul class="list-group" id="contact-list">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="~/Doctor/Index">Bác Sĩ: @User.LastName @User.FirstName</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="~/Account/Logout"><i class="glyphicon glyphicon-lock"></i>Đăng Xuất</a></li>
             </ul>
         </div>
     </div>
-    <div class="col-md-8">
-        <div id="divChat" class="panel panel-primary">
-            <div class="panel-body">
-                <ul class="chat" id="chat-content">
-                </ul>
-            </div>
-            <div class="panel-footer">
-                <div class="input-group">
-                    <textarea id="txtMessage" class="form-control" rows="2" placeholder="Nội dung tin nhắn..."></textarea>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Upload file <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div id="uploader">
-                                    <input type="file" name="file" id="file" title="Upload" />
+    <!-- /container -->
+</div>
+<!-- /Header -->
+
+<!-- Main -->
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row" id="chatbox">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading c-list">
+                            <span class="title">Lịch sử tư vấn</span>
+                            <ul class="pull-right c-controls">
+                                <li><a href="#" class="hide-search" data-command="toggle-search" data-toggle="tooltip" data-placement="top" title="Toggle Search"><i class="glyphicon glyphicon-cog"></i></a></li>
+                            </ul>
+                        </div>
+
+                        <div class="row" style="display: none;">
+                            <div class="col-xs-12">
+                                <div class="input-group c-search">
+                                    <input type="text" class="form-control" id="contact-list-search">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                                    </span>
                                 </div>
-                            </li>
+                            </div>
+                        </div>
+                        <ul class="list-group" id="contact-list">
                         </ul>
                     </div>
-                    <span class="input-group-btn">
-                        <button class="btn btn-warning btn-sm" id="btnUpload">Upload</button>
-                    </span>&nbsp
+                </div>
+                <div class="col-md-8">
+                    <div id="divChat" class="panel panel-primary">
+                        <div class="panel-body" style="height: 440px; overflow: scroll">
+                            <ul class="chat" id="chat-content">
+                            </ul>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="input-group">
+                                <textarea id="txtMessage" class="form-control" rows="2" placeholder="Nội dung tin nhắn..."></textarea>
+                                <div class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Upload file <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <div id="uploader">
+                                                <input type="file" name="file" id="file" title="Upload" />
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-sm" id="btnUpload">Upload</button>
+                                </span>&nbsp
                     <span class="input-group-btn">
                         <button class="btn btn-warning btn-sm" id="btnSendMsg">Gửi</button>
                         <button class="btn btn-info btn-sm" id="requestWebcam"><i class="glyphicon glyphicon-facetime-video" style="font-size: 12px;"></i></button>
                     </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-info draggable" id="patientWebcam">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Webcam</h3>
+                </div>
+                <div class="panel-body" style="padding: 0">
+                    <video class="video patient cool-background" autoplay="autoplay"
+                        controls="controls" muted="muted" style="width: 100%; height: 100%">
+                    </video>
                 </div>
             </div>
         </div>
+        <!--/col-span-9-->
     </div>
 </div>
-
-<div class="panel panel-info draggable" id="patientWebcam">
-    <div class="panel-heading">
-        <h3 class="panel-title">Webcam</h3>
-    </div>
-    <div class="panel-body" style="padding:0">
-        <video class="video patient cool-background" autoplay="autoplay" 
-            controls="controls" muted="muted" style="width:100%;height:100%">
-        </video>
-    </div>
-</div>
-            </div>
-            <!--/col-span-9-->
-        </div>
-    </div>
-    <!-- /Main -->
+<!-- /Main -->
 <input id="txtFromUsername" class="textBox" value="@User.Username" type="hidden"/>
 <input id="txtToUsername" class="textBox" value="" type="hidden" />
 
@@ -175,12 +175,12 @@
             <% if (message.Content != null) { %>
             <p style="white-space: pre-line"><%= message.Content %></p>
             <% } else if (isImage(message.Attachment)) { %>
-                <img src="/Content/Image/Chat/<%= message.Attachment %>" class="picture-thumbnail" />
-            <a href="/Content/Image/Chat/<%= message.Attachment %>" target="_blank">
+                <img src="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" class="picture-thumbnail" />
+            <a href="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" download>
                 <i class="glyphicon glyphicon-paperclip"></i><%= message.Attachment %>
             </a>
             <% } else { %>
-                <a href="/Content/Image/Chat/<%= message.Attachment %>" target="_blank">
+                <a href="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" target="_blank">
                     <i class="glyphicon glyphicon-paperclip"></i><%= message.Attachment %>
                 </a><% } %>
         </div>
@@ -200,12 +200,12 @@
             <% if (message.Content != null) { %>
             <p style="white-space: pre-line"><%= message.Content %></p>
             <% } else if (isImage(message.Attachment)) { %>
-                <img src="/Content/Image/Chat/<%= message.Attachment %>" class="picture-thumbnail" />
-            <a href="/Content/Image/Chat/<%= message.Attachment %>" target="_blank">
+                <img src="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" class="picture-thumbnail" />
+            <a href="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" download>
                 <i class="glyphicon glyphicon-paperclip"></i><%= message.Attachment %>
             </a>
             <% } else { %>
-                <a href="/Content/Image/Chat/<%= message.Attachment %>" target="_blank">
+                <a href="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" target="_blank">
                     <i class="glyphicon glyphicon-paperclip"></i><%= message.Attachment %>
                 </a><% } %>
         </div>
@@ -298,7 +298,7 @@
             var formdata = new FormData(); //FormData object
             var fileInput = document.getElementById('file');
             var toUsername = $('#txtToUsername').val();
-            var fromUsername = $('#txtFromUsername').val();
+            var fromUsername = $('#txtFromUsername').val();           
             formdata.append("toUsername", toUsername);
             formdata.append("fromUsername", fromUsername);
             //Iterating through each files selected in fileInput

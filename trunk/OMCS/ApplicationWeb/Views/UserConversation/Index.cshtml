@@ -12,29 +12,23 @@
 <script src="~/Scripts/webrtc/adapter.js"></script>
 <script src="~/Scripts/webrtc/connectionManager.js"></script>
 <script src="~/Scripts/webrtc/app-patient.js"></script>
+<link rel="stylesheet" href="~/Content/jquery.mCustomScrollbar.css" />
+<script src="~/Scripts/jquery.mCustomScrollbar.concat.min.js"></script>
 <body>
     <h1>Tư vấn trực tuyến
     </h1>
     <hr />
     <div class="container">
         <div class="row" id="chatbox">
-            <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="panel panel-default">
+            <div class="col-xs-12 col-sm-6 col-md-4" style="height: 389px">
+                <div class="panel panel-default" style="height: 460px">
                     <div class="panel-heading c-list">
                         <span class="title">Danh sách bác sĩ</span>
                     </div>
-                    <div class="row" style="display: none;">
-                        <div class="col-xs-12">
-                            <div class="input-group c-search">
-                                <input type="text" class="form-control" id="contact-list-search">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
-                                </span>
-                            </div>
-                        </div>
+                    <div class="content_1">
+                        <ul class="list-group" id="contact-list" style="height: 450px; width: auto">
+                        </ul>
                     </div>
-                    <ul class="list-group" id="contact-list">
-                    </ul>
                 </div>
             </div>
             <div class="col-md-7">
@@ -42,7 +36,7 @@
                     <div class="panel-heading c-list">
                         <span id="chat-doctor"></span>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" style="height: 360px; overflow: scroll">
                         <ul class="chat" id="chat-content">
                         </ul>
                     </div>
@@ -73,13 +67,14 @@
     </div>
 </body>
 
+
 <div class="panel panel-info draggable" id="patientWebcam">
     <div class="panel-heading">
         <h3 class="panel-title">Webcam</h3>
     </div>
-    <div class="panel-body" style="padding:0">
-        <video class="video patient cool-background" autoplay="autoplay" 
-            controls="controls" muted="muted" style="width:100%;height:100%">
+    <div class="panel-body" style="padding: 0">
+        <video class="video patient cool-background" autoplay="autoplay"
+            controls="controls" muted="muted" style="width: 100%; height: 100%">
         </video>
     </div>
 </div>
@@ -147,7 +142,7 @@
             <p style="white-space: pre-line"><%= message.Content %></p>
             <% } else if (isImage(message.Attachment)) { %>
                 <img src="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" class="picture-thumbnail" />
-            <a href="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" target="_blank">
+            <a href="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" download>
                 <i class="glyphicon glyphicon-paperclip"></i><%= message.Attachment %>
             </a>
             <% } else { %>
@@ -172,7 +167,7 @@
             <p style="white-space: pre-line"><%= message.Content %></p>
             <% } else if (isImage(message.Attachment)) { %>
                 <img src="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" class="picture-thumbnail" />
-            <a href="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" target="_blank">
+            <a href="@Html.GetPictureUrl("Upload")<%= message.Attachment %>" download>
                 <i class="glyphicon glyphicon-paperclip"></i><%= message.Attachment %>
             </a>
             <% } else { %>
@@ -195,7 +190,6 @@
             "click #btnSendMsg": "sendMessage",
             "keypress #txtMessage": "sendMessagePress",
             "click .picture-thumbnail": "showFullPicture"
-            //"click #btnUpload": "upload"
         },
         showFullPicture: function (e) {
             var target = $(e.currentTarget);
@@ -237,10 +231,6 @@
 
             if (e.keyCode == 13 && e.shiftKey) {
             }
-        },
-        upload: function () {
-            alert('hehe')
-
         }
     });
 
@@ -255,6 +245,10 @@
         $.connection.hub.start().done(function () {
             chatHub.server.connectPatient($("#txtFromUsername").val());
         });
+
+        $.mCustomScrollbar.defaults.scrollButtons.enable = true; //enable scrolling buttons by default
+        $.mCustomScrollbar.defaults.axis = "yx"; //enable 2 axis scrollbars by default
+        $("#content-d").mCustomScrollbar({ theme: "dark" });
 
         $('#btnUpload').click(function () {
             var formdata = new FormData(); //FormData object
@@ -276,7 +270,6 @@
                 contentType: false,
                 success: function () {
                     chatHub.server.getMessageList(toUsername);
-
                 }
             });
         });
@@ -364,5 +357,36 @@
 
 </script>
 
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $(".content_1").mCustomScrollbar({
+            axis: "x",
+            theme: "dark"
+        });
+    });
+</script>*@
 
+<script>
+    (function ($) {
+        $(window).load(function () {
+
+            $.mCustomScrollbar.defaults.scrollButtons.enable = true; //enable scrolling buttons by default
+
+            $("#content-d").mCustomScrollbar({ theme: "dark" });
+
+            $(".all-themes-switch a").click(function (e) {
+                e.preventDefault();
+                var $this = $(this),
+                    rel = $this.attr("rel"),
+                    el = $(".content");
+                switch (rel) {
+                    case "toggle-content":
+                        el.toggleClass("expanded-content");
+                        break;
+                }
+            });
+
+        });
+    })(jQuery);
+</script>
 
