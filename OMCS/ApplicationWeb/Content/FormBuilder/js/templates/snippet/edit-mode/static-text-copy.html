@@ -1,0 +1,10 @@
+﻿<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="<%= id %>">
+      <%= name %>
+      <% if(required) {%> <span style="color:red;padding-left: 5px;">*</span> <% } %>
+  </label>
+  <div class="<%= inputsize %>">
+    <input id="<%= id %>" name="<%= id %>" type="text" class="form-control" <% if(required) {%> required <% } %> value="<%= value %>"/>
+  </div>
+</div>

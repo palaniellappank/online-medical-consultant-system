@@ -29,13 +29,9 @@ namespace OMCS.Web.Controllers
 
         public ActionResult Create(int medicalProfileId)
         {
-            var AllergyType = new[] {
-              new { Id = 0, Name = "Thuốc" },
-              new { Id = 1, Name = "Thức Ăn" },  
-              new { Id = 2, Name = "Môi Trường" },
-              new { Id = 3, Name = "Khác" }
-            };
-            ViewBag.AllergyType = new SelectList(AllergyType, "Id", "Name");
+            var allergyType = _db.AllergyTypes.ToList();
+            ViewBag.AllergyTypeId = new SelectList(allergyType, "AllergyTypeId", "Name");
+
             var allergy = new Allergy
             {
                 MedicalProfileId = medicalProfileId
@@ -55,14 +51,9 @@ namespace OMCS.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            var AllergyType = new[] {
-              new { Id = 0, Name = "Thuốc" },
-              new { Id = 1, Name = "Thức Ăn" },  
-              new { Id = 2, Name = "Môi Trường" },
-              new { Id = 3, Name = "Khác" }
-            };
-            ViewBag.AllergyType = new SelectList(AllergyType, "Id", "Name");
             Allergy allergy = _db.Allergies.Find(id);
+            var allergyType = _db.AllergyTypes.ToList();
+            ViewBag.AllergyTypeId = new SelectList(allergyType, "AllergyTypeId", "Name", allergy.AllergyTypeId);
             return PartialView("_Edit", allergy);
         }
 

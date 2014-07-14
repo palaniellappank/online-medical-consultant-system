@@ -1,6 +1,9 @@
 ﻿<!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label"><%= name %></label>
+  <label class="col-md-4 control-label">
+      <%= name %>
+      <% if(typeof required !== 'undefined' && required) {%> <span style="color:red;padding-left: 5px;">*</span> <% } %>
+  </label>
   <div class="col-md-8 form-control-static">
     *** Giá trị động ***
   </div>
