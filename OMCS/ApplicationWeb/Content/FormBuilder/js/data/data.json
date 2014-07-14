@@ -68,6 +68,41 @@
     }
   },
   {
+	"name" : "Tuổi",
+    "title": "Static Text",
+	"snippettype": "User",
+	"fieldname": "Age",
+	"mappingtype": null,
+    "fields": {
+	    "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+        },
+		"name" : {
+            "label": "Tên hiển thị",
+            "type" : "input",
+            "value" : "Tuổi"
+        },
+		"mappingtype": {
+			"type": "select",
+			"label": "Cách liên kết",
+			"value": [
+			  {
+				"label": "Lấy trực tiếp",
+				"value": "Direct",
+				"selected": false
+			  },
+			  {
+				"label": "Sao chép",
+				"value": "Copy",
+				"selected": true
+			  }
+			]
+		}
+    }
+  },
+  {
 	"name" : "Số điện thoại",
     "title": "Static Text",
 	"snippettype": "User",
@@ -316,6 +351,7 @@
     "title": "Static Text",
 	"snippettype": "PersonalHealthRecord",
 	"fieldname": "Height",
+	"mappingtype": null,
     "fields": {
 	    "id": {
 			"type": "input",
@@ -326,7 +362,23 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Chiều Cao (cm)"
-        }
+        },
+		"mappingtype": {
+			"type": "select",
+			"label": "Cách liên kết",
+			"value": [
+			  {
+				"label": "Lấy trực tiếp",
+				"value": "Direct",
+				"selected": false
+			  },
+			  {
+				"label": "Sao chép",
+				"value": "Copy",
+				"selected": true
+			  }
+			]
+		}
     }
   },
   {
@@ -334,6 +386,7 @@
     "title": "Static Text",
 	"snippettype": "PersonalHealthRecord",
 	"fieldname": "Weight",
+	"mappingtype": null,
     "fields": {
 		"id": {
 			"type": "input",
@@ -344,7 +397,23 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Cân Nặng (kg)"
-        }
+        },
+		"mappingtype": {
+			"type": "select",
+			"label": "Cách liên kết",
+			"value": [
+			  {
+				"label": "Lấy trực tiếp",
+				"value": "Direct",
+				"selected": false
+			  },
+			  {
+				"label": "Sao chép",
+				"value": "Copy",
+				"selected": true
+			  }
+			]
+		}
     }
   },
   {

@@ -30,7 +30,8 @@
                 //Default medical profile
                 new MedicalProfileTemplate
                 {
-                    IsDefault = true, MedicalProfileType = loaiBenhAnNgoaiDa2 
+                    IsDefault = true, MedicalProfileType = loaiBenhAnNgoaiDa2,
+                    MedicalProfileTemplateName = "Bệnh Án Mẫu"
                 },
                 new MedicalProfileTemplate
                 {

@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using OMCS.BLL.Utils;
 
 namespace OMCS.BLL
 {
@@ -34,16 +35,30 @@ namespace OMCS.BLL
                 {
                     case SnippetType.User:
                         Type type = typeof(User);
-                        Debug.WriteLine("{0}, User", customSnippet.SnippetFieldName);
-                        var valueProperty = type.GetProperty
-                            (customSnippet.SnippetFieldName, BindingFlags.IgnoreCase
-                            | BindingFlags.Public
-                            | BindingFlags.Instance).GetValue(user, null);
-                        value = valueProperty.ToString();
-                        if (customSnippet.SnippetFieldName.Equals("Birthday"))
+                        if (customSnippet.SnippetFieldName.Equals("Age"))
                         {
+                            Debug.WriteLine("{0}, User", customSnippet.SnippetFieldName);
+                            var valueProperty = type.GetProperty
+                                ("Birthday", BindingFlags.IgnoreCase
+                                | BindingFlags.Public
+                                | BindingFlags.Instance).GetValue(user, null);
+                            value = valueProperty.ToString();
                             var birthday = DateTime.Parse(value.ToString());
-                            value = birthday.ToString("dd/MM/yyyy");
+                            value = DateTimeUtils.CalculateAge(birthday).ToString();
+                        }
+                        else
+                        {
+                            Debug.WriteLine("{0}, User", customSnippet.SnippetFieldName);
+                            var valueProperty = type.GetProperty
+                                (customSnippet.SnippetFieldName, BindingFlags.IgnoreCase
+                                | BindingFlags.Public
+                                | BindingFlags.Instance).GetValue(user, null);
+                            value = valueProperty.ToString();
+                            if (customSnippet.SnippetFieldName.Equals("Birthday"))
+                            {
+                                var birthday = DateTime.Parse(value.ToString());
+                                value = birthday.ToString("dd/MM/yyyy");
+                            }
                         }
                         break;
                     case SnippetType.Patient:
