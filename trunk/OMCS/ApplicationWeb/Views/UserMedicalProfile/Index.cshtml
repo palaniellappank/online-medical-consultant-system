@@ -2,6 +2,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+@model IEnumerable<OMCS.DAL.Model.MedicalProfile>
 
 <fieldset>
     <legend>Medical Profile</legend>
@@ -9,28 +10,14 @@
 
 <table class="table table-data table-bordered table-striped" style="clear: both">
     <tbody>
-
-              <tr>
-                <td style="width: auto;">Loại bệnh án</td>
-                <td style="width: auto;">Ngày tạo</td>
-              </tr>
-        @foreach (var a in ViewBag.medic)
+        @foreach (var item in Model)
         {
             <tr>
-                @{ if (Convert.ToInt32(@a.MedicalProfileTemplateId) == 1)
-                   {
-                    <td style="width: auto;">Bệnh Án Nội Khoa</td>
-                    }
-                   else if (Convert.ToInt32(@a.MedicalProfileTemplateId) == 2)
-                   {
-                    <td style="width: auto;">Bệnh Án Truyền Nhiễm</td>    
-                   }
-                   else if (Convert.ToInt32(@a.MedicalProfileTemplateId) == 3)
-                   {
-                    <td style="width: auto;">Bệnh Án Ngoài Da - BV Da Liễu</td>    
-                   }
-                   }
-                <td style="width: auto;">@a.CreatedDate </td>
+                <td style="width: auto;">@item.MedicalProfileTemplate.MedicalProfileTemplateName</td>
+                <td style="width: auto;">@item.CreatedDate</td>
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("Details", "UserMedicalProfile", new {medicalProfileId= item.MedicalProfileId})" target="_blank">Xem chi tiết</a>
+                </td>
             </tr>
         }
     </tbody>
