@@ -9,8 +9,8 @@ define(function(require) {
   , selectmultiple           = require('text!templates/snippet/edit-mode/selectmultiple.html')
   , textarea                 = require('text!templates/snippet/edit-mode/textarea.html')
   , statictext = require('text!templates/snippet/edit-mode/static-text.html')
-  , datepicker = require('text!templates/snippet/edit-mode/datepicker.html');
-
+  , datepicker = require('text!templates/snippet/edit-mode/datepicker.html')
+  , statictextcopy = require('text!templates/snippet/edit-mode/static-text-copy.html');
   return {
     formname                   : formname
     , textinput                : textinput
@@ -23,5 +23,6 @@ define(function(require) {
     , textarea                 : textarea
     , statictext: statictext
     , datepicker: datepicker
+    , statictextcopy: statictextcopy
   }
 });

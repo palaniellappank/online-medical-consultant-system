@@ -99,7 +99,33 @@
 				"selected": true
 			  }
 			]
-		}
+		},
+		"inputsize": {
+        "type": "select",
+        "label": "Kích thước",
+        "value": [
+          {
+            "label": "Nhỏ",
+            "value": "col-md-2",
+            "selected": false
+          },
+          {
+            "label": "Trung bình",
+            "value": "col-md-4",
+            "selected": false
+          },
+          {
+            "label": "Lớn",
+            "value": "col-md-8",
+            "selected": true
+          }
+        ]
+      },
+      "required": {
+        "type": "checkbox",
+        "label": "Bắt buộc",
+        "value": false
+      }
     }
   },
   {
@@ -378,7 +404,33 @@
 				"selected": true
 			  }
 			]
-		}
+		},
+		"inputsize": {
+			"type": "select",
+			"label": "Kích thước",
+			"value": [
+			  {
+				"label": "Nhỏ",
+				"value": "col-md-2",
+				"selected": false
+			  },
+			  {
+				"label": "Trung bình",
+				"value": "col-md-4",
+				"selected": false
+			  },
+			  {
+				"label": "Lớn",
+				"value": "col-md-8",
+				"selected": true
+			  }
+			]
+		  },
+		  "required": {
+			"type": "checkbox",
+			"label": "Bắt buộc",
+			"value": false
+		  }
     }
   },
   {
@@ -413,7 +465,33 @@
 				"selected": true
 			  }
 			]
-		}
+		},
+		"inputsize": {
+			"type": "select",
+			"label": "Kích thước",
+			"value": [
+			  {
+				"label": "Nhỏ",
+				"value": "col-md-2",
+				"selected": false
+			  },
+			  {
+				"label": "Trung bình",
+				"value": "col-md-4",
+				"selected": false
+			  },
+			  {
+				"label": "Lớn",
+				"value": "col-md-8",
+				"selected": true
+			  }
+			]
+		  },
+		  "required": {
+			"type": "checkbox",
+			"label": "Bắt buộc",
+			"value": false
+		  }
     }
   },
   {
@@ -431,7 +509,49 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Màu Mắt"
-        }
+        },
+		"mappingtype": {
+			"type": "select",
+			"label": "Cách liên kết",
+			"value": [
+			  {
+				"label": "Lấy trực tiếp",
+				"value": "Direct",
+				"selected": false
+			  },
+			  {
+				"label": "Sao chép",
+				"value": "Copy",
+				"selected": true
+			  }
+			]
+		},
+		"inputsize": {
+			"type": "select",
+			"label": "Kích thước",
+			"value": [
+			  {
+				"label": "Nhỏ",
+				"value": "col-md-2",
+				"selected": false
+			  },
+			  {
+				"label": "Trung bình",
+				"value": "col-md-4",
+				"selected": false
+			  },
+			  {
+				"label": "Lớn",
+				"value": "col-md-8",
+				"selected": true
+			  }
+			]
+		  },
+		  "required": {
+			"type": "checkbox",
+			"label": "Bắt buộc",
+			"value": false
+		  }
     }
   },
   {
@@ -449,7 +569,49 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Màu Tóc"
-        }
+        },
+		"mappingtype": {
+			"type": "select",
+			"label": "Cách liên kết",
+			"value": [
+			  {
+				"label": "Lấy trực tiếp",
+				"value": "Direct",
+				"selected": false
+			  },
+			  {
+				"label": "Sao chép",
+				"value": "Copy",
+				"selected": true
+			  }
+			]
+		},
+		"inputsize": {
+			"type": "select",
+			"label": "Kích thước",
+			"value": [
+			  {
+				"label": "Nhỏ",
+				"value": "col-md-2",
+				"selected": false
+			  },
+			  {
+				"label": "Trung bình",
+				"value": "col-md-4",
+				"selected": false
+			  },
+			  {
+				"label": "Lớn",
+				"value": "col-md-8",
+				"selected": true
+			  }
+			]
+		  },
+		  "required": {
+			"type": "checkbox",
+			"label": "Bắt buộc",
+			"value": false
+		  }
     }
   },
   {
@@ -467,7 +629,49 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Nhóm Máu"
-        }
+        },
+		"mappingtype": {
+			"type": "select",
+			"label": "Cách liên kết",
+			"value": [
+			  {
+				"label": "Lấy trực tiếp",
+				"value": "Direct",
+				"selected": false
+			  },
+			  {
+				"label": "Sao chép",
+				"value": "Copy",
+				"selected": true
+			  }
+			]
+		},
+		"inputsize": {
+			"type": "select",
+			"label": "Kích thước",
+			"value": [
+			  {
+				"label": "Nhỏ",
+				"value": "col-md-2",
+				"selected": false
+			  },
+			  {
+				"label": "Trung bình",
+				"value": "col-md-4",
+				"selected": false
+			  },
+			  {
+				"label": "Lớn",
+				"value": "col-md-8",
+				"selected": true
+			  }
+			]
+		  },
+		  "required": {
+			"type": "checkbox",
+			"label": "Bắt buộc",
+			"value": false
+		  }
     }
   },
   {
@@ -485,7 +689,49 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Lượng đồ uống có cồn (lít) hằng tuần"
-        }
+        },
+		"mappingtype": {
+			"type": "select",
+			"label": "Cách liên kết",
+			"value": [
+			  {
+				"label": "Lấy trực tiếp",
+				"value": "Direct",
+				"selected": false
+			  },
+			  {
+				"label": "Sao chép",
+				"value": "Copy",
+				"selected": true
+			  }
+			]
+		},
+		"inputsize": {
+			"type": "select",
+			"label": "Kích thước",
+			"value": [
+			  {
+				"label": "Nhỏ",
+				"value": "col-md-2",
+				"selected": false
+			  },
+			  {
+				"label": "Trung bình",
+				"value": "col-md-4",
+				"selected": false
+			  },
+			  {
+				"label": "Lớn",
+				"value": "col-md-8",
+				"selected": true
+			  }
+			]
+		  },
+		  "required": {
+			"type": "checkbox",
+			"label": "Bắt buộc",
+			"value": false
+		  }
     }
   },
   {
@@ -503,7 +749,49 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Số năm uống"
-        }
+        },
+		"mappingtype": {
+			"type": "select",
+			"label": "Cách liên kết",
+			"value": [
+			  {
+				"label": "Lấy trực tiếp",
+				"value": "Direct",
+				"selected": false
+			  },
+			  {
+				"label": "Sao chép",
+				"value": "Copy",
+				"selected": true
+			  }
+			]
+		},
+		"inputsize": {
+			"type": "select",
+			"label": "Kích thước",
+			"value": [
+			  {
+				"label": "Nhỏ",
+				"value": "col-md-2",
+				"selected": false
+			  },
+			  {
+				"label": "Trung bình",
+				"value": "col-md-4",
+				"selected": false
+			  },
+			  {
+				"label": "Lớn",
+				"value": "col-md-8",
+				"selected": true
+			  }
+			]
+		  },
+		  "required": {
+			"type": "checkbox",
+			"label": "Bắt buộc",
+			"value": false
+		  }
     }
   },
   {
@@ -521,7 +809,49 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Lượng thuốc hút (gói) hằng tuần"
-        }
+        },
+		"mappingtype": {
+			"type": "select",
+			"label": "Cách liên kết",
+			"value": [
+			  {
+				"label": "Lấy trực tiếp",
+				"value": "Direct",
+				"selected": false
+			  },
+			  {
+				"label": "Sao chép",
+				"value": "Copy",
+				"selected": true
+			  }
+			]
+		},
+		"inputsize": {
+			"type": "select",
+			"label": "Kích thước",
+			"value": [
+			  {
+				"label": "Nhỏ",
+				"value": "col-md-2",
+				"selected": false
+			  },
+			  {
+				"label": "Trung bình",
+				"value": "col-md-4",
+				"selected": false
+			  },
+			  {
+				"label": "Lớn",
+				"value": "col-md-8",
+				"selected": true
+			  }
+			]
+		  },
+		  "required": {
+			"type": "checkbox",
+			"label": "Bắt buộc",
+			"value": false
+		  }
     }
   },
   {
@@ -539,7 +869,49 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Số năm hút"
-        }
+        },
+		"mappingtype": {
+			"type": "select",
+			"label": "Cách liên kết",
+			"value": [
+			  {
+				"label": "Lấy trực tiếp",
+				"value": "Direct",
+				"selected": false
+			  },
+			  {
+				"label": "Sao chép",
+				"value": "Copy",
+				"selected": true
+			  }
+			]
+		},
+		"inputsize": {
+			"type": "select",
+			"label": "Kích thước",
+			"value": [
+			  {
+				"label": "Nhỏ",
+				"value": "col-md-2",
+				"selected": false
+			  },
+			  {
+				"label": "Trung bình",
+				"value": "col-md-4",
+				"selected": false
+			  },
+			  {
+				"label": "Lớn",
+				"value": "col-md-8",
+				"selected": true
+			  }
+			]
+		  },
+		  "required": {
+			"type": "checkbox",
+			"label": "Bắt buộc",
+			"value": false
+		  }
     }
   },
   {
@@ -557,7 +929,49 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Tên loại thể thao"
-        }
+        },
+		"mappingtype": {
+			"type": "select",
+			"label": "Cách liên kết",
+			"value": [
+			  {
+				"label": "Lấy trực tiếp",
+				"value": "Direct",
+				"selected": false
+			  },
+			  {
+				"label": "Sao chép",
+				"value": "Copy",
+				"selected": true
+			  }
+			]
+		},
+		"inputsize": {
+			"type": "select",
+			"label": "Kích thước",
+			"value": [
+			  {
+				"label": "Nhỏ",
+				"value": "col-md-2",
+				"selected": false
+			  },
+			  {
+				"label": "Trung bình",
+				"value": "col-md-4",
+				"selected": false
+			  },
+			  {
+				"label": "Lớn",
+				"value": "col-md-8",
+				"selected": true
+			  }
+			]
+		  },
+		  "required": {
+			"type": "checkbox",
+			"label": "Bắt buộc",
+			"value": false
+		  }
     }
   },
   {
@@ -575,7 +989,49 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Thời lượng tham gia (giờ) hằng tuần"
-        }
+        },
+		"mappingtype": {
+			"type": "select",
+			"label": "Cách liên kết",
+			"value": [
+			  {
+				"label": "Lấy trực tiếp",
+				"value": "Direct",
+				"selected": false
+			  },
+			  {
+				"label": "Sao chép",
+				"value": "Copy",
+				"selected": true
+			  }
+			]
+		},
+		"inputsize": {
+			"type": "select",
+			"label": "Kích thước",
+			"value": [
+			  {
+				"label": "Nhỏ",
+				"value": "col-md-2",
+				"selected": false
+			  },
+			  {
+				"label": "Trung bình",
+				"value": "col-md-4",
+				"selected": false
+			  },
+			  {
+				"label": "Lớn",
+				"value": "col-md-8",
+				"selected": true
+			  }
+			]
+		  },
+		  "required": {
+			"type": "checkbox",
+			"label": "Bắt buộc",
+			"value": false
+		  }
     }
   },
   {
@@ -593,7 +1049,49 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Tham gia khác (Yoga, Thiền định,...)"
-        }
+        },
+		"mappingtype": {
+			"type": "select",
+			"label": "Cách liên kết",
+			"value": [
+			  {
+				"label": "Lấy trực tiếp",
+				"value": "Direct",
+				"selected": false
+			  },
+			  {
+				"label": "Sao chép",
+				"value": "Copy",
+				"selected": true
+			  }
+			]
+		},
+		"inputsize": {
+			"type": "select",
+			"label": "Kích thước",
+			"value": [
+			  {
+				"label": "Nhỏ",
+				"value": "col-md-2",
+				"selected": false
+			  },
+			  {
+				"label": "Trung bình",
+				"value": "col-md-4",
+				"selected": false
+			  },
+			  {
+				"label": "Lớn",
+				"value": "col-md-8",
+				"selected": true
+			  }
+			]
+		  },
+		  "required": {
+			"type": "checkbox",
+			"label": "Bắt buộc",
+			"value": false
+		  }
     }
   },
   {
@@ -611,7 +1109,49 @@
             "label": "Tên hiển thị",
             "type" : "input",
             "value" : "Thời lượng tham gia (giờ) hằng tuần"
-        }
+        },
+		"mappingtype": {
+			"type": "select",
+			"label": "Cách liên kết",
+			"value": [
+			  {
+				"label": "Lấy trực tiếp",
+				"value": "Direct",
+				"selected": false
+			  },
+			  {
+				"label": "Sao chép",
+				"value": "Copy",
+				"selected": true
+			  }
+			]
+		},
+		"inputsize": {
+			"type": "select",
+			"label": "Kích thước",
+			"value": [
+			  {
+				"label": "Nhỏ",
+				"value": "col-md-2",
+				"selected": false
+			  },
+			  {
+				"label": "Trung bình",
+				"value": "col-md-4",
+				"selected": false
+			  },
+			  {
+				"label": "Lớn",
+				"value": "col-md-8",
+				"selected": true
+			  }
+			]
+		  },
+		  "required": {
+			"type": "checkbox",
+			"label": "Bắt buộc",
+			"value": false
+		  }
     }
   }
 ]

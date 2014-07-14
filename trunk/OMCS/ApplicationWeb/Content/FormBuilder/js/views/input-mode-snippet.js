@@ -12,7 +12,11 @@ define([
   return SnippetView.extend({
       className: ""
       , initialize: function () {
-          this.template = _.template(_snippetTemplates[this.model.idFriendlyTitle()]);
+          if (this.model.getValues()["mappingtype"] == "Copy") {
+              this.template = _.template(_snippetTemplates["statictextcopy"]);
+          } else {
+              this.template = _.template(_snippetTemplates[this.model.idFriendlyTitle()]);
+          }
       }
       , render: function (withAttributes) {
           var that = this;

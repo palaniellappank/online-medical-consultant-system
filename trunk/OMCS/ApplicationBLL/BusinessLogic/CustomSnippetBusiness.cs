@@ -22,14 +22,48 @@ namespace OMCS.BLL
             this._db = _db;
         }
 
+        /*
+         * Get mapping type for a static information, to detect if mapping
+         * directly with lastest information from patient or just copy value
+         */
+        public string GetMappingType(CustomSnippet customSnippet)
+        {
+            var customSnippetFields = customSnippet.CustomSnippetFields.ToList();
+            var mappingType = customSnippetFields.Where(x => x.FieldName == "mappingtype").FirstOrDefault();
+            if (mappingType != null) {
+                JArray mappingTypeList = JArray.Parse(mappingType.Value);
+                foreach (dynamic type in mappingTypeList)
+                {
+                    if (type.selected) return type.value;
+                }
+            }
+            return "";
+        }
+
         public string GetValueForSnippet(CustomSnippet customSnippet, int patientId, int medicalProfileId)
         {
             string value = "";
+
+            //First, try to get data from CustomSnippetValue
+            var customSnippetValue = _db.CustomSnippetValues.Where(
+                        x => (x.CustomSnippetId == customSnippet.CustomSnippetId)
+                        && (x.MedicalProfileId == medicalProfileId)).FirstOrDefault();
+            if (customSnippetValue == null)
+            {
+                customSnippetValue = new CustomSnippetValue
+                {
+                    CustomSnippet = customSnippet
+                };
+                _db.CustomSnippetValues.Add(customSnippetValue);
+                _db.SaveChanges();
+            }
+            value = customSnippetValue.Value;
+
             var user = _db.Users.Where(pa => pa.UserId == patientId).SingleOrDefault();
             var patient = _db.Patients.Where(pa => pa.UserId == patientId).SingleOrDefault();
             var personalHealthRecord = _db.PersonalHealthRecords.Where(pa => pa.PatientId == patientId).SingleOrDefault();
             //Use reflection to get binding data
-            if (customSnippet.SnippetType != SnippetType.Custom)
+            if (customSnippet.SnippetType != SnippetType.Custom && String.IsNullOrEmpty(value))
             {
                 switch (customSnippet.SnippetType)
                 {
@@ -37,7 +71,6 @@ namespace OMCS.BLL
                         Type type = typeof(User);
                         if (customSnippet.SnippetFieldName.Equals("Age"))
                         {
-                            Debug.WriteLine("{0}, User", customSnippet.SnippetFieldName);
                             var valueProperty = type.GetProperty
                                 ("Birthday", BindingFlags.IgnoreCase
                                 | BindingFlags.Public
@@ -48,7 +81,6 @@ namespace OMCS.BLL
                         }
                         else
                         {
-                            Debug.WriteLine("{0}, User", customSnippet.SnippetFieldName);
                             var valueProperty = type.GetProperty
                                 (customSnippet.SnippetFieldName, BindingFlags.IgnoreCase
                                 | BindingFlags.Public
@@ -76,22 +108,6 @@ namespace OMCS.BLL
                             | BindingFlags.Instance).GetValue(personalHealthRecord, null).ToString();
                         break;
                 }
-            }
-            else
-            {
-                var customSnippetValue = _db.CustomSnippetValues.Where(
-                        x => (x.CustomSnippetId == customSnippet.CustomSnippetId)
-                        && (x.MedicalProfileId == medicalProfileId)).FirstOrDefault();
-                if (customSnippetValue == null)
-                {
-                    customSnippetValue = new CustomSnippetValue
-                    {
-                        CustomSnippet = customSnippet
-                    };
-                    _db.CustomSnippetValues.Add(customSnippetValue);
-                    _db.SaveChanges();
-                }
-                value = customSnippetValue.Value;
             }
             return value;
         }

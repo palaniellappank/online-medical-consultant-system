@@ -1,13 +1,16 @@
 <!-- Select Multiple -->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="<%= id %>"><%= label %></label>
-  <div class="col-md-8">
+  <label class="col-md-4 control-label" for="<%= id %>">
+      <%= label %>
+      <% if(required) {%> <span style="color:red;padding-left: 5px;">*</span> <% } %> 
+  </label>
+  <div class="<%= inputsize %>">
       <% 
         var valueArray = [];
         if (value)
             valueArray = value.split("~~") 
       %>
-    <select id="<%= id %>" name="<%= id %>" class="<%= inputsize %> form-control" multiple="multiple"><% _.each(options, function(option) { %>
+    <select id="<%= id %>" name="<%= id %>" class="form-control" multiple="multiple"><% _.each(options, function(option) { %>
       <option <% if (valueArray.indexOf(option) > -1) { %> selected <% } %>><%= option %></option><% }); %>
     </select>
   </div>
