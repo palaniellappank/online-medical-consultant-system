@@ -82,6 +82,7 @@
     <Compile Include="BusinessLogic\MedicalProfileBusiness.cs" />
     <Compile Include="BusinessLogic\MedicalProfileTemplateBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\DateTimeUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -10,37 +10,22 @@
       },
       "inputsize": {
         "type": "select",
-        "label": "Input Size",
+        "label": "Kích thước",
         "value": [
           {
-            "label": "Mini",
-            "value": "input-mini",
+            "label": "Nhỏ",
+            "value": "col-md-2",
             "selected": false
           },
           {
-            "label": "Small",
-            "value": "input-small",
+            "label": "Trung bình",
+            "value": "col-md-4",
             "selected": false
           },
           {
-            "label": "Medium",
-            "value": "input-medium",
-            "selected": false
-          },
-          {
-            "label": "Large",
-            "value": "input-large",
-            "selected": false
-          },
-          {
-            "label": "Xlarge",
-            "value": "input-xlarge",
+            "label": "Lớn",
+            "value": "col-md-8",
             "selected": true
-          },
-          {
-            "label": "Xxlarge",
-            "value": "input-xxlarge",
-            "selected": false
           }
         ]
       },
@@ -236,34 +221,19 @@
         "label": "Kích thước",
         "value": [
           {
-            "label": "Mini",
-            "value": "input-mini",
+            "label": "Nhỏ",
+            "value": "col-md-2",
             "selected": false
           },
           {
-            "label": "Small",
-            "value": "input-small",
+            "label": "Trung bình",
+            "value": "col-md-4",
             "selected": false
           },
           {
-            "label": "Medium",
-            "value": "input-medium",
-            "selected": false
-          },
-          {
-            "label": "Large",
-            "value": "input-large",
-            "selected": false
-          },
-          {
-            "label": "Xlarge",
-            "value": "input-xlarge",
+            "label": "Lớn",
+            "value": "col-md-8",
             "selected": true
-          },
-          {
-            "label": "Xxlarge",
-            "value": "input-xxlarge",
-            "selected": false
           }
         ]
       },
@@ -296,34 +266,19 @@
         "label": "Kích thước",
         "value": [
           {
-            "label": "Mini",
-            "value": "input-mini",
+            "label": "Nhỏ",
+            "value": "col-md-2",
             "selected": false
           },
           {
-            "label": "Small",
-            "value": "input-small",
+            "label": "Trung bình",
+            "value": "col-md-4",
             "selected": false
           },
           {
-            "label": "Medium",
-            "value": "input-medium",
-            "selected": false
-          },
-          {
-            "label": "Large",
-            "value": "input-large",
-            "selected": false
-          },
-          {
-            "label": "Xlarge",
-            "value": "input-xlarge",
+            "label": "Lớn",
+            "value": "col-md-8",
             "selected": true
-          },
-          {
-            "label": "Xxlarge",
-            "value": "input-xxlarge",
-            "selected": false
           }
         ]
       },

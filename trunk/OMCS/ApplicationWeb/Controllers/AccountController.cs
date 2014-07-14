@@ -14,17 +14,10 @@ using System.Diagnostics;
 using Recaptcha.Web.Mvc;
 using Recaptcha.Web;
 
-namespace Security.Controllers
+namespace OMCS.Web.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
-        OMCSDBContext db = new OMCSDBContext();
-
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-
         public ActionResult Login()
         {
             return View();
@@ -35,7 +28,7 @@ namespace Security.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = db.Users.Where(u => u.Username == model.Username && u.Password == model.Password && u.IsActive == true).FirstOrDefault();
+                var user = _db.Users.Where(u => u.Username == model.Username && u.Password == model.Password && u.IsActive == true).FirstOrDefault();
                 if (user != null)
                 {
                     var roles = user.Roles.Select(m => m.RoleName).ToArray();
@@ -124,8 +117,8 @@ namespace Security.Controllers
                 {
                     user.CreatedDate = DateTime.UtcNow;
                     //db.Patients.Add((User)user);
-                    db.Users.Add(user);
-                    db.SaveChanges();
+                    _db.Users.Add(user);
+                    _db.SaveChanges();
                     return RedirectToAction("Register");
                 }
                 catch (MembershipCreateUserException e)
@@ -140,7 +133,7 @@ namespace Security.Controllers
         public bool CheckUsername(string data)
         {
             Debug.WriteLine(data);
-            var username = (from user in db.Users
+            var username = (from user in _db.Users
                             where user.Username.Equals(data, StringComparison.InvariantCultureIgnoreCase)
                             select user).FirstOrDefault();
             if (username != null) return false;
@@ -149,7 +142,7 @@ namespace Security.Controllers
         public bool CheckEmail(string data)
         {
             Debug.WriteLine(data);
-            var email = (from user in db.Users
+            var email = (from user in _db.Users
                          where user.Email.Equals(data, StringComparison.InvariantCultureIgnoreCase)
                          select user).FirstOrDefault();
             if (email != null) return false;
