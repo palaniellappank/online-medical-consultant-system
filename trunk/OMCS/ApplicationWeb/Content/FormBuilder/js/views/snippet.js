@@ -33,7 +33,7 @@ define([
       var that = this;
       
       var content = _.template(_PopoverMain)({
-        "title": that.model.get("title"),
+        "title": that.model.get("name"),
         "items" : that.model.get("fields"),
         "popoverTemplates": that.popoverTemplates
       });
@@ -42,7 +42,7 @@ define([
           that.template(that.model.getValues())
         ).attr({
           "data-content"     : content
-          , "data-title"     : that.model.get("title")
+          , "data-title"     : that.model.get("name")
           , "data-trigger"   : "manual"
           , "data-html"      : true
         });

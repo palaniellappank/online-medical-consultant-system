@@ -108,7 +108,6 @@ namespace OMCS.Web.Controllers
                     var dbPath = string.Format("/Content/Image/ProfilePicture/" + fileName);
                     file.SaveAs(path);
                     user.ProfilePicture = fileName;
-
                 }
                 catch (NullReferenceException ex)
                 {

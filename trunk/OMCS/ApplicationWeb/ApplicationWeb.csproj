@@ -531,12 +531,7 @@
     <Content Include="Views\Conversation\Details.cshtml" />
     <Content Include="Views\Shared\_TemplateLayout.cshtml" />
     <Content Include="Views\Shared\_DoctorLayout.cshtml" />
-    <Content Include="Views\MedicalProfileTemplate\Index.cshtml" />
     <Content Include="Views\Patient\UpdateMedicalProfile.cshtml" />
-    <Content Include="Views\MedicalProfileTemplate\Create.cshtml" />
-    <Content Include="Views\MedicalProfileTemplate\Edit.cshtml" />
-    <Content Include="Views\MedicalProfileTemplate\Delete.cshtml" />
-    <Content Include="Views\MedicalProfileTemplate\Editor.cshtml" />
     <Content Include="Views\Patient\Index.cshtml" />
     <Content Include="Views\Patient\Details.cshtml" />
     <Content Include="Views\Patient\Create.cshtml" />

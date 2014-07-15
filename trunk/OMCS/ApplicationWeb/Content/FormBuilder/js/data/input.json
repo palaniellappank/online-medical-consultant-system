@@ -86,6 +86,11 @@
         "label": "Tên đối tượng",
         "value": "Tên đối tượng"
       },
+	  "numofline": {
+        "type": "input",
+        "label": "Số dòng",
+        "value": "1"
+      },
       "defaultvalue": {
         "type": "textarea",
         "label": "Giá trị mặc định",
@@ -208,6 +213,11 @@
 		"label": "ID / Name",
 		"value": null
 	  },
+	  "label": {
+        "type": "input",
+        "label": "Tên đối tượng",
+        "value": "Tên đối tượng"
+      },
       "options": {
         "type": "textarea-split",
         "label": "Options",
@@ -236,11 +246,6 @@
             "selected": true
           }
         ]
-      },
-      "label": {
-        "type": "input",
-        "label": "Tên đối tượng",
-        "value": "Tên đối tượng"
       }
     }
   },

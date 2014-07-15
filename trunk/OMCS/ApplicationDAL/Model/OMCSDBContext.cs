@@ -44,7 +44,6 @@ namespace OMCS.DAL.Model
          public DbSet<Conversation> Conversations { get; set; }
          public DbSet<ConversationDetail> ConversationDetails { get; set; }
          public DbSet<TreatmentHistory> TreatmentHistories { get; set; }
-         public DbSet<DiseaseType> DiseaseTypes { get; set; }
          public DbSet<Doctor> Doctors { get; set; }
          public DbSet<FilmDocument> FilmDocuments { get; set; }
          public DbSet<FilmType> FilmTypes { get; set; }

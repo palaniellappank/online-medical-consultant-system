@@ -71,12 +71,12 @@ namespace OMCS.DAL
 
             patients.ForEach(s => _db.Patients.AddOrUpdate(p => (p.Username), s));
             _db.SaveChanges();
-            Patient suTran = patients.Where(x => x.Username == "sutran").Single();
-            Patient danhtran = patients.Where(x => x.Username == "danhtran").Single();
-            Patient tuanMai = patients.Where(x => x.Username == "tuanmai").Single();
-            Patient nguonNguyen = patients.Where(x => x.Username == "nguonnguyen").Single();
-            Patient nhanNguyen = patients.Where(x => x.Username == "nhannguyen").Single();
-            Patient linhNguyen = patients.Where(x => x.Username == "linhnguyen").Single();
+            Patient suTran = _db.Patients.Where(x => x.Username == "sutran").Single();
+            Patient danhtran = _db.Patients.Where(x => x.Username == "danhtran").Single();
+            Patient tuanMai = _db.Patients.Where(x => x.Username == "tuanmai").Single();
+            Patient nguonNguyen = _db.Patients.Where(x => x.Username == "nguonnguyen").Single();
+            Patient nhanNguyen = _db.Patients.Where(x => x.Username == "nhannguyen").Single();
+            Patient linhNguyen = _db.Patients.Where(x => x.Username == "linhnguyen").Single();
 
             var personalHealthRecords = new List<PersonalHealthRecord>
             {

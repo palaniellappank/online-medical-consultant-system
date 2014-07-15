@@ -5,6 +5,9 @@
       <% if(required) {%> <span style="color:red;padding-left: 5px;">*</span> <% } %> 
   </label>
   <div class="col-md-8">                     
-    <textarea id="<%= id %>" name="<%= id %>" placeholder="<%= placeholder %>" class="form-control" <% if(required) {%> required <% } %>><%= defaultvalue %></textarea>
+    <textarea id="<%= id %>" name="<%= id %>" placeholder="<%= placeholder %>"
+        rows="<%= numofline %>"
+        class="form-control" <% if(required) {%> required <% } %>><%= defaultvalue %>
+    </textarea>
   </div>
 </div>
