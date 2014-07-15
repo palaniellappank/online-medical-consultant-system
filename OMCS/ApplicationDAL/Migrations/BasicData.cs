@@ -122,7 +122,11 @@
                 }
 
             };
-            doctors.ForEach(s => _db.Doctors.AddOrUpdate(p => p.Username, s));
+            foreach (var doctor in doctors)
+            {
+                var existOne = _db.Doctors.Where(x => x.Username.Equals(doctor.Username)).FirstOrDefault();
+                if (existOne == null) _db.Doctors.Add(doctor);
+            }
             _db.SaveChanges();
 
             #endregion User
