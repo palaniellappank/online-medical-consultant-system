@@ -21,7 +21,7 @@ namespace OMCS.Web.Controllers
 
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            IEnumerable<User> users = _db.Roles.Where(r => r.RoleName == "User").SelectMany(r => r.Users);
+            IEnumerable<User> users = _db.Patients.ToList();
             ViewBag.CurrentSort = sortOrder;
             ViewBag.UserSortParam = String.IsNullOrEmpty(sortOrder) ? "User_desc" : "";
             ViewBag.DateSortParam = sortOrder == "Date" ? "Date_desc" : "Date";

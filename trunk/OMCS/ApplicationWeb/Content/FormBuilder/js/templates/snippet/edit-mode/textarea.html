@@ -4,7 +4,6 @@
   <div class="col-md-8">                     
     <textarea id="<%= id %>" name="<%= id %>" placeholder="<%= placeholder %>" 
         rows="<%= numofline %>"
-        class="form-control" <% if(required) {%> required <% } %>><% if (value==null) {%><%= defaultvalue %><% } else { %><%= value %> <% } %>
-    </textarea>
+        class="form-control" <% if(required) {%> required <% } %>><% if (value==null) {%><%= defaultvalue %><% } else { %><%= value %> <% } %></textarea>
   </div>
 </div>

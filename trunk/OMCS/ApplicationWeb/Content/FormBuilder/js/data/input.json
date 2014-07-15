@@ -65,6 +65,27 @@
         "label": "Tên đối tượng",
         "value": "Tên đối tượng"
       },
+	  "inputsize": {
+        "type": "select",
+        "label": "Kích thước",
+        "value": [
+          {
+            "label": "Nhỏ",
+            "value": "col-md-2",
+            "selected": false
+          },
+          {
+            "label": "Trung bình",
+            "value": "col-md-4",
+            "selected": false
+          },
+          {
+            "label": "Lớn",
+            "value": "col-md-8",
+            "selected": true
+          }
+        ]
+      },
       "required": {
         "type": "checkbox",
         "label": "Bắt buộc",

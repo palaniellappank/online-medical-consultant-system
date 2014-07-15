@@ -36,6 +36,7 @@ namespace OMCS.BLL
             {
                 dynamic snippet = new JObject();
                 snippet.title = customSnippet.Title;
+                snippet.name = customSnippet.Name;
                 if (snippet.title == "Static Text")
                 {
                     snippet.snippettype = customSnippet.SnippetType.ToString();

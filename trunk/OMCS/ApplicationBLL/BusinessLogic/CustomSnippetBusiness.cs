@@ -52,7 +52,8 @@ namespace OMCS.BLL
             {
                 customSnippetValue = new CustomSnippetValue
                 {
-                    CustomSnippet = customSnippet
+                    CustomSnippet = customSnippet,
+                    MedicalProfileId = medicalProfileId
                 };
                 _db.CustomSnippetValues.Add(customSnippetValue);
                 _db.SaveChanges();
@@ -86,6 +87,10 @@ namespace OMCS.BLL
                                 | BindingFlags.Public
                                 | BindingFlags.Instance).GetValue(user, null);
                             value = valueProperty.ToString();
+                            if ("Gender".Equals(customSnippet.SnippetFieldName))
+                            {
+                                value = "M".Equals(value) ? "Nam" : "Nữ";
+                            }
                             if (customSnippet.SnippetFieldName.Equals("Birthday"))
                             {
                                 var birthday = DateTime.Parse(value.ToString());
