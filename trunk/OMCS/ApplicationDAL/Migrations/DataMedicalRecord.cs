@@ -61,35 +61,28 @@
 
             Patient suTran = _db.Patients.Where(pt => pt.Username.Equals("sutran")).Single();
 
-
-            MedicalProfileType loaiBenhAnNgoaiDa = _db.MedicalProfileTypes.Where(
-                mp => mp.Name.Contains("Bệnh án Ngoài Da")
-            ).Single();
-
-            MedicalProfileTemplate benhAnNgoaiDa1 = _db.MedicalProfileTemplates.Where(
-                mp => mp.MedicalProfileTypeId == loaiBenhAnNgoaiDa.MedicalProfileTypeId
-            ).FirstOrDefault();
+            MedicalProfileTemplate benhAnNgoaiDa1 = _db.MedicalProfileTemplates.Find(1);
 
             List<MedicalProfile> medicalProfiles = new List<MedicalProfile>{
                 new MedicalProfile
                 {
-                    Patient = suTran,
+                    PatientId = suTran.UserId,
                     CreatedDate = DateTime.UtcNow,
-                    MedicalProfileTemplate = benhAnNgoaiDa1,
+                    MedicalProfileTemplateId = benhAnNgoaiDa1.MedicalProfileTemplateId,
                     MedicalProfileKey = "OMCS.0000001.01"
                 },
                 new MedicalProfile
                 {
-                    Patient = suTran,
+                    PatientId = suTran.UserId,
                     CreatedDate = DateTime.Today.AddDays(-10),
-                    MedicalProfileTemplate = benhAnNgoaiDa1,
+                    MedicalProfileTemplateId = benhAnNgoaiDa1.MedicalProfileTemplateId,
                     MedicalProfileKey = "OMCS.0000001.02"
                 },
                 new MedicalProfile
                 {
-                    Patient = suTran,
+                    PatientId = suTran.UserId,
                     CreatedDate = DateTime.Today.AddDays(-5),
-                    MedicalProfileTemplate = benhAnNgoaiDa1,
+                    MedicalProfileTemplateId = benhAnNgoaiDa1.MedicalProfileTemplateId,
                     MedicalProfileKey = "OMCS.0000001.03"
                 }
             };
@@ -142,7 +135,7 @@
                 new Allergy {
                     Name = "Thuốc kháng sinh",
                     MedicalProfileId = suTranMedicalProfile.MedicalProfileId,
-                    AllergyType = allergyTypeThuoc,
+                    AllergyTypeId = allergyTypeThuoc.AllergyTypeId,
                     Reaction = "Đau bụng nhẹ",
                     DateLastOccurred = new DateTime(2013,1,1)
                 }

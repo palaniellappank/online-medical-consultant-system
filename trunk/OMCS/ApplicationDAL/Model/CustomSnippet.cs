@@ -30,6 +30,8 @@ namespace OMCS.DAL.Model
         public int MedicalProfileTemplateId { get; set; }
         public virtual MedicalProfileTemplate MedicalProfileTemplate { get; set; }
 
+        public string Name { get; set; }
+
 	    public string Title { get; set; }
 
         public int Position { get; set; }

@@ -78,7 +78,7 @@
             {
                 new FilmDocument {
                     TreatmentHistory = treatmentOne,
-                    FilmType = filmTypeOne,
+                    FilmTypeId = filmTypeOne.FilmTypeId,
                     ImagePath = "viemphoidotucau.gif",
                     Conclusion = "Viêm phổi tụ cầu",
                     DoctorId = doctor1.UserId,
@@ -87,7 +87,7 @@
                 },
                 new FilmDocument {
                     TreatmentHistory = treatmentOne,
-                    FilmType = filmTypeOne,
+                    FilmTypeId = filmTypeOne.FilmTypeId,
                     ImagePath = "viem_amydal_cap.jpg",
                     Conclusion = "Viêm amydal cấp",
                     DoctorId = doctor1.UserId,
