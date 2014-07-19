@@ -288,9 +288,11 @@
     <Content Include="Content\Image\login-bg.jpg" />
     <Content Include="Content\Image\ProfilePicture\photo.jpg" />
     <Content Include="Content\Image\ProfilePicture\Su.JPG" />
+    <Content Include="Content\Image\register-bg.jpg" />
     <Content Include="Content\ProfilePicture\anonymous-avatar.jpg" />
     <Content Include="Content\ProfilePicture\photo.jpg" />
     <Content Include="Content\ProfilePicture\Su.JPG" />
+    <Content Include="Content\register-full-page\css\register.css" />
     <Content Include="Content\select2\select2-spinner.gif" />
     <Content Include="Content\select2\select2.png" />
     <Content Include="Content\select2\select2x2.png" />

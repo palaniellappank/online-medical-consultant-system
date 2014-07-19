@@ -89,8 +89,7 @@ namespace OMCS.Web.Controllers
 
         public ActionResult Register()
         {
-            //return View();
-            return PartialView("_Register");
+            return View();
         }
 
         //
@@ -103,21 +102,21 @@ namespace OMCS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var recaptchaHelper = this.GetRecaptchaVerificationHelper();
+                var recaptchaHelper = this.GetRecaptchaVerificationHelper();
 
-                //if (String.IsNullOrEmpty(recaptchaHelper.Response))
-                //{
-                //    ModelState.AddModelError("", "Captcha answer cannot be empty");
-                //    return View(user);
-                //}
+                if (String.IsNullOrEmpty(recaptchaHelper.Response))
+                {
+                    ModelState.AddModelError("", "Mã captcha không được để trống.");
+                    return View(user);
+                }
 
-                //var recaptchaResult = recaptchaHelper.VerifyRecaptchaResponse();
+                var recaptchaResult = recaptchaHelper.VerifyRecaptchaResponse();
 
-                //if (recaptchaResult != RecaptchaVerificationResult.Success)
-                //{
-                //    ModelState.AddModelError("", "Incorrect captcha answer");
-                //    return View(user);
-                //}
+                if (recaptchaResult != RecaptchaVerificationResult.Success)
+                {
+                    ModelState.AddModelError("", "Mã Captcha không trùng khớp.");
+                    return View(user);
+                }
 
                 // Attempt to register the user
                 try
@@ -143,8 +142,9 @@ namespace OMCS.Web.Controllers
                                     </body>
                                   </html>";
 
-                    business.SendMail(user.Email,subject, body);
+                    business.SendMail(user.Email, subject, body);
 
+                    return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -152,7 +152,7 @@ namespace OMCS.Web.Controllers
             }
             // If we got this far, something failed, redisplay form
 
-            return RedirectToAction("Index", "Home");
+            return View(user);
         }
 
         //
