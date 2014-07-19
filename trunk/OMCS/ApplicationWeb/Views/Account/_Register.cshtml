@@ -1,52 +1,56 @@
 ﻿@model OMCS.DAL.Model.User
+@using Recaptcha.Web.Mvc
 
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Tạo Mới</h4>
+            <h4 class="modal-title" id="myModalLabel">Đăng Ký</h4>
         </div>
 
-        @using (Ajax.BeginForm("Create", "AdminUser", FormMethod.Post,
+        @using (Ajax.BeginForm("Register", "Account", FormMethod.Post,
                     new AjaxOptions
                     {
                         InsertionMode = InsertionMode.Replace,
                         HttpMethod = "POST",
-                        UpdateTargetId = "list-of-user"
+                        UpdateTargetId = ""
                     },
-                    new { id = "create-form" }))
+                    new { id = "register-form" }))
         {
+          
             @Html.ValidationSummary(true)
             @Html.AntiForgeryToken()
             <div class="modal-body">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Username)
-                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control required" })
+                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control required", placeholder = "Tên đăng nhập" })
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Email)
-                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control required email" })
+                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control required", placeholder = "Tên" })
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Password)
-                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control required" })
+                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control required", placeholder = "Họ" })
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.FirstName)
-                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control required" })
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control required email", placeholder = "Địa chỉ Email" })
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.LastName)
-                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control required" })
+                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control required", placeholder = "Mật khẩu", type = "password" })
                 </div>
+
+                <div class="form-group">
+                    @Html.TextBox("RePassword", "", new { @class = "form-control required", placeholder = "Nhập lại mật khẩu", type = "password" })
+                </div>
+
+
             </div>
+            
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Lưu</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
+                <button type="submit" class="btn btn-primary">Đăng Ký</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ Qua</button>
             </div>
         }
     </div>
@@ -54,7 +58,7 @@
 
 <script type="text/javascript">
     $(function () {
-        $("#create-form").validate({
+        $("#register-form").validate({
             rules: {
                 Username: {
                     remote: {
@@ -96,4 +100,3 @@
         });
     });
 </script>
-

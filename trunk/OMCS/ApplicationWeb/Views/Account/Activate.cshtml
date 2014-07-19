@@ -77,32 +77,22 @@
         </div>
     </section>
 
-    <section id="about" class="container content-section text-center">
+    <section id="message" class="container content-section text-center">
         <div class="row">
-            <!-- START THE FEATURETTES -->
+            <div class="col-lg-8 col-lg-offset-2">
+                <h3>Chào mừng bạn đến với website tư vấn y khoa trực tuyến OMCS</h3>
+                <p>Tái khoản của bạn đã kích hoạt thành công</p>
 
-            <hr class="featurette-divider">
-
-            <div class="featurette">
-                <img class="featurette-image img-circle pull-right col-md-6" src="Content/Image/Homepage/feature-medical-profile.jpg">
-                <h2 class="featurette-heading"><span class="text-muted">Xây dựng </span>Hồ sơ bệnh án</h2>
-                <p class="lead">Xây dựng hồ sơ dựa trên thông tin có sẵn của bệnh nhân</p>
-            </div>
-
-            <hr class="featurette-divider">
-
-            <div class="featurette">
-                <img class="featurette-image img-circle pull-left col-md-6" src="Content/Image/Homepage/feature-medical-profile.jpg">
-                <h2 class="featurette-heading"><span class="text-muted">Liên kết </span>Hồ sơ bệnh án</h2>
-                <p class="lead">Bác sĩ sẽ có cái nhìn tổng quát về tình trạng bệnh lí, dị ứng, các lần tiêm chủng</p>
-            </div>
-
-            <hr class="featurette-divider">
-
-            <div class="featurette">
-                <img class="featurette-image img-circle pull-right col-md-6" src="Content/Image/Homepage/feature-medical-profile.jpg">
-                <h2 class="featurette-heading"><span class="text-muted">Tư vấn </span>sức khỏe trực tuyến</h2>
-                <p class="lead">Bệnh nhân và bác sĩ có thể trò chuyện bằng cách gửi tin nhắn hay chia sẻ webcam</p>
+                <ul class="list-inline banner-social-buttons">
+                    <li><a href="@Url.Action("Login", "Account")" class="btn btn-success btn-lg">
+                        <i class="glyphicon glyphicon-log-in"></i>
+                        <span class="network-name">&nbsp;Đăng nhập</span></a>
+                    </li>
+                    <li><a href="@Url.Action("Index", "Home")" class="btn btn-info btn-lg">
+                        <i class="glyphicon glyphicon-home"></i>
+                        <span class="network-name">&nbsp;Trang chủ</span></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
@@ -127,14 +117,13 @@
 
     <footer class="text-center">Copyright Group 2 - FPT University - 2014</footer>
 
-
-
     <div class="modal fade in" id="register-model">
         <div id="register-container"></div>
     </div>
 
     <script type="text/javascript">
         $(document).ready(function () {
+
             //jQuery event click for link
             $(".register-link").click(function () {
                 var url = "/Account/Register";
@@ -166,7 +155,12 @@
         });
 
     </script>
-
+    <style>
+        #message
+        {
+            height: 400px;
+        }
+    </style>
 </body>
 
 </html>

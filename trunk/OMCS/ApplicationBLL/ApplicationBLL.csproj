@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\AccountBusiness.cs" />
     <Compile Include="BusinessLogic\AdminUserBusiness.cs" />
     <Compile Include="BusinessLogic\BaseBusiness.cs" />
     <Compile Include="BusinessLogic\ConversationBusiness.cs" />

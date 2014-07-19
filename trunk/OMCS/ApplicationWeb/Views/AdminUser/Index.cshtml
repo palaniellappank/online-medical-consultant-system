@@ -1,5 +1,6 @@
 ﻿@model PagedList.IPagedList<OMCS.DAL.Model.User>
 @using PagedList.Mvc;
+
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
@@ -104,8 +105,6 @@
             $.get(url, function (data) {
                 $("#create-container").html(data);
                 $("#create-model").modal("show");
-                $("#create-form").validate({
-                });
             });
         });
 
@@ -115,8 +114,6 @@
             $.get(url + "/" + id, function (data) {
                 $("#edit-container").html(data);
                 $("#edit-model").modal("show");
-                $("#edit-form").validate({
-                });
             });
         });
 

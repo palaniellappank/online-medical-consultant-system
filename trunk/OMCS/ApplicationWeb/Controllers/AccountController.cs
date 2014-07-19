@@ -13,11 +13,14 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using Recaptcha.Web.Mvc;
 using Recaptcha.Web;
+using OMCS.BLL;
 
 namespace OMCS.Web.Controllers
 {
     public class AccountController : BaseController
     {
+        private AccountBusiness business = new AccountBusiness();
+
         public ActionResult Login()
         {
             return View();
@@ -81,13 +84,17 @@ namespace OMCS.Web.Controllers
             return View(model);
         }
 
+        //
+        // GET: /Account/Register
+
         public ActionResult Register()
         {
-            return View();
+            //return View();
+            return PartialView("_Register");
         }
 
         //
-        // POST: /UserTemp/Create
+        // POST: /Account/Register
 
         [HttpPost]
         [AllowAnonymous]
@@ -96,38 +103,121 @@ namespace OMCS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var recaptchaHelper = this.GetRecaptchaVerificationHelper();
+                //var recaptchaHelper = this.GetRecaptchaVerificationHelper();
 
-                if (String.IsNullOrEmpty(recaptchaHelper.Response))
-                {
-                    ModelState.AddModelError("", "Captcha answer cannot be empty");                    
-                    return View(user);
-                }
+                //if (String.IsNullOrEmpty(recaptchaHelper.Response))
+                //{
+                //    ModelState.AddModelError("", "Captcha answer cannot be empty");
+                //    return View(user);
+                //}
 
-                var recaptchaResult = recaptchaHelper.VerifyRecaptchaResponse();
+                //var recaptchaResult = recaptchaHelper.VerifyRecaptchaResponse();
 
-                if (recaptchaResult != RecaptchaVerificationResult.Success)
-                {
-                    ModelState.AddModelError("", "Incorrect captcha answer");                    
-                    return View(user);
-                }
+                //if (recaptchaResult != RecaptchaVerificationResult.Success)
+                //{
+                //    ModelState.AddModelError("", "Incorrect captcha answer");
+                //    return View(user);
+                //}
 
                 // Attempt to register the user
                 try
                 {
+                    Role role = _db.Roles.FirstOrDefault(r => r.RoleName == "User");
+                    user.Roles = new List<Role>();
+                    user.Roles.Add(role);
                     user.CreatedDate = DateTime.UtcNow;
-                    //db.Patients.Add((User)user);
+                    user.ProfilePicture = "photo.jpg";
+                    user.IsActive = false;
                     _db.Users.Add(user);
                     _db.SaveChanges();
-                    return RedirectToAction("Register");
+
+                    string subject = "Kích hoạt tài khoản";
+                    string body = @"<html>
+                                    <body>
+                                        <h2>Chào mừng bạn đến với OMCS - Hệ thống tư vấn y khoa trực tuyến</h2>
+                                        <p>Vui lòng nhấn vào đường dẫn bên dưới để kích hoạt<br/>
+                                            <a href='http://localhost:52443/Account/Activate/" + user.UserId + "'>" +
+                                               @"Kích hoạt tài khoản
+                                            </a>
+                                        </p>
+                                    </body>
+                                  </html>";
+
+                    business.SendMail(user.Email,subject, body);
+
                 }
                 catch (MembershipCreateUserException e)
                 {
                 }
             }
             // If we got this far, something failed, redisplay form
-            return View(user);
 
+            return RedirectToAction("Index", "Home");
+        }
+
+        //
+        // GET: /Account/Activate
+
+        public ActionResult Activate(int id = 0)
+        {
+            User user = _db.Users.Find(id);
+            if (user != null)
+            {
+                user.IsActive = true;
+                _db.SaveChanges();
+            }
+            return View(user);
+        }
+
+        //
+        // GET: /Account/ForgotPassword
+
+        public ActionResult ForgotPassword()
+        {
+            return PartialView("_ForgotPassword");
+        }
+
+        //
+        // POST: /Account/ForgotPassword
+
+        [HttpPost]
+        public ActionResult ForgotPassword(string email)
+        {
+            if (ModelState.IsValid)
+            {
+                User tUser = _db.Users.FirstOrDefault(u => u.Email == email);
+                tUser.Password = business.GeneratePassword();
+
+                var subject = "Làm mới mật khẩu";
+                var body = "<html>" +
+                                  "<body>" +
+                                      "<h2>Hệ thống nhận được yêu cầu làm mới mật khẩu</h2>" +
+                                      "<p>Tên đăng nhập: " + tUser.Username + "<br/>" +
+                                      "<p>Mật khẩu mới: " + tUser.Password + "</p>" +
+                                  "</body>" +
+                              "</html>";
+
+                business.SendMail(tUser.Email, subject, body);
+
+            }
+            return RedirectToAction("Login", "Account");
+        }
+
+        [AllowAnonymous]
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "Account", null);
+        }
+
+        public JsonResult CheckExistEmail(string email)
+        {
+            var user = _db.Users.FirstOrDefault(u => u.Email == email);
+            if (user != null)
+            {
+                return new JsonResult { Data = true };
+            }
+            return new JsonResult { Data = false };
         }
 
         public bool CheckUsername(string data)
@@ -139,6 +229,7 @@ namespace OMCS.Web.Controllers
             if (username != null) return false;
             else return true;
         }
+
         public bool CheckEmail(string data)
         {
             Debug.WriteLine(data);
@@ -147,13 +238,6 @@ namespace OMCS.Web.Controllers
                          select user).FirstOrDefault();
             if (email != null) return false;
             else return true;
-        }
-
-        [AllowAnonymous]
-        public ActionResult LogOut()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "Account", null);
         }
     }
 }

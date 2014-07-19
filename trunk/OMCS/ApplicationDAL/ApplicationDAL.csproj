@@ -66,6 +66,10 @@
   <ItemGroup>
     <Compile Include="CustomMembershipProvider.cs" />
     <Compile Include="CustomRoleProvider.cs" />
+    <Compile Include="Migrations\201407170101067_init.cs" />
+    <Compile Include="Migrations\201407170101067_init.Designer.cs">
+      <DependentUpon>201407170101067_init.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\BasicData.cs" />
     <Compile Include="Migrations\ConversationData.cs" />
@@ -99,6 +103,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201407170101067_init.resx">
+      <DependentUpon>201407170101067_init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
