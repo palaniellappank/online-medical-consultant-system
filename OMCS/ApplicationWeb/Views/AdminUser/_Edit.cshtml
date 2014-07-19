@@ -1,6 +1,8 @@
 ﻿@model OMCS.DAL.Model.User
 @using OMCS.Web
-@using (Ajax.BeginForm("Edit", "AdminUser", null, new { EncType = "multipart/form-data" }))
+
+
+@using (Ajax.BeginForm("Edit", "AdminUser", null, new { EncType = "multipart/form-data", id = "edit-form" }))
 {
     <div class="modal-dialog">
         <div class="modal-content">
@@ -68,11 +70,11 @@
                     @Html.TextBoxFor(model => model.SecondaryAddress, new { @class = "form-control" })
                 </div>
             </div>
+
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Cập nhật</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
             </div>
-            }
         </div>
     </div>
 }
@@ -86,15 +88,28 @@
                         timeout: 5000,
                         type: "POST"
                     },
-                    maxlength: 10,
+                    maxlength: 50
                 },
                 Email: {
                     remote: {
                         url: "@Url.Action("CheckExistEmail", "AdminUser", new { id = Model.UserId })",
-                            timeout: 5000,
-                            type: "POST"
-                        }
-                    }
+                        timeout: 5000,
+                        type: "POST"
+                    },
+                    maxlength: 50
+                },
+                FirstName: {
+                    maxlength: 50
+                },
+                LastName: {
+                    maxlength: 50
+                },
+                Password: {
+                    rangelength: [6, 32]
+                },
+                RePassword: {
+                    rangelength: [6, 32]
+                }
             }
         });
     });

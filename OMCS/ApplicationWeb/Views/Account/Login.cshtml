@@ -21,62 +21,82 @@
 
     <!-- Custom Theme CSS -->
     <link href="~/Content/sign-in-full-page/sign-in.css" rel="stylesheet">
-
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
 
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="pr-wrap">
-                <div class="pass-reset">
-                    <label>
-                        Nhập địa chỉ email mà bạn dùng để đăng kí</label>
-                    <input type="email" placeholder="Email" />
-                    <input type="submit" value="Gửi" class="pass-reset-submit btn btn-success btn-sm" />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pr-wrap">
+                    <div class="pass-reset">
+                        <label>
+                            Nhập địa chỉ email mà bạn dùng để đăng kí</label>
+                        <input type="email" placeholder="Email" />
+                        <input type="submit" value="Gửi" class="pass-reset-submit btn btn-success btn-sm" />
+                    </div>
                 </div>
-            </div>
-            <div class="wrap">
-                <p class="form-title">
-                    Đăng nhập</p>
-                <form class="login" action="@Url.Action("Login","Account")" method="post">
-                <input type="text" placeholder="Tên đăng nhập" name="Username" required/>
-                <input type="password" placeholder="Mật khẩu" name="Password" required/>
+                <div class="wrap">
+                    <p class="form-title">
+                        Đăng nhập
+                    </p>
+                    <form class="login" action="@Url.Action("Login", "Account")" method="post">
+                        <input type="text" placeholder="Tên đăng nhập" name="Username" required />
+                        <input type="password" placeholder="Mật khẩu" name="Password" required />
 
-                    @if (ViewData.ModelState[""] != null) 
-                    {
-                        <div class="has-error" style="background: #eee;">
-                            @foreach (var error in ViewData.ModelState[""].Errors)
-                            {
-                                <span class="help-block">@error.ErrorMessage</span>
-                            }
-                        </div>
-                    }
-                    <input type="submit" value="Đăng nhập" class="btn btn-success btn-sm" />
-                    <div class="remember-forgot">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="RememberMe"/>
-                                        Duy trì đăng nhập
-                                    </label>
+                        @if (ViewData.ModelState[""] != null)
+                        {
+                            <div class="has-error" style="background: #eee;">
+                                @foreach (var error in ViewData.ModelState[""].Errors)
+                                {
+                                    <span class="help-block">@error.ErrorMessage</span>
+                                }
+                            </div>
+                        }
+                        <input type="submit" value="Đăng nhập" class="btn btn-success btn-sm" />
+                        <div class="remember-forgot">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="RememberMe" />
+                                            Duy trì đăng nhập
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 forgot-pass-content">
+                                    <a href="#forgot-pass" class="forgot-password">Quên mật khẩu</a>
                                 </div>
                             </div>
-                            <div class="col-md-6 forgot-pass-content">
-                                <a href="javascription:void(0)" class="forgot-pass">Quên mật khẩu</a>
-                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
+        <div class="posted-by">Group 2 - FPT University</div>
     </div>
-    <div class="posted-by">Group 2 - FPT University</div>
-</div>
+
     <script src="~/Content/sign-in-full-page/sign-in.js"></script>
+
+
+    <div class="modal fade in" id="forgot-model">
+        <div id="forgot-container"></div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            //jQuery event click for link
+            $(".forgot-password").click(function () {
+                var url = "/Account/ForgotPassword";
+                $.get(url, function (data) {
+                    $("#forgot-container").html(data);
+                    $("#forgot-model").modal("show");
+                    $("#forgot-form").css("background-image", "none");
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
