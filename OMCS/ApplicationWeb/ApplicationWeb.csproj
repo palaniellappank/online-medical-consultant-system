@@ -591,6 +591,8 @@
     <Content Include="Views\AllergyType\_Create.cshtml" />
     <Content Include="Views\AllergyType\_Edit.cshtml" />
     <Content Include="Views\AllergyType\_Delete.cshtml" />
+    <Content Include="Views\DoctorUser\CreatePatient.cshtml" />    <Content Include="Views\Account\_Register.cshtml" />
+    <Content Include="Views\DoctorUser\EditPatient.cshtml" />    <Content Include="Views\Account\Activate.cshtml" />
     <Content Include="Views\Account\_Register.cshtml" />
     <Content Include="Views\Account\Activate.cshtml" />
     <Content Include="Views\Account\_ForgotPassword.cshtml" />

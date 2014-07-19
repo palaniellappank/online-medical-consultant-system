@@ -22,7 +22,6 @@ namespace OMCS.Web.Controllers
             var personalHealthRecord = _db.PersonalHealthRecords.Where(pa => pa.PatientId == User.UserId).SingleOrDefault();
             var allergy = _db.Allergies.Where(a => a.MedicalProfile.Patient.UserId == User.UserId).ToList();
             ViewBag.Allergy = allergy;
-            //Debug.WriteLine(allergy.Count + "       " + allergy.ElementAt(0).AllergyType);
             var immunizations = _db.Immunizations.Where(i => i.MedicalProfile.PatientId == User.UserId).ToList();
             ViewBag.Immunizations = immunizations;
             return View(personalHealthRecord);

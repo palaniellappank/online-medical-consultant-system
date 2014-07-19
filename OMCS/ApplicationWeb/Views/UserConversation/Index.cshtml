@@ -269,7 +269,7 @@
                 processData: false,
                 contentType: false,
                 success: function () {
-                    chatHub.server.getMessageList(toUsername);
+                    chatHub.server.getMessageList(toUsername);                    
                 }
             });
         });
@@ -353,40 +353,6 @@
         $("#chat-content").append(_.template(template, { user: user, message: message }));
         $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
     }
-
-
 </script>
 
-@*<script type="text/javascript">
-    $(document).ready(function () {
-        $(".content_1").mCustomScrollbar({
-            axis: "x",
-            theme: "dark"
-        });
-    });
-</script>*@
-
-<script>
-    (function ($) {
-        $(window).load(function () {
-
-            $.mCustomScrollbar.defaults.scrollButtons.enable = true; //enable scrolling buttons by default
-
-            $("#content-d").mCustomScrollbar({ theme: "dark" });
-
-            $(".all-themes-switch a").click(function (e) {
-                e.preventDefault();
-                var $this = $(this),
-                    rel = $this.attr("rel"),
-                    el = $(".content");
-                switch (rel) {
-                    case "toggle-content":
-                        el.toggleClass("expanded-content");
-                        break;
-                }
-            });
-
-        });
-    })(jQuery);
-</script>
 

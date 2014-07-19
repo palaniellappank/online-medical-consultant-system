@@ -10,7 +10,9 @@
 <h2>Quản Lý Bệnh Nhân</h2>
 
 <div>
-    @Html.ActionLink("Tạo Mới", "Create", FormMethod.Get, new { @class = "btn btn-primary" })
+    @*@Html.ActionLink("Tạo Mới", "Create", FormMethod.Get, new { @class = "btn btn-primary create-button" })*@
+    <button class="btn btn-primary create-button">Tạo Mới</button>
+
     @using (Html.BeginForm("Index", "DoctorUser", FormMethod.Get, new { style = "float: right", @class = "form-inline" }))
     {
         <div class="form-group">
@@ -36,8 +38,7 @@
             <th>
                 @Html.ActionLink("Ngày tạo", "Index", new { sortOrder = ViewBag.DateSortParam, currentFilter = ViewBag.CurrentFilter })
             </th>
-            <th>
-                Thao Tác
+            <th>Thao Tác
             </th>
         </tr>
     </thead>
@@ -59,7 +60,8 @@
             </td>
             <td>
                 <a href="#" data-id="@item.UserId" class="btn btn-primary view-button" title="Xem chi tiết"><i class="glyphicon glyphicon-search"></i></a>
-                <a href="@Url.Action("Edit")" class="btn btn-primary" title="Chỉnh sửa"><i class="glyphicon glyphicon-pencil"></i></a>
+                @*<a href="@Url.Action("EditPatient")" data-id="@item.UserId" class="btn btn-primary" title="Chỉnh sửa"><i class="glyphicon glyphicon-pencil"></i></a>*@
+                <button class="btn btn-primary edit-button" data-id="@item.UserId" title="Cập nhật"><i class="glyphicon glyphicon-pencil"></i></button>
             </td>
         </tr>
     }
@@ -67,7 +69,13 @@
 </table>
 
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+<div class="modal fade in" id="create-model">
+    <div id="create-container"></div>
+</div>
 
+<div class="modal fade in" id="edit-model">
+    <div id="edit-container"></div>
+</div>
 
 <div class="modal fade in" id="view-model">
     <div id="view-container"></div>
@@ -87,7 +95,28 @@
                     $(this).attr("href", "@Url.Action("UpdateMedicalProfile")" + "/" + id + "?medicalProfileTemplateId=" + medicalProfileTemplateId);
                     $(this)[0].click();
                 });
+            });           
+        });
+
+        $(".create-button").click(function () {
+            var url = "/DoctorUser/CreatePatient";
+            $.get(url, function (data) {
+                $("#create-container").html(data);
+                $("#create-model").modal("show");
+                $("#create-form").validate({
+                });
             });
-        })
+        });
+
+        $(".edit-button").click(function () {
+            var url = "/DoctorUser/EditPatient";
+            var id = $(this).attr("data-id");
+            $.get(url + "/" + id, function (data) {
+                $("#edit-container").html(data);
+                $("#edit-model").modal("show");
+                $("#edit-form").validate({
+                });
+            });
+        });
     });
 </script>
