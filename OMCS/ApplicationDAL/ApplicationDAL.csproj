@@ -93,7 +93,6 @@
     <Compile Include="Model\MedicalProfile.cs" />
     <Compile Include="Model\Allergy.cs" />
     <Compile Include="Model\Immunization.cs" />
-    <Compile Include="Model\DiseaseType.cs" />
     <Compile Include="Model\PersonalHealthRecord.cs" />
     <Compile Include="Model\OMCSDBContext.cs" />
     <Compile Include="Model\Role.cs" />

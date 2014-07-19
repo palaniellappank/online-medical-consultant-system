@@ -33,7 +33,7 @@
         accept: "Định dạng không phù hợp.",
         maxlength: jQuery.validator.format("Độ dài không được quá {0} ký tự."),
         minlength: jQuery.validator.format("Độ dài ít nhất phải {0} ký tự."),
-        rangelength: jQuery.validator.format("Độ dài phải từ {0} đến {1} ký tự."),
+        rangelength: jQuery.validator.format("Độ dài trong khoảng {0} đến {1} ký tự."),
         range: jQuery.validator.format("Please enter a value between {0} and {1}."),
         max: jQuery.validator.format("Please enter a value less than or equal to {0}."),
         min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")

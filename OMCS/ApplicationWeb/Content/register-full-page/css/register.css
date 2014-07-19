@@ -1,0 +1,45 @@
+﻿body
+{
+    background: url('/Content/Image/register-bg.jpg') fixed;
+    background-size: cover;
+}
+
+.form
+{
+    width: 30%;
+    margin: 40px auto;
+}
+
+.form-title
+{
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#recaptcha_area
+{
+    margin: 0 auto;
+}
+
+.form-control
+{
+    /*width:95%;
+        margin: 0 auto;*/
+}
+
+.form-group
+{
+    padding: 0 10px 0 10px;
+}
+
+.posted-by
+{
+    width: 177px;
+    margin: 26px auto;
+    color: #FFF;
+    background-color: rgba(0, 0, 0, 0.66);
+    padding: 10px;
+    left: 43%;
+}

@@ -1,5 +1,7 @@
 ﻿@model OMCS.DAL.Model.User
+
 @using Recaptcha.Web.Mvc
+
 
 <div class="modal-dialog">
     <div class="modal-content">
@@ -26,11 +28,11 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control required", placeholder = "Tên" })
+                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control required", placeholder = "Họ" })
                 </div>
 
                 <div class="form-group">
-                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control required", placeholder = "Họ" })
+                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control required", placeholder = "Tên" })
                 </div>
 
                 <div class="form-group">
@@ -42,10 +44,10 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.TextBox("RePassword", "", new { @class = "form-control required", placeholder = "Nhập lại mật khẩu", type = "password" })
+                    @Html.TextBox("RePassword", "", new { @class = "form-control required", placeholder = "Xác nhận mật khẩu", type = "password", id = "RePassword" })
                 </div>
 
-
+                <div id="recaptcha"></div>
             </div>
             
             <div class="modal-footer">
@@ -56,47 +58,51 @@
     </div>
 </div>
 
+
 <script type="text/javascript">
-    $(function () {
-        $("#register-form").validate({
-            rules: {
-                Username: {
-                    remote: {
-                        url: "@Url.Action("CheckExistUsername", "AdminUser")",
-                        timeout: 5000,
-                        type: "POST"
-                    },
-                    maxlength: 50
+
+    $("#register-form").validate({
+        rules: {
+            Username: {
+                remote: {
+                    url: "@Url.Action("CheckExistUsername", "AdminUser")",
+                    timeout: 5000,
+                    type: "POST"
                 },
-                Email: {
-                    remote: {
-                        url: "@Url.Action("CheckExistEmail", "AdminUser")",
-                        timeout: 5000,
-                        type: "POST"
-                    },
-                    maxlength: 50
-                },
-                FirstName: {
-                    maxlength: 50
-                },
-                LastName: {
-                    maxlength: 50
-                },
-                Password: {
-                    rangelength: [6, 32]
-                },
-                RePassword: {
-                    rangelength: [6, 32]
-                }
+                maxlength: 50
             },
-            messages: {
-                Username: {
-                    remote: "Tên đăng nhập đã tồn tại."
+            Email: {
+                remote: {
+                    url: "@Url.Action("CheckExistEmail", "AdminUser")",
+                        timeout: 5000,
+                        type: "POST"
+                    },
+                    maxlength: 50
                 },
-                Email: {
-                    remote: "Địa chỉ email đã tồn tại"
-                }
+            FirstName: {
+                maxlength: 50
+            },
+            LastName: {
+                maxlength: 50
+            },
+            Password: {
+                rangelength: [6, 32]
+            },
+            RePassword: {
+                rangelength: [6, 32],
+                equalTo: "Password"
             }
-        });
+        },
+        messages: {
+            Username: {
+                remote: "Tên đăng nhập đã được đăng ký."
+            },
+            Email: {
+                remote: "Địa chỉ email đã được đăng ký."
+            },
+            RePassword: {
+                equalTo: "Xác nhận mật khẩu không đúng."
+            }
+        }
     });
 </script>

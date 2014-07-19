@@ -1,91 +1,118 @@
-﻿@using Recaptcha.Web.Mvc
-@{
-    //Layout = "~/Views/Shared/_HomeLayout.cshtml";
-}
+﻿@model OMCS.DAL.Model.User
 
-
-@model OMCS.DAL.Model.User
+@using Recaptcha.Web.Mvc
 
 @{
-    ViewBag.Title = "Đăng kí";
+    Layout = null;
 }
+
+@Scripts.Render("~/bundles/jsOMCS")
+<script src="~/Scripts/jquery.easing.1.3.js"></script>
+
+@Styles.Render("~/bundles/cssOMCS")
+
+<!-- Custom theme css-->
+<link href="~/Content/register-full-page/css/register.css" rel="stylesheet" />
+
+<style>
+
+</style>
+
+
+
 
 <div class="container">
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
-            <legend><a href="#"><i class="glyphicon glyphicon-globe"></i></a>Đăng kí!</legend>
-            <form action="/Account/Register" method="post" class="form" role="form">
-                <input class="form-control" name="Username" placeholder="Tên đăng nhập" required autofocus />
-                <div class="row">
-                    <div class="col-xs-4 col-md-4">
-                        <input class="form-control" name="FirstName" placeholder="Tên" type="text"
-                            required />
-                    </div>
-                    <div class="col-xs-8 col-md-8">
-                        <input class="form-control" name="Lastname" placeholder="Họ" type="text" required />
-                    </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 ">
+
+            <form action="/Account/Register" method="post" class="well well-sm form" role="form" id="register-form">
+                <legend class="form-title">
+                    <a href="#"><i class="glyphicon glyphicon-globe"></i></a>&nbsp;ĐĂNG KÝ
+                </legend>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control required", placeholder = "Tên đăng nhập" })
                 </div>
-                <input class="form-control" name="Email" placeholder="Địa chỉ Email" type="email" required />
-                <input class="form-control" name="Password" pattern=".{6,32}" placeholder="Mật khẩu" type="password" required title="Mật khẩu trong khoảng từ 6-32 kí tự!" />
-                <input class="form-control" name="Re-password" pattern=".{6,32}" placeholder="Nhập lại mật khẩu" type="password"
-                    required title="Mật khẩu trong khoảng từ 6-32 kí tự!" />
-                <br />
-                <ul class="errors" style="color: red;">
-                </ul>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control required", placeholder = "Họ" })
+                </div>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control required", placeholder = "Tên" })
+                </div>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control required email", placeholder = "Địa chỉ Email" })
+                </div>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control required", placeholder = "Mật khẩu", type = "password" })
+                </div>
+
+                <div class="form-group">
+                    @Html.TextBox("RePassword", "", new { @class = "form-control required", placeholder = "Xác nhận mật khẩu", type = "password", id = "RePassword" })
+                </div>
+
                 @Html.Recaptcha()
-                @Html.AntiForgeryToken() 
+                @Html.AntiForgeryToken()
                 @Html.ValidationSummary()
-                <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="return checkValidation();">
+                <br />
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">
                     Đăng kí</button>
             </form>
         </div>
-
     </div>
 
-    <script type="text/javascript">
-        function checkValidation() {
-            var errorMessage = $(".errors");
-            errorMessage.html("");
-            var hasError = false;
-            var password = $('input[name=Password]').val();
-            var rePassword = $('input[name=Re-password]').val();
+    <div class="posted-by">Group 2 - FPT University</div>
+</div>
 
 
-            var username = $('input[name=Username]').val();
-            var email = $('input[name=Email]').val();
-            $.ajax({
-                url: "/Account/CheckUsername",
-                type: "GET",
-                data: { data: username },
-                async: false,
-                success: function (data) {
-                    console.log(data);
-                    if (data == "False") {
-                        errorMessage.append("Tên tài khoản đã tồn tại!</br>");
-                        hasError = true;
-                    }
-                }
-            });
+<script type="text/javascript">
 
-            $.ajax({
-                url: "/Account/CheckEmail",
-                type: "GET",
-                data: { data: email },
-                async: false,
-                success: function (data) {
-                    console.log(data);
-                    if (data == "False") {
-                        errorMessage.append("Email này đã được đăng kí!</br>");
-                        hasError = true;
-                    }
-                }
-            });
-
-            if (rePassword != password) {
-                errorMessage.append("Mật khẩu nhập lại chưa chính xác!</br>");
-                hasError = true;
+    $("#register-form").validate({
+        rules: {
+            Username: {
+                remote: {
+                    url: "@Url.Action("CheckExistUsername", "AdminUser")",
+                    timeout: 5000,
+                    type: "POST"
+                },
+                maxlength: 50
+            },
+            Email: {
+                remote: {
+                    url: "@Url.Action("CheckExistEmail", "AdminUser")",
+                    timeout: 5000,
+                    type: "POST"
+                },
+                maxlength: 50
+            },
+            FirstName: {
+                maxlength: 50
+            },
+            LastName: {
+                maxlength: 50
+            },
+            Password: {
+                rangelength: [6, 32]
+            },
+            RePassword: {
+                rangelength: [6, 32],
+                equalTo: "#Password"
             }
-            if (!hasError) return true;
-            else return false;
+        },
+        messages: {
+            Username: {
+                remote: "Tên đăng nhập đã được đăng ký."
+            },
+            Email: {
+                remote: "Địa chỉ email đã được đăng ký."
+            },
+            RePassword: {
+                equalTo: "Xác nhận mật khẩu không trùng khớp."
+            }
         }
-    </script>
+    });
+</script>
