@@ -1,0 +1,275 @@
+﻿@model OMCS.Web.DTO.PatientInformation
+@using OMCS.Web
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Tạo mới bệnh nhân</h4>
+        </div>
+        <div class="modal-body">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                </div>
+                @using (Ajax.BeginForm("CreatePatient", "DoctorUser", FormMethod.Post,
+                    new AjaxOptions
+                    {
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "POST",
+                        UpdateTargetId = "list-of-patient"
+                    },
+                    new { id = "create-patient-form" }))
+                {
+                    @Html.ValidationSummary(true)
+                    @Html.AntiForgeryToken()          
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3 " align="center">
+                                <div class="tabbable tabs-left">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a href="#basicInfo" data-toggle="tab">Thông tin cơ bản</a></li>
+                                        <li><a href="#patientInfo" data-toggle="tab">Thông tin bệnh nhân</a></li>
+                                        <li><a href="#healthRecord" data-toggle="tab">Sức khỏe cá nhân</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class=" col-md-9 col-lg-9">
+                                <div class="tabbable tabs-left">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="basicInfo">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.Username) <span style="color: red;">(*)</span></td>
+                                                        <td>
+                                                            <input type="text" id="Username" name="Username" class="form-control required remote" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.Email) <span style="color: red;">(*)</span></td>
+                                                        <td>
+                                                            <input type="text" id="Email" name="Email" class="form-control required remote email" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.LastName) <span style="color: red;">(*)</span></td>
+                                                        <td>
+                                                            <input type="text" id="LastName" name="LastName" class="form-control required" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.FirstName) <span style="color: red;">(*)</span></td>
+                                                        <td>
+                                                            <input type="text" id="FirstName" name="FirstName" class="form-control required" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.Password) <span style="color: red;">(*)</span></td>
+                                                        <td>
+                                                            <input type="text" id="Password" name="Password" class="form-control required" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.Gender)</td>
+                                                        <td>@Html.DropDownListFor(model => model.Patient.Gender, new SelectList(new List<string> { "Nam", "Nữ" }), new { @class = "form-control" })</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.Birthday):</td>
+                                                        <td>@Html.TextBoxFor(model => model.Patient.Birthday, "{0:dd-MM-yyyy}", new { type = "date", @class = "form-control datepicker" })</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.Phone)</td>
+                                                        <td>@Html.TextBoxFor(model => model.Patient.Phone, new { @class = "form-control" })</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.PrimaryAddress)</td>
+                                                        <td>@Html.TextBoxFor(model => model.Patient.PrimaryAddress, new { @class = "form-control" })</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.SecondaryAddress)</td>
+                                                        <td>@Html.TextBoxFor(model => model.Patient.SecondaryAddress, new { @class = "form-control" })</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn primary">
+                                                    <a class="active" href="#patientInfo" data-toggle="tab">Lưu</a>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="patientInfo">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.Ethnicity)</td>
+                                                        <td>@Html.TextBoxFor(model => model.Patient.Ethnicity, new { @Value = "Kinh", @class = "form-control" })</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.Nationality)</td>
+                                                        <td>@Html.TextBoxFor(model => model.Patient.Nationality, new { @Value = "Việt Nam", @class = "form-control" })</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.Job)</td>
+                                                        <td>@Html.TextBoxFor(model => model.Patient.Job, new { @class = "form-control" })</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.WhereToWork)</td>
+                                                        <td>@Html.TextBoxFor(model => model.Patient.WhereToWork, new { @class = "form-control" })</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.ContactPerson)</td>
+                                                        <td>@Html.TextBoxFor(model => model.Patient.ContactPerson, new { @class = "form-control" })</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.ContactPersonAddress)</td>
+                                                        <td>@Html.TextBoxFor(model => model.Patient.ContactPersonAddress, new { @class = "form-control" })</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.HealthInsuranceId)</td>
+                                                        <td>@Html.TextBoxFor(model => model.Patient.HealthInsuranceId, new { @class = "form-control" })</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.HealthInsuranceIssued)</td>
+                                                        <td>@Html.TextBoxFor(model => model.Patient.HealthInsuranceIssued, "{0:dd-MM-yyyy}", new { type = "date", @class = "form-control datepicker" })</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.Patient.HealthInsuranceDateExpired)</td>
+                                                        <td>@Html.TextBoxFor(model => model.Patient.HealthInsuranceDateExpired, "{0:dd-MM-yyyy}", new { type = "date", @class = "form-control datepicker" })</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn primary">
+                                                    <a class="active" href="#healthRecord" data-toggle="tab">Lưu</a>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="healthRecord">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.PersonalHealthRecord.Height) <span style="color: red;">(*)</span></td>
+                                                        <td>
+                                                            <input class="form-control required number double" type="text" name="height" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.PersonalHealthRecord.Weight) <span style="color: red;">(*)</span></td>
+                                                        <td>
+                                                            <input class="form-control required number double" type="text" name="weight" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.PersonalHealthRecord.EyeColor)</td>
+                                                        <td>
+                                                            <input class="form-control" type="text" name="eye" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.PersonalHealthRecord.HairColor)</td>
+                                                        <td>
+                                                            <input class="form-control" type="text" name="hair" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.PersonalHealthRecord.BloodType)</td>
+                                                        <td>
+                                                            <input class="form-control" type="text" name="blood" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.PersonalHealthRecord.AlcoholPerWeek) <span style="color: red;">(*)</span></td>
+                                                        <td>
+                                                            <input class="form-control required number double" type="text" name="alcoholweek" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.PersonalHealthRecord.AlcoholNumOfYear) <span style="color: red;">(*)</span></td>
+                                                        <td>
+                                                            <input class="form-control required number double" type="text" name="alcoholyear" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.PersonalHealthRecord.IsBeer)</td>
+                                                        <td>
+                                                            <input class="form-control" type="checkbox" checked value="true" name="beer" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.PersonalHealthRecord.SmokePackPerWeek) <span style="color: red;">(*)</span></td>
+                                                        <td>
+                                                            <input class="form-control required number double" type="text" name="smokeweek" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.PersonalHealthRecord.SmokeNumOfYear) <span style="color: red;">(*)</span></td>
+                                                        <td>
+                                                            <input class="form-control required number double" type="text" name="smokeyear" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.PersonalHealthRecord.SportName)</td>
+                                                        <td>
+                                                            <input class="form-control" type="text" name="sport" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.PersonalHealthRecord.SportPerWeek) <span style="color: red;">(*)</span></td>
+                                                        <td>
+                                                            <input class="form-control required number double" type="text" name="sportweek" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.PersonalHealthRecord.ExerciseType)</td>
+                                                        <td>
+                                                            <input class="form-control" type="text" name="exercise" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@Html.LabelFor(model => model.PersonalHealthRecord.ExercisePerWeek) <span style="color: red;">(*)</span></td>
+                                                        <td>
+                                                            <input class="form-control required number double" type="text" name="exerciseweek" /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Lưu</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>     
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#create-patient-form").validate({
+            rules: {
+                Username: {
+                    remote: {
+                        url: "@Url.Action("CheckExistUsername", "DoctorUser")",
+                        timeout: 5000,
+                        type: "POST"
+                    },
+                    maxlength: 50
+                },
+                Email: {
+                    remote: {
+                        url: "@Url.Action("CheckExistEmail", "DoctorUser")",
+                        timeout: 5000,
+                        type: "POST"
+                    },
+                    maxlength: 50
+                },
+                FirstName: {
+                    maxlength: 50
+                },
+                LastName: {
+                    maxlength: 50
+                },
+                Password: {
+                    rangelength: [6, 32]
+                }
+            },
+            messages: {
+                Username: {
+                    remote: "Tên đăng nhập đã tồn tại."
+                },
+                Email: {
+                    remote: "Địa chỉ email đã tồn tại"
+                }
+            }
+        });
+    });
+</script>
+
+

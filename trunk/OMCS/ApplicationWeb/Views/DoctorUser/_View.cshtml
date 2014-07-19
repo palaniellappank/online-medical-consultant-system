@@ -14,7 +14,7 @@
             </div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="@Html.GetPictureUrl("Profile")photo.jpg" class="img-circle">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="@Html.GetPictureUrl("Profile")@Model.Patient.ProfilePicture" class="img-circle" style="width:120px; height:120px">
                    <div class="tabbable tabs-left">
                      <ul class="nav nav-tabs">
                       <li class="active"><a href="#basicInfo" data-toggle="tab">Thông tin cơ bản</a></li>

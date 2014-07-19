@@ -13,9 +13,6 @@ namespace MvcApplication1.Controllers
     {
         private OMCSDBContext _db = new OMCSDBContext();
 
-        //
-        // GET: /AllergyType/
-
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             IEnumerable<AllergyType> allergyTypes = _db.AllergyTypes.ToList();
@@ -61,16 +58,10 @@ namespace MvcApplication1.Controllers
             return View(allergyTypes.ToPagedList(pageNumber, pageSize));
         }
 
-        //
-        // GET: /FilmType/Create
-
         public ActionResult Create()
         {
             return PartialView("_Create");
         }
-
-        //
-        // POST: /FilmType/Create
 
         [HttpPost]
         public ActionResult Create(AllergyType allergyTypes)
@@ -85,9 +76,6 @@ namespace MvcApplication1.Controllers
             return PartialView("_Create", allergyTypes);
         }
 
-        //
-        // GET: /FilmType/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
             AllergyType allergyType = _db.AllergyTypes.Find(id);
@@ -97,9 +85,6 @@ namespace MvcApplication1.Controllers
             }
             return PartialView("_Edit", allergyType);
         }
-
-        //
-        // POST: /FilmType/Edit/5
 
         [HttpPost]
         public ActionResult Edit(AllergyType allergyTypes)
@@ -113,9 +98,6 @@ namespace MvcApplication1.Controllers
             return PartialView("_Edit", allergyTypes);
         }
 
-        //
-        // GET: /FilmType/Delete/5
-
         public ActionResult Delete(int id = 0)
         {
             AllergyType allergyTypes = _db.AllergyTypes.Find(id);
@@ -126,9 +108,6 @@ namespace MvcApplication1.Controllers
             return PartialView("_Delete", allergyTypes);
         }
 
-        //
-        // POST: /FilmType/Delete/5
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -138,8 +117,6 @@ namespace MvcApplication1.Controllers
             return RedirectToAction("Index");
         }
 
-        //
-        // POST: /FilmType/CheckExistName
         [HttpPost]
         public JsonResult CheckExistName(string name, int id = 0)
         {
