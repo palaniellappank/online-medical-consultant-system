@@ -260,6 +260,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\FormBuilder\js\templates\app\changenotice.html" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\table.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\static-text-copy.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\datepicker.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\formname.html" />

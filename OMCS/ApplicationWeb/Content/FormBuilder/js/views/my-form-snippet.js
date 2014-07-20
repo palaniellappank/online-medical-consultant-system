@@ -13,6 +13,7 @@ define([
     }
 
     , mouseDownHandler: function (mouseDownEvent) {
+      if (this.$el.has($(".popover")).length != 0) return;
       mouseDownEvent.stopPropagation();
       mouseDownEvent.preventDefault();
       var that = this;

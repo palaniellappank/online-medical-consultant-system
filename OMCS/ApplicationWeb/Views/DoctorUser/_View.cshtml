@@ -186,7 +186,7 @@
 						                <div class="social">
 							                <ul>
 								                <li class="twitter" style="width:34%;"><a href="#twitter" target="_blank"><span class="glyphicon glyphicon-search"></span></a></li>
-								                <li class="google-plus" style="width:33%;"><a href="#google-plus" target="_blank"><span class="glyphicon glyphicon-pencil"></span></a></li>
+								                <li class="google-plus" style="width:33%;"><a href="@Url.Action("UpdateMedicalProfile", "DoctorUser", new { id = Model.Patient.UserId, medicalProfileTemplateId = item.MedicalProfileTemplateId})" target="_blank"><span class="glyphicon glyphicon-pencil"></span></a></li>
 							                </ul>
 						                </div>
 					                </li>

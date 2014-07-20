@@ -1,3 +1,15 @@
+<% if (isChild && (label.trim().length == 0)) { %>
+  <div class="col-md-8">
+      <% _.each(radios, function(radio, i){ %>
+        <div class="radio">
+            <label for="<%= id+'-'+i %>">
+              <input type="radio" name="<%= id %>" id="<%= id+'-'+i %>" value="<%= radio %>"  <% if (i < 1) { %> checked="checked" <% } %>>
+              <%= radio %>
+            </label>
+        </div>
+      <% }); %>
+  </div>
+<% } else { %>
 <!-- Multiple Radios (inline) -->
 <div class="form-group">
   <label class="col-md-4 control-label" for="<%= name %>"><%= label %></label>
@@ -8,3 +20,4 @@
     </label><% }); %>
   </div>
 </div>
+<% } %>

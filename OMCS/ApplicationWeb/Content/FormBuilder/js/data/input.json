@@ -1,5 +1,34 @@
 ﻿[
   {
+	"name": "Xây dựng bảng",
+	"title": "Table",
+    "fields": {
+      "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": null
+      },
+      "columns": {
+        "type": "textarea-split",
+        "label": "Danh sách cột",
+        "value": [
+          "Cột 1",
+          "Cột 2"
+        ]
+      },
+      "numofrows": {
+        "type": "input",
+        "label": "Số dòng",
+        "value": "1"
+      },
+      "label": {
+        "type": "input",
+        "label": "Tên đối tượng",
+        "value": "Tên đối tượng"
+      }
+    }
+  },
+  {
 	"name" : "Ô nhập liệu",
     "title": "Text Input",
     "fields": {

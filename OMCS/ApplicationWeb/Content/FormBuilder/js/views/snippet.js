@@ -29,28 +29,42 @@ define([
         , "checkbox" : _.template(_PopoverCheckbox)
       }
     }
-    , render: function(withAttributes){
-      var that = this;
-      
-      var content = _.template(_PopoverMain)({
-        "title": that.model.get("name"),
-        "items" : that.model.get("fields"),
-        "popoverTemplates": that.popoverTemplates
-      });
-      if (withAttributes) {
-        return this.$el.html(
-          that.template(that.model.getValues())
-        ).attr({
-          "data-content"     : content
-          , "data-title"     : that.model.get("name")
-          , "data-trigger"   : "manual"
-          , "data-html"      : true
-        });
-      } else {
-          return this.$el.html(
-          that.template(that.model.getValues())
-        )
+    , render: function(childListRendered){
+      var isChild = this.model.get("parentId") != undefined;
+      var sizepx = "auto";
+      if (this.model.getValues()["inputsize"]) {
+        switch(this.model.getValues()["inputsize"]) {
+            case "col-md-2":
+                sizepx = 50;
+                break;
+            case "col-md-4":
+                sizepx = 120;
+                break;
+            default:
+                sizepx = "auto";
+        }
       }
+      var content = _.template(_PopoverMain)({
+        "title": this.model.get("name"),
+        "items" : this.model.get("fields"),
+        "popoverTemplates": this.popoverTemplates
+      });
+      var snippetHtml = this.$el.html(
+        this.template(_.extend(this.model.getValues(), {isChild: isChild, sizepx: sizepx}))
+      ).attr({
+        "data-content"     : content
+        , "data-title"     : this.model.get("name")
+        , "data-trigger"   : "manual"
+        , "data-html"      : true
+      });
+
+      if (this.model.get("title") == "Table") {
+        var holderList = this.$el.find(".component-holder");
+        _.each(childListRendered, function(element, index, list){
+          holderList.eq(index).html(element);
+        });
+      }
+      return snippetHtml;
     }
   });
 });

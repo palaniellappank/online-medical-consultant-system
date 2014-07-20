@@ -1,3 +1,11 @@
+<% if (isChild && (label.trim().length == 0)) { %>
+  <div><% _.each(checkboxes, function(checkbox, i){ %>
+    <label class="checkbox-inline" for="<%= id+'-'+i %>">
+      <input type="checkbox" name="<%= id %>" id="<%= id+'-'+i %>" value="<%= checkbox %>">
+      <%= checkbox %>
+    </label><% }); %>
+  </div>
+<% } else { %>
 <!-- Multiple Checkboxes (inline) -->
 <div class="form-group">
   <label class="col-md-4 control-label" for="<%= name %>"><%= label %></label>
@@ -8,3 +16,4 @@
     </label><% }); %>
   </div>
 </div>
+<% } %>

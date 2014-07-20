@@ -1,4 +1,4 @@
-﻿define([
+define([
       "collections/my-form-snippets"
       , "views/temp-snippet"
       , "helper/pubsub"
@@ -81,28 +81,53 @@
           that.fieldset.append(snippet);
       });
       
-      $("#render").val(that.renderForm({
-        text: _.map(this.collection.renderAllClean(), function(e){return e.html()}).join("\n")
-      }));
       this.fieldset.appendTo("#build form");
       this.delegateEvents();
     }
 
-    , getBottomAbove: function(eventY){
-        var myFormBits = $(this.fieldset.find(".component"));
-      var topelement = _.find(myFormBits, function(renderedSnippet) {
-        if (($(renderedSnippet).position().top + $(renderedSnippet).height()) > eventY  - 90) {
-          return true;
-        }
-        else {
+    , getBottomAbove: function(eventX, eventY){
+        var myFormBits = $(this.fieldset.find(".component,.component-holder"));
+        var prevComponentName = null;
+        var topelement = _.find(myFormBits, function(renderedSnippet) {
+          //Ignore element that inside component-holder
+          if ($(renderedSnippet).parent().attr("class") &&
+            $(renderedSnippet).parent().attr("class").indexOf("component-holder") != -1)
+            return false;
+          var className = $(renderedSnippet).attr("class");
+          var top = $(renderedSnippet).position().top;
+          var left = $(renderedSnippet).position().left;
+          var height = $(renderedSnippet).height();
+          var width = $(renderedSnippet).width();
+          if (className == "component-holder") {     
+        //    console.log("left: " + left + " width: " + width + " eventX: " + eventX);
+        //    console.log("top: " + top + " height: " + height + " eventY: " + eventY);
+            if (((top < eventY) && (top + height > eventY))
+              && ((left < eventX) && (left + width > eventX))) {
+       //       console.log("Got it");
+              return true;
+            } else {
+              return false;
+            }
+          }
+          if ($(renderedSnippet).attr("data-title") == "Xây dựng bảng") {
+            return false;
+          }
+          //90 is the height of target
+          if (top + height > eventY - 90) {
+            return true;
+          }
           return false;
+        });
+     //   console.log(topelement);
+        if (topelement){
+          return topelement;
+        } else {
+          if (myFormBits[0] == undefined) {
+            //This is the first component to add
+            this.$el.find("fieldset").append("<div class='target'></div>");
+          }
+          return myFormBits[0];
         }
-      });
-      if (topelement){
-        return topelement;
-      } else {
-        return myFormBits[0];
-      }
     }
 
     , handleSnippetDrag: function(mouseEvent, snippetModel) {
@@ -113,24 +138,59 @@
 
     , handleTempMove: function(mouseEvent){
       $(".target").removeClass("target");
-      if(mouseEvent.pageX >= this.$build.position().left &&
-          mouseEvent.pageX < (this.$build.width() + this.$build.position().left) &&
-          mouseEvent.pageY >= this.$build.position().top &&
-          mouseEvent.pageY < (this.$build.height() + this.$build.position().top)){
-        $(this.getBottomAbove(mouseEvent.pageY)).addClass("target");
+      //Minus for relative position of md-col-9
+      var pageX = mouseEvent.pageX - 70;
+      var pageY = mouseEvent.pageY - 78;
+      if(pageX >= this.$build.position().left &&
+          pageX < (this.$build.width() + this.$build.position().left) &&
+          pageY >= this.$build.position().top &&
+          pageY < (this.$build.height() + this.$build.position().top)){
+        var element = $(this.getBottomAbove(pageX, pageY));
+        //If it drag into component-holder, replace the content
+        if (element.attr("class") && 
+          element.attr("class").indexOf("component-holder") != -1 &&
+          !element.attr("data-temp")) {
+            element.attr("data-temp", element.html());
+            element.html("");
+        } else {
+          $(".component-holder[data-temp]").each(function(index, component) {
+            $(component).html($(component).attr("data-temp"));
+            $(component).removeAttr("data-temp");
+          });
+        }
+        element.addClass("target");
       } else {
         $(".target").removeClass("target");
       }
     }
 
-    , handleTempDrop: function(mouseEvent, model, index){
+    , handleTempDrop: function(mouseEvent, model){
       if(mouseEvent.pageX >= this.$build.position().left &&
          mouseEvent.pageX < (this.$build.width() + this.$build.position().left) &&
          mouseEvent.pageY >= this.$build.position().top &&
          mouseEvent.pageY < (this.$build.height() + this.$build.position().top)) {
-        var index = $(".target").index();
-        $(".target").removeClass("target");
-        this.collection.add(model,{at: index+1});
+         if ($(".target").attr("class").indexOf("component-holder") != -1) {
+            var position = $(".target").attr("data-position");
+            var parent = $(".target").parents(".component");
+            var parentModel = this.collection.at(parent.index());
+            console.log("GO hore: ", parentModel);
+            model.set("parentId", parent.index());
+            model.set("position", position);
+            if (model.get("fields")["label"] != undefined) {
+              model.setField("label", "");
+            }
+            if (model.get("fields")["name"] != undefined) {
+              model.setField("name", "");
+            }
+            this.collection.add(model);
+            console.log(this.collection);
+         } else {
+            var index = $(".target").index();
+            model.unset("parentId");
+            model.unset("position");
+            $(".target").removeClass("target");
+            this.collection.add(model,{at: index+1});
+         }
       } else {
         $(".target").removeClass("target");
       }
