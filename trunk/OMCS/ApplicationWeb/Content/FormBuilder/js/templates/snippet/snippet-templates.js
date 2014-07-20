@@ -18,7 +18,8 @@ define(function(require) {
   , textinput                = require('text!templates/snippet/textinput.html')
   , commonsnippettab = require('text!templates/snippet/common-snippet-tab.html')
   , statictext = require('text!templates/snippet/static-text.html')
-  , datepicker = require('text!templates/snippet/datepicker.html');
+  , datepicker = require('text!templates/snippet/datepicker.html')
+  , table = require('text!templates/snippet/table.html');
 
   return {
     formname                   : formname
@@ -41,5 +42,6 @@ define(function(require) {
     , commonsnippettab: commonsnippettab
     , statictext: statictext
     , datepicker: datepicker
+    , table: table
   }
 });

@@ -93,6 +93,10 @@ form .popover form {
   border: 1px dashed #ccc;
 }
 
+.component-holder.target:after{
+  height: 45px; 
+}
+
 #target, #input, #radioscheckboxes, #select, #buttons {
  -webkit-touch-callout: none;
  -webkit-user-select: none;

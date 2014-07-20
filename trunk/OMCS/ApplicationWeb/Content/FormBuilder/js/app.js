@@ -31,7 +31,6 @@
       //Make the first tab active!
       $("#components .tab-pane").first().addClass("active");
       $("#formtabs li").first().addClass("active");
-
       $(document).scroll(function () {
           var scroll = $(this).scrollTop();
           var topDist = 90;
