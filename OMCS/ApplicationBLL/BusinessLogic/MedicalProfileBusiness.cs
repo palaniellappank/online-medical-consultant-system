@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace OMCS.BLL
 {
-    public class MedicalProfileBusiness: BaseBusiness
+    public class MedicalProfileBusiness : BaseBusiness
     {
         CustomSnippetBusiness snippetBusiness;
 
@@ -60,7 +60,7 @@ namespace OMCS.BLL
                 }
                 snippet.fields = new JObject() as dynamic;
                 Debug.WriteLine(customSnippet.SnippetType);
-                
+
                 var listCustomSnippetFields = from snippetField in _db.CustomSnippetFields
                                               where snippetField.CustomSnippetId == customSnippet.CustomSnippetId
                                               select snippetField;
@@ -81,7 +81,8 @@ namespace OMCS.BLL
                     if (customSnippetField.Type.Equals("checkbox"))
                     {
                         metadata.value = customSnippetField.Value.Equals("True") ? true : false;
-                    } else 
+                    }
+                    else
                         metadata.value = value;
                     metadata.name = customSnippetField.Name;
                     snippet.fields.Add(customSnippetField.FieldName, metadata);
@@ -114,7 +115,7 @@ namespace OMCS.BLL
                     {
                         var customSnippetValue = _db.CustomSnippetValues.Where(
                             x => (x.CustomSnippetId == customSnippetId)
-                                &&(x.MedicalProfileId == medicalProfile.MedicalProfileId)
+                                && (x.MedicalProfileId == medicalProfile.MedicalProfileId)
                             ).FirstOrDefault();
                         if (customSnippetValue == null)
                         {
@@ -125,7 +126,7 @@ namespace OMCS.BLL
                             };
                             _db.CustomSnippetValues.Add(customSnippetValue);
                         }
-                        string [] value = formCollection.GetValues(_formData);
+                        string[] value = formCollection.GetValues(_formData);
                         if (value.Length == 1)
                         {
                             customSnippetValue.Value = value[0];
@@ -138,6 +139,40 @@ namespace OMCS.BLL
                     }
                 }
             }
+        }
+
+        public JArray DetailsMedicalProfileUser(int medicalProfileId, int UserId)
+        {
+            var medicalProfile = _db.MedicalProfiles.Find(medicalProfileId);
+            var snippetList = _db.CustomSnippets.Where
+                (x => x.MedicalProfileTemplateId == medicalProfile.MedicalProfileTemplateId)
+                .OrderBy(x => x.Position)
+                .ToList();
+
+            dynamic snippetJsonList = new JArray();
+
+            foreach (var snippet in snippetList)
+            {
+                var snippetFields = _db.CustomSnippetFields.
+                    Where(x => x.CustomSnippetId == snippet.CustomSnippetId).
+                    ToList();
+                dynamic snippetJsonObject = new JObject();
+                foreach (var snippetField in snippetFields)
+                {
+                    if (snippetField.FieldName.Equals("name"))
+                    {
+                        snippetJsonObject.name = snippetField.Value;
+                    }
+                    if (snippetField.FieldName.Equals("label"))
+                    {
+                        snippetJsonObject.name = snippetField.Value;
+                    }
+                }
+
+                snippetJsonObject.value = snippetBusiness.GetValueForSnippet(snippet, UserId, medicalProfileId);
+                snippetJsonList.Add(snippetJsonObject);
+            }
+            return snippetJsonList;
         }
     }
 }

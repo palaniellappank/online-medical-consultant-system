@@ -16,10 +16,12 @@
                 <td style="width: auto;">@item.MedicalProfileTemplate.MedicalProfileTemplateName</td>
                 <td style="width: auto;">@item.CreatedDate</td>
                 <td>
-                    <a class="btn btn-primary" href="@Url.Action("Details", "UserMedicalProfile", new {medicalProfileId= item.MedicalProfileId})" target="_blank">Xem chi tiết</a>
+                    <a class="btn btn-primary" href="@Url.Action("Details", "UserMedicalProfile", new { medicalProfileId = item.MedicalProfileId })" target="_blank">Xem chi tiết</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+
 
