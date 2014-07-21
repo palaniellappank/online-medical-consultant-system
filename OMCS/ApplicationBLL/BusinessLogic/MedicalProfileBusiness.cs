@@ -53,6 +53,11 @@ namespace OMCS.BLL
             {
                 dynamic snippet = new JObject();
                 snippet.title = customSnippet.Title;
+                if (customSnippet.ParentId != 0)
+                {
+                    snippet.parentId = customSnippet.ParentId;
+                    snippet.positionInTable = customSnippet.PositionInTable;
+                }
                 snippet.fields = new JObject() as dynamic;
                 Debug.WriteLine(customSnippet.SnippetType);
                 

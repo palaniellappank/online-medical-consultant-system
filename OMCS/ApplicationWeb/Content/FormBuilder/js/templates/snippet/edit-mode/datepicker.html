@@ -1,3 +1,12 @@
+<% if (isChild && (label.trim().length == 0)) { %>
+  <div class="<%= inputsize %>">
+      <div class='input-group date' data-date-format="dd-mm-yyyy">
+            <input id="<%= id %>" name="<%= id %>" type='text' class="form-control datepicker" size="16" readonly="" <% if(required) {%> required <% } %> value="<%= value %>"/>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+            </span>
+      </div>
+  </div>
+<% } else { %>
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="<%= id %>">
@@ -12,3 +21,4 @@
       </div>
   </div>
 </div>
+<% } %>

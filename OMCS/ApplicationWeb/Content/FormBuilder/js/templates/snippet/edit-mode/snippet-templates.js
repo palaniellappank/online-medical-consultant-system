@@ -10,7 +10,8 @@ define(function(require) {
   , textarea                 = require('text!templates/snippet/edit-mode/textarea.html')
   , statictext = require('text!templates/snippet/edit-mode/static-text.html')
   , datepicker = require('text!templates/snippet/edit-mode/datepicker.html')
-  , statictextcopy = require('text!templates/snippet/edit-mode/static-text-copy.html');
+  , statictextcopy = require('text!templates/snippet/edit-mode/static-text-copy.html')
+  , table = require('text!templates/snippet/table.html');
   return {
     formname                   : formname
     , textinput                : textinput
@@ -24,5 +25,6 @@ define(function(require) {
     , statictext: statictext
     , datepicker: datepicker
     , statictextcopy: statictextcopy
+    , table: table
   }
 });

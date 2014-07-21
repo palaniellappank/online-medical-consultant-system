@@ -1,0 +1,24 @@
+﻿<!-- Table -->
+
+<h4>
+    <%= label %>
+</h4>
+<table class="table table-striped table-hover ">
+<thead>
+    <tr>
+    <% _.each(columns, function(column, i){ %>
+        <th><%= column %></th>
+    <% }); %>
+    </tr>
+</thead>
+<tbody>
+    <% for (var i = 0; i < numofrows; i++) { %>
+        <tr>
+            <% _.each(columns, function(column, j) { %>
+                <td class="component-holder" data-position="<%= i * columns.length + j %>" style="height: 70px; min-width: 100px;">
+                </td>
+            <% }); %>
+        </tr>
+    <% } %>
+</tbody>
+</table>

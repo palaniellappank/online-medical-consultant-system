@@ -1,3 +1,15 @@
+<% if (isChild && (label.trim().length == 0)) { %>
+  <div class="<%= inputsize %>">
+      <% 
+        var valueArray = [];
+        if (value)
+            valueArray = value.split("~~") 
+      %>
+    <select id="<%= id %>" name="<%= id %>" class="form-control" multiple="multiple"><% _.each(options, function(option) { %>
+      <option <% if (valueArray.indexOf(option) > -1) { %> selected <% } %>><%= option %></option><% }); %>
+    </select>
+  </div>
+<% } else { %>
 <!-- Select Multiple -->
 <div class="form-group">
   <label class="col-md-4 control-label" for="<%= id %>">
@@ -14,3 +26,4 @@
     </select>
   </div>
 </div>
+<% } %>

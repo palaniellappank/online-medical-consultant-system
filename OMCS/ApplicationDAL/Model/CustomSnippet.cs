@@ -36,6 +36,10 @@ namespace OMCS.DAL.Model
 
         public int Position { get; set; }
 
+        public int ParentId { get; set; }
+
+        public int PositionInTable { get; set; }
+
         public SnippetType SnippetType { get; set; }
 
         public String SnippetFieldName { get; set; }

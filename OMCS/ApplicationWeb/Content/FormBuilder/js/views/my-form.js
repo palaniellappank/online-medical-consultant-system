@@ -99,11 +99,8 @@ define([
           var height = $(renderedSnippet).height();
           var width = $(renderedSnippet).width();
           if (className == "component-holder") {     
-        //    console.log("left: " + left + " width: " + width + " eventX: " + eventX);
-        //    console.log("top: " + top + " height: " + height + " eventY: " + eventY);
             if (((top < eventY) && (top + height > eventY))
               && ((left < eventX) && (left + width > eventX))) {
-       //       console.log("Got it");
               return true;
             } else {
               return false;
@@ -118,7 +115,6 @@ define([
           }
           return false;
         });
-     //   console.log(topelement);
         if (topelement){
           return topelement;
         } else {
@@ -131,7 +127,16 @@ define([
     }
 
     , handleSnippetDrag: function(mouseEvent, snippetModel) {
-      $("body").append(new TempSnippetView({model: snippetModel}).render());
+      this.tempSnippet = new TempSnippetView({model: snippetModel});
+      $("body").append(this.tempSnippet.render(false));
+      if (snippetModel.get("parentId") == undefined) {
+        var index = _.indexOf(this.collection.models, snippetModel);
+        this.collection.each(function(child) {
+          if (child.get("parentId") > index) {
+            child.set("parentId", child.get("parentId") - 1);
+          };
+        });
+      }
       this.collection.remove(snippetModel);
       PubSub.trigger("newTempPostRender", mouseEvent);
     }
@@ -146,10 +151,22 @@ define([
           pageY >= this.$build.position().top &&
           pageY < (this.$build.height() + this.$build.position().top)){
         var element = $(this.getBottomAbove(pageX, pageY));
+        //Update content of dragging element
+  /*      if (element.parents("[data-title='Xây dựng bảng']").length != 0) {
+          var temp = $("#temp").html();
+          $("#temp").html("Put");
+          $("#temp").toggleClass("col-md-6");
+          $("#temp").attr("data-temp", temp);
+        } else {
+          $("#temp").toggleClass("col-md-6");
+          $("#temp").html($("#temp").attr("data-temp"));
+          $("#temp").attr("data-temp", undefined);
+        }*/
         //If it drag into component-holder, replace the content
         if (element.attr("class") && 
           element.attr("class").indexOf("component-holder") != -1 &&
           !element.attr("data-temp")) {
+            
             element.attr("data-temp", element.html());
             element.html("");
         } else {
@@ -173,9 +190,8 @@ define([
             var position = $(".target").attr("data-position");
             var parent = $(".target").parents(".component");
             var parentModel = this.collection.at(parent.index());
-            console.log("GO hore: ", parentModel);
             model.set("parentId", parent.index());
-            model.set("position", position);
+            model.set("positionInTable", position);
             if (model.get("fields")["label"] != undefined) {
               model.setField("label", "");
             }
@@ -183,12 +199,17 @@ define([
               model.setField("name", "");
             }
             this.collection.add(model);
-            console.log(this.collection);
          } else {
             var index = $(".target").index();
             model.unset("parentId");
-            model.unset("position");
+            model.unset("positionInTable");
             $(".target").removeClass("target");
+            //Should increase parent_id to avoid affect
+            this.collection.each(function(child) {
+                if (child.get("parentId") > index) {
+                  child.set("parentId", child.get("parentId") + 1);
+                };
+            });
             this.collection.add(model,{at: index+1});
          }
       } else {
