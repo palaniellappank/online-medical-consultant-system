@@ -125,7 +125,9 @@ namespace OMCS.BLL
             int position = 0;
             foreach (dynamic snippet in listSnippets)
             {
-                CustomSnippet customSnippet = new CustomSnippet { Title = snippet.title, MedicalProfileTemplateId = template.MedicalProfileTemplateId };
+                CustomSnippet customSnippet = new CustomSnippet { Title = snippet.title, 
+                    Name = snippet.name,
+                    MedicalProfileTemplateId = template.MedicalProfileTemplateId };
                 
                 /*
                  * This is for mapping one-one attribute
@@ -144,6 +146,11 @@ namespace OMCS.BLL
                     customSnippet.SnippetFieldName = snippet.fieldname;
                 }
                 position++;
+                if (snippet.parentId != null)
+                {
+                    customSnippet.ParentId = snippet.parentId;
+                    customSnippet.PositionInTable = snippet.positionInTable;
+                }
                 customSnippet.Position = position;
                 resultCustomSnippetList.Add(customSnippet);
                 customSnippet.CustomSnippetFields = new Collection<CustomSnippetField>();
@@ -294,6 +301,8 @@ namespace OMCS.BLL
                         var newField = snippetChangeItem.CustomSnippetFields.ElementAt(i);
                         oldField.Value = newField.Value;
                         existItem.Position = snippetChangeItem.Position;
+                        existItem.ParentId = snippetChangeItem.ParentId;
+                        existItem.PositionInTable = snippetChangeItem.PositionInTable;
                     }
                 }
                 //New added item

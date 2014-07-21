@@ -1,3 +1,6 @@
+<% if (isChild && (label.trim().length == 0)) { %>
+  <input id="<%= id %>" name="<%= id %>" type="text" placeholder="<%= placeholder %>" class="form-control" <% if(required) {%> required <% } %> value="<% if (value==null) {%><%= defaultvalue %><% } else { %><%= value %> <% } %>" style="width: <%= sizepx %>px"/>
+<% } else { %>
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="<%= id %>">
@@ -8,3 +11,4 @@
     <input id="<%= id %>" name="<%= id %>" type="text" placeholder="<%= placeholder %>" class="form-control" <% if(required) {%> required <% } %> value="<% if (value==null) {%><%= defaultvalue %><% } else { %><%= value %> <% } %>"/>
   </div>
 </div>
+<% } %>

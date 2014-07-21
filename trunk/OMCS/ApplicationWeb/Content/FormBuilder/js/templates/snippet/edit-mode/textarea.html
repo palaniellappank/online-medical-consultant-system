@@ -1,3 +1,8 @@
+<% if (isChild && (label.trim().length == 0)) { %>
+  <textarea id="<%= id %>" name="<%= id %>" placeholder="<%= placeholder %>" 
+        rows="<%= numofline %>"
+        class="form-control" <% if(required) {%> required <% } %>><% if (value==null) {%><%= defaultvalue %><% } else { %><%= value %> <% } %></textarea>
+<% } else { %>
 <!-- Textarea -->
 <div class="form-group">
   <label class="col-md-4 control-label" for ="<%= id %>"><%= label %></label>
@@ -7,3 +12,4 @@
         class="form-control" <% if(required) {%> required <% } %>><% if (value==null) {%><%= defaultvalue %><% } else { %><%= value %> <% } %></textarea>
   </div>
 </div>
+<% } %>

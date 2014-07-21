@@ -1,3 +1,21 @@
+<% if (isChild && (label.trim().length == 0)) { %>
+  <div>
+      <% 
+        var valueArray = [];
+        if (value)
+            valueArray = value.split("~~") 
+      console.log(valueArray);
+      %>
+      <% _.each(checkboxes, function(checkbox, i){ %>
+        <div class="checkbox">
+            <label for="<%= id+'-'+i %>">
+              <input type="checkbox" name="<%= id %>" id="<%= id+'-'+i %>" value="<%= checkbox %>"> <% if (valueArray.indexOf(checkbox) > -1) { %> checked <% } %>>
+              <%= checkbox %>
+            </label>
+        </div>
+      <% }); %>
+  </div>
+<% } else { %>
 <!-- Multiple Checkboxes -->
 <div class="form-group">
   <label class="col-md-4 control-label" for="<%= name %>"><%= label %></label>
@@ -18,3 +36,4 @@
       <% }); %>
   </div>
 </div>
+<% } %>

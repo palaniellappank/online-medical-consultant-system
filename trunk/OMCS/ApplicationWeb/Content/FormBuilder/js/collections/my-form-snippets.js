@@ -26,7 +26,7 @@ define([
 							var totalChildLength = snippet.getValues()["columns"].length * snippet.getValues()["numofrows"];
 							var totalChild = new Array(totalChildLength);
 							var childListRendered = _.each(childList, function(snippet) {
-								totalChild[snippet.get("position")] = new MyFormSnippetView({model: snippet}).render();
+								totalChild[snippet.get("positionInTable")] = new MyFormSnippetView({model: snippet}).render();
 							});
 							return new MyFormSnippetView({model: snippet}).render(totalChild);
 						}

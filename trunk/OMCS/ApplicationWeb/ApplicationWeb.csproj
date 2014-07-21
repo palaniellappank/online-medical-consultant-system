@@ -260,6 +260,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\FormBuilder\js\templates\app\changenotice.html" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\table.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\table.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\static-text-copy.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\datepicker.html" />
@@ -592,8 +593,10 @@
     <Content Include="Views\AllergyType\_Create.cshtml" />
     <Content Include="Views\AllergyType\_Edit.cshtml" />
     <Content Include="Views\AllergyType\_Delete.cshtml" />
-    <Content Include="Views\DoctorUser\CreatePatient.cshtml" />    <Content Include="Views\Account\_Register.cshtml" />
-    <Content Include="Views\DoctorUser\EditPatient.cshtml" />    <Content Include="Views\Account\Activate.cshtml" />
+    <Content Include="Views\DoctorUser\CreatePatient.cshtml" />
+    <Content Include="Views\Account\_Register.cshtml" />
+    <Content Include="Views\DoctorUser\EditPatient.cshtml" />
+    <Content Include="Views\Account\Activate.cshtml" />
     <Content Include="Views\Account\_Register.cshtml" />
     <Content Include="Views\Account\Activate.cshtml" />
     <Content Include="Views\Account\_ForgotPassword.cshtml" />
