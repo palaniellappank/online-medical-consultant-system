@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    var medical = ViewBag.medicalProfiles;
+}
+<script type="text/javascript">
+    $(function () {
+        var detailsInJson = @Html.Raw(ViewBag.detailsInJson);
+        $("#medical-profile").html(_.template($("#medical-profile-template").html(), {snippetList: detailsInJson}));
+    });
+</script>
+<div align="center">
+    <h2>
+        @medical.MedicalProfileTemplate.MedicalProfileTemplateName
+    </h2>
+</div>
+<div class="form-horizontal" id="medical-profile">
+</div>
+<script id="medical-profile-template" type="text/template">
+    <% _.each(snippetList, function(snippet) { %>
+    <% if (snippet.value == null) { %>
+    <fieldset>
+        <div>
+            <legend><%= snippet.name %></legend>
+        </div>
+        <% } else { %>
+    <div class="form-group">
+        <label class="col-md-4 control-label"><%= snippet.name %></label>
+        <div class="col-md-8 form-control-static">
+            <%= snippet.value %>
+        </div>
+    </div>
+    </fieldset>
+    <% } %>
+    <% }); %>
+</script>
+
