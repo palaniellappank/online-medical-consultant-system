@@ -53,7 +53,7 @@ namespace OMCS.DAL.Model
         public bool IsActive { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Ngày Tạo")]
         public DateTime CreatedDate { get; set; }
 

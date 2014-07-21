@@ -124,6 +124,12 @@ namespace OMCS.Web.Controllers
                 var pass = Request.Params["Password"];
                 string password = Convert.ToString(pass);
                 patient.Password = password;
+                var ethnicity = Request.Params["Ethnicity"];
+                string ethnicityP = Convert.ToString(ethnicity);
+                patient.Ethnicity = ethnicityP;
+                var nationality = Request.Params["Nationality"];
+                string nationalityP = Convert.ToString(nationality);
+                patient.Nationality = nationalityP;
                 patient.IsActive = true;
                 _db.Users.Add(patient);
                 _db.SaveChanges();
@@ -249,6 +255,12 @@ namespace OMCS.Web.Controllers
             var pass = Request.Params["Password"];
             string password = Convert.ToString(pass);
             patient.Password = password;
+            var ethnicity = Request.Params["Ethnicity"];
+            string ethnicityP = Convert.ToString(ethnicity);
+            patient.Ethnicity = ethnicityP;
+            var nationality = Request.Params["Nationality"];
+            string nationalityP = Convert.ToString(nationality);
+            patient.Nationality = nationalityP;
             patient.IsActive = true;
             _db.Entry(patient).State = EntityState.Modified;
             _db.SaveChanges();
@@ -276,9 +288,6 @@ namespace OMCS.Web.Controllers
 
             var alcoholYear = Request.Params["alcoholyear"];
             int alcoholNumberOfYear = Convert.ToInt32(alcoholYear);
-
-            //var isBeer = Request.Params["beer"];
-            //bool beer = bool.Parse(isBeer);
 
             var smokeYear = Request.Params["smokeyear"];
             int smokeNumberOfYear = Convert.ToInt32(smokeYear);
@@ -319,9 +328,7 @@ namespace OMCS.Web.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-        //
-        // POST: /AdminUser/CheckExistUsername
+      
         [HttpPost]
         public JsonResult CheckExistUsername(string userName, int id = 0)
         {
@@ -332,9 +339,7 @@ namespace OMCS.Web.Controllers
             }
             return new JsonResult { Data = true };
         }
-
-        //
-        // POST: /AdminUser/CheckExistEmail
+       
         [HttpPost]
         public JsonResult CheckExistEmail(string email, int id = 0)
         {
@@ -352,6 +357,5 @@ namespace OMCS.Web.Controllers
             base.Dispose(disposing);
         }
     }
-
 
 }
