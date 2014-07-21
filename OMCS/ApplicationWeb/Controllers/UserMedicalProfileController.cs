@@ -27,7 +27,7 @@ namespace OMCS.Web.Controllers
 
         public ActionResult Details(int medicalProfileId)
         {
-            var medicalProfiles = _db.MedicalProfiles.Where(a => a.PatientId == User.UserId).ToList();
+            var medicalProfiles = _db.MedicalProfiles.Find(medicalProfileId);
             ViewBag.medicalProfiles = medicalProfiles;
             ViewBag.detailsInJson = business.DetailsMedicalProfileUser(medicalProfileId, User.UserId);                     
             return View();
