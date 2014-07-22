@@ -141,6 +141,7 @@
     <tbody>
         <tr class="info">
             <td style="width: auto;">Loại dị ứng</td>
+            <td style="width: auto;">Tên</td>
             <td style="width: auto;">Mô tả</td>
             <td style="width: auto;">Ngày bị dị ứng gần nhất</td>
             <td style="width: auto;">Phản ứng</td>
@@ -149,9 +150,10 @@
         @foreach (var a in ViewBag.Allergy)
         {
             <tr>
-                <td style="width: auto;">@a.AllergyType.Name </td>
+                <td style="width: auto;">@a.AllergyType.Name</td>
+                <td style="width: auto;">@a.Name</td>
                 <td style="width: auto;">@a.AllergyType.Description</td>
-                <td style="width: auto;">@a.DateLastOccurred</td>
+                <td style="width: auto;">@a.DateLastOccurred.ToShortDateString()</td>
                 <td style="width: auto;">@a.Reaction </td>
                 <td style="width: auto;">@a.Note</td>
             </tr>
@@ -174,7 +176,7 @@
         {
             <tr>
                 <td style="width: auto;">@i.Name </td>
-                <td style="width: auto;">@i.DateImmunized</td>
+                <td style="width: auto;">@i.DateImmunized.ToShortDateString()</td>
                 <td style="width: auto;">@i.BoosterTime</td>
             </tr>
         }

@@ -61,17 +61,20 @@ namespace OMCS.Web.Controllers
         // POST: /AdminUser/Create
 
         [HttpPost]
-        public ActionResult Create(User user)
+        public ActionResult Create(Patient user)
         {
             if (ModelState.IsValid)
             {
                 Role role = db.Roles.FirstOrDefault(r => r.RoleName == "User");
-                user.Roles = new List<Role>();
-                user.Roles.Add(role);
+                user.Roles = new List<Role>() {role};
                 user.CreatedDate = DateTime.UtcNow;
                 user.ProfilePicture = "photo.jpg";
                 user.IsActive = true;
-                db.Users.Add(user);
+                PersonalHealthRecord personalHealthRecord = new PersonalHealthRecord
+                {
+                    Patient = user
+                };
+                db.PersonalHealthRecords.Add(personalHealthRecord);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

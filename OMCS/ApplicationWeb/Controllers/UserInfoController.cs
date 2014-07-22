@@ -12,15 +12,22 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using OMCS.BLL;
 
 namespace OMCS.Web.Controllers
 {
      [CustomAuthorize(Roles= "User")]
     public class UserInfoController : BaseController
     {
+        PatientBusiness userBusiness;
+
+        public UserInfoController()
+        {
+            userBusiness = new PatientBusiness(_db);
+        }
+
         public ActionResult Index()
         {
-            Debug.WriteLine(User.UserId);
             var patient = _db.Patients.Where(pa => pa.UserId == User.UserId).SingleOrDefault();
             return View(patient);
         }

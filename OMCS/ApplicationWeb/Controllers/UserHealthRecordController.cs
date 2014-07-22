@@ -18,7 +18,6 @@ namespace OMCS.Web.Controllers
         private OMCSDBContext db = new OMCSDBContext();
         public ActionResult Index()
         {
-            Debug.WriteLine(User.UserId);
             var personalHealthRecord = _db.PersonalHealthRecords.Where(pa => pa.PatientId == User.UserId).SingleOrDefault();
             var allergy = _db.Allergies.Where(a => a.MedicalProfile.Patient.UserId == User.UserId).ToList();
             ViewBag.Allergy = allergy;
