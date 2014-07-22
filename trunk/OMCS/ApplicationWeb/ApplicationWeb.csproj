@@ -593,6 +593,8 @@
     <Content Include="Views\Account\Activate.cshtml" />
     <Content Include="Views\Account\_ForgotPassword.cshtml" />
     <Content Include="Views\UserMedicalProfile\Details.cshtml" />
+    <Content Include="Views\UserHealthRecord\_AllergyList.cshtml" />
+    <Content Include="Views\UserHealthRecord\_ImmunizationList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

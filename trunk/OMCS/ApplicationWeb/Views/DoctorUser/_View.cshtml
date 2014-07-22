@@ -200,7 +200,12 @@
               </div>
             </div>
                 <div class="panel-footer">
-                    <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
+                    <a data-original-title="Dị ứng" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary" id="allergy-btn">
+                        <i class="glyphicon glyphicon-list-alt"></i> Dị ứng
+                    </a>
+                    <a data-original-title="Lịch sử tiêm chủng" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary" id="immunization-btn">
+                        <i class="glyphicon glyphicon-list-alt"></i> Lịch sử tiêm chủng
+                    </a>
                     <span class="pull-right">
                         <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
                         <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
@@ -209,3 +214,40 @@
        </div>
    </div>
 </div>
+
+<div class="modal fade in" id="modal-popup">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(function () {
+        $("#allergy-btn").click(function (e) {
+            $.ajax({
+                url: "/UserHealthRecord/ShowAllergyList/" + @Html.DisplayFor(model => model.Patient.UserId),
+                success: function(e) {
+                    $("#modal-popup").find(".modal-body").html(e);
+                    $("#modal-popup").modal("show");
+                }
+            });
+        });
+
+
+        $("#immunization-btn").click(function(e){
+            $.ajax({
+                url: "/UserHealthRecord/ShowImmunizationList/" + @Html.DisplayFor(model => model.Patient.UserId),
+                success: function(e) {
+                    $("#modal-popup").find(".modal-body").html(e);
+                    $("#modal-popup").modal("show");
+                }
+            });
+        });
+    });
+</script>

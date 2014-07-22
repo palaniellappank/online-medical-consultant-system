@@ -12,17 +12,13 @@ using System.Web.Mvc;
 
 namespace OMCS.Web.Controllers
 {
-    [CustomAuthorize(Roles = "User")]
+    [CustomAuthorize(Roles = "User, Doctor")]
     public class UserHealthRecordController : BaseController
     {
         private OMCSDBContext db = new OMCSDBContext();
         public ActionResult Index()
         {
             var personalHealthRecord = _db.PersonalHealthRecords.Where(pa => pa.PatientId == User.UserId).SingleOrDefault();
-            var allergy = _db.Allergies.Where(a => a.MedicalProfile.Patient.UserId == User.UserId).ToList();
-            ViewBag.Allergy = allergy;
-            var immunizations = _db.Immunizations.Where(i => i.MedicalProfile.PatientId == User.UserId).ToList();
-            ViewBag.Immunizations = immunizations;
             return View(personalHealthRecord);
         }
 
@@ -36,6 +32,20 @@ namespace OMCS.Web.Controllers
             JObject result = new JObject();
             result.Add("status", "success");
             return result;
+        }
+
+        public ActionResult ShowAllergyList(int id)
+        {
+            var allergyList = _db.Allergies.Where(a => a.MedicalProfile.Patient.UserId == id)
+                .OrderBy(x=>x.MedicalProfileId).ToList();
+            return PartialView("_AllergyList", allergyList);
+        }
+
+        public ActionResult ShowImmunizationList(int id)
+        {
+            var immunizationList = _db.Immunizations.Where(i => i.MedicalProfile.PatientId == id)
+                .OrderBy(x=>x.MedicalProfileId).ToList();
+            return PartialView("_ImmunizationList", immunizationList);
         }
     }
 }
