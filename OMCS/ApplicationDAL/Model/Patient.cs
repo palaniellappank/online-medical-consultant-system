@@ -42,17 +42,5 @@ namespace OMCS.DAL.Model
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Ngày hết hạn")]
         public DateTime? HealthInsuranceDateExpired { get; set; }
-
-        public Patient() {}
-        public Patient(User user)
-        {
-            foreach (PropertyInfo prop in user.GetType().GetProperties())
-            {
-                if (!prop.Name.Equals("FullName"))
-                {
-                    GetType().GetProperty(prop.Name).SetValue(this, prop.GetValue(user, null), null);
-                }
-            }
-        }
     }
 }

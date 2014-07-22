@@ -1,0 +1,38 @@
+﻿@model IEnumerable<OMCS.DAL.Model.Immunization>
+
+<fieldset>
+    <legend>Lịch sử tiêm chủng</legend>
+</fieldset>
+<table class="table table-data table-bordered table-striped" style="clear: both">
+    <tbody>
+        @for(var i = 0;i < Model.Count();i++)
+        {
+            if (i == 0 || (!@Model.ElementAt(i).MedicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName.Equals
+                (@Model.ElementAt(i-1).MedicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName))) {
+            <tr>
+                <td colspan="6">
+                    <div class="form-inline">
+                        <span class="label label-info">Bệnh án:</span> @Model.ElementAt(i).MedicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName
+                        <a data-toggle="tooltip" data-original-title="Xem chi tiết" 
+                            href="@Url.Action("Details", "UserMedicalProfile", new { medicalProfileId = @Model.ElementAt(i).MedicalProfile.MedicalProfileId })"
+                            target="_blank"
+                            data-id="@Model.ElementAt(i).MedicalProfile.MedicalProfileId" class="edit-btn btn btn-sm btn-warning">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            <tr class="info">
+                <td>Loại tiêm chủng</td>
+                <td>Ngày tiêm chủng</td>
+                <td>Số lần tiêm chủng</td>
+            </tr>
+         }
+            <tr>
+                <td>@Model.ElementAt(i).Name </td>
+                <td>@Model.ElementAt(i).DateImmunized.ToShortDateString()</td>
+                <td>@Model.ElementAt(i).BoosterTime</td>
+            </tr>
+        }
+    </tbody>
+</table>
