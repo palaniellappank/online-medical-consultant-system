@@ -215,18 +215,6 @@
    </div>
 </div>
 
-<div class="modal fade in" id="modal-popup">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      </div>
-      <div class="modal-body">
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
     $(function () {
         $("#allergy-btn").click(function (e) {
@@ -234,6 +222,7 @@
                 url: "/UserHealthRecord/ShowAllergyList/" + @Html.DisplayFor(model => model.Patient.UserId),
                 success: function(e) {
                     $("#modal-popup").find(".modal-body").html(e);
+                    $("#model-popup").find(".modal-title").html("Dị ứng");
                     $("#modal-popup").modal("show");
                 }
             });
@@ -245,6 +234,7 @@
                 url: "/UserHealthRecord/ShowImmunizationList/" + @Html.DisplayFor(model => model.Patient.UserId),
                 success: function(e) {
                     $("#modal-popup").find(".modal-body").html(e);
+                    $("#model-popup").find(".modal-title").html("Lịch sử tiêm ch");
                     $("#modal-popup").modal("show");
                 }
             });
