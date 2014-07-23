@@ -1,7 +1,5 @@
-﻿@model OMCS.DAL.Model.User
-
-@{
-    ViewBag.Title = "Trang chủ";
+﻿@{
+    ViewBag.Title = "Chào mừng";
     Layout = null;
 }
 
@@ -21,14 +19,6 @@
 
     <link href='http://fonts.googleapis.com/css?family=Open Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-
-    <style>
-        form
-        {
-            width: 300px;
-            margin: 0 auto;
-        }
-    </style>
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
 
@@ -91,19 +81,18 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h3>Chào mừng bạn đến với website tư vấn y khoa trực tuyến OMCS</h3>
-                <p>Vui lòng nhập mã kích hoạt</p>
+                <p>Tái khoản của bạn đã kích hoạt thành công</p>
 
-                @using (Html.BeginForm())
-                {
-                    <input type="hidden" name="UserId" value="@ViewBag.Id" />
-                    <input type="hidden" name="ActCode" value="@ViewBag.Code" />
-                    <div class="form-group">
-                        <input type="text" name="Code" class="form-control required" />
-                    </div>
-                   
-                    <input type="submit" id="btnActivate" value="Kích Hoạt" class="btn btn-primary" />
-                }
-
+                <ul class="list-inline banner-social-buttons">
+                    <li><a href="@Url.Action("Login", "Account")" class="btn btn-success btn-lg">
+                        <i class="glyphicon glyphicon-log-in"></i>
+                        <span class="network-name">&nbsp;Đăng nhập</span></a>
+                    </li>
+                    <li><a href="@Url.Action("Index", "Home")" class="btn btn-info btn-lg">
+                        <i class="glyphicon glyphicon-home"></i>
+                        <span class="network-name">&nbsp;Trang chủ</span></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
@@ -141,11 +130,6 @@
                 $.get(url, function (data) {
                     $("#register-container").html(data);
                     $("#register-model").modal("show");
-                });
-            });
-
-            $("#btnActivate").click(function () {
-                $("form").validate(function () {
                 });
             });
         })

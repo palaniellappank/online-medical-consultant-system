@@ -1,0 +1,124 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using OMCS.DAL.Model;
+
+namespace OMCS.Web.Controllers
+{
+    public class CommentController : BaseController
+    {
+        //
+        // GET: /Comment/
+
+        public ActionResult Index(int id)
+        {
+            IEnumerable<Comment> comments = _db.Comments.Where(c => c.DoctorId == id);
+
+            return PartialView("_Index", comments);
+        }
+
+        //
+        // GET: /Comment/Details
+
+        public ActionResult Details(int id)
+        {
+            User user = _db.Users.Find(id);
+            Doctor doctor = _db.Doctors.Find(id);
+            SpecialtyField field = _db.SpecialtyFields.FirstOrDefault(f => f.SpecialtyFieldId == doctor.SpecialtyFieldId);
+
+            ViewBag.User = user;
+            ViewBag.Doctor = doctor;
+            ViewBag.SpecialtyField = field;
+
+            return PartialView("_Details", user);
+        }
+
+        //
+        // GET: /Comment/Evaluate
+
+        public ActionResult Evaluate(int id)
+        {
+            IEnumerable<Comment> comments = _db.Comments.Where(c => c.DoctorId == id);
+            User user = _db.Users.Find(id);
+
+            ViewBag.PatientId = 7;
+            ViewBag.DoctorId = id;
+            ViewBag.User = user;
+
+            return View(comments);
+        }
+
+        //
+        // POST: /Comment/Post
+
+        [HttpPost]
+        public ActionResult Post(FormCollection form)
+        {
+            string content = form["Content"].ToString();
+            int patientId = int.Parse(form["PatientId"]);
+            int doctorId = int.Parse(form["DoctorId"]);
+
+            try
+            {
+                Comment comment = new Comment()
+                {
+                    PatientId = patientId,
+                    DoctorId = doctorId,
+                    Content = content,
+                    PostedDate = DateTime.UtcNow
+                };
+
+                _db.Comments.Add(comment);
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return RedirectToAction("Evaluate", "Comment", new { id = doctorId });
+        }
+
+        //
+        // POST: /Comment/Rate
+
+        [HttpPost]
+        public ActionResult Rate(double rating, int doctorId)
+        {
+            Doctor doctor = _db.Doctors.Find(doctorId);
+            doctor.Rating = (doctor.Rating + rating) / 2;
+            _db.SaveChanges();
+
+            return RedirectToAction("Evaluate", "Comment", new { id = doctorId });
+        }
+
+        //
+        // POST: /Comment/Post
+
+        //[HttpPost]
+        //public JsonResult Post(string content, int patientId, int doctorId)
+        //{
+        //    Debug.WriteLine(content);
+        //    var comment = new Comment()
+        //    {
+        //        Content = content,
+        //        PatientId = patientId,
+        //        DoctorId = doctorId
+        //    };
+        //    _db.Comments.Add(comment);
+        //    _db.SaveChanges();
+        //    if (_db.SaveChanges() != 0)
+        //    {
+        //        return Json(true);
+        //    }
+        //    else
+        //    {
+        //        return Json(false);
+        //    }
+        //}
+
+    }
+}
