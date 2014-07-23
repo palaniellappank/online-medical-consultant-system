@@ -15,5 +15,8 @@ namespace OMCS.DAL.Model
         public int SpecialtyFieldId { get; set; }
         public virtual SpecialtyField SpecialtyField { get; set; }
         public bool IsOnline { get; set; }
+
+        [Display(Name = "Đánh giá")]
+        public double Rating { get; set; }
     }
 }

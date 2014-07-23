@@ -1,0 +1,22 @@
+﻿@model IEnumerable<OMCS.DAL.Model.Comment>
+
+@{
+    Layout = null;
+}
+
+<table>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+                @Html.DisplayFor(modelItem => item.PostedDate)
+            </td>
+
+        </tr>
+    }
+
+
+</table>

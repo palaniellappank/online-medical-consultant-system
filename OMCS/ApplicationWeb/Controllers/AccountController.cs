@@ -130,12 +130,15 @@ namespace OMCS.Web.Controllers
                     _db.Users.Add(user);
                     _db.SaveChanges();
 
+                    string actCode = business.GeneratePassword();
+
                     string subject = "Kích hoạt tài khoản";
                     string body = @"<html>
                                     <body>
                                         <h2>Chào mừng bạn đến với OMCS - Hệ thống tư vấn y khoa trực tuyến</h2>
-                                        <p>Vui lòng nhấn vào đường dẫn bên dưới để kích hoạt<br/>
-                                            <a href='http://localhost:52443/Account/Activate/" + user.UserId + "'>" +
+                                        <p>Mã kích hoạt của bạn là: <b>" + actCode + "</b></p>" +
+                                        @"<p>Vui lòng nhấn vào đường dẫn bên dưới để kích hoạt<br/>
+                                            <a href='http://localhost:52443/Account/Activate/" + user.UserId + "?code=" + actCode + "'>" +
                                                @"Kích hoạt tài khoản
                                             </a>
                                         </p>
@@ -158,15 +161,35 @@ namespace OMCS.Web.Controllers
         //
         // GET: /Account/Activate
 
-        public ActionResult Activate(int id = 0)
+        public ActionResult Activate(int id, string code)
         {
-            User user = _db.Users.Find(id);
-            if (user != null)
+            ViewBag.Code = code;
+            ViewBag.Id = id;
+            return View();
+        }
+
+        //
+        // POST: /Account/Activate
+
+        [HttpPost]
+        [ActionName("Activate")]
+        public ActionResult ActivatePost(int userId, string actCode,string code)
+        {
+            User user = _db.Users.Find(userId);
+            if (code == actCode)
             {
                 user.IsActive = true;
                 _db.SaveChanges();
             }
-            return View(user);
+            return RedirectToAction("Welcome", "Account");
+        }
+
+        //
+        // GET: /Account/Welcome
+
+        public ActionResult Welcome()
+        {
+            return View();
         }
 
         //
@@ -187,6 +210,7 @@ namespace OMCS.Web.Controllers
             {
                 User tUser = _db.Users.FirstOrDefault(u => u.Email == email);
                 tUser.Password = business.GeneratePassword();
+                _db.SaveChanges();
 
                 var subject = "Làm mới mật khẩu";
                 var body = "<html>" +
@@ -204,6 +228,9 @@ namespace OMCS.Web.Controllers
         }
 
         [AllowAnonymous]
+
+        //
+        // GET: /Account/LogOut
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();

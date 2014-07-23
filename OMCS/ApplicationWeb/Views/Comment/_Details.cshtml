@@ -1,0 +1,11 @@
+﻿@model OMCS.DAL.Model.User 
+
+@{
+    Layout = null;
+}
+
+<div>
+    <h4>Bác sĩ: </h4>@Model.FullName
+    <h4>Chuyên khoa: </h4>@ViewBag.SpecialtyField.Name
+    <h4>Đánh giá: </h4>@ViewBag.Doctor.Rating &nbsp;Điểm
+</div>

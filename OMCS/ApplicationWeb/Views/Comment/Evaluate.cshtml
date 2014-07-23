@@ -1,0 +1,74 @@
+﻿@model IEnumerable<OMCS.DAL.Model.Comment>
+
+@{
+    ViewBag.Title = "Evaluate";
+    Layout = null;
+}
+
+<h2>Evaluate</h2>
+
+@Scripts.Render("~/bundles/jsOMCS")
+<script src="~/Scripts/jquery.easing.1.3.js"></script>
+
+@Styles.Render("~/bundles/cssOMCS")
+
+@*@Html.Partial("_Details");*@
+
+@{Html.RenderAction("Details", "Comment");}
+
+@Html.Partial("_Index")
+
+
+@{
+    List<double> ratingList = new List<double> { 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5 };
+}
+
+@using (Html.BeginForm("Rate", "Comment", FormMethod.Post))
+{
+    <input type="hidden" id="" name="PatientId" value="@ViewBag.PatientId" />
+    <input type="hidden" id="" name="DoctorId" value="@ViewBag.DoctorId" />
+    @Html.DropDownList("Rating", new SelectList(ratingList))
+    <input type="submit" id="btnRate" value="Đánh Giá" />
+}
+
+@using (Html.BeginForm("Post", "Comment", FormMethod.Post))
+{
+    <input type="hidden" id="PatientId" name="PatientId" value="@ViewBag.PatientId" />
+    <input type="hidden" id="DoctorId" name="DoctorId" value="@ViewBag.DoctorId" />
+    <textarea id="Content" name="Content"></textarea>
+    <input type="submit" id="btnPost" value="Gửi" />
+}
+
+
+
+
+<script type="text/javascript">
+    @*$("#btnPost").click(function () {
+        var content = $("#Content").val();
+        var patientId = $("#PatientId").val();
+        $.ajax({
+            url: "Comment/Post",
+            type: "POST",
+            data: {
+                content: content,
+                patientId: '@ViewBag.PatientId',
+                doctorId: 2
+            },
+            async: false,
+            success: function (data) {
+                //console.log(data);
+                alert(data);
+                if (data == true) {
+                    $.post("/Comment/Index", { "id": 2 },
+                                function (datah) {
+                                    $("#index_load").html(datah);
+                                });
+                }
+                if (data == false) {
+                    alert("ko post dc");
+                }
+            }
+        })
+    })*@
+</script>
+

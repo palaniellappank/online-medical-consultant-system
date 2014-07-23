@@ -1,0 +1,8 @@
+﻿@model OMCS.DAL.Model.Comment
+
+@using (Html.BeginForm("Post", "Comment", FormMethod.Post))
+{
+    <input type="hidden" id="PatientId" value="@ViewBag.PatientId" />
+    <textarea id="Content" name="Content"></textarea>
+    <input type="submit" id="btnPost" value="Gửi" />
+}
