@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using OMCS.DAL.Model;
+using PagedList;
 
 namespace OMCS.Web.Controllers
 {
@@ -13,11 +14,13 @@ namespace OMCS.Web.Controllers
         //
         // GET: /Comment/
 
-        public ActionResult Index(int id)
+        public ActionResult Index(int id, int? page)
         {
-            IEnumerable<Comment> comments = _db.Comments.Where(c => c.DoctorId == id);
+            var comments = _db.Comments.Where(c => c.DoctorId == id).OrderByDescending(u => u.CommentId);
 
-            return PartialView("_Index", comments);
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return PartialView("_Index", comments.ToPagedList(pageNumber, pageSize));
         }
 
         //

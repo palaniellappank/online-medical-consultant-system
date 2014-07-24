@@ -1,11 +1,42 @@
-﻿@model OMCS.DAL.Model.User 
+﻿@model OMCS.DAL.Model.User
 
 @{
     Layout = null;
 }
 
-<div>
-    <h4>Bác sĩ: </h4>@Model.FullName
-    <h4>Chuyên khoa: </h4>@ViewBag.SpecialtyField.Name
-    <h4>Đánh giá: </h4>@ViewBag.Doctor.Rating &nbsp;Điểm
-</div>
+<style>
+    .img-rounded
+    {
+        height: 149px;
+        width: 149px;
+    }
+</style>
+
+
+<table class="table table-data table-bordered table-striped" style="clear: both">
+    <tbody>
+        <tr>
+            <td rowspan="4" style="width: 150px;">
+                <img src="~/Content/ProfilePicture/" + @Model.ProfilePicture + " class="img-rounded" />
+            </td>
+            <td>Họ và tên</td>
+            <td>@Model.FullName</td>
+        </tr>
+        <tr>
+            <td>Ngày sinh</td>
+            <td>@Model.Birthday.Value.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <td>Chuyên ngành</td>
+            <td>@ViewBag.SpecialtyField.Name</td>
+        </tr>
+        <tr>
+            <td>Đánh giá</td>
+            <td>@ViewBag.Doctor.Rating &nbsp;Điểm</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
