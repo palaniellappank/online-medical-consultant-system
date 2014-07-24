@@ -208,6 +208,7 @@
     <Compile Include="Common\UserDetail.cs" />
     <Compile Include="Controllers\AllergyController.cs" />
     <Compile Include="Controllers\AllergyTypeController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\FilmDocumentController.cs" />
     <Compile Include="Controllers\TreatmentHistoryController.cs" />
     <Compile Include="Controllers\DoctorConversationController.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\ImmunizationController.cs" />
+    <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -259,8 +261,6 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\FormBuilder\js\templates\app\changenotice.html" />
-    <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\table.html" />
-    <Content Include="Content\FormBuilder\js\templates\snippet\table.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\static-text-copy.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\datepicker.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\formname.html" />
@@ -475,6 +475,7 @@
     <Content Include="Scripts\jquery.easing.1.3.js" />
     <Content Include="Scripts\jquery.signalR-2.0.3.js" />
     <Content Include="Scripts\jquery.signalR-2.0.3.min.js" />
+    <Content Include="Scripts\recaptcha_ajax.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -537,6 +538,12 @@
     <Content Include="Views\Conversation\Details.cshtml" />
     <Content Include="Views\Shared\_TemplateLayout.cshtml" />
     <Content Include="Views\Shared\_DoctorLayout.cshtml" />
+    <Content Include="Views\Patient\UpdateMedicalProfile.cshtml" />
+    <Content Include="Views\Patient\Index.cshtml" />
+    <Content Include="Views\Patient\Details.cshtml" />
+    <Content Include="Views\Patient\Create.cshtml" />
+    <Content Include="Views\Patient\Edit.cshtml" />
+    <Content Include="Views\Patient\Delete.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\AdminSpecialtyField\Index.cshtml" />
     <Content Include="Views\AdminSpecialtyField\_Create.cshtml" />
@@ -585,16 +592,17 @@
     <Content Include="Views\AllergyType\_Create.cshtml" />
     <Content Include="Views\AllergyType\_Edit.cshtml" />
     <Content Include="Views\AllergyType\_Delete.cshtml" />
-    <Content Include="Views\DoctorUser\CreatePatient.cshtml" />
-    <Content Include="Views\Account\_Register.cshtml" />
-    <Content Include="Views\DoctorUser\EditPatient.cshtml" />
-    <Content Include="Views\Account\Activate.cshtml" />
     <Content Include="Views\Account\_Register.cshtml" />
     <Content Include="Views\Account\Activate.cshtml" />
     <Content Include="Views\Account\_ForgotPassword.cshtml" />
     <Content Include="Views\UserMedicalProfile\Details.cshtml" />
     <Content Include="Views\UserHealthRecord\_AllergyList.cshtml" />
     <Content Include="Views\UserHealthRecord\_ImmunizationList.cshtml" />
+    <Content Include="Views\Comment\Evaluate.cshtml" />
+    <Content Include="Views\Comment\_Index.cshtml" />
+    <Content Include="Views\Comment\_Post.cshtml" />
+    <Content Include="Views\Account\Welcome.cshtml" />
+    <Content Include="Views\Comment\_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
