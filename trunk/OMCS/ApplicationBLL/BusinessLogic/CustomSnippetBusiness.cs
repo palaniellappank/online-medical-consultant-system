@@ -89,7 +89,7 @@ namespace OMCS.BLL
                             value = valueProperty.ToString();
                             if ("Gender".Equals(customSnippet.SnippetFieldName))
                             {
-                                value = "M".Equals(value) ? "Nam" : "Nữ";
+                                value = "Nam".Equals(value) ? "Nam" : "Nữ";
                             }
                             if (customSnippet.SnippetFieldName.Equals("Birthday"))
                             {

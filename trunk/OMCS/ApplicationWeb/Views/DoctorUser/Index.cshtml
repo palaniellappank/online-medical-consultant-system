@@ -115,9 +115,7 @@
             var url = "/DoctorUser/CreatePatient";
             $.get(url, function (data) {
                 $("#create-container").html(data);
-                $("#create-model").modal("show");
-                $("#create-form").validate({
-                });
+                $("#create-model").modal("show");               
             });
         });
 
@@ -126,9 +124,7 @@
             var id = $(this).attr("data-id");
             $.get(url + "/" + id, function (data) {
                 $("#edit-container").html(data);
-                $("#edit-model").modal("show");
-                $("#edit-form").validate({
-                });
+                $("#edit-model").modal("show");               
             });
         });
     });

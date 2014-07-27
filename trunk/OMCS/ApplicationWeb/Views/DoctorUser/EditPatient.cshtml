@@ -27,6 +27,7 @@
                                     <ul class="nav nav-tabs">
                                         <li class="active"><a href="#basicInfo" data-toggle="tab">Thông tin cơ bản</a></li>
                                         <li><a href="#patientInfo" data-toggle="tab">Thông tin bệnh nhân</a></li>
+                                        <li><a href="#contactPerson" data-toggle="tab">Thông tin người liên lạc</a></li>
                                         <li><a href="#healthRecord" data-toggle="tab">Sức khỏe cá nhân</a></li>
                                     </ul>
                                 </div>
@@ -42,10 +43,8 @@
                                                         @Html.HiddenFor(model => model.Patient.UserId)
                                                         @Html.HiddenFor(model => model.Patient.CreatedDate)
                                                         @Html.HiddenFor(model => model.Patient.Birthday)
-                                                        <tr>
-                                                            <td>@Html.DisplayNameFor(model => model.Patient.Email) <span style="color: red;">(*)</span></td>
-                                                            <td>@Html.TextBoxFor(model => model.Patient.Email, new { @class = "form-control required email" })</td>
-                                                        </tr>
+                                                        @Html.HiddenFor(model => model.Patient.Email)
+                                                        @Html.HiddenFor(model => model.Patient.Password)
                                                         <tr>
                                                             <td>@Html.DisplayNameFor(model => model.Patient.LastName) <span style="color: red;">(*)</span></td>
                                                             <td>
@@ -53,14 +52,10 @@
                                                         </tr>
                                                         <tr>
                                                             <td>@Html.DisplayNameFor(model => model.Patient.FirstName) <span style="color: red;">(*)</span></td>
-                                                            <td>
-                                                                <input type="text" id="FirstName" name="FirstName" value="@Html.DisplayFor(model => model.Patient.FirstName)" class = "form-control required"/></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>@Html.DisplayNameFor(model => model.Patient.Password) <span style="color: red;">(*)</span></td>
-                                                            <td>
-                                                                <input type="text" id="Password" name="Password" value="@Html.DisplayFor(model => model.Patient.Password)" class = "form-control required"/></td>
-                                                        </tr>
+                                                            <td>                                                               
+                                                                @Html.TextBoxFor(model => model.Patient.FirstName, new { @class = "form-control required", @Name = "Firstname" })
+                                                            </td>
+                                                        </tr>                                                        
                                                         <tr>
                                                             <td>@Html.DisplayNameFor(model => model.Patient.Gender)</td>
                                                             <td>@Html.DropDownListFor(model => model.Patient.Gender, new SelectList(new List<string> { "Nam", "Nữ" }), new { @class = "form-control" })</td>
@@ -168,15 +163,7 @@
                                                         <tr>
                                                             <td>@Html.DisplayNameFor(model => model.Patient.WhereToWork)</td>
                                                             <td>@Html.TextBoxFor(model => model.Patient.WhereToWork, new { @class = "form-control" })</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>@Html.DisplayNameFor(model => model.Patient.ContactPerson)</td>
-                                                            <td>@Html.TextBoxFor(model => model.Patient.ContactPerson, new { @class = "form-control" })</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>@Html.DisplayNameFor(model => model.Patient.ContactPersonAddress)</td>
-                                                            <td>@Html.TextBoxFor(model => model.Patient.ContactPersonAddress, new { @class = "form-control" })</td>
-                                                        </tr>
+                                                        </tr>                                                       
                                                         <tr>
                                                             <td>@Html.DisplayNameFor(model => model.Patient.HealthInsuranceId)</td>
                                                             <td>@Html.TextBoxFor(model => model.Patient.HealthInsuranceId, new { @class = "form-control" })</td>
@@ -191,6 +178,26 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="contactPerson">
+                                            <div class="form-group">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(model => model.Patient.ContactPerson)</td>
+                                                            <td>@Html.TextBoxFor(model => model.Patient.ContactPerson, new { @class = "form-control" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(model => model.Patient.ContactPersonAddress)</td>
+                                                            <td>@Html.TextBoxFor(model => model.Patient.ContactPersonAddress, new { @class = "form-control" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(model => model.Patient.ContactPersonPhone)</td>
+                                                            <td>@Html.TextBoxFor(model => model.Patient.ContactPersonPhone, new { @class = "form-control" })</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>                                                
                                             </div>
                                         </div>
                                         <div class="tab-pane" id="healthRecord">

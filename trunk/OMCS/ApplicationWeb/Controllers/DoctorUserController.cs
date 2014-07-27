@@ -15,6 +15,7 @@ using System.IO;
 using System.Data;
 using System.Text;
 using WebMatrix.WebData;
+using System.Threading;
 
 namespace OMCS.Web.Controllers
 {
@@ -23,6 +24,7 @@ namespace OMCS.Web.Controllers
     {
         private AdminUserBusiness business = new AdminUserBusiness();
         private MedicalProfileBusiness medicalProfileBusiness = new MedicalProfileBusiness();
+        private AccountBusiness accBusiness = new AccountBusiness();
 
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
@@ -118,9 +120,6 @@ namespace OMCS.Web.Controllers
                 var last = Request.Params["LastName"];
                 string lastname = Convert.ToString(last);
                 patient.LastName = lastname;
-                var pass = Request.Params["Password"];
-                string password = Convert.ToString(pass);
-                patient.Password = password;
                 var ethnicity = Request.Params["Ethnicity"];
                 string ethnicityP = Convert.ToString(ethnicity);
                 patient.Ethnicity = ethnicityP;
@@ -128,15 +127,34 @@ namespace OMCS.Web.Controllers
                 string nationalityP = Convert.ToString(nationality);
                 patient.Nationality = nationalityP;
                 patient.IsActive = true;
+                patient.Password = accBusiness.GeneratePassword();
                 _db.Users.Add(patient);
                 _db.SaveChanges();
                 int getLastId = _db.Users.Max(item => item.UserId);
-
+                PersonalHealthRecord personal = new PersonalHealthRecord();
+                personal.PatientId = getLastId;
                 var height = Request.Params["height"];
-                double heightPatient = double.Parse(height);
+                if (height == "")
+                {
+                    personal.Height = 0;
+                }
+                else
+                {
+                    double heightPatient = double.Parse(height);
+                    personal.Height = heightPatient;
+                }
 
                 var weight = Request.Params["weight"];
-                double weightPatient = double.Parse(weight);
+                if (weight == "")
+                {
+                    personal.Weight = 0;
+                }
+                else
+                {
+                    double weightPatient = double.Parse(weight);
+                    personal.Height = weightPatient;
+                }
+
 
                 var eye = Request.Params["eye"];
                 string eyeColor = eye.ToString();
@@ -148,54 +166,82 @@ namespace OMCS.Web.Controllers
                 string bloodType = blood.ToString();
 
                 var alcoholWeek = Request.Params["alcoholweek"];
-                double alcoholPerWeek = double.Parse(alcoholWeek);
+                if (alcoholWeek == "")
+                {
+                    personal.AlcoholPerWeek = 0;
+                }
+                else
+                {
+                    double alcoholPerWeek = double.Parse(alcoholWeek);
+                    personal.AlcoholPerWeek = alcoholPerWeek;
+                }
 
                 var alcoholYear = Request.Params["alcoholyear"];
-                int alcoholNumberOfYear = Convert.ToInt32(alcoholYear);
+                if (alcoholYear == "")
+                {
+                    personal.AlcoholNumOfYear = 0;
+                }
+                else
+                {
+                    int alcoholNumberOfYear = Convert.ToInt32(alcoholYear);
+                    personal.AlcoholNumOfYear = alcoholNumberOfYear;
+                }
 
                 var smokeYear = Request.Params["smokeyear"];
-                int smokeNumberOfYear = Convert.ToInt32(smokeYear);
+                if (smokeYear == "")
+                {
+                    personal.SmokePackPerWeek = 0;
+                }
+                else
+                {
+                    int smokeNumberOfYear = Convert.ToInt32(smokeYear);
+                    personal.SmokeNumOfYear = smokeNumberOfYear;
+                }
 
                 var smokeWeek = Request.Params["smokeweek"];
-                double smokePerWeek = double.Parse(smokeWeek);
+                if (smokeWeek == "")
+                {
+                    personal.SmokePackPerWeek = 0;
+                }
+                else
+                {
+                    double smokePerWeek = double.Parse(smokeWeek);
+                    personal.SmokePackPerWeek = smokePerWeek;
+                }
 
                 var sport = Request.Params["sport"];
                 string sportName = sport.ToString();
 
                 var sportWeek = Request.Params["sportweek"];
-                int sportPerWeek = Convert.ToInt32(sportWeek);
+                if (sportWeek == "")
+                {
+                    personal.SportPerWeek = 0;
+                }
+                else
+                {
+                    int sportPerWeek = Convert.ToInt32(sportWeek);
+                    personal.SportPerWeek = sportPerWeek;
+                }
 
                 var exercise = Request.Params["exercise"];
                 string exerciseType = exercise.ToString();
 
                 var exerciseWeek = Request.Params["exerciseweek"];
-                int exercisePerWeek = Convert.ToInt32(exerciseWeek);
-
-                PersonalHealthRecord personal = new PersonalHealthRecord()
+                if (exerciseWeek == "")
                 {
-                    PatientId = getLastId,
-                    Height = heightPatient,
-                    Weight = weightPatient,
-                    EyeColor = eyeColor,
-                    HairColor = hairColor,
-                    BloodType = bloodType,
-                    AlcoholPerWeek = alcoholPerWeek,
-                    AlcoholNumOfYear = alcoholNumberOfYear,
-                    IsBeer = true,
-                    SmokeNumOfYear = smokeNumberOfYear,
-                    SmokePackPerWeek = smokePerWeek,
-                    SportName = sportName,
-                    SportPerWeek = sportPerWeek,
-                    ExerciseType = exerciseType,
-                    ExercisePerWeek = exercisePerWeek
-                };
+                    personal.ExercisePerWeek = 0;
+                }
+                else
+                {
+                    int exercisePerWeek = Convert.ToInt32(exerciseWeek);
+                    personal.ExercisePerWeek = exercisePerWeek;
+                }           
                 _db.PersonalHealthRecords.Add(personal);
                 _db.SaveChanges();
                 Patient newPatient = new Patient();
                 newPatient.UserId = getLastId;
                 _db.Patients.Add(newPatient);
                 _db.SaveChanges();
-                return RedirectToAction("Index");
             }
             catch (DbEntityValidationException e)
             {
@@ -210,6 +256,20 @@ namespace OMCS.Web.Controllers
                     }
                 }
             }
+            // Create thread to send mail (background)   
+            Thread emailBackground = new Thread(delegate()
+            {
+                var subject = "Tạo tài khoản bệnh nhân";
+                var body = "<html>" +
+                                  "<body>" +
+                                      "<h2>Hệ thống đã tạo cho bạn một tài khoản với các thông tin: </h2>" +                                      
+                                      "<p>Mật khẩu: " + patient.Password + "</p>" +
+                                  "</body>" +
+                              "</html>";
+                accBusiness.SendMail(patient.Email, subject, body);
+            });
+            emailBackground.IsBackground = true;
+            emailBackground.Start();
             return RedirectToAction("Index");
         }
 
@@ -249,9 +309,6 @@ namespace OMCS.Web.Controllers
             var last = Request.Params["LastName"];
             string lastname = Convert.ToString(last);
             patient.LastName = lastname;
-            var pass = Request.Params["Password"];
-            string password = Convert.ToString(pass);
-            patient.Password = password;
             var ethnicity = Request.Params["Ethnicity"];
             string ethnicityP = Convert.ToString(ethnicity);
             patient.Ethnicity = ethnicityP;
@@ -325,7 +382,7 @@ namespace OMCS.Web.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
-       
+      
         [HttpPost]
         public JsonResult CheckExistEmail(string email, int id = 0)
         {

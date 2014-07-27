@@ -30,6 +30,9 @@ namespace OMCS.DAL.Model
         [Display(Name = "Địa chỉ người liên lạc")]
         public string ContactPersonAddress { get; set; }
 
+        [Display(Name = "Số điện thoại người liên lạc")]
+        public string ContactPersonPhone { get; set; }
+
         [Display(Name = "Mã số thẻ bảo hiểm y tế")]
         public string HealthInsuranceId { get; set; }
 

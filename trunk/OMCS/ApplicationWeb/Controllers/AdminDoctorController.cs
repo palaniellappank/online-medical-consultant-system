@@ -9,6 +9,9 @@ using OMCS.DAL.Model;
 using System.IO;
 using PagedList;
 using OMCS.BLL;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
+using System.Threading;
 
 namespace MvcApplication1.Controllers
 {
@@ -16,7 +19,7 @@ namespace MvcApplication1.Controllers
     {
         private OMCSDBContext db = new OMCSDBContext();
         private AdminUserBusiness business = new AdminUserBusiness();
-
+        private AccountBusiness accBusiness = new AccountBusiness();
         //
         // GET: /AdminDoctor/
 
@@ -52,29 +55,71 @@ namespace MvcApplication1.Controllers
 
         public ActionResult Create()
         {
-            return PartialView("_Create");
+            var specialtyFields = db.SpecialtyFields.ToList();
+            ViewBag.SpecialtyFieldId = specialtyFields;
+            return PartialView("Create");
         }
 
         //
         // POST: /AdminDoctor/Create
 
         [HttpPost]
-        public ActionResult Create(User user)
+        public ActionResult Create(Doctor doctor)
         {
-            if (ModelState.IsValid)
+            try
             {
                 Role role = db.Roles.FirstOrDefault(r => r.RoleName == "Doctor");
-                user.Roles = new List<Role>();
-                user.Roles.Add(role);
-                user.CreatedDate = DateTime.UtcNow;
-                user.ProfilePicture = "photo.jpg";
-                user.IsActive = true;
-                db.Users.Add(user);
+                doctor.Roles = new List<Role>();
+                doctor.Roles.Add(role);
+                doctor.CreatedDate = DateTime.UtcNow;
+                doctor.ProfilePicture = "photo.jpg";
+                doctor.IsActive = true;               
+                var email = Request.Params["Email"];
+                string emailPatient = Convert.ToString(email);
+                doctor.Email = emailPatient;
+                doctor.Password = accBusiness.GeneratePassword();
+                var first = Request.Params["FirstName"];
+                string firstname = Convert.ToString(first);
+                doctor.FirstName = firstname;
+                var last = Request.Params["LastName"];
+                string lastname = Convert.ToString(last);
+                doctor.LastName = lastname;
+                int getLastId = db.Users.Max(item => item.UserId);
+                var specialtyFieldId = Request.Params["dropdownlist"];
+                int specialty = Convert.ToInt32(specialtyFieldId);
+                doctor.UserId = getLastId;
+                doctor.IsOnline = false;
+                doctor.SpecialtyFieldId = specialty;
+                db.Doctors.Add(doctor);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            return PartialView("_Create", user);
-
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+            }
+            Thread emailBackground = new Thread(delegate()
+            {
+                var subject = "Tạo tài khoản bác sĩ";
+                var body = "<html>" +
+                                  "<body>" +
+                                      "<h2>Hệ thống đã tạo cho bạn một tài khoản với các thông tin: </h2>" +                                     
+                                      "<p>Mật khẩu: " + doctor.Password + "</p>" +
+                                  "</body>" +
+                              "</html>";
+                accBusiness.SendMail(doctor.Email, subject, body);
+            });
+            emailBackground.IsBackground = true;
+            emailBackground.Start();
+            return RedirectToAction("Index");
         }
 
         //
@@ -82,50 +127,53 @@ namespace MvcApplication1.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            User user = db.Users.Find(id);
+            Doctor doctor = db.Doctors.Find(id);
             ViewBag.Roles = db.Roles.ToList();
-            if (user == null)
+            var speciality = db.SpecialtyFields.ToList();
+            ViewBag.SpecialtyFieldId = new SelectList(speciality, "SpecialtyFieldId", "Name", doctor.SpecialtyFieldId);
+            if (doctor == null)
             {
                 return HttpNotFound();
             }
-            return PartialView("Edit", user);
+            return PartialView("Edit", doctor);
         }
 
         //
         // POST: /AdminDoctor/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(User user, HttpPostedFileBase file)
+        public ActionResult Edit(Doctor doctor, HttpPostedFileBase file)
         {
-            //var role = db.Roles.Find(roleId);
-            //user.Roles = new List<Role>();
-
             if (ModelState.IsValid)
             {
-                try
+                if (file == null)
+                {
+                    var filename = Request.Params["profile"];
+                    string profile = Convert.ToString(filename);
+                    doctor.ProfilePicture = profile;
+                }
+                else if (file != null)
                 {
                     var fileName = Path.GetFileName(file.FileName);
                     var path = HttpContext.Server.MapPath("~/Content/Image/ProfilePicture/" + fileName);
                     var dbPath = string.Format("/Content/Image/ProfilePicture/" + fileName);
                     file.SaveAs(path);
-                    user.ProfilePicture = fileName;
+                    doctor.ProfilePicture = fileName;
+                }
+                var first = Request.Params["FirstName"];
+                string firstname = Convert.ToString(first);
+                doctor.FirstName = firstname;
+                var last = Request.Params["LastName"];
+                string lastname = Convert.ToString(last);
+                doctor.LastName = lastname;
+                doctor.IsActive = true;
+                db.Entry(doctor).State = EntityState.Modified;
+                db.SaveChanges();
 
-                }
-                catch (NullReferenceException ex)
-                {
-
-                }
-                finally
-                {
-                    //user.Roles.Add(role);
-                    user.IsActive = true;
-                    db.Entry(user).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
                 return RedirectToAction("Index");
             }
 
-            return PartialView("Edit", user);
+            return PartialView("Edit", doctor);
         }
 
         //

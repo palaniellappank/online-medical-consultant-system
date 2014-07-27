@@ -28,6 +28,7 @@
                                     <ul class="nav nav-tabs">
                                         <li class="active"><a href="#basicInfo" data-toggle="tab">Thông tin cơ bản</a></li>
                                         <li><a href="#patientInfo" data-toggle="tab">Thông tin bệnh nhân</a></li>
+                                        <li><a href="#contactPerson" data-toggle="tab">Thông tin người liên lạc</a></li>
                                         <li><a href="#healthRecord" data-toggle="tab">Sức khỏe cá nhân</a></li>
                                     </ul>
                                 </div>
@@ -53,23 +54,18 @@
                                                             <td>@Html.LabelFor(model => model.Patient.FirstName) <span style="color: red;">(*)</span></td>
                                                             <td>
                                                                 <input type="text" id="FirstName" name="FirstName" class="form-control required" /></td>
+                                                        </tr>                                                     
+                                                        <tr>
+                                                            <td>@Html.LabelFor(model => model.Patient.Gender) <span style="color: red;">(*)</span></td>
+                                                            <td>@Html.DropDownListFor(model => model.Patient.Gender, new SelectList(new List<string> { "Nam", "Nữ" }), new { @class = "form-control required" })</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>@Html.LabelFor(model => model.Patient.Password) <span style="color: red;">(*)</span></td>
-                                                            <td>
-                                                                <input type="text" id="Password" name="Password" class="form-control required" /></td>
+                                                            <td>@Html.LabelFor(model => model.Patient.Birthday) <span style="color: red;">(*)</span></td>
+                                                            <td>@Html.TextBoxFor(model => model.Patient.Birthday, "{0:dd-MM-yyyy}", new { type = "date", @class = "form-control datepicker required" })</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>@Html.LabelFor(model => model.Patient.Gender)</td>
-                                                            <td>@Html.DropDownListFor(model => model.Patient.Gender, new SelectList(new List<string> { "Nam", "Nữ" }), new { @class = "form-control" })</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>@Html.LabelFor(model => model.Patient.Birthday):</td>
-                                                            <td>@Html.TextBoxFor(model => model.Patient.Birthday, "{0:dd-MM-yyyy}", new { type = "date", @class = "form-control datepicker" })</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>@Html.LabelFor(model => model.Patient.Phone)</td>
-                                                            <td>@Html.TextBoxFor(model => model.Patient.Phone, new { @class = "form-control" })</td>
+                                                            <td>@Html.LabelFor(model => model.Patient.Phone) <span style="color: red;">(*)</span></td>
+                                                            <td>@Html.TextBoxFor(model => model.Patient.Phone, new { @class = "form-control required" })</td>
                                                         </tr>
                                                         <tr>
                                                             <td>@Html.LabelFor(model => model.Patient.PrimaryAddress)</td>
@@ -81,9 +77,9 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                <div class="modal-footer">                                                    
-                                                        <a class="btn btn-primary" href="#patientInfo" data-toggle="tab">Lưu</a>
-                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
+                                                <div class="modal-footer">
+                                                    <a class="btn btn-primary" href="#patientInfo" data-toggle="tab">Lưu</a>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -153,8 +149,7 @@
                                                                 </select></td>
                                                         </tr>
                                                         <tr>
-                                                            <td>@Html.LabelFor(model => model.Patient.Nationality)</td>
-                                                            @*<td>@Html.TextBoxFor(model => model.Patient.Nationality, new { @Value = "Việt Nam", @class = "form-control" })</td>*@
+                                                            <td>@Html.LabelFor(model => model.Patient.Nationality)</td>                                                            
                                                             <td>
                                                                 <select id="Nationality" class="dropdownclass form-control" name="Nationality">
                                                                     <option value="Việt Nam">Việt Nam</option>
@@ -174,14 +169,6 @@
                                                             <td>@Html.TextBoxFor(model => model.Patient.WhereToWork, new { @class = "form-control" })</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>@Html.LabelFor(model => model.Patient.ContactPerson)</td>
-                                                            <td>@Html.TextBoxFor(model => model.Patient.ContactPerson, new { @class = "form-control" })</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>@Html.LabelFor(model => model.Patient.ContactPersonAddress)</td>
-                                                            <td>@Html.TextBoxFor(model => model.Patient.ContactPersonAddress, new { @class = "form-control" })</td>
-                                                        </tr>
-                                                        <tr>
                                                             <td>@Html.LabelFor(model => model.Patient.HealthInsuranceId)</td>
                                                             <td>@Html.TextBoxFor(model => model.Patient.HealthInsuranceId, new { @class = "form-control" })</td>
                                                         </tr>
@@ -196,8 +183,32 @@
                                                     </tbody>
                                                 </table>
                                                 <div class="modal-footer">                                                    
-                                                        <a class="btn btn-primary" href="#healthRecord" data-toggle="tab">Lưu</a>
-                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
+                                                    <a class="btn btn-primary" href="#contactPerson" data-toggle="tab">Lưu</a>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="contactPerson">
+                                            <div class="form-group">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(model => model.Patient.ContactPerson)</td>
+                                                            <td>@Html.TextBoxFor(model => model.Patient.ContactPerson, new { @class = "form-control" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(model => model.Patient.ContactPersonAddress)</td>
+                                                            <td>@Html.TextBoxFor(model => model.Patient.ContactPersonAddress, new { @class = "form-control" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(model => model.Patient.ContactPersonPhone)</td>
+                                                            <td>@Html.TextBoxFor(model => model.Patient.ContactPersonPhone, new { @class = "form-control" })</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="modal-footer">
+                                                    <a class="btn btn-primary" href="#healthRecord" data-toggle="tab">Lưu</a>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -208,12 +219,12 @@
                                                         <tr>
                                                             <td>@Html.LabelFor(model => model.PersonalHealthRecord.Height) <span style="color: red;">(*)</span></td>
                                                             <td>
-                                                                <input class="form-control required number double" type="text" name="height" /></td>
+                                                                <input class="form-control number double" type="text" name="height" /></td>
                                                         </tr>
                                                         <tr>
                                                             <td>@Html.LabelFor(model => model.PersonalHealthRecord.Weight) <span style="color: red;">(*)</span></td>
                                                             <td>
-                                                                <input class="form-control required number double" type="text" name="weight" /></td>
+                                                                <input class="form-control number double" type="text" name="weight" /></td>
                                                         </tr>
                                                         <tr>
                                                             <td>@Html.LabelFor(model => model.PersonalHealthRecord.EyeColor)</td>
@@ -233,22 +244,22 @@
                                                         <tr>
                                                             <td>@Html.LabelFor(model => model.PersonalHealthRecord.AlcoholPerWeek) <span style="color: red;">(*)</span></td>
                                                             <td>
-                                                                <input class="form-control required number double" type="text" name="alcoholweek" /></td>
+                                                                <input class="form-control number double" type="text" name="alcoholweek" /></td>
                                                         </tr>
                                                         <tr>
                                                             <td>@Html.LabelFor(model => model.PersonalHealthRecord.AlcoholNumOfYear) <span style="color: red;">(*)</span></td>
                                                             <td>
-                                                                <input class="form-control required number double" type="text" name="alcoholyear" /></td>
-                                                        </tr>                                                        
+                                                                <input class="form-control number double" type="text" name="alcoholyear" /></td>
+                                                        </tr>
                                                         <tr>
                                                             <td>@Html.LabelFor(model => model.PersonalHealthRecord.SmokePackPerWeek) <span style="color: red;">(*)</span></td>
                                                             <td>
-                                                                <input class="form-control required number double" type="text" name="smokeweek" /></td>
+                                                                <input class="form-control number double" type="text" name="smokeweek" /></td>
                                                         </tr>
                                                         <tr>
                                                             <td>@Html.LabelFor(model => model.PersonalHealthRecord.SmokeNumOfYear) <span style="color: red;">(*)</span></td>
                                                             <td>
-                                                                <input class="form-control required number double" type="text" name="smokeyear" /></td>
+                                                                <input class="form-control number double" type="text" name="smokeyear" /></td>
                                                         </tr>
                                                         <tr>
                                                             <td>@Html.LabelFor(model => model.PersonalHealthRecord.SportName)</td>
@@ -258,7 +269,7 @@
                                                         <tr>
                                                             <td>@Html.LabelFor(model => model.PersonalHealthRecord.SportPerWeek) <span style="color: red;">(*)</span></td>
                                                             <td>
-                                                                <input class="form-control required number double" type="text" name="sportweek" /></td>
+                                                                <input class="form-control number double" type="text" name="sportweek" /></td>
                                                         </tr>
                                                         <tr>
                                                             <td>@Html.LabelFor(model => model.PersonalHealthRecord.ExerciseType)</td>
@@ -268,7 +279,7 @@
                                                         <tr>
                                                             <td>@Html.LabelFor(model => model.PersonalHealthRecord.ExercisePerWeek) <span style="color: red;">(*)</span></td>
                                                             <td>
-                                                                <input class="form-control required number double" type="text" name="exerciseweek" /></td>
+                                                                <input class="form-control number double" type="text" name="exerciseweek" /></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -290,7 +301,7 @@
 </div>
 
 <script type="text/javascript">
-    $(function () {        
+    $(function () {
         $("#create-patient-form").validate({
             rules: {
                 Email: {
