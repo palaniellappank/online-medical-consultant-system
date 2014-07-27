@@ -15,6 +15,7 @@ using System.Threading;
 
 namespace MvcApplication1.Controllers
 {
+    [CustomAuthorize(Roles = "Admin")]
     public class AdminDoctorController : Controller
     {
         private OMCSDBContext db = new OMCSDBContext();

@@ -9,6 +9,7 @@ using OMCS.DAL.Model;
 
 namespace OMCS.Web.Controllers
 {
+    [CustomAuthorize(Roles = "Admin")]
     public class AdminSpecialtyFieldController : BaseController
     {
         private OMCSDBContext db = new OMCSDBContext();
