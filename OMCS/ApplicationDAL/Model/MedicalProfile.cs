@@ -23,12 +23,13 @@ namespace OMCS.DAL.Model
         public String MedicalProfileKey { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Ngày Tạo")]
         public DateTime CreatedDate { get; set; }
 
         [ForeignKey("MedicalProfileTemplate")]
         public int MedicalProfileTemplateId { get; set; }
         public virtual MedicalProfileTemplate MedicalProfileTemplate { get; set; }
+
     }
 }

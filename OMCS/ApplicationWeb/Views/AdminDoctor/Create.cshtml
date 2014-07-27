@@ -1,60 +1,114 @@
-﻿@model OMCS.DAL.Model.User
+﻿@model OMCS.DAL.Model.Doctor
 
-@{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-}
-
-<h2>Tạo Mới</h2>
-
-@using (Html.BeginForm("Create", "AdminDoctor", FormMethod.Post, new { @class = "col-md-6" }))
-{
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend></legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="form-group">
-            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Email)
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Tạo Mới</h4>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Password)
-        </div>
-        <div class="form-group">
-            @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Password)
-        </div>
+        @using (Ajax.BeginForm("Create", "AdminDoctor", FormMethod.Post,
+                    new AjaxOptions
+                    {
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "POST",
+                        UpdateTargetId = "list-of-user"
+                    },
+                    new { id = "create-form" }))
+        {
+            @Html.ValidationSummary(true)
+            @Html.AntiForgeryToken()
+            <div class="modal-body">                               
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email) <span style="color: red;">(*)
+                    <input type="text" id="Email" name="Email" class="form-control required email" />
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.FirstName)
-        </div>
-        <div class="form-group">
-            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.FirstName)
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName) <span style="color: red;">(*)</span>
+                    <input type="text" id="LastName" name="LastName" class="form-control required" />
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.LastName)
-        </div>
-        <div class="form-group">
-            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.LastName)
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName) <span style="color: red;">(*)</span>
+                    <input type="text" id="FirstName" name="FirstName" class="form-control required" />
+                </div>
 
-        <br />
-        <input type="submit" name="btnSubmit" value="Tạo Mới" class="btn btn-primary" />
-        @Html.ActionLink("Quay Lại", "Index", "", new { @class = "btn btn-danger" })
-    </fieldset>
-}
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Gender) <span style="color: red;">(*)</span>
+                    @Html.DropDownListFor(model => model.Gender, new SelectList(new List<string> { "Nam", "Nữ" }), new { @class = "form-control required" })
+                </div>
 
-@*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Birthday) <span style="color: red;">(*)</span>
+                    @Html.TextBoxFor(model => model.Birthday, "{0:dd-MM-yyyy}", new { type = "date", @class = "form-control datepicker required" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Phone) <span style="color: red;">(*)</span>
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control required" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PrimaryAddress)
+                    @Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SecondaryAddress)
+                    @Html.TextBoxFor(model => model.SecondaryAddress, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <label for="SpecialtyField" class="control-label">Chuyên môn</label>
+
+                    <select name="dropdownlist" class="form-control">
+                        @if (ViewBag.SpecialtyFieldId != null)
+                        {
+                            foreach (var s in ViewBag.SpecialtyFieldId)
+                            {
+                            <option value="@s.SpecialtyFieldId">@s.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Lưu</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#create-form").validate({
+            rules: {                
+                Email: {
+                    remote: {
+                        url: "@Url.Action("CheckExistEmail", "AdminUser")",
+                        timeout: 5000,
+                        type: "POST"
+                    },
+                    maxlength: 50
+                },
+                FirstName: {
+                    maxlength: 50
+                },
+                LastName: {
+                    maxlength: 50
+                },
+            },
+            messages: {
+                Username: {
+                    remote: "Tên đăng nhập đã tồn tại."
+                },
+                Email: {
+                    remote: "Địa chỉ email đã tồn tại"
+                }
+            }
+        });
+    });
+</script>
+

@@ -9,10 +9,10 @@ using OMCS.DAL.Model;
 
 namespace OMCS.BLL
 {
-    public class AdminUserBusiness: BaseBusiness
+    public class AdminUserBusiness : BaseBusiness
     {
         //Check the Sort Order to sort with corresponding column
-        public void CheckSortOrder(string sortOrder,ref IEnumerable<User> users)
+        public void CheckSortOrder(string sortOrder, ref IEnumerable<User> users)
         {
             switch (sortOrder)
             {
@@ -48,7 +48,7 @@ namespace OMCS.BLL
                     break;
             }
         }
-        
+
         //Check Search String to search by UserName/FullName
         public void SearchByString(string searchString, ref IEnumerable<User> users)
         {
@@ -57,6 +57,53 @@ namespace OMCS.BLL
                 users = users.Where(u => (!String.IsNullOrWhiteSpace(u.Email) && (u.Email.ToUpper().Contains(searchString.ToUpper())))
                                     || (!String.IsNullOrWhiteSpace(u.FullName) && (u.FullName.ToUpper().Contains(searchString.ToUpper())))
                                     || (!String.IsNullOrWhiteSpace(u.Phone) && (u.Phone.ToUpper().Contains(searchString.ToUpper()))));
+            }
+        }
+
+        public void SearchByStringMedical(string searchString, ref IEnumerable<MedicalProfile> medical)
+        {
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                medical = medical.Where(u => (!String.IsNullOrWhiteSpace(u.MedicalProfileKey) && (u.MedicalProfileKey.ToUpper().Contains(searchString.ToUpper())))
+                                    || (!String.IsNullOrWhiteSpace(u.Patient.FullName) && (u.Patient.FullName.ToUpper().Contains(searchString.ToUpper())))
+                                    || (!String.IsNullOrWhiteSpace(u.MedicalProfileTemplate.MedicalProfileTemplateName) && (u.MedicalProfileTemplate.MedicalProfileTemplateName.ToUpper().Contains(searchString.ToUpper()))));
+            }
+        }
+
+        public void CheckSortOrderMedical(string sortOrder, ref IEnumerable<MedicalProfile> medical)
+        {
+            switch (sortOrder)
+            {
+                case "User_desc":
+                    medical = medical.OrderByDescending(u => u.Patient.Email);
+                    break;
+                case "Date":
+                    medical = medical.OrderBy(u => u.CreatedDate);
+                    break;
+                case "Date_desc":
+                    medical = medical.OrderByDescending(u => u.CreatedDate);
+                    break;
+                case "Name":
+                    medical = medical.OrderBy(u => u.Patient.FullName);
+                    break;
+                case "Name_desc":
+                    medical = medical.OrderByDescending(u => u.Patient.FullName);
+                    break;
+                case "MedicalProfileKey":
+                    medical = medical.OrderBy(u => u.MedicalProfileKey);
+                    break;
+                case "MedicalProfileKey_desc":
+                    medical = medical.OrderByDescending(u => u.MedicalProfileKey);
+                    break;
+                case "MedicalProfileName":
+                    medical = medical.OrderBy(u => u.MedicalProfileTemplate.MedicalProfileTemplateName);
+                    break;
+                case "MedicalProfileName_desc":
+                    medical = medical.OrderByDescending(u => u.MedicalProfileTemplate.MedicalProfileTemplateName);
+                    break;
+                default:
+                    medical = medical.OrderBy(u => u.Patient.Email);
+                    break;
             }
         }
     }
