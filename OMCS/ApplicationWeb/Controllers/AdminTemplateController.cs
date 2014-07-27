@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 
 namespace OMCS.Web.Controllers
 {
+    [CustomAuthorize(Roles = "Admin")]
     public class AdminTemplateController : BaseController
     {
         private MedicalProfileTemplateBusiness business = new MedicalProfileTemplateBusiness();
