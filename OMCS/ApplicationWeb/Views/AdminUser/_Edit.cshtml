@@ -15,11 +15,6 @@
                 @Html.HiddenFor(model => model.CreatedDate)
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Username)
-                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control required" })
-                </div>
-
-                <div class="form-group">
                     @Html.LabelFor(model => model.Email)
                     @Html.TextBoxFor(model => model.Email, new { @class = "form-control required email" })
                 </div>
@@ -82,14 +77,6 @@
     $(document).ready(function () {
         $("#edit-form").validate({
             rules: {
-                Username: {
-                    remote: {
-                        url: "@Url.Action("CheckExistUsername", "AdminUser", new { id = Model.UserId })",
-                        timeout: 5000,
-                        type: "POST"
-                    },
-                    maxlength: 50
-                },
                 Email: {
                     remote: {
                         url: "@Url.Action("CheckExistEmail", "AdminUser", new { id = Model.UserId })",

@@ -103,7 +103,7 @@
             <img src="/Content/ProfilePicture/<%= doctor.ProfilePicture %>" alt="<%= doctor.FullName %>" class="img-responsive img-circle" />
         </div>
         <div class="col-xs-12 col-sm-9">
-            <input class="username" type="hidden" value="<%= doctor.Username %>" />
+            <input class="username" type="hidden" value="<%= doctor.Email %>" />
             <span class="name"><%= doctor.FullName %></span><br />
             <span class="speciaty"><%= doctor.SpeciatyField %></span>
             <span class="lastest-message"><%= doctor.LastestContent %></span><br />
@@ -202,16 +202,16 @@
         },
         getMessageList: function (e) {
             var username = $(e.currentTarget).find(".username").val();
-            $('#txtToUsername').val(username);
+            $('#txtToEmail').val(username);
             chatHub.server.getMessageList(username);
         },
         sendMessage: function (e) {
             var msg = $("#txtMessage").val();
-            var toUsername = $('#txtToUsername').val();
-            var fromUsername = $('#txtFromUsername').val();
+            var toEmail = $('#txtToEmail').val();
+            var fromEmail = $('#txtFromEmail').val();
             //var fileInput = document.getElementById('file');
-            if ((msg.length > 0) && (toUsername.length > 0)) {
-                chatHub.server.sendMessageTo(toUsername, msg);
+            if ((msg.length > 0) && (toEmail.length > 0)) {
+                chatHub.server.sendMessageTo(toEmail, msg);
                 $("#txtMessage").val('');
             }
             return;
@@ -220,10 +220,10 @@
             if (e.keyCode == 13 && !e.shiftKey) {
                 e.preventDefault();
                 var msg = $("#txtMessage").val().replace('\r', '&lt;br/&gt;');
-                var toUsername = $('#txtToUsername').val();
-                var fromUsername = $('#txtFromUsername').val();
-                if ((msg.length > 0) && (toUsername.length > 0)) {
-                    chatHub.server.sendMessageTo(toUsername, msg);
+                var toEmail = $('#txtToEmail').val();
+                var fromEmail = $('#txtFromEmail').val();
+                if ((msg.length > 0) && (toEmail.length > 0)) {
+                    chatHub.server.sendMessageTo(toEmail, msg);
                     $("#txtMessage").val('');
                 }
                 return;
@@ -240,10 +240,10 @@
 
     $(function () {
         $(".draggable").draggable();
-        OMCSChat.App.init($("#txtFromUsername").val());
+        OMCSChat.App.init($("#txtFromEmail").val());
         registerClientMethods(chatHub);
         $.connection.hub.start().done(function () {
-            chatHub.server.connectPatient($("#txtFromUsername").val());
+            chatHub.server.connectPatient($("#txtFromEmail").val());
         });
 
         $.mCustomScrollbar.defaults.scrollButtons.enable = true; //enable scrolling buttons by default
@@ -253,10 +253,10 @@
         $('#btnUpload').click(function () {
             var formdata = new FormData(); //FormData object
             var fileInput = document.getElementById('file');
-            var toUsername = $('#txtToUsername').val();
-            var fromUsername = $('#txtFromUsername').val();
-            formdata.append("toUsername", toUsername);
-            formdata.append("fromUsername", fromUsername);
+            var toEmail = $('#txtToEmail').val();
+            var fromEmail = $('#txtFromEmail').val();
+            formdata.append("toEmail", toEmail);
+            formdata.append("fromEmail", fromEmail);
             //Iterating through each files selected in fileInput
             for (i = 0; i < fileInput.files.length; i++) {
                 //Appending each file to FormData object
@@ -269,7 +269,7 @@
                 processData: false,
                 contentType: false,
                 success: function () {
-                    chatHub.server.getMessageList(toUsername);                    
+                    chatHub.server.getMessageList(toEmail);                    
                 }
             });
         });
@@ -290,7 +290,7 @@
         }
 
         chatHub.client.onRefreshDoctorList = function () {
-            chatHub.server.connectPatient($("#txtFromUsername").val());
+            chatHub.server.connectPatient($("#txtFromEmail").val());
         }
 
         chatHub.client.onGetMessageList = function (fromUser, toUser, messageDetails) {
@@ -300,15 +300,15 @@
             console.log(toUser);
             $("#chat-doctor").html("");
             var templateTop = $("#chat-top-template").html();
-            if (loginUsername == loginUsername) {
+            if (loginEmail == loginEmail) {
                 $("#chat-doctor").append(_.template(templateTop, { user: toUser }));
             }
             $("#chat-content").html("");
-            var loginUsername = $('#txtFromUsername').val();
+            var loginEmail = $('#txtFromEmail').val();
             var templateLeft = $("#chat-left-template").html();
             var templateRight = $("#chat-right-template").html();
             _.forEach(messageDetails, function (message) {
-                if (loginUsername == message.Username) {
+                if (loginEmail == message.Email) {
                     $("#chat-content").append(_.template(templateLeft, { user: fromUser, message: message }));
                 } else {
                     $("#chat-content").append(_.template(templateRight, { user: toUser, message: message }));
@@ -325,18 +325,18 @@
         chatHub.client.messageReceived = function (sender, receiver, message) {
             console.log("Message Receive:");
             console.log(message);
-            var fromUsername = $('#txtFromUsername').val();
-            var toUsername = $('#txtToUsername').val();
-            if (receiver.Username == fromUsername) {
+            var fromEmail = $('#txtFromEmail').val();
+            var toEmail = $('#txtToEmail').val();
+            if (receiver.Email == fromEmail) {
                 chatBoxView.renderContactList(receiver.DoctorList);
-                if (toUsername == sender.Username) {
+                if (toEmail == sender.Email) {
                     AddMessage(sender, message);
                 }
             }
 
-            if (sender.Username == fromUsername) {
+            if (sender.Email == fromEmail) {
                 chatBoxView.renderContactList(sender.DoctorList);
-                if (toUsername == receiver.Username) {
+                if (toEmail == receiver.Email) {
                     AddMessage(sender, message);
                 }
             }
@@ -345,9 +345,9 @@
     }
 
     function AddMessage(user, message) {
-        var loginUsername = $('#txtFromUsername').val();
+        var loginEmail = $('#txtFromEmail').val();
         var template = $("#chat-right-template").html();
-        if (loginUsername == user.Username) {
+        if (loginEmail == user.Email) {
             template = $("#chat-left-template").html();
         }
         $("#chat-content").append(_.template(template, { user: user, message: message }));

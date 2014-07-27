@@ -261,6 +261,8 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\FormBuilder\js\templates\app\changenotice.html" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\table.html" />
+    <Content Include="Content\FormBuilder\js\templates\snippet\table.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\static-text-copy.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\datepicker.html" />
     <Content Include="Content\FormBuilder\js\templates\snippet\edit-mode\formname.html" />
@@ -286,6 +288,7 @@
     <Content Include="Content\Image\Homepage\intro-bg.jpg" />
     <Content Include="Content\Image\Homepage\intro-bg2.jpg" />
     <Content Include="Content\Image\Homepage\intro-bg3.jpg" />
+    <Content Include="Content\Image\error-bg.jpg" />
     <Content Include="Content\Image\login-bg.jpg" />
     <Content Include="Content\Image\ProfilePicture\photo.jpg" />
     <Content Include="Content\Image\ProfilePicture\Su.JPG" />
@@ -525,7 +528,7 @@
     </Content>
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
@@ -538,12 +541,6 @@
     <Content Include="Views\Conversation\Details.cshtml" />
     <Content Include="Views\Shared\_TemplateLayout.cshtml" />
     <Content Include="Views\Shared\_DoctorLayout.cshtml" />
-    <Content Include="Views\Patient\UpdateMedicalProfile.cshtml" />
-    <Content Include="Views\Patient\Index.cshtml" />
-    <Content Include="Views\Patient\Details.cshtml" />
-    <Content Include="Views\Patient\Create.cshtml" />
-    <Content Include="Views\Patient\Edit.cshtml" />
-    <Content Include="Views\Patient\Delete.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\AdminSpecialtyField\Index.cshtml" />
     <Content Include="Views\AdminSpecialtyField\_Create.cshtml" />
@@ -603,6 +600,8 @@
     <Content Include="Views\Comment\_Post.cshtml" />
     <Content Include="Views\Account\Welcome.cshtml" />
     <Content Include="Views\Comment\_Details.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

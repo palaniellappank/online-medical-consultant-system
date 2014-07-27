@@ -23,10 +23,10 @@ namespace SignalRChat.Hubs
 
         /* Update Doctor Status for all user
          */
-        public void UpdateDoctorsStatus(string id, string username, List<DoctorDetail> Doctors, List<UserDetail> ConnectedUsers)
+        public void UpdateDoctorsStatus(string id, string email, List<DoctorDetail> Doctors, List<UserDetail> ConnectedUsers)
         {
-            var doctor = _db.Doctors.Where(x=>x.Username.Equals(username)).FirstOrDefault();
-            var doctorDetail = Doctors.Where(x => x.Username.Equals(username)).FirstOrDefault();
+            var doctor = _db.Doctors.Where(x => x.Email.Equals(email)).FirstOrDefault();
+            var doctorDetail = Doctors.Where(x => x.Email.Equals(email)).FirstOrDefault();
 
             //Update Doctor list status
             if (doctorDetail != null)
@@ -40,7 +40,7 @@ namespace SignalRChat.Hubs
                     if (userDetail.DoctorList != null)
                     {
                         var doctorDetailForUser = userDetail.DoctorList.Where(
-                        x => x.Username == username).FirstOrDefault();
+                        x => x.Email == email).FirstOrDefault();
                         doctorDetailForUser.IsOnline = doctorDetail.IsOnline;
                     }
                 }
@@ -48,27 +48,27 @@ namespace SignalRChat.Hubs
         }
 
         /*
-         * fromUsername: Logged user
-         * toUsername: Choosed user to see message
+         * fromEmail: Logged user
+         * toEmail: Choosed user to see message
          */
-        public List<MessageDetail> GetMessageDetail(string fromUsername, string toUsername)
+        public List<MessageDetail> GetMessageDetail(string fromEmail, string toEmail)
         {
 
-            var doctor = _db.Doctors.Where(u => u.Username.Equals(fromUsername)).FirstOrDefault();
+            var doctor = _db.Doctors.Where(u => u.Email.Equals(fromEmail)).FirstOrDefault();
             var patient = new Patient();
             if (doctor == null)
             {
-                doctor = _db.Doctors.Where(u => u.Username.Equals(toUsername)).FirstOrDefault();
-                patient = _db.Patients.Where(u => u.Username.Equals(fromUsername)).FirstOrDefault();
+                doctor = _db.Doctors.Where(u => u.Email.Equals(toEmail)).FirstOrDefault();
+                patient = _db.Patients.Where(u => u.Email.Equals(fromEmail)).FirstOrDefault();
             }
             else
             {
-                patient = _db.Patients.Where(u => u.Username.Equals(toUsername)).FirstOrDefault();
+                patient = _db.Patients.Where(u => u.Email.Equals(toEmail)).FirstOrDefault();
             }
             var messageDetails = new List<MessageDetail>();
             if (doctor != null && patient != null)
             {
-                Debug.WriteLine("Patient: " + patient.Username + "  " + "Doctor: " + doctor.Username);
+                Debug.WriteLine("Patient: " + patient.Email + "  " + "Doctor: " + doctor.Email);
                 var newestConversation = _db.Conversations.Where(
                     con => (con.PatientId == patient.UserId) && (con.DoctorId == doctor.UserId))
                     .OrderByDescending(con => con.DateConsulted).FirstOrDefault();
@@ -90,17 +90,17 @@ namespace SignalRChat.Hubs
                             Content = conversationDetail.Content,
                             Attachment = conversationDetail.Attachment,
                             CreatedDate = date,
-                            Username = conversationDetail.User.Username,
+                            Email = conversationDetail.User.Email,
                             IsRead = conversationDetail.IsRead
                         };
                         messageDetails.Add(messageDetail);
                     }
                     Debug.WriteLine(messageDetails.Count);
-                    if (fromUsername.Equals(doctor.Username))
+                    if (fromEmail.Equals(doctor.Email))
                     {
                         business.MarkConversationAsRead(newestConversation, true);
                     }
-                    if (fromUsername.Equals(patient.Username))
+                    if (fromEmail.Equals(patient.Email))
                     {
                         business.MarkConversationAsRead(newestConversation, false);
                     }
@@ -110,12 +110,12 @@ namespace SignalRChat.Hubs
         }
 
         /*
-         * username: Username of doctor 
+         * email: Email of doctor 
          * ConnectedUsers: used to detect user online or not
          */
-        public List<UserDetail> GetLastestConversationList(string username, List<UserDetail> ConnectedUsers)
+        public List<UserDetail> GetLastestConversationList(string email, List<UserDetail> ConnectedUsers)
         {
-            var doctor = _db.Doctors.Where(x => x.Username.Equals(username)).FirstOrDefault();
+            var doctor = _db.Doctors.Where(x => x.Email.Equals(email)).FirstOrDefault();
             var userDetailList = new List<UserDetail>();
             var conversations = _db.Conversations.Where(
                 x => x.DoctorId == doctor.UserId).
@@ -125,12 +125,12 @@ namespace SignalRChat.Hubs
             foreach (var conversation in conversations)
             {
                 var existUser = userDetailList.Where
-                    (x => x.Username == conversation.Patient.Username).FirstOrDefault();
+                    (x => x.Email == conversation.Patient.Email).FirstOrDefault();
                 if (existUser == null)
                 {
                     //Check user online or not
                     var connectedUser = ConnectedUsers.Where
-                        (x => x.Username == conversation.Patient.Username).FirstOrDefault();
+                        (x => x.Email == conversation.Patient.Email).FirstOrDefault();
                     var IsOnline = (connectedUser != null && connectedUser.IsOnline) ? true : false;
                     UserDetail userDetailCon = new UserDetail
                     {
@@ -138,7 +138,7 @@ namespace SignalRChat.Hubs
                         LastestContent = conversation.LatestContentFromPatient,
                         LastestTime = conversation.LatestTimeFromPatient,
                         ProfilePicture = conversation.Patient.ProfilePicture,
-                        Username = conversation.Patient.Username,
+                        Email = conversation.Patient.Email,
                         IsRead = conversation.IsDoctorRead,
                         IsOnline = IsOnline
                     };
@@ -148,9 +148,9 @@ namespace SignalRChat.Hubs
             return userDetailList;
         }
 
-        public List<DoctorDetail> GetListDoctorConversation(string username, List<UserDetail> ConnectedUsers)
+        public List<DoctorDetail> GetListDoctorConversation(string email, List<UserDetail> ConnectedUsers)
         {
-            var patient = _db.Patients.Where(x => x.Username.Equals(username)).FirstOrDefault();
+            var patient = _db.Patients.Where(x => x.Email.Equals(email)).FirstOrDefault();
             var doctorListDB = _db.Doctors.ToList();
             var doctorListResult = new List<DoctorDetail>();
             foreach (var doctor in doctorListDB)
@@ -168,7 +168,7 @@ namespace SignalRChat.Hubs
                 }
                 //Check user online or not
                 var connectedUser = ConnectedUsers.Where
-                    (x => x.Username == doctor.Username).FirstOrDefault();
+                    (x => x.Email == doctor.Email).FirstOrDefault();
                 var IsOnline = (connectedUser != null && connectedUser.IsOnline) ? true : false;
                 DoctorDetail userDetailCon = new DoctorDetail
                 {
@@ -176,7 +176,7 @@ namespace SignalRChat.Hubs
                     LastestContent = lastestConversation.LatestContentFromPatient,
                     LastestTime = lastestConversation.LatestTimeFromPatient,
                     ProfilePicture = doctor.ProfilePicture,
-                    Username = doctor.Username,
+                    Email = doctor.Email,
                     IsRead = lastestConversation.IsPatientRead,
                     IsOnline = IsOnline,
                     SpeciatyField = doctor.SpecialtyField.Name
@@ -197,7 +197,7 @@ namespace SignalRChat.Hubs
                     FullName = doctor.FullName,
                     IsOnline = false,
                     SpeciatyField = doctor.SpecialtyField.Name,
-                    Username = doctor.Username,
+                    Email = doctor.Email,
                     ProfilePicture = doctor.ProfilePicture
                 };
                 doctorListResult.Add(doctorDetail);
@@ -210,7 +210,7 @@ namespace SignalRChat.Hubs
             UserDetail userDetail = new UserDetail
             {
                 FullName = user.FullName,
-                Username = user.Username,
+                Email = user.Email,
                 IsOnline = false,
                 ProfilePicture = user.ProfilePicture
             };
@@ -219,18 +219,18 @@ namespace SignalRChat.Hubs
 
         /* 
          * user: send message user
-         * toUsername: User who receive message
+         * toEmail: User who receive message
          * Update DoctorList for Patient
          * And ConversationList for Doctor
          * To see the lastest chat content
          */
-        public void SyncUserDetailWhenSendMessage(UserDetail user, string toUsername, string message, List<UserDetail> ConnectedUsers)
+        public void SyncUserDetailWhenSendMessage(UserDetail user, string toEmail, string message, List<UserDetail> ConnectedUsers)
         {
             //Mark login user DoctorList and ConversationList as read
             if (user.DoctorList != null)
             {
                 UserDetail doctor = user.DoctorList.Where(
-                        x=>x.Username == toUsername
+                        x=>x.Email == toEmail
                     ).FirstOrDefault();
                 doctor.LastestContent = message;
                 doctor.IsRead = true;
@@ -239,7 +239,7 @@ namespace SignalRChat.Hubs
             if (user.ConversationList != null)
             {
                 UserDetail patient = user.ConversationList.Where(
-                        x => x.Username == toUsername
+                        x => x.Email == toEmail
                     ).FirstOrDefault();
                 patient.LastestContent = message;
                 patient.IsRead = true;
@@ -247,13 +247,13 @@ namespace SignalRChat.Hubs
             }
 
             //Mark receive user DoctorList and ConversationList as un-read
-            var receiveUser = ConnectedUsers.Where(x => x.Username.Equals(toUsername)).FirstOrDefault();
+            var receiveUser = ConnectedUsers.Where(x => x.Email.Equals(toEmail)).FirstOrDefault();
             if (receiveUser != null)
             {
                 if (receiveUser.DoctorList != null)
                 {
                     UserDetail doctor = receiveUser.DoctorList.Where(
-                            x => x.Username == user.Username
+                            x => x.Email == user.Email
                         ).FirstOrDefault();
                     doctor.LastestContent = message;
                     doctor.IsRead = false;
@@ -262,7 +262,7 @@ namespace SignalRChat.Hubs
                 if (receiveUser.ConversationList != null)
                 {
                     UserDetail patient = receiveUser.ConversationList.Where(
-                            x => x.Username == user.Username
+                            x => x.Email == user.Email
                         ).FirstOrDefault();
 
                     //This is the first time patient send message to doctor
@@ -272,7 +272,7 @@ namespace SignalRChat.Hubs
                         {
                             FullName = user.FullName,
                             ProfilePicture = user.ProfilePicture,
-                            Username = user.Username,
+                            Email = user.Email,
                             IsOnline = true
                         };
                         receiveUser.ConversationList.Add(patient);
@@ -305,7 +305,7 @@ namespace SignalRChat.Hubs
                 _db.Conversations.Add(conversation);
             }
 
-            if (fromUser.Username == patient.Username)
+            if (fromUser.Email == patient.Email)
             {
                 conversation.LatestTimeFromPatient = DateTime.Now;
                 conversation.LatestContentFromPatient = message;
@@ -330,7 +330,7 @@ namespace SignalRChat.Hubs
             MessageDetail messageDetail = new MessageDetail
             {
                 Content = message,
-                Username = fromUser.Username,
+                Email = fromUser.Email,
                 //CreatedDate = String.Format("{0:H:mm:ss}", DateTime.Now),
                 CreatedDate = String.Format("{0:dd/MM/yyyy HH:mm:ss}", DateTime.Now),
                 IsRead = false

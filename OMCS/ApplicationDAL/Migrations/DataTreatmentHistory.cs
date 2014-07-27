@@ -11,8 +11,8 @@
     {
         public static void Seed(OMCS.DAL.Model.OMCSDBContext _db)
         {
-            Patient suTran = _db.Patients.Where(pt => pt.Username.Equals("sutran")).Single();
-            Doctor doctor1 = _db.Doctors.Where(pt => pt.Username.Equals("doctor1")).Single();
+            Patient suTran = _db.Patients.Where(pt => pt.Email.Equals("trannguyentiensu@gmail.com")).Single();
+            Doctor doctor1 = _db.Doctors.Where(pt => pt.Email.Equals("vana@gmail.com")).Single();
 
             MedicalProfile suTranMedicalProfile = _db.MedicalProfiles.Where(
                 mp => mp.MedicalProfileKey.Equals("OMCS.0000001.01")).FirstOrDefault();

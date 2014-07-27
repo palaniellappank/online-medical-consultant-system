@@ -44,7 +44,7 @@ namespace OMCS.Web
                 newUser.UserId = serializeModel.UserId;
                 newUser.FirstName = serializeModel.FirstName;
                 newUser.LastName = serializeModel.LastName;
-                newUser.Username = serializeModel.Username;
+                newUser.Email = serializeModel.Email;
                 newUser.roles = serializeModel.roles;
 
                 HttpContext.Current.User = newUser;

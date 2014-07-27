@@ -21,14 +21,14 @@ namespace Security.DAL.Security
             }
         }
 
-        public CustomPrincipal(string Username)
+        public CustomPrincipal(string Email)
         {
-            this.Identity = new GenericIdentity(Username);
+            this.Identity = new GenericIdentity(Email);
         }
 
         public int UserId { get; set; }
         public string FirstName { get; set; }
-        public string Username { get; set; }
+        public string Email { get; set; }
         public string LastName { get; set; }
         public string[] roles { get; set; }
     }
@@ -36,7 +36,7 @@ namespace Security.DAL.Security
     public class CustomPrincipalSerializeModel
     {
         public int UserId { get; set; }
-        public string Username { get; set; }
+        public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string[] roles { get; set; }

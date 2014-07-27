@@ -10,8 +10,8 @@
     {
         public static void Seed(OMCS.DAL.Model.OMCSDBContext _db)
         {
-            Doctor bsNguyenVanA = _db.Doctors.Where(d => d.Username.Equals("nguyenvana")).FirstOrDefault();
-            Patient sutran = _db.Patients.Where(p => p.Username.Equals("sutran")).FirstOrDefault();
+            Doctor bsNguyenVanA = _db.Doctors.Where(d => d.Email.Equals("vana@gmail.com")).FirstOrDefault();
+            Patient sutran = _db.Patients.Where(p => p.Email.Equals("trannguyentiensu@gmail.com")).FirstOrDefault();
             Conversation benhCam = new Conversation
             {
                 ConditionStatus = "Tiến triển tốt",

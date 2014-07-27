@@ -42,9 +42,9 @@
                         Đăng nhập
                     </p>
                     <form class="login" action="@Url.Action("Login", "Account")" method="post">
-                        <input type="text" placeholder="Tên đăng nhập" name="Username" required />
+                        <input type="text" placeholder="Email" name="Email" required />
                         <input type="password" placeholder="Mật khẩu" name="Password" required />
-
+                        <input type="hidden" value="@Request.Params["ReturnUrl"]" name="ReturnUrl"/>
                         @if (ViewData.ModelState[""] != null)
                         {
                             <div class="has-error" style="background: #eee;">
@@ -111,13 +111,13 @@
 
         <div class="row">
             <div class="col-xs-4 col-md-4">
-                @Html.LabelFor(model => model.Username)
+                @Html.LabelFor(model => model.Email)
             </div>
             <div class="col-xs-8 col-md-8">
-                @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
             </div>
             <div class="col-xs-12 col-md-12">
-                @Html.ValidationMessageFor(model => model.Username)
+                @Html.ValidationMessageFor(model => model.Email)
             </div>
             
         </div>

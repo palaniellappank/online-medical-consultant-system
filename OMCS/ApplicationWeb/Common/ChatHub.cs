@@ -38,14 +38,14 @@ namespace SignalRChat.Hubs
 
         #region Methods
 
-        public void ConnectDoctor(string username)
+        public void ConnectDoctor(string email)
         {
             var id = Context.ConnectionId;
 
-            var doctor = _db.Doctors.Where(x=>x.Username.Equals(username)).FirstOrDefault();
-            var doctorDetail = Doctors.Where(x => x.Username.Equals(username)).FirstOrDefault();
+            var doctor = _db.Doctors.Where(x=>x.Email.Equals(email)).FirstOrDefault();
+            var doctorDetail = Doctors.Where(x => x.Email.Equals(email)).FirstOrDefault();
 
-            helper.UpdateDoctorsStatus(id, username, Doctors, ConnectedUsers);
+            helper.UpdateDoctorsStatus(id, email, Doctors, ConnectedUsers);
 
             //Add User
             UserDetail userDetail = new UserDetail
@@ -54,12 +54,12 @@ namespace SignalRChat.Hubs
              //   CountMessageUnRead = business.CountMessageUnRead(doctor),
                 ProfilePicture = doctor.ProfilePicture,
                 FullName = doctor.FullName,
-                Username = doctor.Username,
+                Email = doctor.Email,
                 IsOnline = true
             };
 
             //Show List of Lastest contact
-            var userDetailList = helper.GetLastestConversationList(username, ConnectedUsers);
+            var userDetailList = helper.GetLastestConversationList(email, ConnectedUsers);
             userDetail.ConversationList = userDetailList;
             ConnectedUsers.Add(userDetail);
 
@@ -69,22 +69,22 @@ namespace SignalRChat.Hubs
             Clients.AllExcept(id).onRefreshDoctorList();
         }
 
-        public void ConnectPatient(string username)
+        public void ConnectPatient(string email)
         {
             var id = Context.ConnectionId;
-            var userDetail = ConnectedUsers.Where(x => x.Username.Equals(username)).FirstOrDefault();
+            var userDetail = ConnectedUsers.Where(x => x.Email.Equals(email)).FirstOrDefault();
             if (userDetail == null)
             {
-                var user = _db.Users.Where(x => x.Username.Equals(username)).FirstOrDefault();
+                var user = _db.Users.Where(x => x.Email.Equals(email)).FirstOrDefault();
                 userDetail = new UserDetail { 
                     ConnectionId = id,
                     CountMessageUnRead = business.CountMessageUnRead(user),
-                    Username = username,
+                    Email = email,
                     FullName = user.FullName, ProfilePicture = user.ProfilePicture,
                     IsOnline = true
                 };
                 ConnectedUsers.Add(userDetail);
-                userDetail.DoctorList = helper.GetListDoctorConversation(username, ConnectedUsers);
+                userDetail.DoctorList = helper.GetListDoctorConversation(email, ConnectedUsers);
             }
             Clients.Caller.onGetDoctorList(userDetail.DoctorList);
             Clients.Caller.onMessageUnRead(userDetail);
@@ -93,7 +93,7 @@ namespace SignalRChat.Hubs
             var doctorList = ConnectedUsers.Where(x=>x.ConversationList != null).ToList();
             foreach (UserDetail doctor in doctorList)
             {
-                var patient = doctor.ConversationList.Find(x => x.Username == userDetail.Username);
+                var patient = doctor.ConversationList.Find(x => x.Email == userDetail.Email);
                 if (patient != null)
                 {
                     patient.IsOnline = true;
@@ -102,44 +102,44 @@ namespace SignalRChat.Hubs
             }
         }
 
-        public void GetMessageList(string username)
+        public void GetMessageList(string email)
         {
             var id = Context.ConnectionId;
             var fromUserDetail = ConnectedUsers.Where(x => x.ConnectionId == id).FirstOrDefault();
-            var fromUser = _db.Users.Where(x => x.Username.Equals(fromUserDetail.Username)).FirstOrDefault();
-            var toUser = _db.Users.Where(x => x.Username.Equals(username)).FirstOrDefault();
-            var toUserDetail = ConnectedUsers.Where(x => x.Username.Equals(username)).FirstOrDefault();
+            var fromUser = _db.Users.Where(x => x.Email.Equals(fromUserDetail.Email)).FirstOrDefault();
+            var toUser = _db.Users.Where(x => x.Email.Equals(email)).FirstOrDefault();
+            var toUserDetail = ConnectedUsers.Where(x => x.Email.Equals(email)).FirstOrDefault();
 
             //Check if toUserDetail is not online yet
             if (toUserDetail == null)
             {
                 toUserDetail = helper.ConvertUserToUserDetail(toUser);
             }
-            List<MessageDetail> userDetails = helper.GetMessageDetail(fromUser.Username, toUser.Username);
+            List<MessageDetail> userDetails = helper.GetMessageDetail(fromUser.Email, toUser.Email);
             Clients.Caller.onGetMessageList(fromUserDetail, toUserDetail, userDetails);
             
         }
 
-        public void SendMessageTo(string toUsername, string message)
+        public void SendMessageTo(string toEmail, string message)
         {
             business = new ConversationBusiness(_db);
-            Debug.WriteLine(toUsername + " " + message.Trim());
+            Debug.WriteLine(toEmail + " " + message.Trim());
             var id = Context.ConnectionId;
             var fromUserDetail = ConnectedUsers.Where(x => x.ConnectionId == id).FirstOrDefault();
-            var fromUser = _db.Users.Where(x => x.Username.Equals(fromUserDetail.Username)).FirstOrDefault();
-            var toUser = _db.Users.Where(x => x.Username.Equals(toUsername)).FirstOrDefault();
-            var toUserDetail = ConnectedUsers.Where(x => x.Username.Equals(toUsername)).FirstOrDefault();
+            var fromUser = _db.Users.Where(x => x.Email.Equals(fromUserDetail.Email)).FirstOrDefault();
+            var toUser = _db.Users.Where(x => x.Email.Equals(toEmail)).FirstOrDefault();
+            var toUserDetail = ConnectedUsers.Where(x => x.Email.Equals(toEmail)).FirstOrDefault();
 
-            var doctor = _db.Doctors.Where(u => u.Username.Equals(fromUser.Username)).FirstOrDefault();
+            var doctor = _db.Doctors.Where(u => u.Email.Equals(fromUser.Email)).FirstOrDefault();
             var patient = new Patient();
             if (doctor == null)
             {
-                doctor = _db.Doctors.Where(u => u.Username.Equals(toUser.Username)).FirstOrDefault();
-                patient = _db.Patients.Where(u => u.Username.Equals(fromUser.Username)).FirstOrDefault();
+                doctor = _db.Doctors.Where(u => u.Email.Equals(toUser.Email)).FirstOrDefault();
+                patient = _db.Patients.Where(u => u.Email.Equals(fromUser.Email)).FirstOrDefault();
             }
             else
             {
-                patient = _db.Patients.Where(u => u.Username.Equals(toUser.Username)).FirstOrDefault();
+                patient = _db.Patients.Where(u => u.Email.Equals(toUser.Email)).FirstOrDefault();
             }
             if (doctor != null && patient != null)
             {
@@ -149,14 +149,14 @@ namespace SignalRChat.Hubs
                     toUserDetail = helper.ConvertUserToUserDetail(toUser);
                 }
 
-                helper.SyncUserDetailWhenSendMessage(fromUserDetail, toUsername, message, ConnectedUsers);
+                helper.SyncUserDetailWhenSendMessage(fromUserDetail, toEmail, message, ConnectedUsers);
                 
                 Debug.WriteLine("DoctorId = " + toUser.UserId, "  PatientId = " + fromUser.UserId);
                 
                 MessageDetail messageDetail = helper.SaveMessageToDatabase(fromUser, patient, doctor, message);
 
                 //Notify Receiver
-                var receiver = ConnectedUsers.Where(x => x.Username == toUsername).FirstOrDefault();
+                var receiver = ConnectedUsers.Where(x => x.Email == toEmail).FirstOrDefault();
                 
                 if (receiver != null && receiver.ConnectionId != null)
                 {
@@ -178,8 +178,8 @@ namespace SignalRChat.Hubs
             {
                 ConnectedUsers.Remove(item);
                 var id = Context.ConnectionId;
-                var doctor = Doctors.Where(x => x.Username == item.Username).FirstOrDefault();
-                var connectedUser = ConnectedUsers.Where(x => x.Username == item.Username).FirstOrDefault();
+                var doctor = Doctors.Where(x => x.Email == item.Email).FirstOrDefault();
+                var connectedUser = ConnectedUsers.Where(x => x.Email == item.Email).FirstOrDefault();
                 if ((connectedUser == null) && (doctor != null))
                 {
                     doctor.IsOnline = false;
@@ -195,13 +195,13 @@ namespace SignalRChat.Hubs
         #region WebRTC related things
 
         //Doctor send request for patient to view webcam
-        public void RequestWebcam(string toUsername)
+        public void RequestWebcam(string toEmail)
         {
             var id = Context.ConnectionId;
             var fromUserDetail = ConnectedUsers.Where(x => x.ConnectionId == id).FirstOrDefault();
-            var fromUser = _db.Users.Where(x => x.Username.Equals(fromUserDetail.Username)).FirstOrDefault();
-            var toUser = _db.Users.Where(x => x.Username.Equals(toUsername)).FirstOrDefault();
-            var toUserDetail = ConnectedUsers.Where(x => x.Username.Equals(toUsername)).FirstOrDefault();
+            var fromUser = _db.Users.Where(x => x.Email.Equals(fromUserDetail.Email)).FirstOrDefault();
+            var toUser = _db.Users.Where(x => x.Email.Equals(toEmail)).FirstOrDefault();
+            var toUserDetail = ConnectedUsers.Where(x => x.Email.Equals(toEmail)).FirstOrDefault();
             Clients.Client(toUserDetail.ConnectionId).RequestWebcamReceived(fromUserDetail);
         }
 
@@ -216,7 +216,7 @@ namespace SignalRChat.Hubs
                 // Send a decline message if the callee said no
                 if (acceptCall == false)
                 {
-                    Clients.Client(targetConnectionId).callDeclined(callingUser, string.Format("{0} did not accept your call.", callingUser.Username));
+                    Clients.Client(targetConnectionId).callDeclined(callingUser, string.Format("{0} did not accept your call.", callingUser.Email));
                     return;
                 }
 

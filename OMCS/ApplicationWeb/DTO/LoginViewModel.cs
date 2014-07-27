@@ -8,9 +8,9 @@ namespace Security.Models
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Vui lòng điền tên đăng nhập.")]
-        [Display(Name = "Tên đăng nhập")]
-        public string Username { get; set; }
+        [Required(ErrorMessage = "Vui lòng điền địa chỉ email.")]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "Vui lòng điền mật khẩu.")]
         [DataType(DataType.Password)]

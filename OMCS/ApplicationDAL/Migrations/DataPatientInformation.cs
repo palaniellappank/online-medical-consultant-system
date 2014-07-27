@@ -17,7 +17,7 @@ namespace OMCS.DAL
             var patients = new List<Patient> 
             {
                 new Patient {
-                    FirstName = "Su", LastName = "Tran", Username = "sutran", Email = "trannguyentiensu@gmail.com", Password = "123456",
+                    FirstName = "Su", LastName = "Tran", Email = "trannguyentiensu@gmail.com", Password = "123456",
                     IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>() {rolePatient}, 
                     Gender = "M", Birthday = new DateTime(1992, 2, 19),
                     Phone = "0933056722", PrimaryAddress = "Thôn 1, xa CuEbur, Buôn Ma Thuột", SecondaryAddress = "201/9 Đường Số 9, Gò Vấp",
@@ -27,7 +27,7 @@ namespace OMCS.DAL
                     ProfilePicture = "Su.JPG"
                 },
                 new Patient {
-                    FirstName = "Danh", LastName = "Trần Cao", Username = "danhtran", Email = "caodanh@gmail.com", Password = "123456",
+                    FirstName = "Danh", LastName = "Trần Cao", Email = "caodanh@gmail.com", Password = "123456",
                     IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>() {rolePatient}, 
                     Gender = "M", Birthday = new DateTime(1992, 2, 19),
                     Phone = "0933056722", PrimaryAddress = "Tiền gian", SecondaryAddress = "Quận 12", Ethnicity = "Kinh", Nationality = "Việt Nam",
@@ -36,7 +36,7 @@ namespace OMCS.DAL
                     ProfilePicture = "photo.jpg"
                 },
                 new Patient {
-                    FirstName = "Tuấn", LastName = "Mai Anh", Username = "tuanmai", Email = "tuanmai@gmail.com", Password = "123456",
+                    FirstName = "Tuấn", LastName = "Mai Anh", Email = "tuanmai@gmail.com", Password = "123456",
                     IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>() {rolePatient}, Gender = "M", Birthday = new DateTime(1992, 2, 19),
                     Phone = "0933056722", PrimaryAddress = "Tiền gian", SecondaryAddress = "Quận 12", Ethnicity = "Kinh", Nationality = "Việt Nam",
                     Job = "Lập trình viên", WhereToWork = "FPT Software", ContactPerson = "Mỹ Linh", ContactPersonAddress = "1 Lý Thường Kiệt",
@@ -44,7 +44,7 @@ namespace OMCS.DAL
                     ProfilePicture = "photo.jpg"
                 },
                 new Patient {
-                    FirstName = "Nguồn", LastName = "Nguyễn Hồng Ngọc", Username = "nguonnguyen", Email = "nguonnguyen@gmail.com", Password = "123456",
+                    FirstName = "Nguồn", LastName = "Nguyễn Hồng Ngọc", Email = "nguonnguyen@gmail.com", Password = "123456",
                     IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>() {rolePatient}, Gender = "F", Birthday = new DateTime(1992, 2, 19),
                     Phone = "0933056722", PrimaryAddress = "Tiền gian", SecondaryAddress = "Quận 12", Ethnicity = "Kinh", Nationality = "Việt Nam",
                     Job = "Sinh Vien", WhereToWork = "Hoa Sen", ContactPerson = "Mỹ Linh", ContactPersonAddress = "1 Lý Thường Kiệt",
@@ -52,7 +52,7 @@ namespace OMCS.DAL
                     ProfilePicture = "photo.jpg"
                 },
                 new Patient {
-                    FirstName = "Nhân", LastName = "Nguyễn Toàn", Username = "nhannguyen", Email = "nhannguyen@gmail.com", Password = "123456",
+                    FirstName = "Nhân", LastName = "Nguyễn Toàn", Email = "nhannguyen@gmail.com", Password = "123456",
                     IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>() {rolePatient}, Gender = "F", Birthday = new DateTime(1992, 2, 19),
                     Phone = "0933056722", PrimaryAddress = "Tiền gian", SecondaryAddress = "Quận 12", Ethnicity = "Kinh", Nationality = "Việt Nam",
                     Job = "Sinh Vien", WhereToWork = "Hoa Sen", ContactPerson = "Mỹ Linh", ContactPersonAddress = "1 Lý Thường Kiệt",
@@ -60,7 +60,7 @@ namespace OMCS.DAL
                     ProfilePicture = "photo.jpg"
                 },
                 new Patient {
-                    FirstName = "Lịnh", LastName = "Nguyễn Nhật", Username = "linhnguyen", Email = "linhnguyen@gmail.com", Password = "123456",
+                    FirstName = "Lịnh", LastName = "Nguyễn Nhật", Email = "linhnguyen@gmail.com", Password = "123456",
                     IsActive = true, CreatedDate = DateTime.UtcNow, Roles = new List<Role>() {rolePatient}, Gender = "M", Birthday = new DateTime(1992, 2, 19),
                     Phone = "0933056722", PrimaryAddress = "Quảng Ngãi", SecondaryAddress = "Quận 12", Ethnicity = "Kinh", Nationality = "Việt Nam",
                     Job = "Sinh Vien", WhereToWork = "F Soft", ContactPerson = "Mỹ Linh", ContactPersonAddress = "1 Lý Thường Kiệt",
@@ -69,14 +69,14 @@ namespace OMCS.DAL
                 }
             };
 
-            patients.ForEach(s => _db.Patients.AddOrUpdate(p => (p.Username), s));
+            patients.ForEach(s => _db.Patients.AddOrUpdate(p => (p.Email), s));
             _db.SaveChanges();
-            Patient suTran = _db.Patients.Where(x => x.Username == "sutran").Single();
-            Patient danhtran = _db.Patients.Where(x => x.Username == "danhtran").Single();
-            Patient tuanMai = _db.Patients.Where(x => x.Username == "tuanmai").Single();
-            Patient nguonNguyen = _db.Patients.Where(x => x.Username == "nguonnguyen").Single();
-            Patient nhanNguyen = _db.Patients.Where(x => x.Username == "nhannguyen").Single();
-            Patient linhNguyen = _db.Patients.Where(x => x.Username == "linhnguyen").Single();
+            Patient suTran = _db.Patients.Where(x => x.Email == "trannguyentiensu@gmail.com").Single();
+            Patient danhtran = _db.Patients.Where(x => x.Email == "caodanh@gmail.com").Single();
+            Patient tuanMai = _db.Patients.Where(x => x.Email == "tuanmai@gmail.com").Single();
+            Patient nguonNguyen = _db.Patients.Where(x => x.Email == "nguonnguyen@gmail.com").Single();
+            Patient nhanNguyen = _db.Patients.Where(x => x.Email == "nhannguyen@gmail.com").Single();
+            Patient linhNguyen = _db.Patients.Where(x => x.Email == "linhnguyen@gmail.com").Single();
 
             var personalHealthRecords = new List<PersonalHealthRecord>
             {

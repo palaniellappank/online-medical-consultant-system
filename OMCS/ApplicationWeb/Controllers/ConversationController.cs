@@ -36,34 +36,6 @@ namespace OMCS.Web.Controllers
         }
 
         //
-        // GET: /Conversation/Create
-
-        public ActionResult Create()
-        {
-            ViewBag.PatientId = new SelectList(db.Users, "UserId", "Username");
-            ViewBag.DoctorId = new SelectList(db.Users, "UserId", "Username");
-            return View();
-        }
-
-        //
-        // POST: /Conversation/Create
-
-        [HttpPost]
-        public ActionResult Create(Conversation conversation)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Conversations.Add(conversation);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.PatientId = new SelectList(db.Users, "UserId", "Username", conversation.PatientId);
-            ViewBag.DoctorId = new SelectList(db.Users, "UserId", "Username", conversation.DoctorId);
-            return View(conversation);
-        }
-
-        //
         // GET: /Conversation/Edit/5
 
         public ActionResult Edit(int id = 0)
@@ -73,8 +45,8 @@ namespace OMCS.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.PatientId = new SelectList(db.Users, "UserId", "Username", conversation.PatientId);
-            ViewBag.DoctorId = new SelectList(db.Users, "UserId", "Username", conversation.DoctorId);
+            ViewBag.PatientId = new SelectList(db.Users, "UserId", "Email", conversation.PatientId);
+            ViewBag.DoctorId = new SelectList(db.Users, "UserId", "Email", conversation.DoctorId);
             return View(conversation);
         }
 
@@ -90,8 +62,8 @@ namespace OMCS.Web.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PatientId = new SelectList(db.Users, "UserId", "Username", conversation.PatientId);
-            ViewBag.DoctorId = new SelectList(db.Users, "UserId", "Username", conversation.DoctorId);
+            ViewBag.PatientId = new SelectList(db.Users, "UserId", "Email", conversation.PatientId);
+            ViewBag.DoctorId = new SelectList(db.Users, "UserId", "Email", conversation.DoctorId);
             return View(conversation);
         }
 

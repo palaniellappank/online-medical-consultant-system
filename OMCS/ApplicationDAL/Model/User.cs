@@ -18,12 +18,6 @@ namespace OMCS.DAL.Model
 
         [Required(ErrorMessage = "Bạn cần nhập thông tin này")]
         [StringLength(50, ErrorMessage = "Độ dài không được quá 50 ký tự")]
-        [Remote("CheckUserNameExist", "AdminUser", HttpMethod = "POST", ErrorMessage = "Tên tài khoản đã tồn tại")]
-        [Display(Name = "Tên đăng nhập")]
-        public String Username { get; set; }
-
-        [Required(ErrorMessage = "Bạn cần nhập thông tin này")]
-        [StringLength(50, ErrorMessage = "Độ dài không được quá 50 ký tự")]
         [EmailAddress(ErrorMessage = "Địa chỉ Email không hợp lệ")]
         [Remote("CheckEmailExist", "AdminUser", HttpMethod = "POST", ErrorMessage = "Email đã tồn tại")]
         [Display(Name = "Email")]

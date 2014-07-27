@@ -31,7 +31,8 @@ namespace OMCS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _db.Users.Where(u => u.Username == model.Username && u.Password == model.Password && u.IsActive == true).FirstOrDefault();
+                var user = _db.Users.Where(u => u.Email == model.Email && 
+                    u.Password == model.Password && u.IsActive == true).FirstOrDefault();
                 if (user != null)
                 {
                     var roles = user.Roles.Select(m => m.RoleName).ToArray();
@@ -40,13 +41,13 @@ namespace OMCS.Web.Controllers
                     serializeModel.UserId = user.UserId;
                     serializeModel.FirstName = user.FirstName;
                     serializeModel.LastName = user.LastName;
-                    serializeModel.Username = user.Username;
+                    serializeModel.Email = user.Email;
                     serializeModel.roles = roles;
 
                     string userData = JsonConvert.SerializeObject(serializeModel);
                     FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
                              1,
-                            user.Email,
+                             user.Email,
                              DateTime.Now,
                              DateTime.Now.AddDays(1),
                              false,
@@ -55,6 +56,11 @@ namespace OMCS.Web.Controllers
                     string encTicket = FormsAuthentication.Encrypt(authTicket);
                     HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
                     Response.Cookies.Add(faCookie);
+
+                    if (!String.IsNullOrEmpty(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
 
                     if (roles.Contains("Admin"))
                     {
@@ -216,7 +222,7 @@ namespace OMCS.Web.Controllers
                 var body = "<html>" +
                                   "<body>" +
                                       "<h2>Hệ thống nhận được yêu cầu làm mới mật khẩu</h2>" +
-                                      "<p>Tên đăng nhập: " + tUser.Username + "<br/>" +
+                                      "<p>Email đăng nhập: " + tUser.Email + "<br/>" +
                                       "<p>Mật khẩu mới: " + tUser.Password + "</p>" +
                                   "</body>" +
                               "</html>";
@@ -245,16 +251,6 @@ namespace OMCS.Web.Controllers
                 return new JsonResult { Data = true };
             }
             return new JsonResult { Data = false };
-        }
-
-        public bool CheckUsername(string data)
-        {
-            Debug.WriteLine(data);
-            var username = (from user in _db.Users
-                            where user.Username.Equals(data, StringComparison.InvariantCultureIgnoreCase)
-                            select user).FirstOrDefault();
-            if (username != null) return false;
-            else return true;
         }
 
         public bool CheckEmail(string data)
