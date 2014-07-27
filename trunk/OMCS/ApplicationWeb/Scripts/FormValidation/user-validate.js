@@ -2,9 +2,6 @@
     $("#create-form, #edit-form, #register-form").validate({
 
         rules: {
-            Username: {
-                maxlength: 50
-            },
             Email: {
                 maxlength: 50
             },

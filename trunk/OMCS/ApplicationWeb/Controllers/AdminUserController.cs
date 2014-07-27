@@ -150,19 +150,6 @@ namespace OMCS.Web.Controllers
         }
 
         //
-        // POST: /AdminUser/CheckExistUsername
-        [HttpPost]
-        public JsonResult CheckExistUsername(string userName, int id = 0)
-        {
-            var user = db.Users.FirstOrDefault(u => u.Username == userName);
-            if (user != null && id != user.UserId)
-            {
-                return new JsonResult { Data = false };
-            }
-            return new JsonResult { Data = true };
-        }
-
-        //
         // POST: /AdminUser/CheckExistEmail
         [HttpPost]
         public JsonResult CheckExistEmail(string email, int id = 0)

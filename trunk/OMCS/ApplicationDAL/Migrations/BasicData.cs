@@ -69,28 +69,28 @@
             {
                 new User
                 {
-                    Username = "admin", Email = "admin@ymail.com", FirstName = "Admin",
+                    Email = "admin@ymail.com", FirstName = "Admin",
                     Password = "123456", IsActive = true, Birthday = DateTime.UtcNow,
                     CreatedDate = DateTime.UtcNow, Roles = new List<Role>() {roleAdmin},
                     ProfilePicture = "photo.jpg"
                 }
             };
             
-            users.ForEach(s => _db.Users.AddOrUpdate(p => p.Username, s));
+            users.ForEach(s => _db.Users.AddOrUpdate(p => p.Email, s));
             _db.SaveChanges();
 
             var doctors = new List<Doctor>
             {
                 new Doctor
                 {
-                    Username = "doctor1", Email = "doctor1@ymail.com", FirstName = "Doctor 1",
+                    Email = "doctor1@ymail.com", FirstName = "Doctor 1",
                     Password = "123456", IsActive = true, Birthday = DateTime.UtcNow,
                     CreatedDate = DateTime.UtcNow, SpecialtyField = NhiKhoa,
                     Roles = new List<Role>() {roleDoctor}, ProfilePicture = "photo.jpg"
                 },
                 new Doctor
                 {
-                    Username = "nguyenvana", Email = "vana@gmail.com", FirstName = "A",
+                    Email = "vana@gmail.com", FirstName = "A",
                     LastName = "Nguyễn Văn", Password = "123456", IsActive = true,
                     Birthday = DateTime.UtcNow, CreatedDate = DateTime.UtcNow,
                     SpecialtyField = NhiKhoa, Roles = new List<Role>() {roleDoctor},
@@ -98,7 +98,7 @@
                 },
                 new Doctor
                 {
-                    Username = "tonthattung", Email = "tonthattung@gmail.com", 
+                    Email = "tonthattung@gmail.com", 
                     FirstName = "Tùng", LastName = "Tôn Thất", Password = "123456", 
                     IsActive = true, Birthday = DateTime.UtcNow, CreatedDate = DateTime.UtcNow, 
                     SpecialtyField = NhiKhoa, Roles = new List<Role>() {roleDoctor},
@@ -106,7 +106,7 @@
                 },
                 new Doctor
                 {
-                    Username = "hodacdi", Email = "tonthattung@gmail.com", 
+                    Email = "tonthattung@gmail.com", 
                     FirstName = "Di", LastName = "Hồ Đắc", Password = "123456", 
                     IsActive = true, Birthday = DateTime.UtcNow, CreatedDate = DateTime.UtcNow, 
                     SpecialtyField = NhiKhoa, Roles = new List<Role>() {roleDoctor},
@@ -114,7 +114,7 @@
                 },
                 new Doctor
                 {
-                    Username = "dangvanngu", Email = "dangvanngu@gmail.com", 
+                    Email = "dangvanngu@gmail.com", 
                     FirstName = "Ngữ", LastName = "Đặng Văn", Password = "123456", 
                     IsActive = true, Birthday = DateTime.UtcNow, CreatedDate = DateTime.UtcNow, 
                     SpecialtyField = NhiKhoa, Roles = new List<Role>() {roleDoctor},
@@ -124,7 +124,7 @@
             };
             foreach (var doctor in doctors)
             {
-                var existOne = _db.Doctors.Where(x => x.Username.Equals(doctor.Username)).FirstOrDefault();
+                var existOne = _db.Doctors.Where(x => x.Email.Equals(doctor.Email)).FirstOrDefault();
                 if (existOne == null) _db.Doctors.Add(doctor);
             }
             _db.SaveChanges();

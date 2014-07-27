@@ -4,13 +4,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Security.Controllers
+namespace OMCS.Web.Controllers
 {
     public class ErrorController : Controller
     {
-        //
-        // GET: /Error/
         public ActionResult AccessDenied()
+        {
+            return View();
+        }
+
+        public ActionResult Error()
+        {
+            return View();
+        }
+
+        public ActionResult NotFound()
         {
             return View();
         }

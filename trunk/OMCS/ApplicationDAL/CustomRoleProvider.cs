@@ -26,9 +26,9 @@ namespace OMCS.DAL
                 Context.SaveChanges();
             }
         }
-        public void AddUserToRole(string userName, string roleName)
+        public void AddUserToRole(string email, string roleName)
         {
-            User user = Context.Users.Where(Usr => userName.Contains(Usr.Username)).FirstOrDefault();
+            User user = Context.Users.Where(Usr => email.Contains(Usr.Email)).FirstOrDefault();
             Role role = Context.Roles.Where(Rl => roleName.Contains(Rl.RoleName)).FirstOrDefault();
 
             if (!user.Roles.Contains(role))
@@ -62,9 +62,9 @@ namespace OMCS.DAL
             return Context.Roles.Select(Rl => Rl.RoleName).ToList();
         }
 
-        public bool IsUserInRole(string username, string roleName)
+        public bool IsUserInRole(string email, string roleName)
         {
-            User User = Context.Users.FirstOrDefault(Usr => Usr.Username == username);
+            User User = Context.Users.FirstOrDefault(Usr => Usr.Email == email);
             Role Role = Context.Roles.FirstOrDefault(Rl => Rl.RoleName == roleName);
 
             if (Role == null && User != null)

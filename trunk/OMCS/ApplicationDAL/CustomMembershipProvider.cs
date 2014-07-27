@@ -11,14 +11,13 @@ namespace OMCS.DAL
         readonly OMCSDBContext Context = new OMCSDBContext();
 
 
-        public bool CreateUser(string username, string password, string email)
+        public bool CreateUser(string password, string email)
         {
 
             try
             {
                 User NewUser = new User
                 {
-                    Username = username,
                     Password = password,
                     Email = email,
                     CreatedDate = DateTime.UtcNow,
@@ -35,10 +34,10 @@ namespace OMCS.DAL
 
         }
 
-        public  bool ValidateUser(string username, string password)
+        public  bool ValidateUser(string email, string password)
         {
             User User = null;
-            User = Context.Users.FirstOrDefault(Usr => Usr.Username == username && Usr.Password == password);
+            User = Context.Users.FirstOrDefault(Usr => Usr.Email == email && Usr.Password == password);
 
             if (User != null)
             {
@@ -53,7 +52,7 @@ namespace OMCS.DAL
         public  bool DeleteUser(string username)
         {
             User User = null;
-            User = Context.Users.FirstOrDefault(Usr => Usr.Username == username);
+            User = Context.Users.FirstOrDefault(Usr => Usr.Email == username);
             if (User != null)
             {
                 Context.Users.Remove(User);

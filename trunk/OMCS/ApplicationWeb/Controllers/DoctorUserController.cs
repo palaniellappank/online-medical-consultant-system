@@ -109,9 +109,6 @@ namespace OMCS.Web.Controllers
                 patient.Roles.Add(role);
                 patient.CreatedDate = DateTime.UtcNow;
                 patient.ProfilePicture = "photo.jpg";
-                var username = Request.Params["Username"];
-                string userN = Convert.ToString(username);
-                patient.Username = userN;
                 var email = Request.Params["Email"];
                 string emailPatient = Convert.ToString(email);
                 patient.Email = emailPatient;
@@ -327,17 +324,6 @@ namespace OMCS.Web.Controllers
             _db.Entry(personal).State = EntityState.Modified;
             _db.SaveChanges();
             return RedirectToAction("Index");
-        }
-      
-        [HttpPost]
-        public JsonResult CheckExistUsername(string userName, int id = 0)
-        {
-            var user = _db.Patients.FirstOrDefault(u => u.Username == userName);
-            if (user != null && id != user.UserId)
-            {
-                return new JsonResult { Data = false };
-            }
-            return new JsonResult { Data = true };
         }
        
         [HttpPost]

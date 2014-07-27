@@ -7,7 +7,7 @@ namespace SignalRChat.Common
         public string ConnectionId { get; set; }
         public List<UserDetail> ConversationList { get; set; }
         public List<DoctorDetail> DoctorList { get; set; }
-        public string Username { get; set; }
+        public string Email { get; set; }
         public string FullName { get; set; }
         public string ProfilePicture { get; set; }
         public int CountMessageUnRead { get; set; }

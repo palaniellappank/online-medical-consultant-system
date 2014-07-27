@@ -25,7 +25,7 @@
                 </legend>
 
                 <div class="form-group">
-                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control required", placeholder = "Tên đăng nhập" })
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control required", placeholder = "Tên đăng nhập" })
                 </div>
 
                 <div class="form-group">
@@ -67,14 +67,6 @@
 
     $("#register-form").validate({
         rules: {
-            Username: {
-                remote: {
-                    url: "@Url.Action("CheckExistUsername", "AdminUser")",
-                    timeout: 5000,
-                    type: "POST"
-                },
-                maxlength: 50
-            },
             Email: {
                 remote: {
                     url: "@Url.Action("CheckExistEmail", "AdminUser")",
@@ -98,9 +90,6 @@
             }
         },
         messages: {
-            Username: {
-                remote: "Tên đăng nhập đã được đăng ký."
-            },
             Email: {
                 remote: "Địa chỉ email đã được đăng ký."
             },

@@ -59,7 +59,7 @@
 
             #endregion MedicalProfile
 
-            Patient suTran = _db.Patients.Where(pt => pt.Username.Equals("sutran")).Single();
+            Patient suTran = _db.Patients.Where(pt => pt.Email.Equals("trannguyentiensu@gmail.com")).Single();
 
             MedicalProfileTemplate benhAnNgoaiDa1 = _db.MedicalProfileTemplates.Find(1);
 

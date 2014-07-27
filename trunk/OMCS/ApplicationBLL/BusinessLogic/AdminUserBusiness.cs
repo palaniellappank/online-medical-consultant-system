@@ -17,7 +17,7 @@ namespace OMCS.BLL
             switch (sortOrder)
             {
                 case "User_desc":
-                    users = users.OrderByDescending(u => u.Username);
+                    users = users.OrderByDescending(u => u.Email);
                     break;
                 case "Date":
                     users = users.OrderBy(u => u.CreatedDate);
@@ -44,7 +44,7 @@ namespace OMCS.BLL
                     users = users.OrderByDescending(u => u.Phone);
                     break;
                 default:
-                    users = users.OrderBy(u => u.Username);
+                    users = users.OrderBy(u => u.Email);
                     break;
             }
         }
@@ -54,7 +54,7 @@ namespace OMCS.BLL
         {
             if (!String.IsNullOrEmpty(searchString))
             {
-                users = users.Where(u => (!String.IsNullOrWhiteSpace(u.Username) && (u.Username.ToUpper().Contains(searchString.ToUpper())))
+                users = users.Where(u => (!String.IsNullOrWhiteSpace(u.Email) && (u.Email.ToUpper().Contains(searchString.ToUpper())))
                                     || (!String.IsNullOrWhiteSpace(u.FullName) && (u.FullName.ToUpper().Contains(searchString.ToUpper())))
                                     || (!String.IsNullOrWhiteSpace(u.Phone) && (u.Phone.ToUpper().Contains(searchString.ToUpper()))));
             }

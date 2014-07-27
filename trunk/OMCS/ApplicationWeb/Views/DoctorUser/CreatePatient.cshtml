@@ -40,13 +40,6 @@
                                                 <table class="table">
                                                     <tbody>
                                                         <tr>
-                                                            <td>@Html.LabelFor(model => model.Patient.Username) <span style="color: red;">(*)</span></td>
-                                                            <td>
-                                                                <input type="text" id="Username" name="Username" class="form-control required remote" />
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
                                                             <td>@Html.LabelFor(model => model.Patient.Email) <span style="color: red;">(*)</span></td>
                                                             <td>
                                                                 <input type="text" id="Email" name="Email" class="form-control required remote email" /></td>
@@ -300,14 +293,6 @@
     $(function () {        
         $("#create-patient-form").validate({
             rules: {
-                Username: {
-                    remote: {
-                        url: "@Url.Action("CheckExistUsername", "DoctorUser")",
-                        timeout: 5000,
-                        type: "POST"
-                    },
-                    maxlength: 50
-                },
                 Email: {
                     remote: {
                         url: "@Url.Action("CheckExistEmail", "DoctorUser")",
@@ -327,9 +312,6 @@
                 }
             },
             messages: {
-                Username: {
-                    remote: "Tên đăng nhập đã tồn tại."
-                },
                 Email: {
                     remote: "Địa chỉ email đã tồn tại"
                 }

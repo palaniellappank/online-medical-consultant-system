@@ -23,7 +23,7 @@ namespace OMCS.BLL
             List<Conversation> conversations;
 
             var doctor = _db.Doctors.Where(
-                x => (x.Username == user.Username)).FirstOrDefault();
+                x => (x.Email == user.Email)).FirstOrDefault();
             if (doctor != null)
             {
                 conversations = _db.Conversations.Where(

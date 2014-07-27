@@ -20,11 +20,6 @@
             @Html.AntiForgeryToken()
             <div class="modal-body">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Username)
-                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control required" })
-                </div>
-
-                <div class="form-group">
                     @Html.LabelFor(model => model.Email)
                     @Html.TextBoxFor(model => model.Email, new { @class = "form-control required email" })
                 </div>
@@ -56,9 +51,9 @@
     $(function () {
         $("#create-form").validate({
             rules: {
-                Username: {
+                Email: {
                     remote: {
-                        url: "@Url.Action("CheckExistUsername", "AdminUser")",
+                        url: "@Url.Action("CheckExistEmail", "AdminUser")",
                         timeout: 5000,
                         type: "POST"
                     },
@@ -86,9 +81,6 @@
                 }
             },
             messages: {
-                Username: {
-                    remote: "Tên đăng nhập đã tồn tại."
-                },
                 Email: {
                     remote: "Địa chỉ email đã tồn tại"
                 }
