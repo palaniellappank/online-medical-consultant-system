@@ -14,6 +14,9 @@ using System.Diagnostics;
 using Recaptcha.Web.Mvc;
 using Recaptcha.Web;
 using OMCS.BLL;
+using System.Data;
+using System.Data.Entity.Validation;
+using System.Threading;
 
 namespace OMCS.Web.Controllers
 {
@@ -31,7 +34,7 @@ namespace OMCS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _db.Users.Where(u => u.Email == model.Email && 
+                var user = _db.Users.Where(u => u.Email == model.Email &&
                     u.Password == model.Password && u.IsActive == true).FirstOrDefault();
                 if (user != null)
                 {
@@ -84,7 +87,7 @@ namespace OMCS.Web.Controllers
                     }
                 }
 
-                ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
+                ModelState.AddModelError("", "Email hoặc mật khẩu không đúng.");
             }
 
             return View(model);
@@ -137,22 +140,25 @@ namespace OMCS.Web.Controllers
                     _db.SaveChanges();
 
                     string actCode = business.GeneratePassword();
-
-                    string subject = "Kích hoạt tài khoản";
-                    string body = @"<html>
+                    Thread emailBackground = new Thread(delegate()
+                    {
+                        string subject = "Kích hoạt tài khoản";
+                        string body = @"<html>
                                     <body>
                                         <h2>Chào mừng bạn đến với OMCS - Hệ thống tư vấn y khoa trực tuyến</h2>
                                         <p>Mã kích hoạt của bạn là: <b>" + actCode + "</b></p>" +
-                                        @"<p>Vui lòng nhấn vào đường dẫn bên dưới để kích hoạt<br/>
+                                            @"<p>Vui lòng nhấn vào đường dẫn bên dưới để kích hoạt<br/>
                                             <a href='http://localhost:52443/Account/Activate/" + user.UserId + "?code=" + actCode + "'>" +
-                                               @"Kích hoạt tài khoản
+                                                   @"Kích hoạt tài khoản
                                             </a>
                                         </p>
                                     </body>
                                   </html>";
 
-                    business.SendMail(user.Email, subject, body);
-
+                        business.SendMail(user.Email, subject, body);
+                    });
+                    emailBackground.IsBackground = true;
+                    emailBackground.Start();
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -179,7 +185,7 @@ namespace OMCS.Web.Controllers
 
         [HttpPost]
         [ActionName("Activate")]
-        public ActionResult ActivatePost(int userId, string actCode,string code)
+        public ActionResult ActivatePost(int userId, string actCode, string code)
         {
             User user = _db.Users.Find(userId);
             if (code == actCode)
@@ -214,21 +220,43 @@ namespace OMCS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                User tUser = _db.Users.FirstOrDefault(u => u.Email == email);
-                tUser.Password = business.GeneratePassword();
-                _db.SaveChanges();
+                try
+                {
+                    User tUser = _db.Users.FirstOrDefault(u => u.Email == email);
+                    tUser.Password = business.GeneratePassword();                             
+                    tUser.Password = tUser.Password;
+                    _db.Entry(tUser).State = EntityState.Modified;
+                    _db.SaveChanges();          
 
-                var subject = "Làm mới mật khẩu";
-                var body = "<html>" +
-                                  "<body>" +
-                                      "<h2>Hệ thống nhận được yêu cầu làm mới mật khẩu</h2>" +
-                                      "<p>Email đăng nhập: " + tUser.Email + "<br/>" +
-                                      "<p>Mật khẩu mới: " + tUser.Password + "</p>" +
-                                  "</body>" +
-                              "</html>";
+                    Thread emailBackground = new Thread(delegate()
+                    {
+                        var subject = "Làm mới mật khẩu";
+                        var body = "<html>" +
+                                          "<body>" +
+                                              "<h2>Hệ thống nhận được yêu cầu làm mới mật khẩu</h2>" +
+                                              "<p>Mật khẩu mới: " + tUser.Password + "</p>" +
+                                          "</body>" +
+                                      "</html>";
 
-                business.SendMail(tUser.Email, subject, body);
-
+                        business.SendMail(tUser.Email, subject, body);
+                    });
+                    emailBackground.IsBackground = true;
+                    emailBackground.Start();                  
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
             }
             return RedirectToAction("Login", "Account");
         }

@@ -11,6 +11,9 @@ using PagedList;
 using OMCS.BLL;
 using Security.Models;
 using Newtonsoft.Json.Linq;
+using System.Data.Entity.Validation;
+using System.Threading;
+using System.Diagnostics;
 
 namespace OMCS.Web.Controllers
 {
@@ -19,7 +22,7 @@ namespace OMCS.Web.Controllers
     {
         private OMCSDBContext db = new OMCSDBContext();
         private AdminUserBusiness business = new AdminUserBusiness();
-
+        private AccountBusiness accBusiness = new AccountBusiness();
         //
         // GET: /AdminUser/
 
@@ -64,24 +67,48 @@ namespace OMCS.Web.Controllers
         [HttpPost]
         public ActionResult Create(Patient user)
         {
-            if (ModelState.IsValid)
+            try
             {
                 Role role = db.Roles.FirstOrDefault(r => r.RoleName == "User");
-                user.Roles = new List<Role>() {role};
+                user.Roles = new List<Role>() { role };
                 user.CreatedDate = DateTime.UtcNow;
                 user.ProfilePicture = "photo.jpg";
                 user.IsActive = true;
-                PersonalHealthRecord personalHealthRecord = new PersonalHealthRecord
-                {
-                    Patient = user
-                };
-                db.PersonalHealthRecords.Add(personalHealthRecord);
+                int getLastId = db.Users.Max(item => item.UserId);
+                user.UserId = getLastId;               
+                user.Password = accBusiness.GeneratePassword();
+                db.Patients.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            return PartialView("_Create", user);
-
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+            }
+            Thread emailBackground = new Thread(delegate()
+            {
+                var subject = "Tạo tài khoản bệnh nhân";
+                var body = "<html>" +
+                                  "<body>" +
+                                      "<h2>Hệ thống đã tạo cho bạn một tài khoản với các thông tin: </h2>" +
+                                      "<p>Mật khẩu: " + user.Password + "</p>" +
+                                  "</body>" +
+                              "</html>";
+                accBusiness.SendMail(user.Email, subject, body);
+            });
+            emailBackground.IsBackground = true;
+            emailBackground.Start();
+            return RedirectToAction("Index");
         }
+
 
         //
         // GET: /AdminUser/Edit/5
@@ -101,11 +128,17 @@ namespace OMCS.Web.Controllers
         // POST: /AdminUser/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(User user, HttpPostedFileBase file)
+        public ActionResult Edit(Patient user, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                try
+                if (file == null)
+                {
+                    var filename = Request.Params["profile"];
+                    string profile = Convert.ToString(filename);
+                    user.ProfilePicture = profile;
+                }
+                else if (file != null)
                 {
                     var fileName = Path.GetFileName(file.FileName);
                     var path = HttpContext.Server.MapPath("~/Content/Image/ProfilePicture/" + fileName);
@@ -113,20 +146,12 @@ namespace OMCS.Web.Controllers
                     file.SaveAs(path);
                     user.ProfilePicture = fileName;
                 }
-                catch (NullReferenceException ex)
-                {
-
-                }
-                finally
-                {
-                    //user.Roles.Add(role);
-                    user.IsActive = true;
-                    db.Entry(user).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
+                //user.Roles.Add(role);
+                user.IsActive = true;
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return PartialView("_Edit", user);
         }
 
