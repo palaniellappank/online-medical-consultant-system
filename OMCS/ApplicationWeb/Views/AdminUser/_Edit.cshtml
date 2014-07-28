@@ -13,45 +13,33 @@
             <div class="modal-body">
                 @Html.HiddenFor(model => model.UserId)
                 @Html.HiddenFor(model => model.CreatedDate)
-
+                @Html.HiddenFor(model => model.Email)
+                @Html.HiddenFor(model => model.Password)
+                
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Email)
-                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control required email" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Password)
-                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control required" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FirstName)
+                    @Html.LabelFor(model => model.FirstName) <span style="color: red;">(*)</span>
                     @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control required" })
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.LastName)
+                    @Html.LabelFor(model => model.LastName) <span style="color: red;">(*)</span>
                     @Html.TextBoxFor(model => model.LastName, new { @class = "form-control required" })
                 </div>
 
                 <form runat="server">
                     @Html.LabelFor(model => model.ProfilePicture)<br />
                     <img src="@Html.GetPictureUrl("Profile")@Model.ProfilePicture" style="width: 80px; height:80px;"/>
-                    <input type="file" name="file" id="file" class="form-control" />
+                    <input type="file" name="file" id="file" class="form-control" style="width: 200px;" />
                 </form>
+                <input type="hidden" name="profile" value="@Html.DisplayFor(model => model.ProfilePicture)" />
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Gender)
+                    @Html.LabelFor(model => model.Gender) <span style="color: red;">(*)</span>
                     @Html.DropDownListFor(model => model.Gender, new SelectList(new List<string> { "Nam", "Nữ" }), new { @class = "form-control" })
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Birthday)
-                    @Html.TextBoxFor(model => model.Birthday, "{0:dd-MM-yyyy}", new { type = "date", @class = "form-control datepicker" })
-                    @Html.EditorFor(model => model.Birthday)
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Phone)
+                    @Html.LabelFor(model => model.Phone) <span style="color: red;">(*)</span>
                     @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
                 </div>
 
