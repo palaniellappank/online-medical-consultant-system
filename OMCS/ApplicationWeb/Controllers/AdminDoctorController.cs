@@ -12,6 +12,7 @@ using OMCS.BLL;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Threading;
+using Security.DAL.Security;
 
 namespace MvcApplication1.Controllers
 {
