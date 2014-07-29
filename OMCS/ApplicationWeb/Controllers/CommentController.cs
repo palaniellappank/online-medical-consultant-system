@@ -11,9 +11,6 @@ namespace OMCS.Web.Controllers
 {
     public class CommentController : BaseController
     {
-        //
-        // GET: /Comment/
-
         public ActionResult Index(int id, int? page)
         {
             var comments = _db.Comments.Where(c => c.DoctorId == id).OrderByDescending(u => u.CommentId);
@@ -22,9 +19,6 @@ namespace OMCS.Web.Controllers
             int pageNumber = (page ?? 1);
             return PartialView("_Index", comments.ToPagedList(pageNumber, pageSize));
         }
-
-        //
-        // GET: /Comment/Details
 
         public ActionResult Details(int id)
         {
@@ -36,26 +30,28 @@ namespace OMCS.Web.Controllers
             ViewBag.Doctor = doctor;
             ViewBag.SpecialtyField = field;
 
+            List<Rating> ratings = _db.Ratings.Where(
+                x => (x.RatingFor == RatingType.Doctor) && (x.ObjectId == doctor.UserId)).ToList();
+            ViewBag.RatingCount = ratings.Count;
+            double ratingPoint = 0;
+            if (ratings.Count > 0)
+            {
+                ratingPoint = ratings.Sum(x => x.RatingPoint) / ratings.Count;
+            }
+            ViewBag.DoctorId = doctor.UserId;
+            ViewBag.RatingPoint = ratingPoint;
+            ViewBag.RatingCount = ratings.Count;
+
             return PartialView("_Details", user);
         }
 
-        //
-        // GET: /Comment/Evaluate
-
         public ActionResult Evaluate(int id)
         {
-            IEnumerable<Comment> comments = _db.Comments.Where(c => c.DoctorId == id);
-            User user = _db.Users.Find(id);
-
-            ViewBag.PatientId = 7;
-            ViewBag.DoctorId = id;
-            ViewBag.User = user;
-
-            return View(comments);
+            Doctor doctor = _db.Doctors.Find(id);
+            IEnumerable<Comment> comments = _db.Comments.Where(c => c.DoctorId == doctor.UserId);
+            ViewBag.DoctorId = doctor.UserId;
+            return PartialView("_Evaluate", comments);
         }
-
-        //
-        // POST: /Comment/Post
 
         [HttpPost]
         public ActionResult Post(FormCollection form)
@@ -85,35 +81,40 @@ namespace OMCS.Web.Controllers
             return RedirectToAction("Evaluate", "Comment", new { id = doctorId });
         }
 
-        //
-        // GET: /Comment/Rate
-
         public ActionResult Rate()
         {
             return PartialView("_Rate");
         }
 
-        //
-        // POST: /Comment/Rate
+        public ActionResult RateQuickView(string doctorEmail)
+        {
+            Doctor doctor = _db.Doctors.Where(x => x.Email.Equals(doctorEmail)).SingleOrDefault();
+            List<Rating> ratings = _db.Ratings.Where(
+                x => (x.RatingFor == RatingType.Doctor) && (x.ObjectId == doctor.UserId)).ToList();
+            ViewBag.RatingCount = ratings.Count;
+            double ratingPoint = 0;
+            if (ratings.Count > 0)
+            {
+                ratingPoint = ratings.Sum(x => x.RatingPoint) / ratings.Count;
+            }
+            ViewBag.DoctorId = doctor.UserId;
+            ViewBag.RatingPoint = ratingPoint;
+            ViewBag.RatingCount = ratings.Count;
+            return PartialView("_RateQuickView");
+        }
 
         [HttpPost]
-        public ActionResult Rate(double rating, int doctorId)
+        public ActionResult Rate(double ratingScore, int doctorId)
         {
             try
             {
                 Doctor doctor = _db.Doctors.Find(doctorId);
-                if (doctor.Votes == 0)
-                {
-                    doctor.Rating = rating;
-                }
-                else
-                {
-                    double doubRates = (doctor.Rating * doctor.Votes + rating) / (doctor.Votes + 1);
-                    String strRates = String.Format("{0:0.0}", doubRates);
-                    doctor.Rating = double.Parse(strRates);
-                }
-
-                doctor.Votes++;
+                Rating rating = new Rating {
+                    RatingFor = RatingType.Doctor,
+                    UserId = User.UserId,
+                    ObjectId = doctor.UserId
+                };
+                _db.Ratings.Add(rating);
                 _db.SaveChanges();
             }
             catch (Exception)

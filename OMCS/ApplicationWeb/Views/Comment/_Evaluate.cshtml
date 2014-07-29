@@ -2,69 +2,36 @@
 
 @{
     ViewBag.Title = "Evaluate";
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    Layout = null;
 }
-
-<link href="~/Content/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" />
-<link href="~/Content/evaluate-page/evaluate.css" rel="stylesheet" />
-<script src="~/Content/bootstrap-star-rating/js/star-rating.js"></script>
-
-<div class="row">
-    <div class="col-xs-4" style="float: right">
-        <label class="switch-light progress progress-striped active" onclick="">
-            <input type="checkbox" id="enable">
-            <span>Thay đổi
-                <span aria-label="Tắt" title="Tắt">O</span>
-                <span aria-label="Bật" title="Bật">I</span>
-            </span>
-            <a class="progress-bar progress-bar-success"></a>
-        </label>
-    </div>
-    <div class="clearfix"></div>
-    <div class="col-xs-4" style="float: right; display: none;" id="autoopendiv">
-        <label class="switch-light progress progress-striped active" onclick="">
-            <input type="checkbox" id="autoopen">
-            <span>Liên tiếp
-                <span aria-label="Tắt" title="Tắt">O</span>
-                <span aria-label="Bật" title="Bật">I</span>
-            </span>
-            <a class="progress-bar progress-bar-success"></a>
-        </label>
-    </div>
-</div>
 
 <fieldset>
     <legend>Thông tin bác sĩ</legend>
 </fieldset>
 
-@{Html.RenderAction("Details", "Comment");}
-
-<fieldset>
-    <legend>Đánh giá</legend>
-</fieldset>
-
 @{Html.RenderAction("Rate", "Comment");}
+
+@{Html.RenderAction("Details", "Comment");}
 
 <fieldset>
     <legend>Bình luận</legend>
 </fieldset>
 
-<div class="post-comment">
-    <div class="post-avatar">
-        <img src="~/Content/ProfilePicture/Su.JPG" class="img-circle" />
+<div class="row">
+    <div class="col-md-1">
+        <img src="~/Content/ProfilePicture/Su.JPG" class="img-circle img-responsive" style="max-height: 66px; margin-left: 12px; padding-top: 7px;"/>
     </div>
 
     @using (Html.BeginForm("Post", "Comment", FormMethod.Post))
     {
-        <div class="post-message">
+        <div class="col-md-10">
             <div class="form-group">
-                <input type="hidden" id="PatientId" name="PatientId" value="@ViewBag.PatientId" />
                 <input type="hidden" id="DoctorId" name="DoctorId" value="@ViewBag.DoctorId" />
                 <textarea id="Content" name="Content" class="form-control"></textarea>
             </div>
         </div>
         
-        <div class="post-button">
+        <div class="col-md-1">
             <input type="submit" id="btnPost" value="Gửi" class="btn btn-primary" />
         </div>
     }

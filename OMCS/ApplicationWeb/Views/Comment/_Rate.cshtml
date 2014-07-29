@@ -2,13 +2,19 @@
     Layout = null;
 }
 
+<style>
+    .rating-doctor {
+        float: right;
+        margin-top: -66px;
+    }
+</style>
+
 <div class="rating-doctor">
     @using (Html.BeginForm("Rate", "Comment", FormMethod.Post))
     {
-        <input id="input-2" class="rating" data-min="0" data-max="5" data-step="0.1">
+        <input id="input-2" class="rating" data-min="0" data-max="5" data-size="sm">
         <input type="hidden" name="Rating" id="Rating" />
         <input type="hidden" name="DoctorId" id="DoctorId" value="2" />
-        <input type="submit" value="Đánh Giá" class="btn btn-primary" />
     }
 </div>
 

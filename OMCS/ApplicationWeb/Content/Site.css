@@ -605,3 +605,20 @@ img.slider-img:hover {
     z-index:100; 
     display:none;
 }
+
+.ajax-loader {
+    background-image: url('/Content/Image/ajax-loader.gif');
+    background-repeat: no-repeat;
+    padding: 45% 45%;
+    width: 30px;
+    height: 30px;
+}
+
+.rating-popover {
+    width: 150px;
+    height: 100px;
+}
+
+.rating-popover .showDoctorDetail {
+    margin-left: 22px;
+}

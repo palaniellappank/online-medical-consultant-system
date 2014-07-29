@@ -32,20 +32,16 @@
         </tr>
         <tr>
             <td>Đánh giá</td>
-            @if (ViewBag.Doctor.Votes == 0)
+            @if (ViewBag.RatingCount == 0)
             {
                 <td>Chưa đánh giá</td>
             }
             else
             {
-                <td>@ViewBag.Doctor.Rating / 5 &nbsp;Điểm
-                &nbsp;(@ViewBag.Doctor.Votes Lượt đánh giá)
+                <td>@ViewBag.RatingPoint / 5 &nbsp;Điểm
+                &nbsp;(@ViewBag.RatingCount Lượt đánh giá)
                 </td>
             }
         </tr>
     </tbody>
 </table>
-
-
-
-
