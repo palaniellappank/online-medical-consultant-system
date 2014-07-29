@@ -1,0 +1,108 @@
+﻿.post-comment
+{
+    width: 100%;
+    margin-bottom: 25px;
+    height: 50px;
+}
+
+.post-avatar
+{
+    display: block;
+    margin-right: 12px;
+    float: left;
+}
+
+    .post-avatar img
+    {
+        width: 48px;
+        height: 48px;
+    }
+
+.post-message
+{
+    width: 800px;
+    float: left;
+}
+
+.post-button
+{
+    float: left;
+    margin-left: 10px;
+}
+
+.rating-doctor
+{
+    margin-bottom: 15px;
+}
+
+.post-list
+{
+    padding-left: 0px;
+}
+
+.post
+{
+    height: 50px;
+    margin-bottom: 25px;
+}
+
+.avatar
+{
+    float: left;
+    display: block;
+    margin-right: 12px;
+}
+
+    .avatar img
+    {
+        display: block;
+        width: 48px;
+        height: 48px;
+    }
+
+.post-body
+{
+    float: left;
+    width: 500px;
+    padding-right: 30px;
+}
+
+.post-byline
+{
+    line-height: 1;
+    display: block;
+    position: relative;
+    height: 15px;
+}
+
+.author
+{
+    float: left;
+    color: #428BCA;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.posted-date
+{
+    float: left;
+    font-size: 13px;
+    color: #777;
+    display: inline-block;
+    margin-left: 8px;
+}
+
+.post-content
+{
+    display: block;
+    height: 33px;
+    font-size: 15px;
+    width: 600px;
+}
+
+    .post-content p
+    {
+        width: 600px;
+        word-wrap: break-word;
+        word-break: break-all;
+    }

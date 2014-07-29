@@ -86,14 +86,39 @@ namespace OMCS.Web.Controllers
         }
 
         //
+        // GET: /Comment/Rate
+
+        public ActionResult Rate()
+        {
+            return PartialView("_Rate");
+        }
+
+        //
         // POST: /Comment/Rate
 
         [HttpPost]
         public ActionResult Rate(double rating, int doctorId)
         {
-            Doctor doctor = _db.Doctors.Find(doctorId);
-            doctor.Rating = (doctor.Rating + rating) / 2;
-            _db.SaveChanges();
+            try
+            {
+                Doctor doctor = _db.Doctors.Find(doctorId);
+                if (doctor.Votes == 0)
+                {
+                    doctor.Rating = rating;
+                }
+                else
+                {
+                    double doubRates = (doctor.Rating * doctor.Votes + rating) / (doctor.Votes + 1);
+                    String strRates = String.Format("{0:0.0}", doubRates);
+                    doctor.Rating = double.Parse(strRates);
+                }
+
+                doctor.Votes++;
+                _db.SaveChanges();
+            }
+            catch (Exception)
+            {
+            }
 
             return RedirectToAction("Evaluate", "Comment", new { id = doctorId });
         }

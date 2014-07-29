@@ -17,7 +17,7 @@
     <tbody>
         <tr>
             <td rowspan="4" style="width: 150px;">
-                <img src="~/Content/ProfilePicture/" + @Model.ProfilePicture + " class="img-rounded" />
+                <img src="~/Content/ProfilePicture/@Model.ProfilePicture" class="img-rounded" />
             </td>
             <td>Họ và tên</td>
             <td>@Model.FullName</td>
@@ -32,7 +32,16 @@
         </tr>
         <tr>
             <td>Đánh giá</td>
-            <td>@ViewBag.Doctor.Rating &nbsp;Điểm</td>
+            @if (ViewBag.Doctor.Votes == 0)
+            {
+                <td>Chưa đánh giá</td>
+            }
+            else
+            {
+                <td>@ViewBag.Doctor.Rating / 5 &nbsp;Điểm
+                &nbsp;(@ViewBag.Doctor.Votes Lượt đánh giá)
+                </td>
+            }
         </tr>
     </tbody>
 </table>

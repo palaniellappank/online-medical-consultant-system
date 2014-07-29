@@ -125,7 +125,13 @@
 </script>
 
 <script id="chat-top-template" type="text/template">
-    <strong class="title">Bác sĩ tư vấn: <%= user.FullName %></strong>
+    <strong class="title">Bác sĩ tư vấn: <%= user.FullName %>
+        <a href="@Url.Action("Evaluate", "Comment", new { id = 2 })" class="btn btn-success">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+            <span>&nbsp;Đánh Giá</span>
+        </a>
+    </strong>
+
 </script>
 
 <script id="chat-left-template" type="text/template">
