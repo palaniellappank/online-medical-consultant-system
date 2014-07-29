@@ -5,10 +5,9 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-@*@Scripts.Render("~/bundles/jsOMCS")
-<script src="~/Scripts/jquery.easing.1.3.js"></script>
-
-@Styles.Render("~/bundles/cssOMCS")*@
+<link href="~/Content/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" />
+<link href="~/Content/evaluate-page/evaluate.css" rel="stylesheet" />
+<script src="~/Content/bootstrap-star-rating/js/star-rating.js"></script>
 
 <div class="row">
     <div class="col-xs-4" style="float: right">
@@ -44,53 +43,11 @@
     <legend>Đánh giá</legend>
 </fieldset>
 
-@using (Html.BeginForm("Rate", "Comment", FormMethod.Post))
-{
-    List<double> ratingList = new List<double> { 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5 };
-    
-    <input type="hidden" id="" name="PatientId" value="@ViewBag.PatientId" />
-    <input type="hidden" id="" name="DoctorId" value="@ViewBag.DoctorId" />
-    @Html.DropDownList("Rating", new SelectList(ratingList))
-    <input type="submit" id="btnRate" value="Đánh Giá" />
-}
+@{Html.RenderAction("Rate", "Comment");}
 
 <fieldset>
     <legend>Bình luận</legend>
 </fieldset>
-
-<style>
-    .post-comment
-    {
-        width: 100%;
-        margin-bottom: 25px;
-        height: 50px;
-    }
-
-    .post-avatar
-    {
-        display: block;
-        margin-right: 12px;
-        float: left;
-    }
-
-        .post-avatar img
-        {
-            width: 48px;
-            height: 48px;
-        }
-
-    .post-message
-    {
-        width: 800px;
-        float: left;
-    }
-
-    .post-button
-    {
-        float: left;
-        margin-left: 10px;
-    }
-</style>
 
 <div class="post-comment">
     <div class="post-avatar">
@@ -112,11 +69,8 @@
         </div>
     }
 
-
 </div>
 
-@*@Html.Partial("_Index", Model)
-@{Html.RenderPartial("_Index", Model);}*@
 @{Html.RenderAction("Index", "Comment", new { id = ViewBag.DoctorId });}
 
 

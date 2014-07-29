@@ -11,6 +11,12 @@ namespace OMCS.DAL.Model
     [Table("Doctor")]
     public class Doctor : User
     {
+        public Doctor()
+        {
+            Rating = 0;
+            Votes = 0;
+        }
+
         [ForeignKey("SpecialtyField")]
         public int SpecialtyFieldId { get; set; }
         public virtual SpecialtyField SpecialtyField { get; set; }
@@ -18,5 +24,8 @@ namespace OMCS.DAL.Model
 
         [Display(Name = "Đánh giá")]
         public double Rating { get; set; }
+
+        [Display(Name = "Lượt đánh giá")]
+        public int Votes { get; set; }
     }
 }
