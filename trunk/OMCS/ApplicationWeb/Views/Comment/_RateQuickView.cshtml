@@ -1,0 +1,19 @@
+﻿@model OMCS.DAL.Model.User
+
+@{
+    Layout = null;
+}
+
+@if (ViewBag.RatingCount == 0)
+{
+    <label>Chưa đánh giá. Hãy là người đánh giá đầu tiên!</label>
+}
+else
+{
+    <label>
+    @ViewBag.RatingPoint / 5 &nbsp;Điểm
+    &nbsp;(@ViewBag.RatingCount Lượt đánh giá)
+    </label>
+}
+
+<a class="btn btn-primary showDoctorDetail" data-id="@ViewBag.DoctorId">Xem chi tiết</a>

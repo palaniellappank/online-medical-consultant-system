@@ -14,6 +14,10 @@
 <script src="~/Scripts/webrtc/app-patient.js"></script>
 <link rel="stylesheet" href="~/Content/jquery.mCustomScrollbar.css" />
 <script src="~/Scripts/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<link href="~/Content/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" />
+<link href="~/Content/evaluate-page/evaluate.css" rel="stylesheet" />
+<script src="~/Content/bootstrap-star-rating/js/star-rating.js"></script>
 <body>
     <h1>Tư vấn trực tuyến
     </h1>
@@ -94,11 +98,24 @@
     </div>
 </div>
 
+<div class="modal fade in" id="doctor-detail" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
 <script id="doctor-list-template" type="text/template">
     <%
         _.each(doctors, function(doctor){
     %>
-    <li class="list-group-item">
+    <li class="list-group-item" data-email="<%= doctor.Email %>">
         <div class="col-xs-12 col-sm-3">
             <img src="/Content/ProfilePicture/<%= doctor.ProfilePicture %>" alt="<%= doctor.FullName %>" class="img-responsive img-circle" />
         </div>
@@ -193,11 +210,46 @@
         },
         events: {
             "click .list-group-item": "getMessageList",
+            "mouseover": "getDoctorRating",
             "click #btnSendMsg": "sendMessage",
             "keypress #txtMessage": "sendMessagePress",
-            "click .picture-thumbnail": "showFullPicture"
+            "click .picture-thumbnail": "showFullPicture",
+            "click .showDoctorDetail": "showDoctorDetail"
         },
-        showFullPicture: function (e) {
+        getDoctorRating: function (e) {
+            var target = $(e.target).parents(".list-group-item");
+            var email = target.attr("data-email");
+            if (email != undefined) {
+                //First hide popover form other list-group-item
+                var exist = false;
+                _.each($('.popover'), function (popover) {
+                    if ($(popover).prev().attr("data-email") != email) {
+                        $(popover).remove();
+                    } else exist = true;
+                });
+                if (exist) return;
+                target.popover({
+                    content: "<div class='rating-popover'><div class='ajax-loader'></div><div>",
+                    html: true
+                }).popover('show');
+                setTimeout(function () {
+                    $.get('/Comment/RateQuickView?doctorEmail=' + email, function (d) {
+                        target.next().find(".rating-popover").html(d);
+                    });
+                }, 1000);
+            } else {
+                //$('.popover').remove();
+            }
+        },
+        showDoctorDetail: function (e) {
+            $.get('/Comment/Evaluate/' + $(e.target).attr("data-id"), function (response) {
+                $("#doctor-detail").find(".modal-body").html(response);
+                initRating();
+            });
+            $("#doctor-detail").modal("show");
+
+        },
+        showFullPicture: function(e) {
             var target = $(e.currentTarget);
             $("#modal-popup-img").find("img").attr("src", target.attr("src"));
             $("#modal-popup-img").modal("show");
