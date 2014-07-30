@@ -18,6 +18,7 @@ namespace OMCS.Web
                         "~/Scripts/underscore.js",
                         "~/Scripts/backbone.js",
                         "~/Scripts/bootstrap.js",
+                        "~/Scripts/jquery.blockUI.js",
                         "~/Scripts/bootbox.js",
                         "~/Scripts/site.js"));
 

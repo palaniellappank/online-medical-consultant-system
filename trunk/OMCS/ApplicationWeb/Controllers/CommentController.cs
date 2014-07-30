@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using OMCS.DAL.Model;
 using PagedList;
+using Newtonsoft.Json.Linq;
 
 namespace OMCS.Web.Controllers
 {
@@ -50,6 +51,19 @@ namespace OMCS.Web.Controllers
             Doctor doctor = _db.Doctors.Find(id);
             IEnumerable<Comment> comments = _db.Comments.Where(c => c.DoctorId == doctor.UserId);
             ViewBag.DoctorId = doctor.UserId;
+
+            Rating rating = _db.Ratings.Where(x =>
+                (x.ObjectId == doctor.UserId) &&
+                (x.RatingFor == RatingType.Doctor) &&
+                (x.UserId == User.UserId)).FirstOrDefault();
+            if (rating != null)
+            {
+                ViewBag.RatingPoint = rating.RatingPoint;
+            }
+            else
+            {
+                ViewBag.RatingPoint = 0;
+            }
             return PartialView("_Evaluate", comments);
         }
 
@@ -104,50 +118,32 @@ namespace OMCS.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Rate(double ratingScore, int doctorId)
+        public JObject Rate(double ratingScore, int doctorId)
         {
-            try
+            Doctor doctor = _db.Doctors.Find(doctorId);
+            Rating rating = _db.Ratings.Where(x =>
+                (x.ObjectId == doctorId) &&
+                (x.RatingFor == RatingType.Doctor) &&
+                (x.UserId == User.UserId)).FirstOrDefault();
+            if (rating == null)
             {
-                Doctor doctor = _db.Doctors.Find(doctorId);
-                Rating rating = new Rating {
+                rating = new Rating
+                {
                     RatingFor = RatingType.Doctor,
                     UserId = User.UserId,
-                    ObjectId = doctor.UserId
+                    ObjectId = doctor.UserId,
+                    RatingPoint = ratingScore
                 };
                 _db.Ratings.Add(rating);
-                _db.SaveChanges();
             }
-            catch (Exception)
+            else
             {
+                rating.RatingPoint = ratingScore;
             }
-
-            return RedirectToAction("Evaluate", "Comment", new { id = doctorId });
+            _db.SaveChanges();
+            dynamic result = new JObject();
+            result.result = "success";
+            return result;
         }
-
-        //
-        // POST: /Comment/Post
-
-        //[HttpPost]
-        //public JsonResult Post(string content, int patientId, int doctorId)
-        //{
-        //    Debug.WriteLine(content);
-        //    var comment = new Comment()
-        //    {
-        //        Content = content,
-        //        PatientId = patientId,
-        //        DoctorId = doctorId
-        //    };
-        //    _db.Comments.Add(comment);
-        //    _db.SaveChanges();
-        //    if (_db.SaveChanges() != 0)
-        //    {
-        //        return Json(true);
-        //    }
-        //    else
-        //    {
-        //        return Json(false);
-        //    }
-        //}
-
     }
 }

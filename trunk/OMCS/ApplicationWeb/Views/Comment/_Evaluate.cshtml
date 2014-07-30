@@ -5,13 +5,25 @@
     Layout = null;
 }
 
+<style>
+    .rating-doctor {
+        float: right;
+        margin-top: -66px;
+    }
+    .caption {
+        width: 125px;
+    }
+</style>
+
 <fieldset>
     <legend>Thông tin bác sĩ</legend>
 </fieldset>
 
-@{Html.RenderAction("Rate", "Comment");}
+<div class="rating-doctor">
+    <input class="rating" data-min="0" data-max="5" data-size="sm" value="@ViewBag.RatingPoint">
+</div>
 
-@{Html.RenderAction("Details", "Comment");}
+@{Html.RenderAction("Details", "Comment", new { id = ViewBag.DoctorId });}
 
 <fieldset>
     <legend>Bình luận</legend>
@@ -22,52 +34,17 @@
         <img src="~/Content/ProfilePicture/Su.JPG" class="img-circle img-responsive" style="max-height: 66px; margin-left: 12px; padding-top: 7px;"/>
     </div>
 
-    @using (Html.BeginForm("Post", "Comment", FormMethod.Post))
-    {
-        <div class="col-md-10">
-            <div class="form-group">
-                <input type="hidden" id="DoctorId" name="DoctorId" value="@ViewBag.DoctorId" />
-                <textarea id="Content" name="Content" class="form-control"></textarea>
-            </div>
+    <div class="col-md-10">
+        <div class="form-group">
+            <input type="hidden" id="DoctorId" name="DoctorId" value="@ViewBag.DoctorId" />
+            <textarea id="Content" name="Content" class="form-control"></textarea>
         </div>
+    </div>
         
-        <div class="col-md-1">
-            <input type="submit" id="btnPost" value="Gửi" class="btn btn-primary" />
-        </div>
-    }
+    <div class="col-md-1">
+        <input type="submit" id="btnPost" value="Gửi" class="btn btn-primary" />
+    </div>
 
 </div>
 
 @{Html.RenderAction("Index", "Comment", new { id = ViewBag.DoctorId });}
-
-
-<script type="text/javascript">
-    @*$("#btnPost").click(function () {
-        var content = $("#Content").val();
-        var patientId = $("#PatientId").val();
-        $.ajax({
-            url: "Comment/Post",
-            type: "POST",
-            data: {
-                content: content,
-                patientId: '@ViewBag.PatientId',
-                doctorId: 2
-            },
-            async: false,
-            success: function (data) {
-                //console.log(data);
-                alert(data);
-                if (data == true) {
-                    $.post("/Comment/Index", { "id": 2 },
-                                function (datah) {
-                                    $("#index_load").html(datah);
-                                });
-                }
-                if (data == false) {
-                    alert("ko post dc");
-                }
-            }
-        })
-    })*@
-</script>
-
