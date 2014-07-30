@@ -14,9 +14,8 @@ namespace OMCS.Web.Controllers
     {
         public ActionResult Index(int id, int? page)
         {
-            var comments = _db.Comments.Where(c => c.DoctorId == id).OrderByDescending(u => u.CommentId);
-
-            int pageSize = 10;
+            var comments = _db.Comments.Where(c => c.DoctorId == id).OrderByDescending(u => u.PostedDate);
+            int pageSize = 4;
             int pageNumber = (page ?? 1);
             return PartialView("_Index", comments.ToPagedList(pageNumber, pageSize));
         }
@@ -68,36 +67,20 @@ namespace OMCS.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post(FormCollection form)
+        public JObject PostComment(string content, int doctorId)
         {
-            string content = form["Content"].ToString();
-            int patientId = int.Parse(form["PatientId"]);
-            int doctorId = int.Parse(form["DoctorId"]);
-
-            try
+            Comment comment = new Comment()
             {
-                Comment comment = new Comment()
-                {
-                    PatientId = patientId,
-                    DoctorId = doctorId,
-                    Content = content,
-                    PostedDate = DateTime.UtcNow
-                };
-
-                _db.Comments.Add(comment);
-                _db.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-            return RedirectToAction("Evaluate", "Comment", new { id = doctorId });
-        }
-
-        public ActionResult Rate()
-        {
-            return PartialView("_Rate");
+                PatientId = User.UserId,
+                DoctorId = doctorId,
+                Content = content,
+                PostedDate = DateTime.UtcNow
+            };
+            _db.Comments.Add(comment);
+            _db.SaveChanges();
+            dynamic result = new JObject();
+            result.result = "success";
+            return result;
         }
 
         public ActionResult RateQuickView(string doctorEmail)
