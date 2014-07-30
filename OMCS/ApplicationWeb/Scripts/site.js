@@ -200,9 +200,11 @@ DoctorDetailView = Backbone.View.extend({
         this.render();
     },
     events: {
-        "rating.change .rating": "ratingChange"
+        "rating.change .rating": "ratingChange",
+        "click #btnPostComment": "postComment",
+        "click .pagination a": "goToPage"
     },
-    render: function (e) {
+    render: function(e) {
         var that = this;
         $.get(baseUrl + 'Comment/Evaluate/' + this.options.doctorId, function (response) {
             $.unblockUI();
@@ -211,7 +213,7 @@ DoctorDetailView = Backbone.View.extend({
             that.$el.modal("show");
         });
     },
-    ratingChange: function (event, value, caption) {
+    ratingChange: function(event, value, caption) {
         $.blockUI();
         var that = this;
         $.ajax({
@@ -220,6 +222,33 @@ DoctorDetailView = Backbone.View.extend({
             data: { ratingScore: value, doctorId: this.options.doctorId},
             success: function (e) {
                 that.render();
+            }
+        });
+    },
+    postComment: function (e) {
+        e.preventDefault();
+        var content = $("#txtComment").val().trim();
+        if (content != "") {
+            $.blockUI();
+            var that = this;
+            $.ajax({
+                url: baseUrl + "Comment/PostComment",
+                type: "POST",
+                data: { content: content, doctorId: this.options.doctorId },
+                success: function (e) {
+                    that.render();
+                }
+            });
+        }
+    },
+    goToPage: function (e) {
+        e.preventDefault();
+        var url = $(e.target).attr("href");
+        $.ajax({
+            url: url,
+            type: "GET",
+            success: function (e) {
+                $("#post-list").replaceWith(e);
             }
         });
     }

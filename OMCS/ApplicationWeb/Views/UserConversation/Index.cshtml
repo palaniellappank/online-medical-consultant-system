@@ -242,6 +242,7 @@
             }
         },
         showDoctorDetail: function (e) {
+            $("#doctor-detail").removeData().unbind();
             new DoctorDetailView({
                 doctorId: $(e.target).attr("data-id"),
                 el: "#doctor-detail"
