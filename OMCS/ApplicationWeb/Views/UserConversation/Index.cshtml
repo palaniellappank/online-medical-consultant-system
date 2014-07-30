@@ -242,12 +242,10 @@
             }
         },
         showDoctorDetail: function (e) {
-            $.get('/Comment/Evaluate/' + $(e.target).attr("data-id"), function (response) {
-                $("#doctor-detail").find(".modal-body").html(response);
-                initRating();
+            new DoctorDetailView({
+                doctorId: $(e.target).attr("data-id"),
+                el: "#doctor-detail"
             });
-            $("#doctor-detail").modal("show");
-
         },
         showFullPicture: function(e) {
             var target = $(e.currentTarget);

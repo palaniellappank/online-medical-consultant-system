@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿$.blockUI.defaults.message = "<h1>Vui lòng chờ</h1>";
+
+$(document).ready(function () {
     $.validator.setDefaults({
         highlight: function (element) {
             $(element).closest('.form-group').addClass('has-error');
@@ -190,3 +192,35 @@ function isImage(fileName) {
     }
     return false;
 }
+
+DoctorDetailView = Backbone.View.extend({
+    initialize: function (options) {
+        $.blockUI();
+        this.options = options;
+        this.render();
+    },
+    events: {
+        "rating.change .rating": "ratingChange"
+    },
+    render: function (e) {
+        var that = this;
+        $.get(baseUrl + 'Comment/Evaluate/' + this.options.doctorId, function (response) {
+            $.unblockUI();
+            that.$el.find(".modal-body").html(response);
+            initRating();
+            that.$el.modal("show");
+        });
+    },
+    ratingChange: function (event, value, caption) {
+        $.blockUI();
+        var that = this;
+        $.ajax({
+            url: baseUrl + "Comment/Rate",
+            type: "POST",
+            data: { ratingScore: value, doctorId: this.options.doctorId},
+            success: function (e) {
+                that.render();
+            }
+        });
+    }
+});
