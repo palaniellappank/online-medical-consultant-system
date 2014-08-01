@@ -41,17 +41,17 @@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Birthday) <span style="color: red;">(*)</span>
-                    @Html.TextBoxFor(model => model.Birthday, "{0:dd-MM-yyyy}", new { type = "date", @class = "form-control datepicker" })                  
+                    @Html.TextBoxFor(model => model.Birthday, "{0:dd-MM-yyyy}", new { type = "date", @class = "form-control datepicker required" })                  
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Phone) <span style="color: red;">(*)</span>
-                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control required" })
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.PrimaryAddress)
-                    @Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control" })
+                    @Html.LabelFor(model => model.PrimaryAddress) <span style="color: red;">(*)</span>
+                    @Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control required" })
                 </div>
 
                 <div class="form-group">

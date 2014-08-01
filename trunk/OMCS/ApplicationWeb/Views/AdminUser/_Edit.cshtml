@@ -24,14 +24,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.FirstName) <span style="color: red;">(*)</span>
                     @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control required" })
-                </div>
-
-                <form runat="server">
-                    @Html.LabelFor(model => model.ProfilePicture)<br />
-                    <img src="@Html.GetPictureUrl("Profile")@Model.ProfilePicture" style="width: 80px; height:80px;"/>
-                    <input type="file" name="file" id="file" class="form-control" style="width: 200px;" />
-                </form>
-                <input type="hidden" name="profile" value="@Html.DisplayFor(model => model.ProfilePicture)" />
+                </div>             
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Gender) <span style="color: red;">(*)</span>
@@ -44,8 +37,8 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.PrimaryAddress)
-                    @Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control" })
+                    @Html.LabelFor(model => model.PrimaryAddress) <span style="color: red;">(*)
+                    @Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control required" })
                 </div>
 
                 <div class="form-group">
