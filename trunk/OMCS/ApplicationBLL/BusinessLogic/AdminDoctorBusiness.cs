@@ -9,10 +9,9 @@ using OMCS.DAL.Model;
 
 namespace OMCS.BLL
 {
-    public class AdminUserBusiness : BaseBusiness
+    public class AdminDoctorBusiness : BaseBusiness
     {
-        //Check the Sort Order to sort with corresponding column
-        public void CheckSortOrder(string sortOrder, ref IEnumerable<User> users)
+        public void CheckSortOrder(string sortOrder, ref IEnumerable<Doctor> users)
         {
             switch (sortOrder)
             {
@@ -24,6 +23,12 @@ namespace OMCS.BLL
                     break;
                 case "Date_desc":
                     users = users.OrderByDescending(u => u.CreatedDate);
+                    break;
+                case "Speciality":
+                    users = users.OrderBy(u => u.SpecialtyField.Name);
+                    break;
+                case "Speciality_desc":
+                    users = users.OrderByDescending(u => u.SpecialtyField.Name);
                     break;
                 case "Active":
                     users = users.OrderBy(u => u.IsActive);
@@ -50,14 +55,15 @@ namespace OMCS.BLL
         }
 
         //Check Search String to search by UserName/FullName
-        public void SearchByString(string searchString, ref IEnumerable<User> users)
+        public void SearchByString(string searchString, ref IEnumerable<Doctor> users)
         {
             if (!String.IsNullOrEmpty(searchString))
             {
                 users = users.Where(u => (!String.IsNullOrWhiteSpace(u.Email) && (u.Email.ToUpper().Contains(searchString.ToUpper())))
                                     || (!String.IsNullOrWhiteSpace(u.FullName) && (u.FullName.ToUpper().Contains(searchString.ToUpper())))
+                                    || (!String.IsNullOrWhiteSpace(u.SpecialtyField.Name) && (u.SpecialtyField.Name.ToUpper().Contains(searchString.ToUpper())))
                                     || (!String.IsNullOrWhiteSpace(u.Phone) && (u.Phone.ToUpper().Contains(searchString.ToUpper()))));
             }
-        }        
+        }
     }
 }

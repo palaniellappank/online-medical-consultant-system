@@ -150,7 +150,7 @@ namespace OMCS.BLL
                 .ToList();
 
             dynamic snippetJsonList = new JArray();
-
+            int i = 0;
             foreach (var snippet in snippetList)
             {
                 var snippetFields = _db.CustomSnippetFields.
@@ -167,12 +167,71 @@ namespace OMCS.BLL
                     {
                         snippetJsonObject.name = snippetField.Value;
                     }
+                    if (snippet.Title.Equals("Table") && snippetField.FieldName.Equals("columns"))
+                    {
+                        snippetJsonObject.columns = snippetField.Value;
+                    }
+                    if (snippet.Title.Equals("Table") && snippetField.FieldName.Equals("numofrows"))
+                    {
+                        snippetJsonObject.numofrows = snippetField.Value;
+                    }
                 }
+                snippetJsonObject.id = i;
+                i++;
+                snippetJsonObject.parentId = snippet.ParentId;
+                snippetJsonObject.positionInTable = snippet.PositionInTable;
 
                 snippetJsonObject.value = snippetBusiness.GetValueForSnippet(snippet, UserId, medicalProfileId);
                 snippetJsonList.Add(snippetJsonObject);
             }
             return snippetJsonList;
+        }
+
+        public void SearchByStringMedical(string searchString, ref IEnumerable<MedicalProfile> medical)
+        {
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                medical = medical.Where(u => (!String.IsNullOrWhiteSpace(u.MedicalProfileKey) && (u.MedicalProfileKey.ToUpper().Contains(searchString.ToUpper())))
+                                    || (!String.IsNullOrWhiteSpace(u.Patient.FullName) && (u.Patient.FullName.ToUpper().Contains(searchString.ToUpper())))
+                                    || (!String.IsNullOrWhiteSpace(u.MedicalProfileTemplate.MedicalProfileTemplateName) && (u.MedicalProfileTemplate.MedicalProfileTemplateName.ToUpper().Contains(searchString.ToUpper()))));
+            }
+        }
+
+        public void CheckSortOrderMedical(string sortOrder, ref IEnumerable<MedicalProfile> medical)
+        {
+            switch (sortOrder)
+            {
+                case "User_desc":
+                    medical = medical.OrderByDescending(u => u.Patient.Email);
+                    break;
+                case "Date":
+                    medical = medical.OrderBy(u => u.CreatedDate);
+                    break;
+                case "Date_desc":
+                    medical = medical.OrderByDescending(u => u.CreatedDate);
+                    break;
+                case "Name":
+                    medical = medical.OrderBy(u => u.Patient.FullName);
+                    break;
+                case "Name_desc":
+                    medical = medical.OrderByDescending(u => u.Patient.FullName);
+                    break;
+                case "MedicalProfileKey":
+                    medical = medical.OrderBy(u => u.MedicalProfileKey);
+                    break;
+                case "MedicalProfileKey_desc":
+                    medical = medical.OrderByDescending(u => u.MedicalProfileKey);
+                    break;
+                case "MedicalProfileName":
+                    medical = medical.OrderBy(u => u.MedicalProfileTemplate.MedicalProfileTemplateName);
+                    break;
+                case "MedicalProfileName_desc":
+                    medical = medical.OrderByDescending(u => u.MedicalProfileTemplate.MedicalProfileTemplateName);
+                    break;
+                default:
+                    medical = medical.OrderBy(u => u.Patient.Email);
+                    break;
+            }
         }
     }
 }

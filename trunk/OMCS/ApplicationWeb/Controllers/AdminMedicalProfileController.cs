@@ -11,15 +11,16 @@ using Newtonsoft.Json.Linq;
 
 namespace OMCS.Web.Controllers
 {
-    [CustomAuthorize(Roles = "Doctor")]
-    public class DoctorMedicalProfileController : BaseController
-    {       
+    [CustomAuthorize(Roles = "Admin")]
+    public class AdminMedicalProfileController : BaseController
+    {        
         MedicalProfileBusiness medicalBusiness = new MedicalProfileBusiness();
 
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            IEnumerable<MedicalProfile> medicalProfiles = _db.MedicalProfiles.Where(r => r.MedicalProfileId != 0).ToList();                        
-            ViewBag.CurrentFilter = searchString;                                       
+            IEnumerable<MedicalProfile> medicalProfiles = _db.MedicalProfiles.Where(r => r.MedicalProfileId != 0).ToList();
+            ViewBag.CurrentSort = sortOrder;          
+            ViewBag.CurrentFilter = searchString;
             ViewBag.CurrentSort = sortOrder;
             ViewBag.UserSortParam = String.IsNullOrEmpty(sortOrder) ? "User_desc" : "";
             ViewBag.DateSortParam = sortOrder == "Date" ? "Date_desc" : "Date";
@@ -51,7 +52,7 @@ namespace OMCS.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("_Delete", medical);
+            return PartialView("Delete", medical);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -87,7 +88,6 @@ namespace OMCS.Web.Controllers
             ViewBag.medicalProfiles = medicalProfiles;
             var patient = _db.Patients.Find(patientId);
             ViewBag.patient = patient;
-
             ViewBag.detailsInJson = medicalBusiness.DetailsMedicalProfileUser(medicalProfileId, patientId);
             return View();
         }
@@ -116,3 +116,4 @@ namespace OMCS.Web.Controllers
         }
     }
 }
+

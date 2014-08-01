@@ -17,6 +17,12 @@ namespace OMCS.Web.Controllers
     public class UserMedicalProfileController : BaseController
     {
         MedicalProfileBusiness business = new MedicalProfileBusiness();
+        CustomSnippetBusiness snippetBusiness;
+
+        public UserMedicalProfileController()
+        {
+            snippetBusiness = new CustomSnippetBusiness(_db);
+        }
 
         public ActionResult Index()
         {
@@ -31,6 +37,6 @@ namespace OMCS.Web.Controllers
             ViewBag.medicalProfiles = medicalProfiles;
             ViewBag.detailsInJson = business.DetailsMedicalProfileUser(medicalProfileId, User.UserId);                     
             return View();
-        }
+        }        
     }
 }

@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Cập nhật hồ sơ bệnh án";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@section Styles{
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet">
+}
+
+<script type="text/javascript">
+    var formInJson = @Html.Raw(ViewBag.formInJson);
+    var medicalProfileTemplateId = @(ViewBag.medicalProfileTemplateId);
+    var medicalProfileId = @(ViewBag.medicalProfileId);
+    var patientId = @(ViewBag.patientId);
+    var treatmentHistoryUrl = "@Url.Action("List", "TreatmentHistory")";
+    var filmDocumentUrl = "@Url.Action("List", "FilmDocument")";
+    var allergyUrl = "@Url.Action("List", "Allergy")";
+    var immunizationUrl = "@Url.Action("List", "Immunization")";
+</script>
+
+<div id="build">
+    <form id="target" class="form-horizontal" action="@Url.Action("UpdateMedicalProfile")">
+        <div class="control-group">
+            <div align="center">
+                <h2>@(ViewBag.medicalProfileName)</h2>
+            </div>
+            <div class="controls">
+                <a style="position: fixed; top: 0; right: 0;" href="#">
+                    <button type="submit" id="saveBtn" class="btn btn-primary" style="position: absolute; top: 0; right: 0;">Cập nhật</button>
+                </a>
+                @*<button type="submit" id="saveBtn" class="btn btn-primary" style="position: absolute; top: 0; right: 0;">Cập nhật</button>*@
+            </div>
+        </div>
+        <input name="medicalProfileTemplateId" type="hidden" value="@(ViewBag.medicalProfileTemplateId)"/>
+        <input name="patientId" type="hidden" value="@(ViewBag.patientId)"/>
+        <fieldset>
+        </fieldset>
+    </form>
+</div>
+
+<div class="row clearfix">
+</div>
+<script src="~/Content/FormBuilder/js/config.js"></script>
+<script data-main="../main-edit" src="~/Content/FormBuilder/js/lib/require.js"></script>
+
+<div class="modal fade in" id="modal-popup">
+</div>
+
+<div class="modal fade in" id="modal-popup-img">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-content">
+                    <img src="#" class="img-responsive">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

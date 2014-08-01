@@ -138,6 +138,13 @@
                     data-title="@Html.DisplayNameFor(model => model.ContactPersonAddress)">@Html.DisplayFor(model => model.ContactPersonAddress)</a>
             </td>
         </tr>
+         <tr>         
+            <td>@Html.DisplayNameFor(model => model.ContactPersonPhone)</td>
+            <td>
+                <a href="#" id="contactPersonPhone" data-type="textarea"
+                    data-title="@Html.DisplayNameFor(model => model.ContactPersonPhone)">@Html.DisplayFor(model => model.ContactPersonPhone)</a>
+            </td>
+        </tr>
         <tr>         
             <td>@Html.DisplayNameFor(model => model.HealthInsuranceId)</td>
             <td>
@@ -245,7 +252,19 @@
         $('#job').editable();
         $('#whereToWork').editable();
         $('#contactPerson').editable();
-        $('#contactPersonAddress').editable();
+        $('#contactPersonAddress').editable();       
+        $('#contactPersonPhone').editable({
+            validate: function (value) {
+                var reg = new RegExp(/^[0-9]/);
+                if (value.length > 8 && value.length < 12) {
+                    if (!value.match(reg)) {
+                        return "Vui lòng nhập số !";
+                    }
+                } else {
+                    return "Nhập trong khoảng từ 8-12 !";
+                }
+            }
+        });
         $('#healthInsuranceId').editable();
         $('#healthInsuranceIssued').editable({
             format: 'dd-mm-yyyy',    

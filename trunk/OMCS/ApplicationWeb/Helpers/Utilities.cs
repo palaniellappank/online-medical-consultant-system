@@ -38,6 +38,10 @@ namespace OMCS.Web
             {
                 return "/Content/Upload/";
             }
+            else if ("Logo".Equals(type))
+            {
+                return "/Content/Image/Logo/";
+            }
             return "";
         }
     }

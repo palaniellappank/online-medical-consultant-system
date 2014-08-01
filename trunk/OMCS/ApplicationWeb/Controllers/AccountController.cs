@@ -67,7 +67,7 @@ namespace OMCS.Web.Controllers
 
                     if (roles.Contains("Admin"))
                     {
-                        return RedirectToAction("Index", "Admin");
+                        return RedirectToAction("Index", "AdminInformationHospital");
                     }
                     else if (roles.Contains("HospitalAdmin"))
                     {
@@ -140,25 +140,25 @@ namespace OMCS.Web.Controllers
                     _db.SaveChanges();
 
                     string actCode = business.GeneratePassword();
-                    Thread emailBackground = new Thread(delegate()
-                    {
-                        string subject = "Kích hoạt tài khoản";
-                        string body = @"<html>
+                    //Thread emailBackground = new Thread(delegate()
+                    //{
+                    string subject = "Kích hoạt tài khoản";
+                    string body = @"<html>
                                     <body>
                                         <h2>Chào mừng bạn đến với OMCS - Hệ thống tư vấn y khoa trực tuyến</h2>
                                         <p>Mã kích hoạt của bạn là: <b>" + actCode + "</b></p>" +
-                                            @"<p>Vui lòng nhấn vào đường dẫn bên dưới để kích hoạt<br/>
+                                        @"<p>Vui lòng nhấn vào đường dẫn bên dưới để kích hoạt<br/>
                                             <a href='http://localhost:52443/Account/Activate/" + user.UserId + "?code=" + actCode + "'>" +
-                                                   @"Kích hoạt tài khoản
+                                               @"Kích hoạt tài khoản
                                             </a>
                                         </p>
                                     </body>
                                   </html>";
 
-                        business.SendMail(user.Email, subject, body);
-                    });
-                    emailBackground.IsBackground = true;
-                    emailBackground.Start();
+                    business.SendMail(user.Email, subject, body);
+                    //});
+                    //emailBackground.IsBackground = true;
+                    //emailBackground.Start();
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -223,10 +223,10 @@ namespace OMCS.Web.Controllers
                 try
                 {
                     User tUser = _db.Users.FirstOrDefault(u => u.Email == email);
-                    tUser.Password = business.GeneratePassword();                             
+                    tUser.Password = business.GeneratePassword();
                     tUser.Password = tUser.Password;
                     _db.Entry(tUser).State = EntityState.Modified;
-                    _db.SaveChanges();          
+                    _db.SaveChanges();
 
                     Thread emailBackground = new Thread(delegate()
                     {
@@ -241,7 +241,7 @@ namespace OMCS.Web.Controllers
                         business.SendMail(tUser.Email, subject, body);
                     });
                     emailBackground.IsBackground = true;
-                    emailBackground.Start();                  
+                    emailBackground.Start();
                 }
                 catch (DbEntityValidationException e)
                 {

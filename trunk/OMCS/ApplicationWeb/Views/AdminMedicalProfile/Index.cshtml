@@ -4,13 +4,14 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>Quản Lý Bệnh Án</h2>
 
-<div>    
-    @using (Html.BeginForm("Index", "DoctorMedicalProfile", FormMethod.Get, new { style = "float: right", @class = "form-inline" }))
+<div>
+    @* @Html.ActionLink("Tạo Mới", "Create", FormMethod.Get, new { @class = "btn btn-primary" })*@
+    @using (Html.BeginForm("Index", "AdminMedicalProfile", FormMethod.Get, new { style = "float: right", @class = "form-inline" }))
     {
         <div class="form-group">
             @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
@@ -63,8 +64,8 @@
                 @item.CreatedDate
             </td>
             <td>
-                <a class="btn btn-primary" href="@Url.Action("Details", "DoctorMedicalProfile", new { medicalProfileId = item.MedicalProfileId, patientId = item.PatientId })" target="_blank" title="Xem chi tiết"><i class="glyphicon glyphicon-search"></i></a>
-                <a class="btn btn-primary" href="@Url.Action("UpdateMedicalProfile", "DoctorMedicalProfile", new { id = item.Patient.UserId, medicalProfileTemplateId = item.MedicalProfileTemplateId })" target="_blank" title="Cập nhật"><i class="glyphicon glyphicon-pencil"></i></a>
+                <a class="btn btn-primary" href="@Url.Action("Details", "AdminMedicalProfile", new { medicalProfileId = item.MedicalProfileId, patientId = item.PatientId })" target="_blank" title="Xem chi tiết"><i class="glyphicon glyphicon-search"></i></a>
+                <a class="btn btn-primary" href="@Url.Action("UpdateMedicalProfile", "AdminMedicalProfile", new { id = item.Patient.UserId, medicalProfileTemplateId = item.MedicalProfileTemplateId})" target="_blank" title="Cập nhật"><i class="glyphicon glyphicon-pencil"></i></a>
                 <button class="btn btn-danger delete-button" data-id="@item.MedicalProfileId" title="Xóa"><i class="glyphicon glyphicon-remove"></i></button>
             </td>
         </tr>
@@ -87,9 +88,9 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function () {       
         $(".delete-button").click(function () {
-            var url = "/DoctorMedicalProfile/Delete";
+            var url = "/AdminMedicalProfile/Delete";
             var id = $(this).attr("data-id");
             $.get(url + "/" + id, function (data) {
                 $("#delete-container").html(data);
