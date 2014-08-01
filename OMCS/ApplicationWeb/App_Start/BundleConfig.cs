@@ -20,6 +20,7 @@ namespace OMCS.Web
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/jquery.blockUI.js",
                         "~/Scripts/bootbox.js",
+                        "~/Content/mCustomScrollbar/jquery.mCustomScrollbar.js",
                         "~/Scripts/site.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
@@ -39,6 +40,7 @@ namespace OMCS.Web
             bundles.Add(new StyleBundle("~/bundles/cssOMCS").Include(
                         "~/Content/bootstrap.css",
                         "~/Content/font-awesome.css",
+                        "~/Content/mCustomScrollbar/jquery.mCustomScrollbar.css",
                         "~/Content/Site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
