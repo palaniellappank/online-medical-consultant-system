@@ -299,6 +299,10 @@
     <Content Include="Content\Image\ProfilePicture\photo.jpg" />
     <Content Include="Content\Image\ProfilePicture\Su.JPG" />
     <Content Include="Content\Image\register-bg.jpg" />
+    <Content Include="Content\mCustomScrollbar\jquery.mCustomScrollbar.concat.min.js" />
+    <Content Include="Content\mCustomScrollbar\jquery.mCustomScrollbar.css" />
+    <Content Include="Content\mCustomScrollbar\jquery.mCustomScrollbar.js" />
+    <Content Include="Content\mCustomScrollbar\mCSB_buttons.png" />
     <Content Include="Content\ProfilePicture\anonymous-avatar.jpg" />
     <Content Include="Content\ProfilePicture\photo.jpg" />
     <Content Include="Content\ProfilePicture\Su.JPG" />
@@ -604,12 +608,10 @@
     <Content Include="Views\UserHealthRecord\_ImmunizationList.cshtml" />
     <Content Include="Views\Comment\_Evaluate.cshtml" />
     <Content Include="Views\Comment\_Index.cshtml" />
-    <Content Include="Views\Comment\_Post.cshtml" />
     <Content Include="Views\Account\Welcome.cshtml" />
     <Content Include="Views\Comment\_Details.cshtml" />
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
-    <Content Include="Views\Comment\_Rate.cshtml" />
     <Content Include="Views\Comment\_RateQuickView.cshtml" />
   </ItemGroup>
   <ItemGroup>

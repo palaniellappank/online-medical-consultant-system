@@ -12,12 +12,15 @@
 <script src="~/Scripts/webrtc/adapter.js"></script>
 <script src="~/Scripts/webrtc/connectionManager.js"></script>
 <script src="~/Scripts/webrtc/app-patient.js"></script>
-<link rel="stylesheet" href="~/Content/jquery.mCustomScrollbar.css" />
-<script src="~/Scripts/jquery.mCustomScrollbar.concat.min.js"></script>
 
 <link href="~/Content/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" />
 <link href="~/Content/evaluate-page/evaluate.css" rel="stylesheet" />
 <script src="~/Content/bootstrap-star-rating/js/star-rating.js"></script>
+<style>
+    #chat-content .pull-right {
+        margin-right: 22px;
+    }
+</style>
 <body>
     <h1>Tư vấn trực tuyến
     </h1>
@@ -40,8 +43,8 @@
                     <div class="panel-heading c-list">
                         <span id="chat-doctor"></span>
                     </div>
-                    <div class="panel-body" style="height: 360px; overflow: scroll">
-                        <ul class="chat" id="chat-content">
+                    <div class="panel-body" style="padding-right: 0">
+                        <ul class="chat" id="chat-content" style="height: 360px; padding-right: 10px">
                         </ul>
                     </div>
                     <div class="panel-footer">
@@ -115,7 +118,7 @@
     <%
         _.each(doctors, function(doctor){
     %>
-    <li class="list-group-item" data-email="<%= doctor.Email %>">
+    <li class="list-group-item row" data-email="<%= doctor.Email %>">
         <div class="col-xs-12 col-sm-3">
             <img src="/Content/ProfilePicture/<%= doctor.ProfilePicture %>" alt="<%= doctor.FullName %>" class="img-responsive img-circle" />
         </div>
@@ -143,12 +146,7 @@
 
 <script id="chat-top-template" type="text/template">
     <strong class="title">Bác sĩ tư vấn: <%= user.FullName %>
-        <a href="@Url.Action("Evaluate", "Comment", new { id = 2 })" class="btn btn-success">
-            <i class="glyphicon glyphicon-thumbs-up"></i>
-            <span>&nbsp;Đánh Giá</span>
-        </a>
     </strong>
-
 </script>
 
 <script id="chat-left-template" type="text/template">
@@ -256,6 +254,9 @@
         renderContactList: function (doctors) {
             var template = _.template($("#doctor-list-template").html(), { doctors: doctors });
             this.contactListEl.html(template);
+            $("#contact-list").mCustomScrollbar({
+                theme: "minimal-dark"
+            });
         },
         getMessageList: function (e) {
             var username = $(e.currentTarget).find(".username").val();
@@ -303,10 +304,6 @@
             chatHub.server.connectPatient($("#txtFromEmail").val());
         });
 
-        $.mCustomScrollbar.defaults.scrollButtons.enable = true; //enable scrolling buttons by default
-        $.mCustomScrollbar.defaults.axis = "yx"; //enable 2 axis scrollbars by default
-        $("#content-d").mCustomScrollbar({ theme: "dark" });
-
         $('#btnUpload').click(function () {
             var formdata = new FormData(); //FormData object
             var fileInput = document.getElementById('file');
@@ -351,10 +348,6 @@
         }
 
         chatHub.client.onGetMessageList = function (fromUser, toUser, messageDetails) {
-            console.log("onGetMessageList");
-            console.log(messageDetails);
-            console.log(fromUser);
-            console.log(toUser);
             $("#chat-doctor").html("");
             var templateTop = $("#chat-top-template").html();
             if (loginEmail == loginEmail) {
@@ -371,7 +364,10 @@
                     $("#chat-content").append(_.template(templateRight, { user: toUser, message: message }));
                 }
             });
-            $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
+            $("#chat-content").mCustomScrollbar("update");
+            $("#chat-content").mCustomScrollbar({
+                theme: "minimal-dark"
+            });
         }
 
         // On New User Connected

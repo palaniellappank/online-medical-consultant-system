@@ -502,7 +502,6 @@ ul.c-controls li a:hover
 #contact-list
 {
     height: 489px;
-    overflow-y: scroll;
 }
 
 .list-group-item:hover
