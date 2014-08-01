@@ -21,18 +21,18 @@ namespace OMCS.Web.Controllers
     {
         //
         // GET: /AdminComment/
+        AdminCommentBusiness commentBusiness = new AdminCommentBusiness();
 
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             IEnumerable<Comment> comment = _db.Comments.Where(r => r.CommentId != 0).ToList();
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CurrentFilter = searchString;
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.UserSortParam = String.IsNullOrEmpty(sortOrder) ? "User_desc" : "";
+            ViewBag.CurrentSort = sortOrder;           
             ViewBag.DateSortParam = sortOrder == "Date" ? "Date_desc" : "Date";
-            ViewBag.KeyParam = sortOrder == "MedicalProfileKey" ? "MedicalProfileKey_desc" : "MedicalProfileKey";
-            ViewBag.NameSortParam = sortOrder == "Name" ? "Name_desc" : "Name";
-            ViewBag.MedicalNameSortParam = sortOrder == "MedicalProfileName" ? "MedicalProfileName_desc" : "MedicalProfileName";
+            ViewBag.ContentSortParam = sortOrder == "Content" ? "Content_desc" : "Content";
+            ViewBag.PatientNameSortParam = sortOrder == "PatientName" ? "PatientName_desc" : "PatientName";
+            ViewBag.DoctorNameSortParam = sortOrder == "DoctorName" ? "DoctorName_desc" : "DoctorName";          
 
             if (searchString != null)
             {
@@ -46,8 +46,8 @@ namespace OMCS.Web.Controllers
             ViewBag.CurrentFilter = searchString;
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            //medicalBusiness.SearchByStringMedical(searchString, ref medicalProfiles);
-            //medicalBusiness.CheckSortOrderMedical(sortOrder, ref medicalProfiles);
+            commentBusiness.SearchByString(searchString, ref comment);
+            commentBusiness.CheckSortOrder(sortOrder, ref comment);
             return View(comment.ToPagedList(pageNumber, pageSize));
         }
 
