@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<OMCS.DAL.Model.User>
+﻿@model PagedList.IPagedList<OMCS.DAL.Model.Doctor>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
@@ -31,6 +31,9 @@
                 @Html.ActionLink("Tên đầy đủ", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })
             </th>
             <th>
+                @Html.ActionLink("Chuyên môn", "Index", new { sortOrder = ViewBag.SpecialitySortParam, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
                 @Html.ActionLink("Tình trạng", "Index", new { sortOrder = ViewBag.IsActiveParam, currentFilter = ViewBag.CurrentFilter })
             </th>
             <th>
@@ -49,6 +52,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpecialtyField.Name)
             </td>
             <td>
                 @if (item.IsActive == true)

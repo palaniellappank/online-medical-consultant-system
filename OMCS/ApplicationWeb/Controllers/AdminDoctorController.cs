@@ -21,16 +21,18 @@ namespace MvcApplication1.Controllers
     {
         private OMCSDBContext db = new OMCSDBContext();
         private AdminUserBusiness business = new AdminUserBusiness();
+        private AdminDoctorBusiness docBusiness = new AdminDoctorBusiness();
         private AccountBusiness accBusiness = new AccountBusiness();
         //
         // GET: /AdminDoctor/
 
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            IEnumerable<User> users = db.Roles.Where(r => r.RoleName == "Doctor").SelectMany(r => r.Users);
+            IEnumerable<Doctor> users = db.Doctors.Where(d => d.UserId != 0).ToList();
             ViewBag.CurrentSort = sortOrder;
             ViewBag.UserSortParam = String.IsNullOrEmpty(sortOrder) ? "User_desc" : "";
             ViewBag.DateSortParam = sortOrder == "Date" ? "Date_desc" : "Date";
+            ViewBag.SpecialitySortParam = sortOrder == "Speciality" ? "Speciality_desc" : "Speciality";
             ViewBag.IsActiveParam = sortOrder == "Active" ? "Active_desc" : "Active";
             ViewBag.NameSortParam = sortOrder == "Name" ? "Name_desc" : "Name";
 
@@ -44,8 +46,8 @@ namespace MvcApplication1.Controllers
             }
 
             ViewBag.CurrentFilter = searchString;
-            business.SearchByString(searchString, ref users);//Search UserName/Fullname by string
-            business.CheckSortOrder(sortOrder, ref users);// Check sort order to sort with the corresponding column
+            docBusiness.SearchByString(searchString, ref users);//Search UserName/Fullname by string
+            docBusiness.CheckSortOrder(sortOrder, ref users);// Check sort order to sort with the corresponding column
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);

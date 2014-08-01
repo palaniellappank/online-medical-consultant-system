@@ -59,5 +59,6 @@ namespace OMCS.DAL.Model
         public DbSet<CustomSnippetValue> CustomSnippetValues { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<HospitalInformation> HospitalInformations { get; set; }
     }
 }

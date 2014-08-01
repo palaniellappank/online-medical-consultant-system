@@ -18,9 +18,9 @@
         {
             @Html.ValidationSummary(true)
             @Html.AntiForgeryToken()
-            <div class="modal-body">                               
+            <div class="modal-body">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Email) <span style="color: red;">(*)
+                    @Html.LabelFor(model => model.Email) <span style="color: red;">(*)</span>
                     <input type="text" id="Email" name="Email" class="form-control required email" />
                 </div>
 
@@ -45,21 +45,6 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Phone) <span style="color: red;">(*)</span>
-                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control required" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.PrimaryAddress)
-                    @Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SecondaryAddress)
-                    @Html.TextBoxFor(model => model.SecondaryAddress, new { @class = "form-control" })
-                </div>
-
-                <div class="form-group">
                     <label for="SpecialtyField" class="control-label">Chuyên môn</label>
 
                     <select name="dropdownlist" class="form-control">
@@ -71,6 +56,21 @@
                             }
                         }
                     </select>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Phone) <span style="color: red;">(*)</span>
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control required number", @id = "Phone" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PrimaryAddress)
+                    @Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SecondaryAddress)
+                    @Html.TextBoxFor(model => model.SecondaryAddress, new { @class = "form-control" })
                 </div>
             </div>
             <div class="modal-footer">
@@ -84,7 +84,7 @@
 <script type="text/javascript">
     $(function () {
         $("#create-form").validate({
-            rules: {                
+            rules: {
                 Email: {
                     remote: {
                         url: "@Url.Action("CheckExistEmail", "AdminUser")",
@@ -96,6 +96,9 @@
                 FirstName: {
                     maxlength: 50
                 },
+                Phone: {
+                    rangelength: [8, 12]
+                },
                 LastName: {
                     maxlength: 50
                 },
@@ -103,6 +106,9 @@
             messages: {
                 Username: {
                     remote: "Tên đăng nhập đã tồn tại."
+                },
+                Phone: {
+                    number: "Vui lòng nhập số!"
                 },
                 Email: {
                     remote: "Địa chỉ email đã tồn tại"

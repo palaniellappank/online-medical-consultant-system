@@ -1,0 +1,291 @@
+﻿@model OMCS.DAL.Model.HospitalInformation
+@using OMCS.Web
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var doctorCount = ViewBag.doctorCount;
+    var speCount = ViewBag.speCount;
+    var medicalCount = ViewBag.medicalCount;
+}
+
+<div class="col-md-12">
+    <div id="content-date-time">
+        <div class="label label-info" id="dateTimeValue" />
+    </div>
+
+    <img src="@Html.GetPictureUrl("Logo")@Model.Logo" class="img-responsive img-modal" style="border: none; width:800px; height:300px" alt="img-header-about-the-trust.jpg" title="Bệnh viện""/>
+
+    <div class="dropdown">
+        <a href="#" class="btn btn-primary" data-toggle="dropdown" title="Cập nhật logo"><i class="glyphicon glyphicon-pencil"></i></a>
+        <ul class="dropdown-menu">
+            <li>
+                <input type="file" name="file" id="file" title="Upload" />
+                <button type="submit" class="btn btn-primary" id="btnUpload">Cập nhật</button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-xs-6" style="float: right">
+            <label class="switch-light progress progress-striped active" onclick="">
+                <input type="checkbox" id="enable">
+                <span>Thay đổi
+                <span aria-label="Tắt" title="Tắt">O</span>
+                    <span aria-label="Bật" title="Bật">I</span>
+                </span>
+                <a class="progress-bar progress-bar-success"></a>
+            </label>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div align="center">
+        <h2>Thông tin bệnh viện
+        </h2>
+    </div>
+    <table class="table table-data table-bordered table-striped" style="clear: both">
+        <tbody>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Name)</td>
+                <td>
+                    <a href="#" id="name" data-type="textarea"
+                    data-title="@Html.DisplayNameFor(model => model.Name)">@Html.DisplayFor(model => model.Name)</a>
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Address)</td>
+                <td>
+                    <a href="#" id="address" data-type="textarea"
+                    data-title="@Html.DisplayNameFor(model => model.Address)">@Html.DisplayFor(model => model.Address)</a>
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Phone)</td>
+                <td>
+                    <a href="#" id="phone" data-type="tel"
+                    data-title="@Html.DisplayNameFor(model => model.Phone)">@Html.DisplayFor(model => model.Phone)</a>
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Fax)</td>
+                <td>
+                    <a href="#" id="fax" data-type="tel"
+                    data-title="@Html.DisplayNameFor(model => model.Fax)">@Html.DisplayFor(model => model.Fax)</a>
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Email)</td>
+                <td>
+                    <a href="#" id="email" data-type="textarea"
+                    data-title="@Html.DisplayNameFor(model => model.Email)">@Html.DisplayFor(model => model.Email)</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<hr />
+<div class="col-md-7">
+    <fieldset>
+        <legend>Đội ngũ bác sĩ: @doctorCount thành viên</legend>
+    </fieldset>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr class="active">
+                <th>
+                    @Html.ActionLink("Tên bác sĩ", "Index", new { sortOrder = ViewBag.UserSortParam, currentFilter = ViewBag.CurrentFilter })
+                </th>
+                <th>
+                    @Html.ActionLink("Chuyên môn", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })
+                </th>
+            </tr>
+        </thead>
+
+        @foreach (var item in ViewBag.doctor)
+        {
+            <tr>
+                <td>
+                    @item.FullName
+                </td>
+                <td>
+                    @item.SpecialtyField.Name
+                </td>
+            </tr>
+        }
+    </table>
+    <a href="@Url.Action("Index", "AdminDoctor")">Xem thêm....</a>
+
+    <fieldset>
+        <legend>Hồ sơ bệnh án: @medicalCount đang áp dụng</legend>
+    </fieldset>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr class="active">
+                <th>
+                    @Html.ActionLink("Mã bệnh án", "Index", new { sortOrder = ViewBag.UserSortParam, currentFilter = ViewBag.CurrentFilter })
+                </th>
+                <th>
+                    @Html.ActionLink("Tên bệnh án", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })
+                </th>
+                <th>
+                    @Html.ActionLink("Bệnh nhân", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })
+                </th>
+            </tr>
+        </thead>
+
+        @foreach (var item in ViewBag.medical)
+        {
+            <tr>
+                <td>
+                    @item.MedicalProfileKey
+                </td>
+                <td>
+                    @item.MedicalProfileTemplate.MedicalProfileTemplateName
+                </td>
+                <td>
+                    @item.Patient.FullName
+                </td>
+            </tr>
+        }
+    </table>
+    <a href="@Url.Action("Index", "AdminMedicalProfile")">Xem thêm....</a>
+</div>
+
+<div class="col-md-5">
+    <fieldset>
+        <legend>Khoa khám bệnh: @speCount khoa</legend>
+    </fieldset>
+    <table class="table table-striped table-hover" id="list-of-specialty-field">
+        <tr class="active">
+            <th>
+                @Html.ActionLink("Tên khoa", "Index")
+            </th>
+        </tr>
+
+        @foreach (var item in ViewBag.specialtyfields)
+        {
+            <tr>
+                <td>@item.Name</td>
+            </tr>
+        }
+    </table>
+    <a href="@Url.Action("Index", "AdminSpecialtyField")">Xem thêm....</a>
+</div>
+
+
+<script type="text/javascript">
+    window.onload = function () {
+        var separator = " - ";
+        var dateTime = new Date();
+        var formattedDateTime = dateTime.toLocaleDateString() + separator + "Giờ: " + dateTime.toLocaleTimeString()
+        var divObject = document.getElementById("dateTimeValue");
+        divObject.innerHTML = formattedDateTime;     
+    }
+
+    $(function () {
+        //defaults
+        $.fn.editable.defaults.url = '/AdminInformationHospital/Save';
+        $.fn.editable.defaults.emptytext = 'Trống';
+        $.fn.editable.defaults.pk = @Html.DisplayFor(model => model.HospitalInformationId);
+
+        //enable / disable
+        $('#enable').click(function () {
+            if ($(this).prop("checked")) {
+                $("#autoopendiv").css("display", "block");
+            } else {
+                $("#autoopendiv").css("display", "none");
+            }
+            $('.table-data .editable').editable('toggleDisabled');
+        });
+
+        $('#name').editable({
+            validate: function (value) {
+                if ($.trim(value) == '') return jQuery.validator.messages.required;
+            }
+        });
+        $('#logo').editable({
+            validate: function (value) {
+                if ($.trim(value) == '') return jQuery.validator.messages.required;
+            }
+        });
+
+        $('#address').editable({
+            validate: function (value) {
+                if ($.trim(value) == '') return jQuery.validator.messages.required;
+            }
+        });
+       
+        $('#phone').editable({
+            validate: function (value) {
+                var reg = new RegExp(/^[0-9]/);
+                if (value.length > 7 && value.length < 12) {
+                    if (!value.match(reg)) {
+                        return "Vui lòng nhập số !";
+                    }
+                } else {
+                    return "Nhập trong khoảng từ 8-12 !";
+                }
+            }
+        });
+
+        $('#fax').editable({
+            validate: function (value) {
+                var reg = new RegExp(/^[0-9]/);
+                if (value.length > 7 && value.length < 12) {
+                    if (!value.match(reg)) {
+                        return "Vui lòng nhập số !";
+                    }
+                } else {
+                    return "Nhập trong khoảng từ 8-12 !";
+                }
+            }
+        });
+             
+        $('#email').editable({
+            validate: function (value) {
+                var reg = /\S+@\S+\.\S+/;
+                if (!value.match(reg)) {
+                    return jQuery.validator.messages.email;
+                } else if ($.trim(value) == '') {
+                    return jQuery.validator.messages.required;
+                }
+            }
+        });    
+        
+        $('.table-data .editable').on('hidden', function (e, reason) {
+            if (reason === 'save' || reason === 'nochange') {
+                var $next = $(this).closest('tr').next().find('.editable');
+                if ($('#autoopen').is(':checked')) {
+                    setTimeout(function () {
+                        $next.editable('show');
+                    }, 300);
+                } else {
+                    $next.focus();
+                }
+            }
+        });
+        $('.table-data .editable').editable('toggleDisabled');
+
+        $('#btnUpload').click(function () {
+            var formdata = new FormData(); //FormData object
+            var fileInput = document.getElementById('file');                                 
+            for (i = 0; i < fileInput.files.length; i++) {
+                //Appending each file to FormData object
+                formdata.append(fileInput.files[i].name, fileInput.files[i]);
+            }
+            $.ajax({
+                type: "POST",
+                url: '/AdminInformationHospital/Upload',
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function () {                  
+                    window.location.reload(true);
+                }
+            });
+        });
+    });     
+</script>
