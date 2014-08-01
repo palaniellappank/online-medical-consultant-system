@@ -206,6 +206,8 @@
     <Compile Include="Common\DoctorDetail.cs" />
     <Compile Include="Common\MessageDetail.cs" />
     <Compile Include="Common\UserDetail.cs" />
+    <Compile Include="Controllers\AdminInformationHospitalController.cs" />
+    <Compile Include="Controllers\AdminMedicalProfileController.cs" />
     <Compile Include="Controllers\AllergyController.cs" />
     <Compile Include="Controllers\AllergyTypeController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
@@ -490,7 +492,8 @@
     <Content Include="Scripts\jquery.easing.1.3.js" />
     <Content Include="Scripts\jquery.signalR-2.0.3.js" />
     <Content Include="Scripts\jquery.signalR-2.0.3.min.js" />
-    <Content Include="Scripts\recaptcha_ajax.js" />
+    <Content Include="Scripts\readmore.js" />
+    <Content Include="Scripts\readmore.min.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -600,7 +603,8 @@
     <Content Include="Views\AllergyType\_Create.cshtml" />
     <Content Include="Views\AllergyType\_Edit.cshtml" />
     <Content Include="Views\AllergyType\_Delete.cshtml" />
-    <Content Include="Views\Account\_Register.cshtml" />
+    <Content Include="Views\DoctorUser\CreatePatient.cshtml" />
+    <Content Include="Views\DoctorUser\EditPatient.cshtml" />
     <Content Include="Views\Account\Activate.cshtml" />
     <Content Include="Views\Account\_ForgotPassword.cshtml" />
     <Content Include="Views\UserMedicalProfile\Details.cshtml" />
@@ -612,7 +616,16 @@
     <Content Include="Views\Comment\_Details.cshtml" />
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\DoctorMedicalProfile\_Delete.cshtml" />
+    <Content Include="Views\DoctorMedicalProfile\Details.cshtml" />
+    <Content Include="Views\DoctorMedicalProfile\UpdateMedicalProfile.cshtml" />
+    <Content Include="Views\AdminMedicalProfile\Index.cshtml" />
+    <Content Include="Views\AdminMedicalProfile\Delete.cshtml" />
+    <Content Include="Views\AdminMedicalProfile\Details.cshtml" />
+    <Content Include="Views\AdminMedicalProfile\UpdateMedicalProfile.cshtml" />
+    <Content Include="Views\Comment\_Rate.cshtml" />
     <Content Include="Views\Comment\_RateQuickView.cshtml" />
+    <Content Include="Views\AdminInformationHospital\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
