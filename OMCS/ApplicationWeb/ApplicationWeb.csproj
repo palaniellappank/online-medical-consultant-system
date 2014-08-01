@@ -206,6 +206,7 @@
     <Compile Include="Common\DoctorDetail.cs" />
     <Compile Include="Common\MessageDetail.cs" />
     <Compile Include="Common\UserDetail.cs" />
+    <Compile Include="Controllers\AdminCommentController.cs" />
     <Compile Include="Controllers\AdminInformationHospitalController.cs" />
     <Compile Include="Controllers\AdminMedicalProfileController.cs" />
     <Compile Include="Controllers\AllergyController.cs" />
@@ -626,6 +627,8 @@
     <Content Include="Views\Comment\_Rate.cshtml" />
     <Content Include="Views\Comment\_RateQuickView.cshtml" />
     <Content Include="Views\AdminInformationHospital\Index.cshtml" />
+    <Content Include="Views\AdminComment\Index.cshtml" />
+    <Content Include="Views\AdminComment\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
