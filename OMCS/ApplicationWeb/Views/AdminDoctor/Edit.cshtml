@@ -12,7 +12,7 @@
                 @Html.HiddenFor(model => model.UserId)
                 @Html.HiddenFor(model => model.CreatedDate)
                 @Html.HiddenFor(model => model.Email)
-                @Html.HiddenFor(model => model.Password)               
+                @Html.HiddenFor(model => model.Password)
                 @Html.HiddenFor(model => model.Birthday)
 
                 <div class="form-group">
@@ -25,36 +25,30 @@
                     <input type="text" value="@Html.DisplayFor(model => model.FirstName)" id="FirstName" name="FirstName" class="form-control required" />
                 </div>
 
-                <form runat="server">
-                    @Html.LabelFor(model => model.ProfilePicture)<br />
-                    <img src="@Html.GetPictureUrl("Profile")@Model.ProfilePicture" style="width: 80px; height:80px;"/>
-                    <input type="file" name="file" id="file" class="form-control" style="width: 200px;" />
-                </form>
-                <input type="hidden" name="profile" value="@Html.DisplayFor(model => model.ProfilePicture)" />
-
                 <div class="form-group">
                     @Html.LabelFor(model => model.Gender) <span style="color: red;">(*) </span>
                     @Html.DropDownListFor(model => model.Gender, new SelectList(new List<string> { "Nam", "Nữ" }), new { @class = "form-control" })
                 </div>
-                 <div class="form-group">
+
+                <div class="form-group">
                     <label for="SpecialtyField" class="control-label">Chuyên môn</label>
                     @Html.DropDownList("SpecialtyFieldId", null, new { @class = "form-control" })
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Phone) <span style="color: red;">(*) </span>
-                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control required number", id="Phone" })
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control required number", id = "Phone" })
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.PrimaryAddress)
-                    @Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control" })
+                    @Html.LabelFor(model => model.PrimaryAddress) <span style="color: red;">(*)
+                    @Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control required" })
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.SecondaryAddress)
                     @Html.TextBoxFor(model => model.SecondaryAddress, new { @class = "form-control" })
-                </div>               
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Cập nhật</button>
