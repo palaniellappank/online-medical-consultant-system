@@ -35,13 +35,7 @@
                 <a class="navbar-brand" href="#">Admin</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    @*<li class="dropdown">
-                        <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i>Admin <span class="caret"></span></a>
-                        <ul id="g-account-menu" class="dropdown-menu" role="menu">
-                            <li><a href="#">My Profile</a></li>
-                        </ul>
-                    </li>*@
+                <ul class="nav navbar-nav navbar-right">                  
                     <li><a href="~/Account/Logout"><i class="glyphicon glyphicon-lock"></i>Đăng xuất</a></li>
                 </ul>
             </div>
@@ -72,6 +66,9 @@
                     </li>
                     <li class="@Html.IsActive("AdminMedicalProfile", "Index")">
                         <a href="@Url.Action("Index", "AdminMedicalProfile")"><i class="glyphicon glyphicon-list"></i>Quản lý Hồ sơ bệnh án</a>
+                    </li>
+                     <li class="@Html.IsActive("AdminComment", "Index")">
+                        <a href="@Url.Action("Index", "AdminComment")"><i class="glyphicon glyphicon-list"></i>Quản lý Bình luận</a>
                     </li>
                     <li class="@Html.IsActive("AdminTemplate", "Index")">
                         <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i>Mẫu hồ sơ</a>
