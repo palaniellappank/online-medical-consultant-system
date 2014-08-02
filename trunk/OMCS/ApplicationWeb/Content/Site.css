@@ -510,15 +510,14 @@ ul.c-controls li a:hover
     cursor: pointer;
 }
 
-#divChat {
+#chatbox .panel {
     border-color: #ddd;
-    border-radius: 0;
-    border-left: none;
-    margin-left: -30px;
+    border-radius: 0;   
 }
 
-#chatbox .panel {
-    border-radius: 0;
+#chatbox .panel-chat {
+    border-left: none;
+    margin-left: -30px;
 }
 
 

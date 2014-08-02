@@ -97,6 +97,7 @@ namespace OMCS.Web.Controllers
             ViewBag.DoctorId = doctor.UserId;
             ViewBag.RatingPoint = ratingPoint;
             ViewBag.RatingCount = ratings.Count;
+            ViewBag.Email = doctor.Email;
             return PartialView("_RateQuickView");
         }
 

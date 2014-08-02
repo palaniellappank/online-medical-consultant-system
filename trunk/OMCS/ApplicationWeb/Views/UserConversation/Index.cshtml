@@ -20,26 +20,29 @@
     #chat-content .pull-right {
         margin-right: 22px;
     }
+    .panel-heading {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+    }
 </style>
 <body>
     <h1>Tư vấn trực tuyến
     </h1>
     <hr />
-    <div class="container">
         <div class="row" id="chatbox">
-            <div class="col-xs-12 col-sm-6 col-md-4" style="height: 389px">
-                <div class="panel panel-default" style="height: 460px">
+            <div class="col-xs-12 col-sm-4">
+                <div class="panel panel-primary">
                     <div class="panel-heading c-list">
                         <span class="title">Danh sách bác sĩ</span>
                     </div>
-                    <div class="content_1">
-                        <ul class="list-group" id="contact-list" style="height: 450px; width: auto">
+                    <div class="panel-body" style="padding: 0;">
+                        <ul class="list-group" id="contact-list" style="height: 458px; width: auto">
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-7">
-                <div id="divChat" class="panel panel-primary">
+            <div class="col-sm-8">
+                <div class="panel panel-primary panel-chat">
                     <div class="panel-heading c-list">
                         <span id="chat-doctor"></span>
                     </div>
@@ -71,7 +74,6 @@
                 </div>
             </div>
         </div>
-    </div>
 </body>
 
 
@@ -145,7 +147,7 @@
 </script>
 
 <script id="chat-top-template" type="text/template">
-    <strong class="title">Bác sĩ tư vấn: <%= user.FullName %>
+    <strong class="title"><%= user.FullName %>
     </strong>
 </script>
 
@@ -200,6 +202,20 @@
 </script>
 
 <script type="text/javascript">
+    BodyView = Backbone.View.extend({
+        el: $("body"),
+        events: {
+            "click .showDoctorDetail": "showDoctorDetail"
+        },
+        showDoctorDetail: function (e) {
+            $("#doctor-detail").removeData().unbind();
+            new DoctorDetailView({
+                doctorId: $(e.target).attr("data-id"),
+                el: "#doctor-detail"
+            });
+        }
+    });
+    new BodyView();
     ChatBoxView = Backbone.View.extend({
         el: $("#chatbox"),
         contactListEl: $("#contact-list"),
@@ -211,8 +227,7 @@
             "mouseover": "getDoctorRating",
             "click #btnSendMsg": "sendMessage",
             "keypress #txtMessage": "sendMessagePress",
-            "click .picture-thumbnail": "showFullPicture",
-            "click .showDoctorDetail": "showDoctorDetail"
+            "click .picture-thumbnail": "showFullPicture"
         },
         getDoctorRating: function (e) {
             var target = $(e.target).parents(".list-group-item");
@@ -221,30 +236,26 @@
                 //First hide popover form other list-group-item
                 var exist = false;
                 _.each($('.popover'), function (popover) {
-                    if ($(popover).prev().attr("data-email") != email) {
+                    if ($(popover).find(".email").val() != email) {
                         $(popover).remove();
                     } else exist = true;
                 });
                 if (exist) return;
                 target.popover({
                     content: "<div class='rating-popover'><div class='ajax-loader'></div><div>",
-                    html: true
+                    html: true,
+                    container: 'body'
                 }).popover('show');
+                var currentLeft = parseInt($(".popover").css("left"));
+                $(".popover").css("left", currentLeft - 14 + "px");
                 setTimeout(function () {
                     $.get('/Comment/RateQuickView?doctorEmail=' + email, function (d) {
-                        target.next().find(".rating-popover").html(d);
+                        $(".popover").find(".rating-popover").html(d);
                     });
                 }, 1000);
             } else {
                 //$('.popover').remove();
             }
-        },
-        showDoctorDetail: function (e) {
-            $("#doctor-detail").removeData().unbind();
-            new DoctorDetailView({
-                doctorId: $(e.target).attr("data-id"),
-                el: "#doctor-detail"
-            });
         },
         showFullPicture: function(e) {
             var target = $(e.currentTarget);
@@ -353,6 +364,9 @@
             if (loginEmail == loginEmail) {
                 $("#chat-doctor").append(_.template(templateTop, { user: toUser }));
             }
+            if ($("#chat-content").hasClass("mCustomScrollbar")) {
+                $("#chat-content").mCustomScrollbar("destroy");
+            }
             $("#chat-content").html("");
             var loginEmail = $('#txtFromEmail').val();
             var templateLeft = $("#chat-left-template").html();
@@ -364,10 +378,10 @@
                     $("#chat-content").append(_.template(templateRight, { user: toUser, message: message }));
                 }
             });
-            $("#chat-content").mCustomScrollbar("update");
             $("#chat-content").mCustomScrollbar({
                 theme: "minimal-dark"
             });
+            $("#chat-content").mCustomScrollbar("scrollTo", "last");
         }
 
         // On New User Connected
@@ -407,5 +421,3 @@
         $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
     }
 </script>
-
-
