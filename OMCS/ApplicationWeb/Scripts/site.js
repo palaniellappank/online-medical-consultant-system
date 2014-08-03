@@ -253,3 +253,52 @@ DoctorDetailView = Backbone.View.extend({
         });
     }
 });
+
+
+DoctorCommentView = Backbone.View.extend({
+    initialize: function (options) {
+        this.options = options;
+    },
+    events: {
+        "click #btnPostComment": "postComment",
+        "click .pagination a": "goToPage"
+    },
+    postComment: function (e) {
+        e.preventDefault();
+        var content = $("#txtComment").val().trim();
+        if (content != "") {
+            $.blockUI();
+            $("#txtComment").val("");
+            var that = this;
+            $.ajax({
+                url: baseUrl + "Comment/PostComment",
+                type: "POST",
+                data: { content: content, doctorId: this.options.doctorId },
+                success: function (e) {
+                    $.ajax({
+                        url: baseUrl + "Comment/Index/" + that.options.doctorId,
+                        type: "GET",
+                        success: function (e) {
+                            $.unblockUI();
+                            $(".comment-list").html(e);
+                        }
+                    });
+                 //   that.render();
+                }
+            });
+        }
+    },
+    goToPage: function (e) {
+        e.preventDefault();
+        var url = $(e.target).attr("href");
+        $.blockUI();
+        $.ajax({
+            url: url,
+            type: "GET",
+            success: function (e) {
+                $.unblockUI();
+                $(".comment-list").html(e);
+            }
+        });
+    }
+});

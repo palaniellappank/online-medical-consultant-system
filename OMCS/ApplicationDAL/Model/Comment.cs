@@ -20,7 +20,7 @@ namespace OMCS.DAL.Model
         public virtual Doctor Doctor { get; set; }
 
         [ForeignKey("Patient")]
-        public int PatientId { get; set; }
+        public int? PatientId { get; set; }
         public virtual Patient Patient { get; set; }
 
         [Display(Name = "Nội dung")]

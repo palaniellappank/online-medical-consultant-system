@@ -76,6 +76,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessLogic\AccountBusiness.cs" />
+    <Compile Include="BusinessLogic\AdminCommentBusiness.cs" />
+    <Compile Include="BusinessLogic\AdminDoctorBusiness.cs" />
     <Compile Include="BusinessLogic\AdminUserBusiness.cs" />
     <Compile Include="BusinessLogic\BaseBusiness.cs" />
     <Compile Include="BusinessLogic\ConversationBusiness.cs" />

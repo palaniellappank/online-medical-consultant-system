@@ -69,13 +69,17 @@ namespace OMCS.Web.Controllers
         [HttpPost]
         public JObject PostComment(string content, int doctorId)
         {
+            //Check if doctor is logged user
             Comment comment = new Comment()
             {
-                PatientId = User.UserId,
-                DoctorId = doctorId,
                 Content = content,
-                PostedDate = DateTime.UtcNow
+                PostedDate = DateTime.UtcNow,
+                DoctorId = doctorId
             };
+            if (doctorId != User.UserId)
+            {
+                comment.PatientId = User.UserId;
+            }
             _db.Comments.Add(comment);
             _db.SaveChanges();
             dynamic result = new JObject();
