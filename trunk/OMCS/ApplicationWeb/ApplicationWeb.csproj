@@ -212,6 +212,7 @@
     <Compile Include="Controllers\AllergyController.cs" />
     <Compile Include="Controllers\AllergyTypeController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\DoctorCommentController.cs" />
     <Compile Include="Controllers\FilmDocumentController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\TreatmentHistoryController.cs" />
@@ -624,11 +625,11 @@
     <Content Include="Views\AdminMedicalProfile\Delete.cshtml" />
     <Content Include="Views\AdminMedicalProfile\Details.cshtml" />
     <Content Include="Views\AdminMedicalProfile\UpdateMedicalProfile.cshtml" />
-    <Content Include="Views\Comment\_Rate.cshtml" />
     <Content Include="Views\Comment\_RateQuickView.cshtml" />
     <Content Include="Views\AdminInformationHospital\Index.cshtml" />
     <Content Include="Views\AdminComment\Index.cshtml" />
     <Content Include="Views\AdminComment\Delete.cshtml" />
+    <Content Include="Views\DoctorComment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

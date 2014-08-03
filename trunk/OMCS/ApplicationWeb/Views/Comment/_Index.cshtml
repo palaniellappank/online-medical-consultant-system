@@ -7,38 +7,34 @@
 }
 
 
-<div id="post-list" class="post-list">
-
-    @foreach (var item in Model)
-    {
-        <div class="post" id="">
-            <div data-role="post-content" class="post-content">
-                <div class="avatar">
-                    <a href="#">
-                        <img src="~/Content/ProfilePicture/Su.JPG" class="img-circle" />
-                    </a>
-                </div>
-
-                <div class="post-body">
-                    <div class="post-byline">
-                        <span class="author">Sứ trần
-                        </span>
-                        <span class="posted-date">
-                            @item.PostedDate.ToShortDateString()
-                        </span>
-                    </div>
-
-                    <div class="post-content">
-                        <p>
-                            @item.Content
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<style>
+    blockquote footer {
+        margin-top: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        background-color: #fff;
+        color: #756e6e;
     }
-    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    blockquote footer cite {
+        color: #aea5a5;
+    }
+</style>
 
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page}))
 
-</div>
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-md-9">
+            <blockquote>
+                <p>@item.Content</p>
+                <footer>Su Tran <cite title="Source Title">@item.PostedDate.ToShortDateString()</cite></footer>
+            </blockquote>
+        </div>
+        <div class="col-md-2">
+            <img src="~/Content/ProfilePicture/Su.JPG" class="img-circle img-responsive" style="max-height: 60px;"/>
+        </div>
+    </div>
+}
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page}))

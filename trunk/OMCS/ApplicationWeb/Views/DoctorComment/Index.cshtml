@@ -1,0 +1,64 @@
+﻿@model PagedList.IPagedList<OMCS.DAL.Model.Comment>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" />
+<script src="~/Content/bootstrap-star-rating/js/star-rating.js"></script>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<h2>Tin nhắn</h2>
+
+<div class="bs-callout bs-callout-info">
+    <h4>Đánh giá</h4>
+    
+    @if (ViewBag.RatingCount == 0)
+    {
+        <p>Chưa có đánh giá</p>
+    }
+    else
+    {
+        <p>
+            <input class="rating" data-min="0" data-max="5" data-size="sm" value="@ViewBag.RatingPoint" readonly="true">
+        &nbsp;(@ViewBag.RatingCount Lượt đánh giá)
+        </p>
+    }
+</div>
+
+<fieldset>
+    <legend>Bình luận</legend>
+</fieldset>
+
+<div class="row">
+    <div class="col-md-1">
+        <img src="~/Content/ProfilePicture/Su.JPG" class="img-circle img-responsive" style="max-height: 66px; margin-left: 12px; padding-top: 7px;"/>
+    </div>
+
+    <div class="col-md-10">
+        <div class="form-group">
+            <textarea id="txtComment" class="form-control"></textarea>
+        </div>
+    </div>
+        
+    <div class="col-md-1">
+        <input type="submit" id="btnPostComment" value="Gửi" class="btn btn-primary" />
+    </div>
+
+</div>
+
+<div class="comment-list">
+    @{Html.RenderAction("Index", "Comment", new { id = @User.UserId });}
+</div>
+<script type="text/javascript">
+    var $input = $('input.rating');
+    $input.rating({
+        showClear: false
+    });
+
+    new DoctorCommentView({
+        doctorId: @User.UserId,
+        el: "body"
+    });
+</script>

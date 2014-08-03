@@ -16,6 +16,10 @@
     {
         @RenderSection("Styles");
     }
+
+    <script type="text/javascript">
+        var baseUrl = "@Url.Content("~")";
+    </script>
 </head>
 <body>
     <!-- Header -->
@@ -56,6 +60,9 @@
                     </li>
                     <li class="@Html.IsActive("DoctorConversation", "Index")">
                         <a href="@Url.Action("Index", "DoctorConversation")" target="_blank"><i class="glyphicon glyphicon-envelope"></i> Tư vấn trực tuyến<span class="badg1e unread-message"></span></a>
+                    </li>
+                    <li class="@Html.IsActive("DoctorComment", "Index")">
+                        <a href="@Url.Action("Index", "DoctorComment")"><i class="glyphicon glyphicon-list-alt"></i> Tin nhắn</a>
                     </li>
                     <li class="@Html.IsActive("AdminTemplate", "Index")">
                         <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i> Xem mẫu hồ sơ</a>
