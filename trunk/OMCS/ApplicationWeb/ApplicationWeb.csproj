@@ -207,11 +207,13 @@
     <Compile Include="Common\MessageDetail.cs" />
     <Compile Include="Common\UserDetail.cs" />
     <Compile Include="Controllers\AdminCommentController.cs" />
+    <Compile Include="Controllers\AdminInformationController.cs" />
     <Compile Include="Controllers\AdminInformationHospitalController.cs" />
     <Compile Include="Controllers\AdminMedicalProfileController.cs" />
     <Compile Include="Controllers\AllergyController.cs" />
     <Compile Include="Controllers\AllergyTypeController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\DoctorInformationController.cs" />
     <Compile Include="Controllers\DoctorCommentController.cs" />
     <Compile Include="Controllers\FilmDocumentController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
@@ -629,6 +631,8 @@
     <Content Include="Views\AdminInformationHospital\Index.cshtml" />
     <Content Include="Views\AdminComment\Index.cshtml" />
     <Content Include="Views\AdminComment\Delete.cshtml" />
+    <Content Include="Views\DoctorInformation\Index.cshtml" />
+    <Content Include="Views\AdminInformation\Index.cshtml" />
     <Content Include="Views\DoctorComment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

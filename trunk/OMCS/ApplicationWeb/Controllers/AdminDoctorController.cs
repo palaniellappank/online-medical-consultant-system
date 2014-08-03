@@ -14,7 +14,7 @@ using System.Diagnostics;
 using System.Threading;
 using Security.DAL.Security;
 
-namespace MvcApplication1.Controllers
+namespace OMCS.Web.Controllers
 {
     [CustomAuthorize(Roles = "Admin")]
     public class AdminDoctorController : Controller

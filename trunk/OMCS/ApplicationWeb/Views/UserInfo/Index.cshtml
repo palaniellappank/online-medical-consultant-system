@@ -1,8 +1,25 @@
 ﻿@model OMCS.DAL.Model.Patient
+@using OMCS.Web
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+
+<fieldset>
+    <legend>Thông tin Người dùng</legend>
+</fieldset>
+
+<img alt="User Pic" id="targetImg" src="@Html.GetPictureUrl("Profile")@Model.ProfilePicture" class="img-circle" style="width:120px; height:120px">
+
+<div class="dropdown">
+    <a href="#" class="btn btn-primary" data-toggle="dropdown" title="Cập nhật logo"><i class="glyphicon glyphicon-pencil"></i></a>
+    <ul class="dropdown-menu">
+        <li>
+            <input type="file" name="file" id="file" title="Upload" />
+            <button type="submit" class="btn btn-primary" id="btnUpload">Cập nhật</button>
+        </li>
+    </ul>
+</div>
 
 <div class="row">
     <div class="col-xs-4" style="float: right">
@@ -29,10 +46,6 @@
         </label>
     </div>
 </div>
-
-<fieldset>
-    <legend>Thông tin Người dùng</legend>
-</fieldset>
 
 <table class="table table-data table-bordered table-striped" style="clear: both">
     <tbody> 
@@ -293,5 +306,24 @@
             }
         });
         $('.table-data .editable').editable('toggleDisabled');
+
+        $('#btnUpload').click(function () {
+            var formdata = new FormData(); //FormData object
+            var fileInput = document.getElementById('file');                                 
+            for (i = 0; i < fileInput.files.length; i++) {
+                //Appending each file to FormData object
+                formdata.append(fileInput.files[i].name, fileInput.files[i]);
+            }
+            $.ajax({
+                type: "POST",
+                url: '/UserInfo/Upload',
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function () {                  
+                    window.location.reload(true);
+                }
+            });
+        });
     });
 </script>
