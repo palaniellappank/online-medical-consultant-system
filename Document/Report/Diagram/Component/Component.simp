@@ -47,21 +47,21 @@
       <owned-items />
       <style background-type="solid" background-color="#FFFFFFFF" background-color2="#FFFFFFFF" border-color="#FF000000" border-width="1" shadow-type="smooth" shadow-offset="-2,-2" shadow-size="6,6" shadow-visible="true" shadow-color="#50000000" shadow-radius="6" gloss-effect="true" threed-gloss-effect="false" wrap-name-text="true" wrap-other-text="true" text-wrapping-threshold="0" padding="0" name-color="#FF000000" name-font="Microsoft Sans Serif;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-color="#FF1E1E1E" part-header-font="Microsoft Sans Serif;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-color="#FF000000" text-font="Microsoft Sans Serif;10;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-color="#FF1E1E1E" tagged-value-font="Microsoft Sans Serif;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-color="#FF1E1E1E" stereotype-font="Microsoft Sans Serif;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center" />
     </item>
-    <item id="ddip123662128393930787_319397667500760820" cid="RIF011" type="uml-required-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:25:26">
+    <item id="ddip123662128393930787_319397667500760820" cid="RIF011" type="uml-required-interface" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:25:26">
       <stereotypes />
       <tagged-values />
       <associated-diagrams />
       <owned-items />
       <style class="default" />
     </item>
-    <item id="ddip123662128393930787_637265657652391468" cid="IFC011" type="uml-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:25:17">
+    <item id="ddip123662128393930787_637265657652391468" cid="IFC011" type="uml-interface" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:25:17">
       <stereotypes />
       <tagged-values />
       <associated-diagrams />
       <owned-items />
       <style class="default" />
     </item>
-    <item id="ddip123662128393930787_836262619681934886" cid="REL011" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:25:19">
+    <item id="ddip123662128393930787_836262619681934886" cid="REL011" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:25:19">
       <stereotypes />
       <tagged-values />
       <associated-diagrams />
@@ -195,21 +195,21 @@
             <owned-items />
             <style background-type="vertical-linear" background-color="#FFFFFFFF" background-color2="#FFFFFFFF" border-color="#FF000000" border-width="1" shadow-type="smooth" shadow-offset="-2,-2" shadow-size="6,6" shadow-visible="true" shadow-color="#50000000" shadow-radius="6" gloss-effect="true" threed-gloss-effect="false" wrap-name-text="true" wrap-other-text="true" text-wrapping-threshold="0" padding="0" name-color="#FF000000" name-font="Microsoft Sans Serif;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-color="#FF1E1E1E" part-header-font="Microsoft Sans Serif;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-color="#FF000000" text-font="Microsoft Sans Serif;10;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-color="#FF1E1E1E" tagged-value-font="Microsoft Sans Serif;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-color="#FF1E1E1E" stereotype-font="Microsoft Sans Serif;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center" />
           </item>
-          <item id="ddip123662128393930787_174842561380761249" cid="RIF001" type="uml-required-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:35:38">
+          <item id="ddip123662128393930787_174842561380761249" cid="RIF001" type="uml-required-interface" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:35:38">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip123662128393930787_451437191530962135" cid="IFC001" type="uml-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:35:51">
+          <item id="ddip123662128393930787_451437191530962135" cid="IFC001" type="uml-interface" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:35:51">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip123662128393930787_376699290508404159" cid="REL001" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:36:04">
+          <item id="ddip123662128393930787_376699290508404159" cid="REL001" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:36:04">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -236,14 +236,14 @@
             <owned-items />
             <style background-type="solid" background-color="#FFFFFFFF" background-color2="#FFFFFFFF" border-color="#FF000000" border-width="1" shadow-type="smooth" shadow-offset="-2,-2" shadow-size="6,6" shadow-visible="true" shadow-color="#50000000" shadow-radius="6" gloss-effect="true" threed-gloss-effect="false" wrap-name-text="true" wrap-other-text="true" text-wrapping-threshold="0" padding="0" name-color="#FF000000" name-font="Microsoft Sans Serif;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-color="#FF1E1E1E" part-header-font="Microsoft Sans Serif;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-color="#FF000000" text-font="Microsoft Sans Serif;10;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-color="#FF1E1E1E" tagged-value-font="Microsoft Sans Serif;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-color="#FF1E1E1E" stereotype-font="Microsoft Sans Serif;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center" />
           </item>
-          <item id="ddip123662128393930787_682397810504380325" cid="IFC010" type="uml-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:24:43">
+          <item id="ddip123662128393930787_682397810504380325" cid="IFC010" type="uml-interface" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:24:43">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip123662128393930787_766382538262395612" cid="REL010" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:24:48">
+          <item id="ddip123662128393930787_766382538262395612" cid="REL010" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:24:48">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -254,7 +254,7 @@
               <end-role id="" name="" multiplicity="" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="ddip123662128393930787_189638563298924474" cid="RIF010" type="uml-required-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:25:06">
+          <item id="ddip123662128393930787_189638563298924474" cid="RIF010" type="uml-required-interface" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:25:06">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -294,7 +294,7 @@
             <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="426" y1="172" x2="532" y2="170" start-border-pos="0.376889011316132" end-border-pos="0.871699651082357">
               <points>
                 <point x="426" y="172" />
-                <point x="531" y="171" />
+                <point x="532" y="170" />
               </points>
             </layout>
             <relation from="ddip123662128393930787_161666760211064133" from-iid="44c56734d0204de08e512fe90b34e2c3" to="ddip123662128393930787_850672432114890868" to-iid="f1de6687d7ef4a0c93c4040be4f3131d" />
@@ -380,7 +380,7 @@
           </authors>
           <description />
           <creation-date>06/05/2014 23:53:26</creation-date>
-          <change-date>06/07/2014 10:02:56</change-date>
+          <change-date>08/03/2014 19:36:23</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
@@ -402,14 +402,7 @@
             <owned-items />
             <style background-type="solid" background-color="#FFFFFFFF" background-color2="#FFFFFFFF" border-color="#FF000000" border-width="1" shadow-type="smooth" shadow-offset="-2,-2" shadow-size="6,6" shadow-visible="true" shadow-color="#50000000" shadow-radius="6" gloss-effect="true" threed-gloss-effect="false" wrap-name-text="true" wrap-other-text="true" text-wrapping-threshold="0" padding="0" name-color="#FF000000" name-font="Microsoft Sans Serif;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-color="#FF1E1E1E" part-header-font="Microsoft Sans Serif;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-color="#FF000000" text-font="Microsoft Sans Serif;10;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-color="#FF1E1E1E" tagged-value-font="Microsoft Sans Serif;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-color="#FF1E1E1E" stereotype-font="Microsoft Sans Serif;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center" />
           </item>
-          <item id="ddip163654682183673821_886370157632946598" cid="IFC007" type="uml-interface" name="TreatmentHistoryField" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:01:55">
-            <stereotypes />
-            <tagged-values />
-            <associated-diagrams />
-            <owned-items />
-            <style class="default" />
-          </item>
-          <item id="ddip163654682183673821_869644685498899302" cid="IFC005" type="uml-interface" name="DoctorDetail" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 08:46:41">
+          <item id="ddip163654682183673821_869644685498899302" cid="IFC005" type="uml-interface" name="DoctorDetail" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 08:46:41">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -448,17 +441,6 @@
             <owned-items />
             <style background-type="solid" background-color="#FFFFFFFF" background-color2="#FFFFFFFF" border-color="#FF000000" border-width="1" shadow-type="smooth" shadow-offset="-2,-2" shadow-size="6,6" shadow-visible="true" shadow-color="#50000000" shadow-radius="6" gloss-effect="true" threed-gloss-effect="false" wrap-name-text="true" wrap-other-text="true" text-wrapping-threshold="0" padding="0" name-color="#FF000000" name-font="Microsoft Sans Serif;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-color="#FF1E1E1E" part-header-font="Microsoft Sans Serif;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-color="#FF000000" text-font="Microsoft Sans Serif;10;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-color="#FF1E1E1E" tagged-value-font="Microsoft Sans Serif;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-color="#FF1E1E1E" stereotype-font="Microsoft Sans Serif;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center" />
           </item>
-          <item id="ddip163654682183673821_903313794938752766" cid="REL007" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:02:03">
-            <stereotypes />
-            <tagged-values />
-            <associated-diagrams />
-            <owned-items />
-            <style class="default" />
-            <relation from="ddip163654682183673821_892468702136617113" to="ddip163654682183673821_886370157632946598">
-              <start-role id="" name="" multiplicity="" navigability="" association-type="association" visibility="private" />
-              <end-role id="" name="" multiplicity="" navigability="" association-type="association" visibility="private" />
-            </relation>
-          </item>
           <item id="ddip163654682183673821_808772489512289130" cid="CPT002" type="component" name="CustomSnippet" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P5c70a8cc94fc4588bdacaa86955863c9" creation-date="06/05/2014 23:36:50">
             <stereotypes />
             <tagged-values />
@@ -475,7 +457,7 @@
             <owned-items />
             <style background-type="solid" background-color="#FFFFFFFF" background-color2="#FFFFFFFF" border-color="#FF000000" border-width="1" shadow-type="smooth" shadow-offset="-2,-2" shadow-size="6,6" shadow-visible="true" shadow-color="#50000000" shadow-radius="6" gloss-effect="true" threed-gloss-effect="false" wrap-name-text="true" wrap-other-text="true" text-wrapping-threshold="0" padding="0" name-color="#FF000000" name-font="Microsoft Sans Serif;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-color="#FF1E1E1E" part-header-font="Microsoft Sans Serif;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-color="#FF000000" text-font="Microsoft Sans Serif;10;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-color="#FF1E1E1E" tagged-value-font="Microsoft Sans Serif;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-color="#FF1E1E1E" stereotype-font="Microsoft Sans Serif;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center" />
           </item>
-          <item id="ddip163654682183673821_786380572861626807" cid="RIF005" type="uml-required-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:55:28">
+          <item id="ddip163654682183673821_786380572861626807" cid="RIF005" type="uml-required-interface" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:55:28">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -532,35 +514,35 @@
             <owned-items />
             <style background-type="solid" background-color="#FFFFFFFF" background-color2="#FFFFFFFF" border-color="#FF000000" border-width="1" shadow-type="smooth" shadow-offset="-2,-2" shadow-size="6,6" shadow-visible="true" shadow-color="#50000000" shadow-radius="6" gloss-effect="true" threed-gloss-effect="false" wrap-name-text="true" wrap-other-text="true" text-wrapping-threshold="0" padding="0" name-color="#FF000000" name-font="Microsoft Sans Serif;10;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-color="#FF1E1E1E" part-header-font="Microsoft Sans Serif;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-color="#FF000000" text-font="Microsoft Sans Serif;10;" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-color="#FF1E1E1E" tagged-value-font="Microsoft Sans Serif;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-color="#FF1E1E1E" stereotype-font="Microsoft Sans Serif;9;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center" />
           </item>
-          <item id="ddip163654682183673821_330344094284050320" cid="RIF002" type="uml-required-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:37:59">
+          <item id="ddip163654682183673821_330344094284050320" cid="RIF002" type="uml-required-interface" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:37:59">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip163654682183673821_242500573675475938" cid="IFC002" type="uml-interface" name="MedicalProfileDetail" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:38:05">
+          <item id="ddip163654682183673821_242500573675475938" cid="IFC002" type="uml-interface" name="MedicalProfileDetail" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:38:05">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip163654682183673821_475958324835581442" cid="RIF003" type="uml-required-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:48:35">
+          <item id="ddip163654682183673821_475958324835581442" cid="RIF003" type="uml-required-interface" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:48:35">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip163654682183673821_404635708942329105" cid="IFC003" type="uml-interface" name="PatientDetail" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:48:43">
+          <item id="ddip163654682183673821_404635708942329105" cid="IFC003" type="uml-interface" name="PatientDetail" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:48:43">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip163654682183673821_940972564316108064" cid="REL002" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:48:49">
+          <item id="ddip163654682183673821_940972564316108064" cid="REL002" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:48:49">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -571,7 +553,7 @@
               <end-role id="" name="" multiplicity="" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="ddip163654682183673821_691757087493094412" cid="REL003" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:52:21">
+          <item id="ddip163654682183673821_691757087493094412" cid="REL003" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:52:21">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -582,21 +564,21 @@
               <end-role id="" name="" multiplicity="" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="ddip163654682183673821_894032022592664148" cid="RIF004" type="uml-required-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:54:24">
+          <item id="ddip163654682183673821_894032022592664148" cid="RIF004" type="uml-required-interface" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:54:24">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip163654682183673821_318175065971699925" cid="IFC004" type="uml-interface" name="DoctorDetail" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:54:32">
+          <item id="ddip163654682183673821_318175065971699925" cid="IFC004" type="uml-interface" name="DoctorDetail" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:54:32">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip163654682183673821_595635936533638393" cid="REL004" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:54:47">
+          <item id="ddip163654682183673821_595635936533638393" cid="REL004" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 06:54:47">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -607,14 +589,14 @@
               <end-role id="" name="" multiplicity="" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="ddip163654682183673821_343308888862362547" cid="RIF006" type="uml-required-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 08:47:17">
+          <item id="ddip163654682183673821_343308888862362547" cid="RIF006" type="uml-required-interface" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 08:47:17">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip163654682183673821_753189916753658107" cid="REL006" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 08:47:22">
+          <item id="ddip163654682183673821_753189916753658107" cid="REL006" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 08:47:22">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -625,14 +607,14 @@
               <end-role id="" name="" multiplicity="" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="ddip163654682183673821_761112069873501550" cid="IFC008" type="uml-interface" name="CustomField" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:02:13">
+          <item id="ddip163654682183673821_761112069873501550" cid="IFC008" type="uml-interface" name="CustomField" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:02:13">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip163654682183673821_279908425188953653" cid="REL008" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:02:16">
+          <item id="ddip163654682183673821_279908425188953653" cid="REL008" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:02:16">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -643,14 +625,14 @@
               <end-role id="" name="" multiplicity="" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="ddip163654682183673821_270549589143543653" cid="IFC009" type="uml-interface" name="PatientDataField" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:02:22">
+          <item id="ddip163654682183673821_270549589143543653" cid="IFC009" type="uml-interface" name="PatientDataField" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:02:22">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip163654682183673821_469103043451833614" cid="REL009" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:02:30">
+          <item id="ddip163654682183673821_469103043451833614" cid="REL009" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:02:30">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -661,21 +643,14 @@
               <end-role id="" name="" multiplicity="" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="ddip163654682183673821_528426548202924540" cid="RIF007" type="uml-required-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:02:48">
+          <item id="ddip163654682183673821_818661540839578644" cid="RIF008" type="uml-required-interface" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:02:51">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip163654682183673821_818661540839578644" cid="RIF008" type="uml-required-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:02:51">
-            <stereotypes />
-            <tagged-values />
-            <associated-diagrams />
-            <owned-items />
-            <style class="default" />
-          </item>
-          <item id="ddip163654682183673821_629798422887999452" cid="RIF009" type="uml-required-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:02:56">
+          <item id="ddip163654682183673821_629798422887999452" cid="RIF009" type="uml-required-interface" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:02:56">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -812,19 +787,6 @@
           <item id="ddip163654682183673821_808772489512289130" iid="35ccbaee8d024128aa372f239347566c" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="06/05/2014 23:36:50" order-index="1" type="entity">
             <layout ax="332" ay="275" awidth="174" aheight="114" x="332" y="275" width="174" height="114" angle="0" />
           </item>
-          <item id="ddip163654682183673821_886370157632946598" iid="44613d339fb242cbb46fa0092de4bca3" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="06/07/2014 10:01:55" order-index="21" type="entity">
-            <layout ax="357" ay="187" awidth="119" aheight="55" x="357" y="187" width="119" height="55" angle="0" />
-          </item>
-          <item id="ddip163654682183673821_903313794938752766" iid="6e7044042548477cab6515f5274ddcf9" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="06/07/2014 10:02:03" order-index="22" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="416" y1="150" x2="416" y2="187" start-border-pos="0.625" end-border-pos="0.123949579831933">
-              <points>
-                <point x="416" y="150" />
-                <point x="416" y="187" />
-              </points>
-            </layout>
-            <relation from="ddip163654682183673821_892468702136617113" from-iid="34d1f7c0285648c89ea3f7fd5c3e0806" to="ddip163654682183673821_886370157632946598" to-iid="44613d339fb242cbb46fa0092de4bca3" />
-            <role-positions start-role="8.766477,47.14767" end-role="25,15" start-multiplicity="25,-15" end-multiplicity="25,-15" />
-          </item>
           <item id="ddip163654682183673821_761112069873501550" iid="05389708b8e545a59b94edaf5b683de1" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="06/07/2014 10:02:13" order-index="23" type="entity">
             <layout ax="586" ay="252" awidth="85" aheight="43" x="586" y="252" width="85" height="43" angle="0" />
           </item>
@@ -851,15 +813,6 @@
             <relation from="ddip163654682183673821_270549589143543653" from-iid="93246e377fda45e8b1bd32eff685faf8" to="ddip163654682183673821_244125741985803430" to-iid="b63d189a039d4637899f736e48d2b69e" />
             <role-positions start-role="25,15" end-role="25,15" start-multiplicity="25,-15" end-multiplicity="25,-15" />
           </item>
-          <item id="ddip163654682183673821_528426548202924540" iid="943a9c9eeb664a3283ef524b5e39ab4d" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="06/07/2014 10:02:48" order-index="27" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="418" y1="275" x2="416.7485" y2="209.1487" start-border-pos="0.122917876846489" end-border-pos="0.625445069385176">
-              <points>
-                <point x="418" y="275" />
-                <point x="416.7485" y="209.1487" />
-              </points>
-            </layout>
-            <relation from="ddip163654682183673821_808772489512289130" from-iid="35ccbaee8d024128aa372f239347566c" to="ddip163654682183673821_886370157632946598" to-iid="44613d339fb242cbb46fa0092de4bca3" />
-          </item>
           <item id="ddip163654682183673821_818661540839578644" iid="ef838e94cb904cadb4a9de865b875117" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="06/07/2014 10:02:51" order-index="28" type="relation">
             <layout line-style="oblique" lock-start-point="false" lock-end-point="false" name-position="10,-10" x1="506" y1="308" x2="614.7894" y2="267.7" start-border-pos="0.322053608141447" end-border-pos="0.945671613826308">
               <points>
@@ -881,7 +834,7 @@
         </layer>
       </diagram>
     </model>
-    <model id="p413028124346189163" name="Class" type="" namespace="" order-index="2">
+    <model id="p413028124346189163" name="Class" type="model" namespace="" order-index="2">
       <meta>
         <authors>
           <author> </author>
@@ -913,7 +866,7 @@
         </meta>
         <tagged-values />
         <abstract-items>
-          <item id="ddip940002070102477757_377387867545065640" cid="C001" type="class" name="FilmType" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:36:51">
+          <item id="ddip940002070102477757_377387867545065640" cid="C001" type="class" name="FilmType" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="06/07/2014 10:36:51">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
