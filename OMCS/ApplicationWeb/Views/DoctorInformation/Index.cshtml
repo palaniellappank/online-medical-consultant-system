@@ -1,0 +1,206 @@
+﻿@model OMCS.DAL.Model.Doctor
+@using OMCS.Web
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+<fieldset style="text-align: center">
+    <legend>Thông tin Bác sĩ</legend>
+</fieldset>
+
+<img alt="User Pic" id="targetImg" src="@Html.GetPictureUrl("Profile")@Model.ProfilePicture" class="img-circle" style="width:120px; height:120px">
+
+<div class="dropdown">
+    <a href="#" class="btn btn-primary" data-toggle="dropdown" title="Cập nhật logo"><i class="glyphicon glyphicon-pencil"></i></a>
+    <ul class="dropdown-menu">
+        <li>
+            <input type="file" name="file" id="file" title="Upload" />
+            <button type="submit" class="btn btn-primary" id="btnUpload">Cập nhật</button>
+        </li>
+    </ul>
+</div>
+
+<div class="row">
+    <div class="col-xs-4" style="float: right">
+        <label class="switch-light progress progress-striped active" onclick="">
+            <input type="checkbox" id="enable">
+            <span>Thay đổi
+                <span aria-label="Tắt" title="Tắt">O</span>
+                <span aria-label="Bật" title="Bật">I</span>
+            </span>
+            <a class="progress-bar progress-bar-success"></a>
+        </label>
+    </div>
+</div>
+
+
+<table class="table table-data table-bordered table-striped" style="clear: both">
+    <tbody>
+        <tr>
+            <td style="width: 35%;">@Html.DisplayNameFor(model => model.FullName)</td>
+            <td style="width: 65%;">
+                <a href="#" id="lastname" data-type="text"
+                    data-title="@Html.DisplayNameFor(model => model.LastName)" class="editable editable-click">
+                    @Html.DisplayFor(model => model.LastName)
+                </a>
+                <a href="#" id="firstname" data-type="text" 
+                    data-title="@Html.DisplayNameFor(model => model.FirstName)" class="editable editable-click">
+                    @Html.DisplayFor(model => model.FirstName)
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Password)</td>
+            <td>
+                <a href="#" id="password" data-type="password" data-value="@Html.DisplayFor(model => model.Password)" 
+                    data-title="@Html.DisplayNameFor(model => model.Password)" class="editable editable-click">
+                </a>                
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Gender)</td>
+            <td>
+                <a href="#" id="gender" data-type="select" data-value="@Html.DisplayFor(model => model.Gender)" 
+                    data-title="@Html.DisplayNameFor(model => model.Gender)" class="editable editable-click"></a>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Birthday)</td>
+            <td>
+                <a href="#" id="birthday" data-type="date" data-value="@Html.DisplayFor(model => model.Birthday)"
+                    data-title="@Html.DisplayNameFor(model => model.Birthday)"></a>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Phone)</td>
+            <td>
+                <a href="#" id="phone" data-type="tel"
+                    data-title="@Html.DisplayNameFor(model => model.Phone)">@Html.DisplayFor(model => model.Phone)</a>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.PrimaryAddress)</td>
+            <td>
+                <a href="#" id="primaryaddress" data-type="textarea"
+                    data-title="@Html.DisplayNameFor(model => model.PrimaryAddress)">@Html.DisplayFor(model => model.PrimaryAddress)</a>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.SecondaryAddress)</td>
+            <td>
+                <a href="#" id="secondaryaddress" data-type="textarea"
+                    data-title="@Html.DisplayNameFor(model => model.SecondaryAddress)">@Html.DisplayFor(model => model.SecondaryAddress)</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+
+        //defaults
+        $.fn.editable.defaults.url = '/DoctorInformation/Save';
+        $.fn.editable.defaults.emptytext = 'Trống';
+        $.fn.editable.defaults.pk = @Html.DisplayFor(model => model.UserId);
+
+        //enable / disable
+        $('#enable').click(function () {
+            if ($(this).prop("checked")) {
+                $("#autoopendiv").css("display", "block");
+            } else {
+                $("#autoopendiv").css("display", "none");
+            }
+            $('.table-data .editable').editable('toggleDisabled');
+        });
+
+        //editables 
+        $('#lastname').editable({
+            type: 'text',
+            name: 'lastname',
+            validate: function (value) {
+                if ($.trim(value) == '') return jQuery.validator.messages.required;
+            }
+        });
+
+        $('#firstname').editable({
+            validate: function (value) {
+                if ($.trim(value) == '') return jQuery.validator.messages.required;
+            }
+        });
+
+        $('#gender').editable({
+            source: [
+                { value: "Nam", text: 'Nam' },
+                { value: "Nữ", text: 'Nữ' }
+            ]
+        });
+        
+        $('#birthday').editable({
+            format: 'dd-mm-yyyy',    
+            viewformat: 'dd/mm/yyyy',    
+            datepicker: {
+                firstDay: 1
+            }
+        });
+
+        $('#phone').editable({
+            validate: function (value) {
+                var reg = new RegExp(/^[0-9]/);
+                if (value.length > 8 && value.length < 12) {
+                    if (!value.match(reg)) {
+                        return "Vui lòng nhập số !";
+                    }
+                } else {
+                    return "Nhập trong khoảng từ 8-12 !";
+                }
+            }
+        });
+
+        $('#primaryaddress').editable();
+
+        $('#password').editable({            
+            validate: function (value) {
+                var passw=  /^[A-Za-z0-9]\w{5,32}$/;               
+                    if (!value.match(passw)) {
+                        return "Vui lòng nhập lại !";                  
+                }
+            }
+        });
+        $('#repassword').editable();
+
+        $('#secondaryaddress').editable();
+        
+        $('.table-data .editable').on('hidden', function (e, reason) {
+            if (reason === 'save' || reason === 'nochange') {
+                var $next = $(this).closest('tr').next().find('.editable');
+                if ($('#autoopen').is(':checked')) {
+                    setTimeout(function () {
+                        $next.editable('show');
+                    }, 300);
+                } else {
+                    $next.focus();
+                }
+            }
+        });
+        $('.table-data .editable').editable('toggleDisabled');
+
+        $('#btnUpload').click(function () {
+            var formdata = new FormData(); //FormData object
+            var fileInput = document.getElementById('file');                                 
+            for (i = 0; i < fileInput.files.length; i++) {
+                //Appending each file to FormData object
+                formdata.append(fileInput.files[i].name, fileInput.files[i]);
+            }
+            $.ajax({
+                type: "POST",
+                url: '/DoctorInformation/Upload',
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function () {                  
+                    window.location.reload(true);
+                }
+            });
+        });
+    });
+</script>

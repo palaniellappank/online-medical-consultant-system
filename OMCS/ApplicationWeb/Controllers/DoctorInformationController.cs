@@ -16,34 +16,31 @@ using System.Diagnostics;
 
 namespace OMCS.Web.Controllers
 {
-     [CustomAuthorize(Roles= "User")]
-    public class UserInfoController : BaseController
+    [CustomAuthorize(Roles = "Doctor")]
+    public class DoctorInformationController : BaseController
     {
-        //PatientBusiness userBusiness;
-
-        //public UserInfoController()
-        //{
-        //    userBusiness = new PatientBusiness(_db);
-        //}
+        //
+        // GET: /DoctorInformation/
 
         public ActionResult Index()
         {
-            var patient = _db.Patients.Where(pa => pa.UserId == User.UserId).SingleOrDefault();
-            return View(patient);
+            Doctor doctor = _db.Doctors.Where(d => d.UserId == User.UserId).SingleOrDefault();
+            return View(doctor);
         }
 
         public JObject Save(string name, string value, int pk)
         {
-            var patient = _db.Patients.Where(pa => pa.UserId == User.UserId).SingleOrDefault();
-            Type type = typeof(Patient);
+            var doctor = _db.Doctors.Where(d => d.UserId == User.UserId).SingleOrDefault();
+            Type type = typeof(Doctor);
             PropertyInfo pi = type.GetProperty(name, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-            if ("birthday".Equals(name) || "healthInsuranceIssued".Equals(name) || "healthInsuranceDateExpired".Equals(name))
+            if ("birthday".Equals(name))
             {
                 DateTime datetime = DateTime.ParseExact(value, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                pi.SetValue(patient, datetime);
-            } else
+                pi.SetValue(doctor, datetime);
+            }
+            else
             {
-                pi.SetValue(patient, Convert.ChangeType(value, pi.PropertyType), null);
+                pi.SetValue(doctor, Convert.ChangeType(value, pi.PropertyType), null);
             }
             _db.SaveChanges();
             JObject result = new JObject();
@@ -62,7 +59,7 @@ namespace OMCS.Web.Controllers
                     string fileName = file.FileName;
                     string mimeType = file.ContentType;
                     System.IO.Stream fileContent = file.InputStream;
-                    file.SaveAs(Server.MapPath("~/Content/Image/ProfilePicture/") + fileName);                    
+                    file.SaveAs(Server.MapPath("~/Content/Image/ProfilePicture/") + fileName);                   
                     string firstname = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().FirstName;
                     string lastname = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().LastName;
                     string password = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Password;
@@ -73,21 +70,21 @@ namespace OMCS.Web.Controllers
                     string primary = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().PrimaryAddress;
                     string secondary = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().SecondaryAddress;
                     string email = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Email;
-                    User patient = new User();
-                    patient.UserId = User.UserId;
-                    patient.FirstName = firstname;
-                    patient.LastName = lastname;
-                    patient.Password = password;
-                    patient.IsActive = true;
-                    patient.Phone = phone;
-                    patient.PrimaryAddress = primary;
-                    patient.SecondaryAddress = secondary;
-                    patient.CreatedDate = createDate;
-                    patient.Birthday = birthDate;
-                    patient.ProfilePicture = fileName;
-                    patient.Email = email;
-                    patient.Gender = gender;
-                    _db.Entry(patient).State = EntityState.Modified;
+                    User doctor = new User();
+                    doctor.UserId = User.UserId;
+                    doctor.FirstName = firstname;
+                    doctor.LastName = lastname;
+                    doctor.Password = password;
+                    doctor.IsActive = true;
+                    doctor.Phone = phone;
+                    doctor.PrimaryAddress = primary;
+                    doctor.SecondaryAddress = secondary;
+                    doctor.CreatedDate = createDate;
+                    doctor.Birthday = birthDate;
+                    doctor.ProfilePicture = fileName;
+                    doctor.Email = email;
+                    doctor.Gender = gender;
+                    _db.Entry(doctor).State = EntityState.Modified;
                     _db.SaveChanges();
                 }
                 catch (DbEntityValidationException e)
@@ -106,5 +103,6 @@ namespace OMCS.Web.Controllers
             }
             return Json("Uploaded " + Request.Files.Count + " files");
         }
+
     }
 }

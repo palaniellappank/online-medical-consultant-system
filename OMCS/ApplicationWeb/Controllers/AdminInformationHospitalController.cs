@@ -30,7 +30,8 @@ namespace OMCS.Web.Controllers
             ViewBag.specialtyfields = specialtyfields;
             var speCount = _db.SpecialtyFields.Count();
             ViewBag.speCount = speCount;
-            var hospitalInformation = _db.HospitalInformations.Where(h => h.HospitalInformationId == 1).SingleOrDefault();
+            int hospitalId = _db.HospitalInformations.Where(h => h.HospitalInformationId != 0).AsNoTracking().SingleOrDefault().HospitalInformationId;
+            var hospitalInformation = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).SingleOrDefault();
             IEnumerable<MedicalProfile> medical = _db.MedicalProfiles.Where(m => m.MedicalProfileId != 0).ToList();
             ViewBag.medical = medical;
             var medicalCount = _db.MedicalProfiles.Count();
@@ -40,7 +41,8 @@ namespace OMCS.Web.Controllers
 
         public JObject Save(string name, string value, int pk)
         {
-            var hospitalInformation = _db.HospitalInformations.Where(h => h.HospitalInformationId == 1).SingleOrDefault();
+            int hospitalId = _db.HospitalInformations.Where(h => h.HospitalInformationId != 0).AsNoTracking().SingleOrDefault().HospitalInformationId;
+            var hospitalInformation = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).SingleOrDefault();
             Type type = typeof(HospitalInformation);
             PropertyInfo pi = type.GetProperty(name, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
             pi.SetValue(hospitalInformation, Convert.ChangeType(value, pi.PropertyType), null);
@@ -60,13 +62,14 @@ namespace OMCS.Web.Controllers
                 string mimeType = file.ContentType;
                 System.IO.Stream fileContent = file.InputStream;
                 file.SaveAs(Server.MapPath("~/Content/Image/Logo/") + fileName);
-                string name = _db.HospitalInformations.Where(h => h.HospitalInformationId == 1).AsNoTracking().FirstOrDefault().Name;
-                string address = _db.HospitalInformations.Where(h => h.HospitalInformationId == 1).AsNoTracking().FirstOrDefault().Address;
-                string email = _db.HospitalInformations.Where(h => h.HospitalInformationId == 1).AsNoTracking().FirstOrDefault().Email;  
-                string phone = _db.HospitalInformations.Where(h => h.HospitalInformationId == 1).AsNoTracking().FirstOrDefault().Phone;
-                string fax = _db.HospitalInformations.Where(h => h.HospitalInformationId == 1).AsNoTracking().FirstOrDefault().Fax;  
+                int hospitalId = _db.HospitalInformations.Where(h => h.HospitalInformationId != 0).AsNoTracking().SingleOrDefault().HospitalInformationId;
+                string name = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).AsNoTracking().FirstOrDefault().Name;
+                string address = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).AsNoTracking().FirstOrDefault().Address;
+                string email = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).AsNoTracking().FirstOrDefault().Email;
+                string phone = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).AsNoTracking().FirstOrDefault().Phone;
+                string fax = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).AsNoTracking().FirstOrDefault().Fax;  
                 HospitalInformation hospital = new HospitalInformation();
-                hospital.HospitalInformationId = 1;
+                hospital.HospitalInformationId = hospitalId;
                 hospital.Logo = fileName;
                 hospital.Name = name;
                 hospital.Email = email;

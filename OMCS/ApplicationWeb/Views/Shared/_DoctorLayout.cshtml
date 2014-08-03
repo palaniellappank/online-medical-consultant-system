@@ -8,10 +8,15 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootply-admin.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-
+    <link href="~/Content/toggle-switch.css" rel="stylesheet">
     @Scripts.Render("~/bundles/jsOMCS")
     <script src="~/Scripts/holder.js"></script>
 
+    <link href="~/Content/select2/select2.css" rel="stylesheet">
+    <script src="~/Content/select2/select2.js"></script>
+
+    <link href="~/Content/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+    <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>
     @if (IsSectionDefined("Styles"))
     {
         @RenderSection("Styles");
@@ -51,21 +56,24 @@
                 <!-- Left column -->
 
                 <ul class="nav nav-pills nav-stacked">
-                    <li class="nav-header"></li>                    
+                    <li class="nav-header"></li>
+                    <li class="@Html.IsActive("DoctorInformation", "Index")">
+                        <a href="@Url.Action("Index", "DoctorInformation")"><i class="glyphicon glyphicon-user"></i>Thông tin cá nhân</a>
+                    </li>
                     <li class="@Html.IsActive("DoctorUser", "Index")">
-                        <a href="@Url.Action("Index", "DoctorUser")"><i class="glyphicon glyphicon-user"></i> Quản lý bệnh nhân</a>
+                        <a href="@Url.Action("Index", "DoctorUser")"><i class="glyphicon glyphicon-user"></i>Quản lý bệnh nhân</a>
                     </li>
                     <li class="@Html.IsActive("DoctorMedicalProfile", "Index")">
-                        <a href="@Url.Action("Index", "DoctorMedicalProfile")"><i class="glyphicon glyphicon-folder-open"></i> Quản lý bệnh án</a>
+                        <a href="@Url.Action("Index", "DoctorMedicalProfile")"><i class="glyphicon glyphicon-folder-open"></i>Quản lý bệnh án</a>
                     </li>
                     <li class="@Html.IsActive("DoctorConversation", "Index")">
-                        <a href="@Url.Action("Index", "DoctorConversation")" target="_blank"><i class="glyphicon glyphicon-envelope"></i> Tư vấn trực tuyến<span class="badg1e unread-message"></span></a>
+                        <a href="@Url.Action("Index", "DoctorConversation")" target="_blank"><i class="glyphicon glyphicon-envelope"></i>Tư vấn trực tuyến<span class="badg1e unread-message"></span></a>
                     </li>
                     <li class="@Html.IsActive("DoctorComment", "Index")">
                         <a href="@Url.Action("Index", "DoctorComment")"><i class="glyphicon glyphicon-list-alt"></i> Tin nhắn</a>
                     </li>
                     <li class="@Html.IsActive("AdminTemplate", "Index")">
-                        <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i> Xem mẫu hồ sơ</a>
+                        <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i>Xem mẫu hồ sơ</a>
                     </li>
                 </ul>
 
