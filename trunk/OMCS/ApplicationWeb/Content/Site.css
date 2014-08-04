@@ -1,9 +1,12 @@
 ﻿/*
     This css is apply for the whole application
 */
-
 .container
 {
+}
+
+.nav > li.active {
+    background-color: #e7e7e7;
 }
 /* Styles for validation helpers
 -----------------------------------------------------------*/
