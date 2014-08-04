@@ -1,0 +1,3 @@
+Feature plans:
+	Manage history of changes of a medical profile for a patient
+	Link medical profile between patients. Doctor can see patient's family history deseases
