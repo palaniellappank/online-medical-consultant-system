@@ -63,6 +63,7 @@ namespace OMCS.Web.Controllers
             {
                 ViewBag.RatingPoint = 0;
             }
+            ViewBag.User = _db.Users.Find(User.UserId);
             return PartialView("_Evaluate", comments);
         }
 
