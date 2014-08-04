@@ -21,6 +21,19 @@ namespace OMCS.Web
                         "~/Scripts/jquery.blockUI.js",
                         "~/Scripts/bootbox.js",
                         "~/Content/mCustomScrollbar/jquery.mCustomScrollbar.js",
+                        "~/Scripts/jquery.metisMenu.js",
+                        "~/Scripts/site.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jsTemplateEditor").Include(
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui-{version}.js",
+                        "~/Scripts/jquery.validate.js",
+                        "~/Scripts/underscore.js",
+                        "~/Scripts/backbone.js",
+                        "~/Scripts/bootstrap.js",
+                        "~/Scripts/jquery.blockUI.js",
+                        "~/Scripts/bootbox.js",
+                        "~/Scripts/jquery.metisMenu.js",
                         "~/Scripts/site.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(

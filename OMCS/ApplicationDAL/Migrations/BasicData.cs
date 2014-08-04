@@ -11,6 +11,20 @@
     {
         public static void Seed(OMCS.DAL.Model.OMCSDBContext _db)
         {
+            #region HospitalInformation
+            var hopsital = new HospitalInformation
+            {
+                Name = "FPT Hospital",
+                Address = "Công viên phần mềm Quang Trung",
+                Email = "contact@fpt.edu.vn",
+                Fax = "08.53453465",
+                Phone = "08.423423434",
+                Logo = ""
+            };
+            _db.HospitalInformations.AddOrUpdate(p => p.Name, hopsital);
+            _db.SaveChanges();
+            #endregion HospitalInformation
+
             #region Role
 
             var roles = new List<Role> {

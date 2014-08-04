@@ -5,13 +5,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Trang quản trị hệ thống</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootply-admin.css" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/bundles/cssOMCS")
+    <link href="~/Content/sb-admin.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
    <link href="~/Content/toggle-switch.css" rel="stylesheet">
-    @Scripts.Render("~/bundles/jsOMCS")
-
     <link href="~/Content/select2/select2.css" rel="stylesheet">
+
+    @Scripts.Render("~/bundles/jsOMCS")
     <script src="~/Content/select2/select2.js"></script>
 
     <link href="~/Content/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
@@ -23,103 +23,116 @@
     }
 </head>
 <body>
+  <div id="wrapper">
     <!-- Header -->
-    <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
-        <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">Admin</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">                  
-                    <li><a href="~/Account/Logout"><i class="glyphicon glyphicon-lock"></i>Đăng xuất</a></li>
-                </ul>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="@Url.Action("Index", "AdminInformation")"><i class="fa fa-user fa-fw"></i> Thông tin cá nhân</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="~/Account/Logout"><i class="fa fa-sign-out fa-fw"></i> Đăng xuất</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="@Html.IsActive("AdminInformationHospital", "Index")">
+                            <a href="@Url.Action("Index", "AdminInformationHospital")"><i class="fa fa-dashboard fa-fw"></i> Thông tin bệnh viện</a>
+                        </li>
+                        <li class="@Html.IsActive("AdminUser", "Index")">
+                            <a href="@Url.Action("Index", "AdminUser")"><i class="fa fa-user fa-fw"></i> Quản lý người dùng<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="flot.html">Flot Charts</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">Morris.js Charts</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li class="@Html.IsActive("AdminDoctor", "Index")">
+                            <a href="@Url.Action("Index", "AdminDoctor")"><i class="fa fa-user-md fa-fw"></i> Quản lý bác sĩ</a>
+                        </li>
+                        <li class="@Html.IsActive("AdminSpecialtyField", "Index")">
+                            <a href="@Url.Action("Index", "AdminSpecialtyField")"><i class="fa fa-edit fa-fw"></i> Quản lý Chuyên Khoa</a>
+                        </li>
+                        <li class="@Html.IsActive("AdminMedicalProfile", "Index")">
+                            <a href="@Url.Action("Index", "AdminMedicalProfile")"><i class="fa fa-hospital-o fa-fw"></i> Quản lý Hồ sơ bệnh án</a>
+                        </li>
+                        <li class="@Html.IsActive("AdminComment", "Index")">
+                            <a href="@Url.Action("Index", "AdminComment")"><i class="fa fa-envelope-o fa-fw"></i> Quản lý Bình luận</a>
+                        </li>
+                        <li class="@Html.IsActive("AdminTemplate", "Index")">
+                            <a href="@Url.Action("Index", "AdminTemplate")"><i class="fa fa-files-o fa-fw"></i> Mẫu hồ sơ</a>
+                        </li>
+                        <li class="@Html.IsActive("FilmType", "Index")">
+                            <a href="@Url.Action("Index", "FilmType")"><i class="fa fa-file-image-o fa-fw"></i> Quản lý thể loại film</a>
+                        </li>
+                        <li class="@Html.IsActive("AllergyType", "Index")">
+                            <a href="@Url.Action("Index", "AllergyType")"><i class="fa fa-stethoscope fa-fw"></i> Quản lý thể loại dị ứng</a>
+                        </li>
+                    </ul>
+                    <!-- /#side-menu -->
+                </div>
+                <!-- /.sidebar-collapse -->
             </div>
-        </div>
-        <!-- /container -->
-    </div>
-    <!-- /Header -->
+            <!-- /.navbar-static-side -->
+        </nav>
 
-    <!-- Main -->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <!-- Left column -->
-
-                <ul class="nav nav-pills nav-stacked">
-                    <li class="nav-header"></li>
-                    <li class="@Html.IsActive("AdminInformationHospital", "Index")">
-                        <a href="@Url.Action("Index", "AdminInformationHospital")"><i class="glyphicon glyphicon-home"></i>Thông tin bệnh viện</a>
-                    </li>
-                    <li class="@Html.IsActive("AdminUser", "Index")">
-                        <a href="@Url.Action("Index", "AdminUser")"><i class="glyphicon glyphicon-user"></i>Quản lý người dùng</a>
-                    </li>
-                    <li class="@Html.IsActive("AdminDoctor", "Index")">
-                        <a href="@Url.Action("Index", "AdminDoctor")"><i class="glyphicon glyphicon-user"></i>Quản lý bác sĩ</a>
-                    </li>
-                    <li class="@Html.IsActive("AdminInformation", "Index")">
-                        <a href="@Url.Action("Index", "AdminInformation")"><i class="glyphicon glyphicon-user"></i>Thông tin cá nhân</a>
-                    </li>
-                    <li class="@Html.IsActive("AdminSpecialtyField", "Index")">
-                        <a href="@Url.Action("Index", "AdminSpecialtyField")"><i class="glyphicon glyphicon-list"></i>Quản lý Chuyên Khoa</a>
-                    </li>
-                    <li class="@Html.IsActive("AdminMedicalProfile", "Index")">
-                        <a href="@Url.Action("Index", "AdminMedicalProfile")"><i class="glyphicon glyphicon-list"></i>Quản lý Hồ sơ bệnh án</a>
-                    </li>
-                     <li class="@Html.IsActive("AdminComment", "Index")">
-                        <a href="@Url.Action("Index", "AdminComment")"><i class="glyphicon glyphicon-list"></i>Quản lý Bình luận</a>
-                    </li>
-                    <li class="@Html.IsActive("AdminTemplate", "Index")">
-                        <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i>Mẫu hồ sơ</a>
-                    </li>
-                    <li class="@Html.IsActive("FilmType", "Index")">
-                        <a href="@Url.Action("Index", "FilmType")"><i class="glyphicon glyphicon-list-alt"></i>Quản lý thể loại film</a>
-                    </li>
-                    <li class="@Html.IsActive("AllergyType", "Index")">
-                        <a href="@Url.Action("Index", "AllergyType")"><i class="glyphicon glyphicon-list-alt"></i>Quản lý thể loại dị ứng</a>
-                    </li>
-                </ul>
-
-                <hr>
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">@ViewBag.Title</h1>
+                </div>
+                <!-- /.col-lg-12 -->
             </div>
-            <!-- /col-3 -->
-            <div class="col-md-9">
+            <!-- /.row -->
+            <div class="row">
                 @RenderBody()
             </div>
-            <!--/col-span-9-->
         </div>
-    </div>
-    <!-- /Main -->
-
+      
     <footer class="text-center">Copyright Group 2 - FPT University - 2014</footer>
 
-    <div class="modal" id="addWidgetModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Add Widget</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Add a widget stuff here..</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" data-dismiss="modal" class="btn">Close</a>
-                    <a href="#" class="btn btn-primary">Save changes</a>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dalog -->
-    </div>
-    <!-- /.modal -->
+    
     <script type='text/javascript'>
 
         $(document).ready(function () {
+            $('#side-menu').metisMenu();
+
+            //Loads the correct sidebar on window load,
+            //collapses the sidebar on window resize.
+            $(window).bind("load resize", function () {
+                width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
+                if (width < 768) {
+                    $('div.sidebar-collapse').addClass('collapse')
+                } else {
+                    $('div.sidebar-collapse').removeClass('collapse')
+                }
+            });
 
             $(".alert").addClass("in").fadeOut(4500);
 
@@ -130,5 +143,6 @@
             });
         });
     </script>
+  </div>
 </body>
 </html>
