@@ -5,29 +5,131 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Trang quản lý Bác Sĩ</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootply-admin.css" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/bundles/cssOMCS")
+    <link href="~/Content/sb-admin.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/toggle-switch.css" rel="stylesheet">
-    @Scripts.Render("~/bundles/jsOMCS")
-    <script src="~/Scripts/holder.js"></script>
-
     <link href="~/Content/select2/select2.css" rel="stylesheet">
+
+    @Scripts.Render("~/bundles/jsOMCS")
     <script src="~/Content/select2/select2.js"></script>
 
     <link href="~/Content/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
     <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>
+    @*<link href="~/Content/select2/select2.css" rel="stylesheet">
+    <script src="~/Content/select2/select2.js"></script>
+
+    <link href="~/Content/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+    <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>*@
     @if (IsSectionDefined("Styles"))
     {
         @RenderSection("Styles");
     }
 
-    <script type="text/javascript">
-        var baseUrl = "@Url.Content("~")";
-    </script>
+
 </head>
 <body>
-    <!-- Header -->
+    <div id="wrapper">
+        <!-- Header -->
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Bác Sĩ: @User.LastName @User.FirstName</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i><i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="@Url.Action("Index", "DoctorInformation")"><i class="fa fa-user fa-fw"></i>Thông tin cá nhân</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="~/Account/Logout"><i class="fa fa-sign-out fa-fw"></i>Đăng xuất</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="@Html.IsActive("DoctorUser", "Index")">
+                            <a href="@Url.Action("Index", "DoctorUser")"><i class="fa fa-user-md fa-fw"></i>Quản lý bệnh nhân</a>
+                        </li>
+                        <li class="@Html.IsActive("DoctorMedicalProfile", "Index")">
+                            <a href="@Url.Action("Index", "DoctorMedicalProfile")"><i class="fa fa-edit fa-fw"></i>Quản lý Bệnh Án</a>
+                        </li>
+                        <li class="@Html.IsActive("DoctorConversation", "Index")">
+                            <a href="@Url.Action("Index", "DoctorConversation")"><i class="fa fa-comment-o fa-fw"></i>Tư vấn trực tuyến<span class="badg1e unread-message"></span></a>
+                        </li>
+                        <li class="@Html.IsActive("DoctorComment", "Index")">
+                            <a href="@Url.Action("Index", "DoctorComment")"><i class="fa fa-envelope-o fa-fw"></i>Tin nhắn</a>
+                        </li>
+                        <li class="@Html.IsActive("AdminTemplate", "Index")">
+                            <a href="@Url.Action("Index", "AdminTemplate")"><i class="fa fa-files-o fa-fw"></i>Xem mẫu hồ sơ</a>
+                        </li>
+                    </ul>
+                    <!-- /#side-menu -->
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    @*<h1 class="page-header">@ViewBag.Title</h1>*@
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                @RenderBody()
+            </div>
+        </div>
+
+        <footer class="text-center">Copyright Group 2 - FPT University - 2014</footer>
+
+
+        <script type='text/javascript'>
+
+            $(document).ready(function () {
+                $('#side-menu').metisMenu();
+
+                //Loads the correct sidebar on window load,
+                //collapses the sidebar on window resize.
+                $(window).bind("load resize", function () {
+                    width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
+                    if (width < 768) {
+                        $('div.sidebar-collapse').addClass('collapse')
+                    } else {
+                        $('div.sidebar-collapse').removeClass('collapse')
+                    }
+                });
+
+                $(".alert").addClass("in").fadeOut(4500);
+
+                /* swap open/close side menu icons */
+                $('[data-toggle=collapse]').click(function () {
+                    // toggle icon
+                    $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
+                });
+            });
+        </script>
+    </div>
+    @*<!-- Header -->
     <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
@@ -70,9 +172,9 @@
                         <a href="@Url.Action("Index", "DoctorConversation")" target="_blank"><i class="glyphicon glyphicon-envelope"></i>Tư vấn trực tuyến<span class="badg1e unread-message"></span></a>
                     </li>
                     <li class="@Html.IsActive("DoctorComment", "Index")">
-                        <a href="@Url.Action("Index", "DoctorComment")"><i class="glyphicon glyphicon-list-alt"></i> Tin nhắn</a>
+                        <a href="@Url.Action("Index", "DoctorComment")"><i class="glyphicon glyphicon-list-alt"></i>Tin nhắn</a>
                     </li>
-                    <li class="@Html.IsActive("AdminTemplate", "Index")">
+                    <li class="@Html.IsActive("DoctorComment", "Index")">
                         <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i>Xem mẫu hồ sơ</a>
                     </li>
                 </ul>
@@ -112,6 +214,6 @@
         //        $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
         //    });
         //});
-    </script>
+    </script>*@
 </body>
 </html>
