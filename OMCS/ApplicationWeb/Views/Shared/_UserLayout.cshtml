@@ -15,6 +15,10 @@
     <link href="~/Content/select2/select2.css" rel="stylesheet">
     <script src="~/Content/select2/select2.js"></script>
 
+    <script type="text/javascript" src="@Url.Content("~/Content/UploadifyContent/jquery.uploadify.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/UploadifyContent/jquery.uploadify.min.js")"></script>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/UploadifyContent/uploadify.css")" />
+
     <link href="~/Content/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
     <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>
     <script type="text/javascript">
@@ -22,47 +26,47 @@
     </script>
 </head>
 <body>
-    
-    <div class="container" style="margin-top:100px;">
+
+    <div class="container" style="margin-top: 100px;">
         <div class="row">
-		    <div class="row nav-row">
-			    <div class="col-md-2 @Html.IsActive("UserInfo", "Index") @Html.IsActive("User", "Index")">
+            <div class="row nav-row">
+                <div class="col-md-2 @Html.IsActive("UserInfo", "Index") @Html.IsActive("User", "Index")">
                     <a href="@Url.Action("Index", "UserInfo")">
-				        <span class="glyphicon glyphicon-user"></span>
-				        <p>Thông Tin Chung</p>
+                        <span class="glyphicon glyphicon-user"></span>
+                        <p>Thông Tin Chung</p>
                     </a>
-			    </div>
-			    <div class="col-md-2 @Html.IsActive("UserHealthRecord", "Index")">
+                </div>
+                <div class="col-md-2 @Html.IsActive("UserHealthRecord", "Index")">
                     <a href="@Url.Action("Index", "UserHealthRecord")">
-				        <span class="glyphicon glyphicon-heart"></span>
-				        <p>Sức Khỏe Cơ Bản</p>
+                        <span class="glyphicon glyphicon-heart"></span>
+                        <p>Sức Khỏe Cơ Bản</p>
                     </a>
-			    </div>
-			    <div class="col-md-2 @Html.IsActive("UserMedicalProfile", "Index")">
+                </div>
+                <div class="col-md-2 @Html.IsActive("UserMedicalProfile", "Index")">
                     <a href="@Url.Action("Index", "UserMedicalProfile")">
-				        <span class="glyphicon glyphicon-list-alt"></span>
-				        <p>Hồ Sơ Bệnh Án</p>
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                        <p>Hồ Sơ Bệnh Án</p>
                     </a>
-			    </div>
-			    <div class="col-md-2 @Html.IsActive("Conversation", "Index")">
+                </div>
+                <div class="col-md-2 @Html.IsActive("Conversation", "Index")">
                     <a href="@Url.Action("Index", "Conversation")">
-				        <span class="glyphicon glyphicon-bookmark"></span>
-				        <p>Lược Sử Tư Vấn</p>
+                        <span class="glyphicon glyphicon-bookmark"></span>
+                        <p>Lược Sử Tư Vấn</p>
                     </a>
-			    </div>
-			    <div class="col-md-2 @Html.IsActive("UserConversation", "Index")">
+                </div>
+                <div class="col-md-2 @Html.IsActive("UserConversation", "Index")">
                     <a href="@Url.Action("Index", "UserConversation")">
-				        <span class="glyphicon glyphicon-comment"></span>
-				        <p>Tư Vấn Online</p>
+                        <span class="glyphicon glyphicon-comment"></span>
+                        <p>Tư Vấn Online</p>
                     </a>
-			    </div>
-			    <div class="col-md-2">
+                </div>
+                <div class="col-md-2">
                     <a href="@Url.Action("Logout", "Account")">
-				        <span class="glyphicon glyphicon-log-out"></span>
-				        <p>Đăng Xuất</p>
+                        <span class="glyphicon glyphicon-log-out"></span>
+                        <p>Đăng Xuất</p>
                     </a>
-			    </div>
-		    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -72,8 +76,8 @@
         <hr />
         <footer class="text-center">Copyright Group 2 - FPT University - 2014</footer>
     </div>
-<input id="txtFromEmail" class="textBox" value="@User.Email" type="hidden"/>
-<input id="txtToEmail" class="textBox" value="" type="hidden"/>
-<input id="txtConnectionId" class="textBox" value="" type="hidden"/>
+    <input id="txtFromEmail" class="textBox" value="@User.Email" type="hidden"/>
+    <input id="txtToEmail" class="textBox" value="" type="hidden" />
+    <input id="txtConnectionId" class="textBox" value="" type="hidden" />
 </body>
 </html>

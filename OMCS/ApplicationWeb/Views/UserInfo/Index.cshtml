@@ -11,45 +11,37 @@
 
 <img alt="User Pic" id="targetImg" src="@Html.GetPictureUrl("Profile")@Model.ProfilePicture" class="img-circle" style="width:120px; height:120px">
 
-<div class="dropdown">
-    <a href="#" class="btn btn-primary" data-toggle="dropdown" title="Cập nhật logo"><i class="glyphicon glyphicon-pencil"></i></a>
-    <ul class="dropdown-menu">
-        <li>
-            <input type="file" name="file" id="file" title="Upload" />
-            <button type="submit" class="btn btn-primary" id="btnUpload">Cập nhật</button>
-        </li>
-    </ul>
+<div>
+    <input type="file" name="file_upload" id="file_upload" />
 </div>
 
 <div class="row">
     <div class="col-xs-4" style="float: right">
         <label class="switch-light progress progress-striped active" onclick="">
-	        <input type="checkbox" id="enable">
-	        <span>
-		        Thay đổi
+            <input type="checkbox" id="enable">
+            <span>Thay đổi
                 <span aria-label="Tắt" title="Tắt">O</span>
-				<span aria-label="Bật" title="Bật">I</span>
-	        </span>
-	        <a class="progress-bar progress-bar-success"></a>
+                <span aria-label="Bật" title="Bật">I</span>
+            </span>
+            <a class="progress-bar progress-bar-success"></a>
         </label>
     </div>
     <div class="clearfix"></div>
     <div class="col-xs-4" style="float: right; display: none" id="autoopendiv">
         <label class="switch-light progress progress-striped active" onclick="">
-	        <input type="checkbox" id="autoopen">
-	        <span>
-		        Liên tiếp
+            <input type="checkbox" id="autoopen">
+            <span>Liên tiếp
                 <span aria-label="Tắt" title="Tắt">O</span>
-				<span aria-label="Bật" title="Bật">I</span>
-	        </span>
-	        <a class="progress-bar progress-bar-success"></a>
+                <span aria-label="Bật" title="Bật">I</span>
+            </span>
+            <a class="progress-bar progress-bar-success"></a>
         </label>
     </div>
 </div>
 
 <table class="table table-data table-bordered table-striped" style="clear: both">
-    <tbody> 
-        <tr>         
+    <tbody>
+        <tr>
             <td style="width: 35%;">@Html.DisplayNameFor(model => model.FullName)</td>
             <td style="width: 65%;">
                 <a href="#" id="lastname" data-type="text"
@@ -62,36 +54,35 @@
                 </a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.Gender)</td>
             <td>
                 <a href="#" id="gender" data-type="select" data-value="@Html.DisplayFor(model => model.Gender)" 
-                    data-title="@Html.DisplayNameFor(model => model.Gender)" class="editable editable-click">
-                </a>
+                    data-title="@Html.DisplayNameFor(model => model.Gender)" class="editable editable-click"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.Birthday)</td>
             <td>
                 <a href="#" id="birthday" data-type="date" data-value="@Html.DisplayFor(model => model.Birthday)"
                     data-title="@Html.DisplayNameFor(model => model.Birthday)"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.Phone)</td>
             <td>
                 <a href="#" id="phone" data-type="tel"
                     data-title="@Html.DisplayNameFor(model => model.Phone)">@Html.DisplayFor(model => model.Phone)</a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.PrimaryAddress)</td>
             <td>
                 <a href="#" id="primaryaddress" data-type="textarea"
                     data-title="@Html.DisplayNameFor(model => model.PrimaryAddress)">@Html.DisplayFor(model => model.PrimaryAddress)</a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.SecondaryAddress)</td>
             <td>
                 <a href="#" id="secondaryaddress" data-type="textarea"
@@ -106,73 +97,71 @@
 </fieldset>
 
 <table class="table table-data table-bordered table-striped" style="clear: both">
-    <tbody> 
-        <tr>         
+    <tbody>
+        <tr>
             <td style="width: 35%;">@Html.DisplayNameFor(model => model.Ethnicity)</td>
             <td style="width: 65%;">
                 <a href="#" id="ethnicity" data-type="select2" data-value="@Html.DisplayFor(model => model.Ethnicity)"
-                    data-title="@Html.DisplayNameFor(model => model.Ethnicity)" class="editable editable-click">
-                </a>
+                    data-title="@Html.DisplayNameFor(model => model.Ethnicity)" class="editable editable-click"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.Nationality)</td>
             <td>
                 <a href="#" id="nationality" data-type="select2" data-value="@Html.DisplayFor(model => model.Nationality)" 
-                    data-title="@Html.DisplayNameFor(model => model.Nationality)" class="editable editable-click">
-                </a>
+                    data-title="@Html.DisplayNameFor(model => model.Nationality)" class="editable editable-click"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.Job)</td>
             <td>
                 <a href="#" id="job" data-type="text" data-value="@Html.DisplayFor(model => model.Job)"
                     data-title="@Html.DisplayNameFor(model => model.Job)"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.WhereToWork)</td>
             <td>
                 <a href="#" id="whereToWork" data-type="textarea"
                     data-title="@Html.DisplayNameFor(model => model.WhereToWork)">@Html.DisplayFor(model => model.WhereToWork)</a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.ContactPerson)</td>
             <td>
                 <a href="#" id="contactPerson" data-type="text"
                     data-title="@Html.DisplayNameFor(model => model.ContactPerson)">@Html.DisplayFor(model => model.ContactPerson)</a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.ContactPersonAddress)</td>
             <td>
                 <a href="#" id="contactPersonAddress" data-type="textarea"
                     data-title="@Html.DisplayNameFor(model => model.ContactPersonAddress)">@Html.DisplayFor(model => model.ContactPersonAddress)</a>
             </td>
         </tr>
-         <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.ContactPersonPhone)</td>
             <td>
                 <a href="#" id="contactPersonPhone" data-type="textarea"
                     data-title="@Html.DisplayNameFor(model => model.ContactPersonPhone)">@Html.DisplayFor(model => model.ContactPersonPhone)</a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.HealthInsuranceId)</td>
             <td>
                 <a href="#" id="healthInsuranceId" data-type="text"
                     data-title="@Html.DisplayNameFor(model => model.HealthInsuranceId)">@Html.DisplayFor(model => model.HealthInsuranceId)</a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.HealthInsuranceIssued)</td>
             <td>
                 <a href="#" id="healthInsuranceIssued" data-type="date" data-value="@Html.DisplayFor(model => model.HealthInsuranceIssued)"
                     data-title="@Html.DisplayNameFor(model => model.HealthInsuranceIssued)"></a>
             </td>
         </tr>
-        <tr>         
+        <tr>
             <td>@Html.DisplayNameFor(model => model.HealthInsuranceDateExpired)</td>
             <td>
                 <a href="#" id="healthInsuranceDateExpired" data-type="date" data-value="@Html.DisplayFor(model => model.HealthInsuranceDateExpired)"
@@ -240,7 +229,7 @@
                 } else {
                     return "Nhập trong khoảng từ 8-12 !";
                 }
-           }
+            }
         });
 
         $('#primaryaddress').editable();
@@ -307,23 +296,14 @@
         });
         $('.table-data .editable').editable('toggleDisabled');
 
-        $('#btnUpload').click(function () {
-            var formdata = new FormData(); //FormData object
-            var fileInput = document.getElementById('file');                                 
-            for (i = 0; i < fileInput.files.length; i++) {
-                //Appending each file to FormData object
-                formdata.append(fileInput.files[i].name, fileInput.files[i]);
+        $('#file_upload').uploadify({
+            'swf': "@Url.Content("~/Content/UploadifyContent/uploadify.swf")",
+            'cancelImg': "@Url.Content("~/Content/UploadifyContent/uploadify-cancel.png")",
+            'uploader': "@Url.Action("Uploadify", "UserInfo")",
+            'onUploadSuccess' : function(file, data, response) {
+                //$("#uploaded").append("<img src='" + data + "' alt='Uploaded Image' />");
+                window.location.reload(true);
             }
-            $.ajax({
-                type: "POST",
-                url: '/UserInfo/Upload',
-                data: formdata,
-                processData: false,
-                contentType: false,
-                success: function () {                  
-                    window.location.reload(true);
-                }
-            });
         });
     });
 </script>

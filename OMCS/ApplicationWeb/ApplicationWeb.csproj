@@ -325,6 +325,11 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\select2\select2.js" />
+    <Content Include="Content\UploadifyContent\jquery.uploadify.js" />
+    <Content Include="Content\UploadifyContent\jquery.uploadify.min.js" />
+    <Content Include="Content\UploadifyContent\uploadify-cancel.png" />
+    <Content Include="Content\UploadifyContent\uploadify.css" />
+    <Content Include="Content\UploadifyContent\uploadify.swf" />
     <Content Include="Content\User.css" />
     <Content Include="Content\FormBuilder\css\custom.css" />
     <Content Include="Content\FormBuilder\css\lib\bootstrap-responsive.min.css" />

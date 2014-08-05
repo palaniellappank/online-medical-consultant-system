@@ -8,11 +8,15 @@
     @Styles.Render("~/bundles/cssOMCS")
     <link href="~/Content/sb-admin.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-   <link href="~/Content/toggle-switch.css" rel="stylesheet">
+    <link href="~/Content/toggle-switch.css" rel="stylesheet">
     <link href="~/Content/select2/select2.css" rel="stylesheet">
 
     @Scripts.Render("~/bundles/jsOMCS")
     <script src="~/Content/select2/select2.js"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Content/UploadifyContent/jquery.uploadify.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/UploadifyContent/jquery.uploadify.min.js")"></script>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/UploadifyContent/uploadify.css")" />
 
     <link href="~/Content/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
     <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>
@@ -23,9 +27,9 @@
     }
 </head>
 <body>
-  <div id="wrapper">
-    <!-- Header -->
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+    <div id="wrapper">
+        <!-- Header -->
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -40,13 +44,13 @@
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i><i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="@Url.Action("Index", "AdminInformation")"><i class="fa fa-user fa-fw"></i> Thông tin cá nhân</a>
+                        <li><a href="@Url.Action("Index", "AdminInformation")"><i class="fa fa-user fa-fw"></i>Thông tin cá nhân</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="~/Account/Logout"><i class="fa fa-sign-out fa-fw"></i> Đăng xuất</a>
+                        <li><a href="~/Account/Logout"><i class="fa fa-sign-out fa-fw"></i>Đăng xuất</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -59,40 +63,32 @@
                 <div class="sidebar-collapse">
                     <ul class="nav" id="side-menu">
                         <li class="@Html.IsActive("AdminInformationHospital", "Index")">
-                            <a href="@Url.Action("Index", "AdminInformationHospital")"><i class="fa fa-dashboard fa-fw"></i> Thông tin bệnh viện</a>
+                            <a href="@Url.Action("Index", "AdminInformationHospital")"><i class="fa fa-dashboard fa-fw"></i>Thông tin bệnh viện</a>
                         </li>
                         <li class="@Html.IsActive("AdminUser", "Index")">
-                            <a href="@Url.Action("Index", "AdminUser")"><i class="fa fa-user fa-fw"></i> Quản lý người dùng<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="flot.html">Flot Charts</a>
-                                </li>
-                                <li>
-                                    <a href="morris.html">Morris.js Charts</a>
-                                </li>
-                            </ul>
+                            <a href="@Url.Action("Index", "AdminUser")"><i class="fa fa-user fa-fw"></i>Quản lý người dùng</a>
                             <!-- /.nav-second-level -->
                         </li>
                         <li class="@Html.IsActive("AdminDoctor", "Index")">
-                            <a href="@Url.Action("Index", "AdminDoctor")"><i class="fa fa-user-md fa-fw"></i> Quản lý bác sĩ</a>
+                            <a href="@Url.Action("Index", "AdminDoctor")"><i class="fa fa-user-md fa-fw"></i>Quản lý bác sĩ</a>
                         </li>
                         <li class="@Html.IsActive("AdminSpecialtyField", "Index")">
-                            <a href="@Url.Action("Index", "AdminSpecialtyField")"><i class="fa fa-edit fa-fw"></i> Quản lý Chuyên Khoa</a>
+                            <a href="@Url.Action("Index", "AdminSpecialtyField")"><i class="fa fa-edit fa-fw"></i>Quản lý Chuyên Khoa</a>
                         </li>
                         <li class="@Html.IsActive("AdminMedicalProfile", "Index")">
-                            <a href="@Url.Action("Index", "AdminMedicalProfile")"><i class="fa fa-hospital-o fa-fw"></i> Quản lý Hồ sơ bệnh án</a>
+                            <a href="@Url.Action("Index", "AdminMedicalProfile")"><i class="fa fa-hospital-o fa-fw"></i>Quản lý Hồ sơ bệnh án</a>
                         </li>
                         <li class="@Html.IsActive("AdminComment", "Index")">
-                            <a href="@Url.Action("Index", "AdminComment")"><i class="fa fa-envelope-o fa-fw"></i> Quản lý Bình luận</a>
+                            <a href="@Url.Action("Index", "AdminComment")"><i class="fa fa-envelope-o fa-fw"></i>Quản lý Bình luận</a>
                         </li>
                         <li class="@Html.IsActive("AdminTemplate", "Index")">
-                            <a href="@Url.Action("Index", "AdminTemplate")"><i class="fa fa-files-o fa-fw"></i> Mẫu hồ sơ</a>
+                            <a href="@Url.Action("Index", "AdminTemplate")"><i class="fa fa-files-o fa-fw"></i>Mẫu hồ sơ</a>
                         </li>
                         <li class="@Html.IsActive("FilmType", "Index")">
-                            <a href="@Url.Action("Index", "FilmType")"><i class="fa fa-file-image-o fa-fw"></i> Quản lý thể loại film</a>
+                            <a href="@Url.Action("Index", "FilmType")"><i class="fa fa-file-image-o fa-fw"></i>Quản lý thể loại film</a>
                         </li>
                         <li class="@Html.IsActive("AllergyType", "Index")">
-                            <a href="@Url.Action("Index", "AllergyType")"><i class="fa fa-stethoscope fa-fw"></i> Quản lý thể loại dị ứng</a>
+                            <a href="@Url.Action("Index", "AllergyType")"><i class="fa fa-stethoscope fa-fw"></i>Quản lý thể loại dị ứng</a>
                         </li>
                     </ul>
                     <!-- /#side-menu -->
@@ -105,7 +101,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">@ViewBag.Title</h1>
+                    @*<h1 class="page-header">@ViewBag.Title</h1>*@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -114,35 +110,35 @@
                 @RenderBody()
             </div>
         </div>
-      
-    <footer class="text-center">Copyright Group 2 - FPT University - 2014</footer>
 
-    
-    <script type='text/javascript'>
+        <footer class="text-center">Copyright Group 2 - FPT University - 2014</footer>
 
-        $(document).ready(function () {
-            $('#side-menu').metisMenu();
 
-            //Loads the correct sidebar on window load,
-            //collapses the sidebar on window resize.
-            $(window).bind("load resize", function () {
-                width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
-                if (width < 768) {
-                    $('div.sidebar-collapse').addClass('collapse')
-                } else {
-                    $('div.sidebar-collapse').removeClass('collapse')
-                }
+        <script type='text/javascript'>
+
+            $(document).ready(function () {
+                $('#side-menu').metisMenu();
+
+                //Loads the correct sidebar on window load,
+                //collapses the sidebar on window resize.
+                $(window).bind("load resize", function () {
+                    width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
+                    if (width < 768) {
+                        $('div.sidebar-collapse').addClass('collapse')
+                    } else {
+                        $('div.sidebar-collapse').removeClass('collapse')
+                    }
+                });
+
+                $(".alert").addClass("in").fadeOut(4500);
+
+                /* swap open/close side menu icons */
+                $('[data-toggle=collapse]').click(function () {
+                    // toggle icon
+                    $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
+                });
             });
-
-            $(".alert").addClass("in").fadeOut(4500);
-
-            /* swap open/close side menu icons */
-            $('[data-toggle=collapse]').click(function () {
-                // toggle icon
-                $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
-            });
-        });
-    </script>
-  </div>
+        </script>
+    </div>
 </body>
 </html>

@@ -10,14 +10,8 @@
 
 <img alt="User Pic" id="targetImg" src="@Html.GetPictureUrl("Profile")@Model.ProfilePicture" class="img-circle" style="width:120px; height:120px">
 
-<div class="dropdown">
-    <a href="#" class="btn btn-primary" data-toggle="dropdown" title="Cập nhật logo"><i class="glyphicon glyphicon-pencil"></i></a>
-    <ul class="dropdown-menu">
-        <li>
-            <input type="file" name="file" id="file" title="Upload" />
-            <button type="submit" class="btn btn-primary" id="btnUpload">Cập nhật</button>
-        </li>
-    </ul>
+<div>
+    <input type="file" name="file_upload" id="file_upload" />
 </div>
 
 <div class="row">
@@ -49,14 +43,14 @@
                 </a>
             </td>
         </tr>
-        <tr>
+       @* <tr>
             <td>@Html.DisplayNameFor(model => model.Password)</td>
             <td>
                 <a href="#" id="password" data-type="password" data-value="@Html.DisplayFor(model => model.Password)" 
                     data-title="@Html.DisplayNameFor(model => model.Password)" class="editable editable-click">
                 </a>                
             </td>
-        </tr>
+        </tr>*@
         <tr>
             <td>@Html.DisplayNameFor(model => model.Gender)</td>
             <td>
@@ -184,23 +178,14 @@
         });
         $('.table-data .editable').editable('toggleDisabled');
 
-        $('#btnUpload').click(function () {
-            var formdata = new FormData(); //FormData object
-            var fileInput = document.getElementById('file');                                 
-            for (i = 0; i < fileInput.files.length; i++) {
-                //Appending each file to FormData object
-                formdata.append(fileInput.files[i].name, fileInput.files[i]);
+        $('#file_upload').uploadify({
+            'swf': "@Url.Content("~/Content/UploadifyContent/uploadify.swf")",
+            'cancelImg': "@Url.Content("~/Content/UploadifyContent/uploadify-cancel.png")",
+            'uploader': "@Url.Action("Uploadify", "DoctorInformation")",
+            'onUploadSuccess' : function(file, data, response) {
+                //$("#uploaded").append("<img src='" + data + "' alt='Uploaded Image' />");
+                window.location.reload(true);
             }
-            $.ajax({
-                type: "POST",
-                url: '/DoctorInformation/Upload',
-                data: formdata,
-                processData: false,
-                contentType: false,
-                success: function () {                  
-                    window.location.reload(true);
-                }
-            });
         });
     });
 </script>
