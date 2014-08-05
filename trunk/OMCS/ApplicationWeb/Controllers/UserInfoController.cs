@@ -16,7 +16,7 @@ using System.Diagnostics;
 
 namespace OMCS.Web.Controllers
 {
-     [CustomAuthorize(Roles= "User")]
+    [CustomAuthorize(Roles = "User")]
     public class UserInfoController : BaseController
     {
         //PatientBusiness userBusiness;
@@ -41,7 +41,8 @@ namespace OMCS.Web.Controllers
             {
                 DateTime datetime = DateTime.ParseExact(value, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 pi.SetValue(patient, datetime);
-            } else
+            }
+            else
             {
                 pi.SetValue(patient, Convert.ChangeType(value, pi.PropertyType), null);
             }
@@ -51,59 +52,37 @@ namespace OMCS.Web.Controllers
             return result;
         }
 
-        public JsonResult Upload()
+        public ActionResult Uploadify()
         {
-            for (int i = 0; i < Request.Files.Count; i++)
-            {
-                try
-                {
-                    HttpPostedFileBase file = Request.Files[i];
-                    int fileSize = file.ContentLength;
-                    string fileName = file.FileName;
-                    string mimeType = file.ContentType;
-                    System.IO.Stream fileContent = file.InputStream;
-                    file.SaveAs(Server.MapPath("~/Content/Image/ProfilePicture/") + fileName);                    
-                    string firstname = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().FirstName;
-                    string lastname = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().LastName;
-                    string password = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Password;
-                    DateTime createDate = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().CreatedDate;
-                    string gender = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Gender;
-                    DateTime? birthDate = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Birthday;
-                    string phone = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Phone;
-                    string primary = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().PrimaryAddress;
-                    string secondary = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().SecondaryAddress;
-                    string email = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Email;
-                    User patient = new User();
-                    patient.UserId = User.UserId;
-                    patient.FirstName = firstname;
-                    patient.LastName = lastname;
-                    patient.Password = password;
-                    patient.IsActive = true;
-                    patient.Phone = phone;
-                    patient.PrimaryAddress = primary;
-                    patient.SecondaryAddress = secondary;
-                    patient.CreatedDate = createDate;
-                    patient.Birthday = birthDate;
-                    patient.ProfilePicture = fileName;
-                    patient.Email = email;
-                    patient.Gender = gender;
-                    _db.Entry(patient).State = EntityState.Modified;
-                    _db.SaveChanges();
-                }
-                catch (DbEntityValidationException e)
-                {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
-                }
-            }
+            var file = Request.Files["Filedata"];
+            string savePath = Server.MapPath(@"~\Content\Image\ProfilePicture\" + file.FileName);
+            file.SaveAs(savePath);
+            string firstname = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().FirstName;
+            string lastname = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().LastName;
+            string password = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Password;
+            DateTime createDate = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().CreatedDate;
+            string gender = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Gender;
+            DateTime? birthDate = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Birthday;
+            string phone = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Phone;
+            string primary = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().PrimaryAddress;
+            string secondary = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().SecondaryAddress;
+            string email = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Email;
+            User patient = new User();
+            patient.UserId = User.UserId;
+            patient.FirstName = firstname;
+            patient.LastName = lastname;
+            patient.Password = password;
+            patient.IsActive = true;
+            patient.Phone = phone;
+            patient.PrimaryAddress = primary;
+            patient.SecondaryAddress = secondary;
+            patient.CreatedDate = createDate;
+            patient.Birthday = birthDate;
+            patient.ProfilePicture = file.FileName;
+            patient.Email = email;
+            patient.Gender = gender;
+            _db.Entry(patient).State = EntityState.Modified;
+            _db.SaveChanges();
             return Json("Uploaded " + Request.Files.Count + " files");
         }
     }

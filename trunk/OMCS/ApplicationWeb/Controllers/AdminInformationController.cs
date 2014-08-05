@@ -50,60 +50,38 @@ namespace OMCS.Web.Controllers
             return result;
         }
 
-        public JsonResult Upload()
+        public ActionResult Uploadify()
         {
-            for (int i = 0; i < Request.Files.Count; i++)
-            {
-                try
-                {
-                    HttpPostedFileBase file = Request.Files[i];
-                    int fileSize = file.ContentLength;
-                    string fileName = file.FileName;
-                    string mimeType = file.ContentType;
-                    System.IO.Stream fileContent = file.InputStream;
-                    file.SaveAs(Server.MapPath("~/Content/Image/ProfilePicture/") + fileName);                    
-                    string firstname = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().FirstName;
-                    string lastname = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().LastName;
-                    string password = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Password;
-                    DateTime createDate = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().CreatedDate;
-                    string gender = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Gender;
-                    DateTime? birthDate = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Birthday;
-                    string phone = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Phone;
-                    string primary = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().PrimaryAddress;
-                    string secondary = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().SecondaryAddress;
-                    string email = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Email;
-                    User admin = new User();
-                    admin.UserId = User.UserId;
-                    admin.FirstName = firstname;
-                    admin.LastName = lastname;
-                    admin.Password = password;
-                    admin.IsActive = true;
-                    admin.Phone = phone;
-                    admin.PrimaryAddress = primary;
-                    admin.SecondaryAddress = secondary;
-                    admin.CreatedDate = createDate;
-                    admin.Birthday = birthDate;
-                    admin.ProfilePicture = fileName;
-                    admin.Email = email;
-                    admin.Gender = gender;
-                    _db.Entry(admin).State = EntityState.Modified;
-                    _db.SaveChanges();
-                }
-                catch (DbEntityValidationException e)
-                {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
-                }
-            }
-            return Json("Uploaded " + Request.Files.Count + " files");
+            var file = Request.Files["Filedata"];
+            string savePath = Server.MapPath(@"~\Content\Image\ProfilePicture\" + file.FileName);
+            file.SaveAs(savePath);
+            string firstname = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().FirstName;
+            string lastname = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().LastName;
+            string password = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Password;
+            DateTime createDate = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().CreatedDate;
+            string gender = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Gender;
+            DateTime? birthDate = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Birthday;
+            string phone = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Phone;
+            string primary = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().PrimaryAddress;
+            string secondary = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().SecondaryAddress;
+            string email = _db.Users.Where(d => d.UserId == User.UserId).AsNoTracking().SingleOrDefault().Email;
+            User admin = new User();
+            admin.UserId = User.UserId;
+            admin.FirstName = firstname;
+            admin.LastName = lastname;
+            admin.Password = password;
+            admin.IsActive = true;
+            admin.Phone = phone;
+            admin.PrimaryAddress = primary;
+            admin.SecondaryAddress = secondary;
+            admin.CreatedDate = createDate;
+            admin.Birthday = birthDate;
+            admin.ProfilePicture = file.FileName;
+            admin.Email = email;
+            admin.Gender = gender;
+            _db.Entry(admin).State = EntityState.Modified;
+            _db.SaveChanges();
+            return Content(Url.Content(@"~\Content\Image\ProfilePicture\" + file.FileName));
         }
 
     }
