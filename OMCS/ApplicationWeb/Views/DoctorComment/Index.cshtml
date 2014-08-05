@@ -1,5 +1,6 @@
 ﻿@model PagedList.IPagedList<OMCS.DAL.Model.Comment>
 @using PagedList.Mvc;
+@using OMCS.Web;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" />
 <script src="~/Content/bootstrap-star-rating/js/star-rating.js"></script>
@@ -7,6 +8,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+    //var doctor = ViewBag.DoctorId;
 }
 
 <h2>Tin nhắn</h2>
@@ -33,7 +35,7 @@
 
 <div class="row">
     <div class="col-md-1">
-        <img src="~/Content/ProfilePicture/Su.JPG" class="img-circle img-responsive" style="max-height: 66px; margin-left: 12px; padding-top: 7px;"/>
+        <img src="~/Content/Image/ProfilePicture/photo.jpg" class="img-circle img-responsive" style="max-height: 66px; margin-left: 12px; padding-top: 7px;"/>
     </div>
 
     <div class="col-md-10">

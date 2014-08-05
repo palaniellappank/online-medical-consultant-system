@@ -9,7 +9,21 @@
 
         <div class="modal-body">
             <div class="display-field">
-                @Html.Raw(Model.Content)
+                <table class="table table-data table-bordered table-striped" style="clear: both">
+    <tbody>
+        <tr class="info">
+            <td style="width: auto;">Nội dung</td>
+            <td style="width: auto;">Ngày tư vấn</td>           
+        </tr>
+       @* @foreach (var a in ViewBag.Allergy)
+        {
+            *@<tr>
+                <td style="width: auto;">@Html.Raw(Model.Content)</td>
+                <td style="width: auto;">@Html.Raw(Model.CreatedDate)</td>                
+            </tr>
+        @*}*@
+    </tbody>
+</table>
             </div>
         </div>
         <div class="modal-footer">

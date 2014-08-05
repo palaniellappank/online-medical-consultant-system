@@ -3,14 +3,11 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản Lý Bệnh Án";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Quản Lý Bệnh Án</h2>
-
 <div>
-    @* @Html.ActionLink("Tạo Mới", "Create", FormMethod.Get, new { @class = "btn btn-primary" })*@
     @using (Html.BeginForm("Index", "AdminMedicalProfile", FormMethod.Get, new { style = "float: right", @class = "form-inline" }))
     {
         <div class="form-group">

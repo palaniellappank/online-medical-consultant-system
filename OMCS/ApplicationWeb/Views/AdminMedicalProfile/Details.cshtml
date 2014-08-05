@@ -1,8 +1,8 @@
-﻿@{
-    ViewBag.Title = "Detail";
+﻿@{    
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     var medical = ViewBag.medicalProfiles;
     var patient = ViewBag.patient;
+    ViewBag.Title = @medical.MedicalProfileTemplate.MedicalProfileTemplateName;
 }
 <script type="text/javascript">
     $(function () {
@@ -10,11 +10,11 @@
         $("#medical-profile").html(_.template($("#medical-profile-template").html(), {snippetList: detailsInJson}));
     });
 </script>
-<div align="center">
+@*<div align="center">
     <h2>
         @medical.MedicalProfileTemplate.MedicalProfileTemplateName
     </h2>
-</div>
+</div>*@
 <div class="modal-header">
     <a class="btn btn-primary" style="position: fixed;top: 0;right: 0;" href="@Url.Action("UpdateMedicalProfile", "AdminMedicalProfile", new { id = @patient.UserId, medicalProfileTemplateId = @medical.MedicalProfileTemplate.MedicalProfileTemplateId })" target="_blank" title="Cập nhật hồ sơ bệnh án"><i class="glyphicon glyphicon-pencil"></i></a>
 </div>

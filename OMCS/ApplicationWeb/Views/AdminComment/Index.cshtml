@@ -4,10 +4,8 @@
 
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    ViewBag.Title = "Index";  
+    ViewBag.Title = "Quản Lý Bình luận";  
 }
-
-<h2>Quản Lý Bình luận</h2>
 
 <div>
     @using (Html.BeginForm("Index", "AdminComment", FormMethod.Get, new { style = "float: right", @class = "form-inline" }))
