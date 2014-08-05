@@ -1,13 +1,9 @@
 ﻿@model OMCS.DAL.Model.User
 @using OMCS.Web
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Thông tin Admin";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
-<fieldset style="text-align: center">
-    <legend>Thông tin Admin</legend>
-</fieldset>
 
 <img alt="User Pic" id="targetImg" src="@Html.GetPictureUrl("Profile")@Model.ProfilePicture" class="img-circle" style="width:120px; height:120px">
 
@@ -42,18 +38,7 @@
                     @Html.DisplayFor(model => model.FirstName)
                 </a>
             </td>
-        </tr>
-        @*   <tr>
-            <td>@Html.DisplayNameFor(model => model.Password)</td>
-            <td>
-                <a href="#" id="password" data-type="text" data-value="**********" 
-                    data-title="@Html.DisplayNameFor(model => model.Password)" class="editable editable-click"> 
-                    <a href="#" id="repassword" data-type="text" data-value="@Html.DisplayFor(model => model.Password)" 
-                    data-title="@Html.DisplayNameFor(model => model.Password)" class="editable editable-click">
-                </a>   
-                </a>                
-            </td>
-        </tr>*@
+        </tr>    
         <tr>
             <td>@Html.DisplayNameFor(model => model.Gender)</td>
             <td>
@@ -179,26 +164,7 @@
             }
         });
         $('.table-data .editable').editable('toggleDisabled');
-
-        //$('#btnUpload').click(function () {
-        //    var formdata = new FormData(); //FormData object
-        //    var fileInput = document.getElementById('file');                                 
-        //    for (i = 0; i < fileInput.files.length; i++) {
-        //        //Appending each file to FormData object
-        //        formdata.append(fileInput.files[i].name, fileInput.files[i]);
-        //    }
-        //    $.ajax({
-        //        type: "POST",
-        //        url: '/AdminInformation/Upload',
-        //        data: formdata,
-        //        processData: false,
-        //        contentType: false,
-        //        success: function () {                  
-        //            window.location.reload(true);
-        //        }
-        //    });
-        //});
-
+       
         $('#file_upload').uploadify({
             'swf': "@Url.Content("~/Content/UploadifyContent/uploadify.swf")",
             'cancelImg': "@Url.Content("~/Content/UploadifyContent/uploadify-cancel.png")",
