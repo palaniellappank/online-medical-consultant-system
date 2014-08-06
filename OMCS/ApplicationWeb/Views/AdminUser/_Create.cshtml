@@ -7,7 +7,11 @@
             <h4 class="modal-title" id="myModalLabel">Tạo Mới</h4>
         </div>
 
-        @using (Ajax.BeginForm("Create", "AdminUser", FormMethod.Post,
+        <div class="modal-body">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                </div>
+                @using (Ajax.BeginForm("Create", "AdminUser", FormMethod.Post,
                     new AjaxOptions
                     {
                         InsertionMode = InsertionMode.Replace,
@@ -15,55 +19,73 @@
                         UpdateTargetId = "list-of-user"
                     },
                     new { id = "create-form" }))
-        {
-            @Html.ValidationSummary(true)
-            @Html.AntiForgeryToken()
-            <div class="modal-body">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Email) <span style="color: red;">(*)</span>
-                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control required email" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.LastName) <span style="color: red;">(*)</span>
-                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control required" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FirstName) <span style="color: red;">(*)</span>
-                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control required" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Gender) <span style="color: red;">(*)</span>
-                    @Html.DropDownListFor(model => model.Gender, new SelectList(new List<string> { "Nam", "Nữ" }), new { @class = "form-control" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Birthday) <span style="color: red;">(*)</span>
-                    @Html.TextBoxFor(model => model.Birthday, "{0:dd-MM-yyyy}", new { type = "date", @class = "form-control datepicker required" })                  
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Phone) <span style="color: red;">(*)</span>
-                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control required" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.PrimaryAddress) <span style="color: red;">(*)</span>
-                    @Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control required" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SecondaryAddress)
-                    @Html.TextBoxFor(model => model.SecondaryAddress, new { @class = "form-control" })
-                </div>
+                {
+                    @Html.ValidationSummary(true)
+                    @Html.AntiForgeryToken()          
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class=" col-md-12 col-lg-12">
+                                <div class="tabbable tabs-left">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="basicInfo">
+                                            <div class="form-group">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(model => model.Email) <span style="color: red;">(*)</span></td>
+                                                            <td>
+                                                                <input type="text" id="Email" name="Email" class="form-control required remote email" /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(model => model.LastName) <span style="color: red;">(*)</span></td>
+                                                            <td>
+                                                                <input type="text" id="LastName" name="LastName" class="form-control required" /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(model => model.FirstName) <span style="color: red;">(*)</span></td>
+                                                            <td>
+                                                                <input type="text" id="FirstName" name="FirstName" class="form-control required" /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(model => model.Gender) <span style="color: red;">(*)</span></td>
+                                                            <td>@Html.DropDownListFor(model => model.Gender, new SelectList(new List<string> { "Nam", "Nữ" }), new { @class = "form-control required" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(model => model.Birthday) <span style="color: red;">(*)</span></td>
+                                                            <td>@Html.TextBoxFor(model => model.Birthday, "{0:dd-MM-yyyy}", new { type = "date", @class = "form-control datepicker required" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(model => model.Phone) <span style="color: red;">(*)</span></td>
+                                                            <td>@Html.TextBoxFor(model => model.Phone, new { @class = "form-control required number" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(model => model.PrimaryAddress)</td>
+                                                            <td>@Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.LabelFor(model => model.SecondaryAddress)</td>
+                                                            <td>@Html.TextBoxFor(model => model.SecondaryAddress, new { @class = "form-control" })</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-primary" type="submit">
+                                                       <i class="glyphicon glyphicon-save"></i>&nbsp;Lưu
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                                        <i class="glyphicon glyphicon-remove"></i>&nbsp;Bỏ Qua
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>     
+                }
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Lưu</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
-            </div>
-        }
+        </div>
     </div>
 </div>
 
@@ -74,38 +96,37 @@
                 Email: {
                     remote: {
                         url: "@Url.Action("CheckExistEmail", "AdminUser")",
-                        timeout: 5000,
-                        type: "POST"
+                            timeout: 5000,
+                            type: "POST"
+                        },
+                        maxlength: 50
                     },
-                    maxlength: 50
-                },
-                Email: {
-                    remote: {
-                        url: "@Url.Action("CheckExistEmail", "AdminUser")",
-                        timeout: 5000,
-                        type: "POST"
+                    Email: {
+                        remote: {
+                            url: "@Url.Action("CheckExistEmail", "AdminUser")",
+                            timeout: 5000,
+                            type: "POST"
+                        },
+                        maxlength: 50
                     },
-                    maxlength: 50
+                    FirstName: {
+                        maxlength: 50
+                    },
+                    LastName: {
+                        maxlength: 50
+                    },
+                    Password: {
+                        rangelength: [6, 32]
+                    },
+                    RePassword: {
+                        rangelength: [6, 32]
+                    }
                 },
-                FirstName: {
-                    maxlength: 50
-                },
-                LastName: {
-                    maxlength: 50
-                },
-                Password: {
-                    rangelength: [6, 32]
-                },
-                RePassword: {
-                    rangelength: [6, 32]
+                messages: {
+                    Email: {
+                        remote: "Địa chỉ email đã tồn tại"
+                    }
                 }
-            },
-            messages: {
-                Email: {
-                    remote: "Địa chỉ email đã tồn tại"
-                }
-            }
+            });
         });
-    });
 </script>
-
