@@ -1,5 +1,19 @@
 ﻿$.blockUI.defaults.message = "<h1>Vui lòng chờ</h1>";
 
+function doOnlineCheck() {
+    var submitURL = baseUrl + "Home/Index";
+    $.ajax({
+        url: submitURL,
+        type: 'get',
+        timeout: 5000,
+        success: function (msg) {
+        },
+        error: function () {
+            bootbox.alert("Kết nối mạng bị lỗi");
+        }
+    });
+}
+
 $(document).ready(function () {
     $.validator.setDefaults({
         highlight: function (element) {
@@ -18,6 +32,10 @@ $(document).ready(function () {
             }
         }
     });
+
+    setInterval(function () {
+        doOnlineCheck();
+    }, 10000);
 
     jQuery.extend(jQuery.validator.messages, {
         required: "Bạn cần nhập giá trị này.",//This field is required.
