@@ -14,7 +14,9 @@
         <div class="form-group">
             @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
         </div>
-        <input type="submit" value="Tìm Kiếm" class="btn btn-primary" />
+        <button type="submit" title="Tìm Kiếm" class="btn btn-primary">
+            <i class="glyphicon glyphicon-search"></i>
+        </button>
     }
 </div>
 <p></p>
@@ -68,16 +70,19 @@
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
             <td>
-                <button class="btn btn-primary edit-button" data-id="@item.UserId">Cập Nhật</button>
+                <button class="btn btn-primary edit-button" data-id="@item.UserId" title="Cập nhật"><i class="glyphicon glyphicon-pencil"></i></button>
 
                 @if (item.IsActive == true)
                 {
-
-                    @Html.ActionLink("Vô Hiệu", "Deactivate", new { id = item.UserId }, new { @class = "btn btn-danger" })
+                    <a class="btn btn-danger" title="Vô Hiệu" href="@Url.Action("Deactivate", new { id = item.UserId })">
+                        <i class="glyphicon glyphicon-unchecked"></i>
+                    </a>
                 }
                 else
                 {
-                    @Html.ActionLink("Kích Hoạt", "Activate", new { id = item.UserId }, new { @class = "btn btn-success" })
+                    <a class="btn btn-success" title="Kích Hoạt" href="@Url.Action("Activate", new { id = item.UserId })">
+                        <i class="glyphicon glyphicon-check"></i>
+                    </a>
                 }
 
             </td>

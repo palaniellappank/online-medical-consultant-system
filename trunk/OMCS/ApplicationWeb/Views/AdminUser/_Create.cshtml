@@ -59,8 +59,8 @@
                                                             <td>@Html.TextBoxFor(model => model.Phone, new { @class = "form-control required number" })</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>@Html.LabelFor(model => model.PrimaryAddress)</td>
-                                                            <td>@Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control" })</td>
+                                                            <td>@Html.LabelFor(model => model.PrimaryAddress) <span style="color: red;">(*)</span></td>
+                                                            <td>@Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control required" })</td>
                                                         </tr>
                                                         <tr>
                                                             <td>@Html.LabelFor(model => model.SecondaryAddress)</td>
@@ -69,11 +69,11 @@
                                                     </tbody>
                                                 </table>
                                                 <div class="modal-footer">
-                                                    <button class="btn btn-primary" type="submit">
-                                                       <i class="glyphicon glyphicon-save"></i>&nbsp;Lưu
-                                                    </button>
-                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">
                                                         <i class="glyphicon glyphicon-remove"></i>&nbsp;Bỏ Qua
+                                                    </button>
+                                                    <button class="btn btn-primary" type="submit">
+                                                        <i class="glyphicon glyphicon-save"></i>&nbsp;Lưu
                                                     </button>
                                                 </div>
                                             </div>
@@ -96,37 +96,37 @@
                 Email: {
                     remote: {
                         url: "@Url.Action("CheckExistEmail", "AdminUser")",
-                            timeout: 5000,
-                            type: "POST"
-                        },
-                        maxlength: 50
+                        timeout: 5000,
+                        type: "POST"
                     },
-                    Email: {
-                        remote: {
-                            url: "@Url.Action("CheckExistEmail", "AdminUser")",
-                            timeout: 5000,
-                            type: "POST"
-                        },
-                        maxlength: 50
-                    },
-                    FirstName: {
-                        maxlength: 50
-                    },
-                    LastName: {
-                        maxlength: 50
-                    },
-                    Password: {
-                        rangelength: [6, 32]
-                    },
-                    RePassword: {
-                        rangelength: [6, 32]
-                    }
+                    maxlength: 50
                 },
-                messages: {
-                    Email: {
-                        remote: "Địa chỉ email đã tồn tại"
-                    }
+                Email: {
+                    remote: {
+                        url: "@Url.Action("CheckExistEmail", "AdminUser")",
+                            timeout: 5000,
+                            type: "POST"
+                        },
+                        maxlength: 50
+                    },
+                FirstName: {
+                    maxlength: 50
+                },
+                LastName: {
+                    maxlength: 50
+                },
+                Password: {
+                    rangelength: [6, 32]
+                },
+                RePassword: {
+                    rangelength: [6, 32]
                 }
-            });
+            },
+            messages: {
+                Email: {
+                    remote: "Địa chỉ email đã tồn tại"
+                }
+            }
         });
+    });
 </script>

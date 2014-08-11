@@ -14,16 +14,10 @@
         <div class="label label-info" id="dateTimeValue" />
     </div>
 
-    <img src="@Html.GetPictureUrl("Logo")@Model.Logo" class="img-responsive img-modal" style="border: none; width:800px; height:300px" alt="img-header-about-the-trust.jpg" title="Bệnh viện""/>
+    <img src="@Html.GetPictureUrl("Logo")@Model.Logo" class="img-responsive img-modal" style="border: none; width:1020px; height:300px" alt="img-header-about-the-trust.jpg" title="Bệnh viện""/>
 
-    <div class="dropdown">
-        <a href="#" class="btn btn-primary" data-toggle="dropdown" title="Cập nhật logo"><i class="glyphicon glyphicon-pencil"></i></a>
-        <ul class="dropdown-menu">
-            <li>
-                <input type="file" name="file" id="file" title="Upload" />
-                <button type="submit" class="btn btn-primary" id="btnUpload">Cập nhật</button>
-            </li>
-        </ul>
+    <div>
+        <input type="file" name="file_upload" id="file_upload" data-title="Cập nhật ảnh đại diện" />
     </div>
 </div>
 
@@ -42,7 +36,7 @@
         <div class="clearfix"></div>
     </div>
 </div>
-<div class="col-md-12">    
+<div class="col-md-12">
     <table class="table table-data table-bordered table-striped" style="clear: both">
         <tbody>
             <tr>
@@ -265,23 +259,14 @@
         });
         $('.table-data .editable').editable('toggleDisabled');
 
-        $('#btnUpload').click(function () {
-            var formdata = new FormData(); //FormData object
-            var fileInput = document.getElementById('file');                                 
-            for (i = 0; i < fileInput.files.length; i++) {
-                //Appending each file to FormData object
-                formdata.append(fileInput.files[i].name, fileInput.files[i]);
+        $('#file_upload').uploadify({
+            'swf': "@Url.Content("~/Content/UploadifyContent/uploadify.swf")",
+            'cancelImg': "@Url.Content("~/Content/UploadifyContent/uploadify-cancel.png")",
+            'uploader': "@Url.Action("Uploadify", "AdminInformationHospital")",
+            'onUploadSuccess' : function(file, data, response) {
+                //$("#uploaded").append("<img src='" + data + "' alt='Uploaded Image' />");
+                window.location.reload(true);
             }
-            $.ajax({
-                type: "POST",
-                url: '/AdminInformationHospital/Upload',
-                data: formdata,
-                processData: false,
-                contentType: false,
-                success: function () {                  
-                    window.location.reload(true);
-                }
-            });
         });
     });     
 </script>

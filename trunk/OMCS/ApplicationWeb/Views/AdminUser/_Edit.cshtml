@@ -19,12 +19,12 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3 col-lg-3" align="center">
+                                <h4>Ảnh đại diện</h4>
                                 <form runat="server">
                                     <img alt="User Pic" id="targetImg" src="@Html.GetPictureUrl("Profile")@Model.ProfilePicture" class="img-circle" style="width:120px; height:120px">
-                                    <input type="file" name="file" id="imgInp" class="form-control" value="@Html.GetPictureUrl("Profile")@Model.ProfilePicture" />
                                 </form>
+                                <input type="hidden" id="profile" name="profile" value="@Model.ProfilePicture" />
                                 <br />
-                                <input type="hidden" name="profile" value="@Html.DisplayFor(model => model.ProfilePicture)" />
                             </div>
                             <div class=" col-md-9 col-lg-9">
                                 <div class="tabbable tabs-left">
@@ -51,16 +51,16 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td>@Html.DisplayNameFor(model => model.Gender)</td>
+                                                            <td>@Html.DisplayNameFor(model => model.Gender) <span style="color: red;">(*)</span></td>
                                                             <td>@Html.DropDownListFor(model => model.Gender, new SelectList(new List<string> { "Nam", "Nữ" }), new { @class = "form-control" })</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>@Html.DisplayNameFor(model => model.Phone)</td>
-                                                            <td>@Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })</td>
+                                                            <td>@Html.DisplayNameFor(model => model.Phone) <span style="color: red;">(*)</span></td>
+                                                            <td>@Html.TextBoxFor(model => model.Phone, new { @class = "form-control required" })</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>@Html.DisplayNameFor(model => model.PrimaryAddress)</td>
-                                                            <td>@Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control" })</td>
+                                                            <td>@Html.DisplayNameFor(model => model.PrimaryAddress) <span style="color: red;">(*)</span></td>
+                                                            <td>@Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control required" })</td>
                                                         </tr>
                                                         <tr>
                                                             <td>@Html.DisplayNameFor(model => model.SecondaryAddress)</td>
@@ -78,11 +78,11 @@
                 </div>
 
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <i class="glyphicon glyphicon-remove"></i>&nbsp;Bỏ Qua
+                    </button>
                     <button type="submit" class="btn btn-primary">
                         <i class="glyphicon glyphicon-save"></i>&nbsp;Lưu
-                    </button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">
-                         <i class="glyphicon glyphicon-remove"></i>&nbsp;Bỏ Qua
                     </button>
                 </div>
             </div>
@@ -97,24 +97,24 @@
                 Email: {
                     remote: {
                         url: "@Url.Action("CheckExistEmail", "AdminUser", new { id = Model.UserId })",
-                            timeout: 5000,
-                            type: "POST"
-                        },
-                        maxlength: 50
+                        timeout: 5000,
+                        type: "POST"
                     },
-                    FirstName: {
-                        maxlength: 50
-                    },
-                    LastName: {
-                        maxlength: 50
-                    },
-                    Password: {
-                        rangelength: [6, 32]
-                    },
-                    RePassword: {
-                        rangelength: [6, 32]
-                    }
+                    maxlength: 50
+                },
+                FirstName: {
+                    maxlength: 50
+                },
+                LastName: {
+                    maxlength: 50
+                },
+                Password: {
+                    rangelength: [6, 32]
+                },
+                RePassword: {
+                    rangelength: [6, 32]
                 }
-            });
+            }
         });
+    });
 </script>
