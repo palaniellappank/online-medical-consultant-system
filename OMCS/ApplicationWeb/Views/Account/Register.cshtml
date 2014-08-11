@@ -4,6 +4,7 @@
 
 @{
     Layout = null;
+    ViewBag.Title = "Index";  
 }
 
 @Scripts.Render("~/bundles/jsOMCS")
@@ -14,18 +15,18 @@
 <!-- Custom theme css-->
 <link href="~/Content/register-full-page/css/register.css" rel="stylesheet" />
 
-
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 ">
 
-            <form action="/Account/Register" method="post" class="well well-sm form" role="form" id="register-form">
+            @using (Ajax.BeginForm("Register", "Account", null, new { EncType = "multipart/form-data", id = "register-form", @class = "well well-sm form" }))
+            {
                 <legend class="form-title">
-                    <a href="#"><i class="glyphicon glyphicon-globe"></i></a>&nbsp;ĐĂNG KÝ
+                    <a href="#"><i class="glyphicon glyphicon-globe"></i></a>&nbsp;ĐĂNG KÍ
                 </legend>
 
                 <div class="form-group">
-                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control required", placeholder = "Tên đăng nhập" })
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control required", placeholder = "Địa chỉ Email" })
                 </div>
 
                 <div class="form-group">
@@ -34,10 +35,6 @@
 
                 <div class="form-group">
                     @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control required", placeholder = "Tên" })
-                </div>
-
-                <div class="form-group">
-                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control required email", placeholder = "Địa chỉ Email" })
                 </div>
 
                 <div class="form-group">
@@ -52,10 +49,11 @@
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary()
                 <br />
-
-                <button class="btn btn-lg btn-primary btn-block" type="submit">
-                    Đăng kí</button>
-            </form>
+                <div style="text-align: center">
+                    <button type="button" class="btn btn-default" id="btnCancel">Trở về</button>
+                    <button type="submit" class="btn btn-success">Đăng kí</button>
+                </div>
+            }
         </div>
     </div>
 
@@ -64,38 +62,43 @@
 
 
 <script type="text/javascript">
-
-    $("#register-form").validate({
-        rules: {
-            Email: {
-                remote: {
-                    url: "@Url.Action("CheckExistEmail", "AdminUser")",
-                    timeout: 5000,
-                    type: "POST"
+    $(function () {
+        $("#register-form").validate({
+            rules: {
+                Email: {
+                    remote: {
+                        url: "@Url.Action("CheckExistEmail", "AdminUser")",
+                        timeout: 5000,
+                        type: "POST"
+                    },
+                    maxlength: 50
                 },
-                maxlength: 50
+                FirstName: {
+                    maxlength: 50
+                },
+                LastName: {
+                    maxlength: 50
+                },
+                Password: {
+                    rangelength: [6, 32]
+                },
+                RePassword: {
+                    rangelength: [6, 32],
+                    equalTo: "#Password"
+                }
             },
-            FirstName: {
-                maxlength: 50
-            },
-            LastName: {
-                maxlength: 50
-            },
-            Password: {
-                rangelength: [6, 32]
-            },
-            RePassword: {
-                rangelength: [6, 32],
-                equalTo: "#Password"
+            messages: {
+                Email: {
+                    remote: "Địa chỉ email đã được đăng ký."
+                },
+                RePassword: {
+                    equalTo: "Xác nhận mật khẩu không trùng khớp."
+                }
             }
-        },
-        messages: {
-            Email: {
-                remote: "Địa chỉ email đã được đăng ký."
-            },
-            RePassword: {
-                equalTo: "Xác nhận mật khẩu không trùng khớp."
-            }
-        }
+        });
+    });
+
+    $('#btnCancel').click(function () {
+        location.href = "http://localhost:52443/";
     });
 </script>

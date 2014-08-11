@@ -52,34 +52,28 @@ namespace OMCS.Web.Controllers
             return result;
         }
 
-        public JsonResult Upload()
+        public ActionResult Uploadify()
         {
-            for (int i = 0; i < Request.Files.Count; i++)
-            {
-                HttpPostedFileBase file = Request.Files[i];
-                int fileSize = file.ContentLength;
-                string fileName = file.FileName;
-                string mimeType = file.ContentType;
-                System.IO.Stream fileContent = file.InputStream;
-                file.SaveAs(Server.MapPath("~/Content/Image/Logo/") + fileName);
-                int hospitalId = _db.HospitalInformations.Where(h => h.HospitalInformationId != 0).AsNoTracking().SingleOrDefault().HospitalInformationId;
-                string name = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).AsNoTracking().FirstOrDefault().Name;
-                string address = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).AsNoTracking().FirstOrDefault().Address;
-                string email = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).AsNoTracking().FirstOrDefault().Email;
-                string phone = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).AsNoTracking().FirstOrDefault().Phone;
-                string fax = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).AsNoTracking().FirstOrDefault().Fax;  
-                HospitalInformation hospital = new HospitalInformation();
-                hospital.HospitalInformationId = hospitalId;
-                hospital.Logo = fileName;
-                hospital.Name = name;
-                hospital.Email = email;
-                hospital.Address = address;
-                hospital.Phone = phone;
-                hospital.Fax = fax;
-                _db.Entry(hospital).State = EntityState.Modified;
-                _db.SaveChanges();
-            }
-            return Json("Uploaded " + Request.Files.Count + " files");
+            var file = Request.Files["Filedata"];
+            string savePath = Server.MapPath(@"~\Content\Image\Logo\" + file.FileName);
+            file.SaveAs(savePath);
+            int hospitalId = _db.HospitalInformations.Where(h => h.HospitalInformationId != 0).AsNoTracking().SingleOrDefault().HospitalInformationId;
+            string name = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).AsNoTracking().FirstOrDefault().Name;
+            string address = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).AsNoTracking().FirstOrDefault().Address;
+            string email = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).AsNoTracking().FirstOrDefault().Email;
+            string phone = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).AsNoTracking().FirstOrDefault().Phone;
+            string fax = _db.HospitalInformations.Where(h => h.HospitalInformationId == hospitalId).AsNoTracking().FirstOrDefault().Fax;
+            HospitalInformation hospital = new HospitalInformation();
+            hospital.HospitalInformationId = hospitalId;
+            hospital.Logo = file.FileName;
+            hospital.Name = name;
+            hospital.Email = email;
+            hospital.Address = address;
+            hospital.Phone = phone;
+            hospital.Fax = fax;
+            _db.Entry(hospital).State = EntityState.Modified;
+            _db.SaveChanges();
+            return Content(Url.Content(@"~\Content\Image\Logo\" + file.FileName));
         }
     }
 }

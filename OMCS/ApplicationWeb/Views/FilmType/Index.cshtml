@@ -14,7 +14,9 @@
         <div class="form-group">
             @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
         </div>
-        <input type="submit" value="Tìm Kiếm" class="btn btn-primary" />
+        <button type="submit" title="Tìm Kiếm" class="btn btn-primary">
+            <i class="glyphicon glyphicon-search"></i>
+        </button>
     }
 </div>
 <p></p>
@@ -41,8 +43,8 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                <button class="btn btn-primary edit-button" data-id="@item.FilmTypeId">Cập Nhật</button>
-                <button class="btn btn-danger delete-button" data-id="@item.FilmTypeId">Xóa</button>
+                <button class="btn btn-primary edit-button" data-id="@item.FilmTypeId" title="Cập nhật"><i class="glyphicon glyphicon-pencil"></i></button>
+                <button class="btn btn-danger delete-button" data-id="@item.FilmTypeId" title="Xóa"><i class="glyphicon glyphicon-remove"></i></button>
             </td>
         </tr>
     }

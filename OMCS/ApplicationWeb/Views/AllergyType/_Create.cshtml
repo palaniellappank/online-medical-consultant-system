@@ -20,18 +20,18 @@
             @Html.AntiForgeryToken()
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="Name">Loại dị ứng</label>
+                    <label for="Name">Loại dị ứng</label> <span style="color: red;">(*)</span>
                     @Html.TextBoxFor(model => model.Name, new { @class = "form-control required maxlength" })
                 </div>
 
                 <div class="form-group">
-                    <label for="Description">Mô Tả</label>
+                    <label for="Description">Mô Tả</label> <span style="color: red;">(*)</span>
                     @Html.TextBoxFor(model => model.Description, new { @class = "form-control required" })
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Tạo</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
+                <button type="submit" class="btn btn-primary">Tạo</button>                
             </div>
         }
     </div>

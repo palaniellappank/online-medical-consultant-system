@@ -14,7 +14,9 @@
         <div class="form-group">
             @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
         </div>
-        <input type="submit" value="Tìm Kiếm" class="btn btn-primary" />
+         <button type="submit" title="Tìm Kiếm" class="btn btn-primary">
+            <i class="glyphicon glyphicon-search"></i>
+        </button>
     }
 </div>
 <p></p>

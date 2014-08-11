@@ -2,60 +2,95 @@
 @using OMCS.Web
 @using (Ajax.BeginForm("Edit", "AdminDoctor", null, new { EncType = "multipart/form-data", id = "edit-form" }))
 {
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Cập Nhật</h4>
             </div>
             <div class="modal-body">
-                @Html.HiddenFor(model => model.UserId)
-                @Html.HiddenFor(model => model.CreatedDate)
-                @Html.HiddenFor(model => model.Email)
-                @Html.HiddenFor(model => model.Password)
-                @Html.HiddenFor(model => model.Birthday)
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.LastName) <span style="color: red;">(*)</span>
-                    <input type="text" value="@Html.DisplayFor(model => model.LastName)" id="LastName" name="LastName" class="form-control required" />
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        @Model.LastName
+                        @Model.FirstName
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3" align="center">
+                                <h4>Ảnh đại diện</h4>
+                                <form runat="server">
+                                    <img alt="User Pic" id="targetImg" src="@Html.GetPictureUrl("Profile")@Model.ProfilePicture" class="img-circle" style="width:120px; height:120px">
+                                </form>
+                                <input type="hidden" id="profile" name="profile" value="@Model.ProfilePicture" />
+                                <br />
+                            </div>
+                            <div class=" col-md-9 col-lg-9">
+                                <div class="tabbable tabs-left">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="basicInfo">
+                                            <div class="form-group">
+                                                <table class="table">
+                                                    <tbody>
+                                                        @Html.HiddenFor(model => model.Email)
+                                                        @Html.HiddenFor(model => model.UserId)
+                                                        @Html.HiddenFor(model => model.CreatedDate)
+                                                        @Html.HiddenFor(model => model.Birthday)
+                                                        @Html.HiddenFor(model => model.Email)
+                                                        @Html.HiddenFor(model => model.Password)
+                                                        <tr>
+                                                            <td>@Html.DisplayNameFor(model => model.LastName) <span style="color: red;">(*)</span></td>
+                                                            <td>
+                                                                <input type="text" id="LastName" name="LastName" value="@Html.DisplayFor(model => model.LastName)"  class = "form-control required" /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.DisplayNameFor(model => model.FirstName) <span style="color: red;">(*)</span></td>
+                                                            <td>
+                                                                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control required", @Name = "Firstname" })
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.DisplayNameFor(model => model.Gender) <span style="color: red;">(*)</span></td>
+                                                            <td>@Html.DropDownListFor(model => model.Gender, new SelectList(new List<string> { "Nam", "Nữ" }), new { @class = "form-control" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Chuyên môn
+                                                                <span style="color: red;">(*)</span></td>
+                                                            <td>@Html.DropDownList("SpecialtyFieldId", null, new { @class = "form-control" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.DisplayNameFor(model => model.Phone) <span style="color: red;">(*)</span></td>
+                                                            <td>@Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.DisplayNameFor(model => model.PrimaryAddress) <span style="color: red;">(*)</span></td>
+                                                            <td>@Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>@Html.DisplayNameFor(model => model.SecondaryAddress)</td>
+                                                            <td>@Html.TextBoxFor(model => model.SecondaryAddress, new { @class = "form-control" })</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FirstName) <span style="color: red;">(*)</span>
-                    <input type="text" value="@Html.DisplayFor(model => model.FirstName)" id="FirstName" name="FirstName" class="form-control required" />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <i class="glyphicon glyphicon-remove"></i>&nbsp;Bỏ Qua
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-save"></i>&nbsp;Lưu
+                    </button>
                 </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Gender) <span style="color: red;">(*) </span>
-                    @Html.DropDownListFor(model => model.Gender, new SelectList(new List<string> { "Nam", "Nữ" }), new { @class = "form-control" })
-                </div>
-
-                <div class="form-group">
-                    <label for="SpecialtyField" class="control-label">Chuyên môn</label>
-                    @Html.DropDownList("SpecialtyFieldId", null, new { @class = "form-control" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Phone) <span style="color: red;">(*) </span>
-                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control required number", id = "Phone" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.PrimaryAddress) <span style="color: red;">(*)
-                    @Html.TextBoxFor(model => model.PrimaryAddress, new { @class = "form-control required" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SecondaryAddress)
-                    @Html.TextBoxFor(model => model.SecondaryAddress, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Cập nhật</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Bỏ qua</button>
             </div>
         </div>
-    </div>
+    </div>                
 }
 
 <script type="text/javascript">

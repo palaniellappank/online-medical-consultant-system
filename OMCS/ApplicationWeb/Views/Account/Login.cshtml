@@ -33,7 +33,7 @@
                     <div class="pass-reset">
                         <label>
                             Nhập địa chỉ email mà bạn dùng để đăng kí</label>
-                        <input type="email" placeholder="Email" autocomplete="off"/>
+                        <input type="email" placeholder="Email" autocomplete="off" />
                         <input type="submit" value="Gửi" class="pass-reset-submit btn btn-success btn-sm" />
                     </div>
                 </div>
@@ -54,7 +54,12 @@
                                 }
                             </div>
                         }
-                        <input type="submit" value="Đăng nhập" class="btn btn-success btn-sm" />
+                        <span class="pull-right">
+                            <button type="button" class="btn btn-default" id="btnCancel">Trở về</button>
+                            <button type="submit" class="btn btn-success">Đăng nhập</button>
+                        </span>
+                        @*  <input type="button" value="Trở về" class="btn btn-default btn-sm" />
+                        <input type="submit" value="Đăng nhập" class="btn btn-success btn-sm" />*@
                         <div class="remember-forgot">
                             <div class="row">
                                 <div class="col-md-6">
@@ -65,7 +70,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-6 forgot-pass-content">
+                                <div class="col-md-6 forgot-pass-content" style="text-align:right">
                                     <a href="#forgot-pass" class="forgot-password">Quên mật khẩu</a>
                                 </div>
                             </div>
@@ -153,3 +158,8 @@
         </div>
     </div>
 }*@
+<script type="text/javascript">
+    $('#btnCancel').click(function () {
+        location.href = "http://localhost:52443/";
+    });
+</script>

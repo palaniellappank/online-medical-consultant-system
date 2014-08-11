@@ -8,92 +8,125 @@
     <legend>Thông tin Bác sĩ</legend>
 </fieldset>
 
-<img alt="User Pic" id="targetImg" src="@Html.GetPictureUrl("Profile")@Model.ProfilePicture" class="img-circle" style="width:120px; height:120px">
-
-<div>
-    <input type="file" name="file_upload" id="file_upload" />
-</div>
-
-<div class="row">
-    <div class="col-xs-4" style="float: right">
-        <label class="switch-light progress progress-striped active" onclick="">
-            <input type="checkbox" id="enable">
-            <span>Thay đổi
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-xs-4" style="float: right">
+            <label class="switch-light progress progress-striped active" onclick="">
+                <input type="checkbox" id="enable">
+                <span>Thay đổi
                 <span aria-label="Tắt" title="Tắt">O</span>
-                <span aria-label="Bật" title="Bật">I</span>
-            </span>
-            <a class="progress-bar progress-bar-success"></a>
-        </label>
+                    <span aria-label="Bật" title="Bật">I</span>
+                </span>
+                <a class="progress-bar progress-bar-success"></a>
+            </label>
+        </div>
     </div>
 </div>
 
+<div class="col-md-2">
+    <h4>Ảnh đại diện</h4>
+    <img alt="User Pic" id="targetImg" src="@Html.GetPictureUrl("Profile")@Model.ProfilePicture" class="img-circle" style="width:120px; height:120px">
+    <input type="file" name="file_upload" id="file_upload" />
+</div>
 
-<table class="table table-data table-bordered table-striped" style="clear: both">
-    <tbody>
-        <tr>
-            <td style="width: 35%;">@Html.DisplayNameFor(model => model.FullName)</td>
-            <td style="width: 65%;">
-                <a href="#" id="lastname" data-type="text"
+<div class="col-md-10">
+    <table class="table table-data table-bordered table-striped" style="clear: both">
+        <tbody>
+            <tr>
+                <td style="width: 35%;">@Html.DisplayNameFor(model => model.FullName)</td>
+                <td style="width: 65%;">
+                    <a href="#" id="lastname" data-type="text"
                     data-title="@Html.DisplayNameFor(model => model.LastName)" class="editable editable-click">
-                    @Html.DisplayFor(model => model.LastName)
-                </a>
-                <a href="#" id="firstname" data-type="text" 
+                        @Html.DisplayFor(model => model.LastName)
+                    </a>
+                    <a href="#" id="firstname" data-type="text" 
                     data-title="@Html.DisplayNameFor(model => model.FirstName)" class="editable editable-click">
-                    @Html.DisplayFor(model => model.FirstName)
-                </a>
-            </td>
-        </tr>
-       @* <tr>
-            <td>@Html.DisplayNameFor(model => model.Password)</td>
-            <td>
-                <a href="#" id="password" data-type="password" data-value="@Html.DisplayFor(model => model.Password)" 
-                    data-title="@Html.DisplayNameFor(model => model.Password)" class="editable editable-click">
-                </a>                
-            </td>
-        </tr>*@
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.Gender)</td>
-            <td>
-                <a href="#" id="gender" data-type="select" data-value="@Html.DisplayFor(model => model.Gender)" 
+                        @Html.DisplayFor(model => model.FirstName)
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Password)</td>
+                <td>
+                    <button class="btn btn-info password-button" data-toggle="modal" data-target="#myModal">Thay đổi mật khẩu</button></td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Gender)</td>
+                <td>
+                    <a href="#" id="gender" data-type="select" data-value="@Html.DisplayFor(model => model.Gender)" 
                     data-title="@Html.DisplayNameFor(model => model.Gender)" class="editable editable-click"></a>
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.Birthday)</td>
-            <td>
-                <a href="#" id="birthday" data-type="date" data-value="@Html.DisplayFor(model => model.Birthday)"
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Birthday)</td>
+                <td>
+                    <a href="#" id="birthday" data-type="date" data-value="@Html.DisplayFor(model => model.Birthday)"
                     data-title="@Html.DisplayNameFor(model => model.Birthday)"></a>
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.Phone)</td>
-            <td>
-                <a href="#" id="phone" data-type="tel"
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Phone)</td>
+                <td>
+                    <a href="#" id="phone" data-type="tel"
                     data-title="@Html.DisplayNameFor(model => model.Phone)">@Html.DisplayFor(model => model.Phone)</a>
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.PrimaryAddress)</td>
-            <td>
-                <a href="#" id="primaryaddress" data-type="textarea"
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.PrimaryAddress)</td>
+                <td>
+                    <a href="#" id="primaryaddress" data-type="textarea"
                     data-title="@Html.DisplayNameFor(model => model.PrimaryAddress)">@Html.DisplayFor(model => model.PrimaryAddress)</a>
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.SecondaryAddress)</td>
-            <td>
-                <a href="#" id="secondaryaddress" data-type="textarea"
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.SecondaryAddress)</td>
+                <td>
+                    <a href="#" id="secondaryaddress" data-type="textarea"
                     data-title="@Html.DisplayNameFor(model => model.SecondaryAddress)">@Html.DisplayFor(model => model.SecondaryAddress)</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Thay đổi mật khẩu</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-data table-bordered table-striped" style="clear: both">
+                    <tbody>
+                        <tr>
+                            <td>Mật khẩu hiện tại</td>
+                            <td><input type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td>Mật khẩu mới</td>
+                            <td><input type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td>Xác nhận mật khẩu</td>
+                            <td><input type="text" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Trở về</button>
+                <button type="button" class="btn btn-primary">Cập nhật mật khẩu</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
-    $(function () {
-
+    $(function () {     
         //defaults
-        $.fn.editable.defaults.url = '/DoctorInformation/Save';
+        $.fn.editable.defaults.url = '/AdminInformation/Save';
         $.fn.editable.defaults.emptytext = 'Trống';
         $.fn.editable.defaults.pk = @Html.DisplayFor(model => model.UserId);
 
@@ -155,8 +188,8 @@
         $('#password').editable({            
             validate: function (value) {
                 var passw=  /^[A-Za-z0-9]\w{5,32}$/;               
-                    if (!value.match(passw)) {
-                        return "Vui lòng nhập lại !";                  
+                if (!value.match(passw)) {
+                    return "Vui lòng nhập lại !";                  
                 }
             }
         });
@@ -177,7 +210,7 @@
             }
         });
         $('.table-data .editable').editable('toggleDisabled');
-
+       
         $('#file_upload').uploadify({
             'swf': "@Url.Content("~/Content/UploadifyContent/uploadify.swf")",
             'cancelImg': "@Url.Content("~/Content/UploadifyContent/uploadify-cancel.png")",
@@ -186,6 +219,6 @@
                 //$("#uploaded").append("<img src='" + data + "' alt='Uploaded Image' />");
                 window.location.reload(true);
             }
-        });
+        });        
     });
 </script>

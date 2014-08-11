@@ -2,217 +2,243 @@
 @using OMCS.Web
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Chi tiết bệnh nhân</h4>
-      </div>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Chi tiết bệnh nhân</h4>
+        </div>
 
-      <div class="modal-body">
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title">@Html.DisplayFor(model => model.Patient.FullName)</h3>
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="@Html.GetPictureUrl("Profile")@Model.Patient.ProfilePicture" class="img-circle" style="width:120px; height:120px">
-                   <div class="tabbable tabs-left">
-                     <ul class="nav nav-tabs">
-                      <li class="active"><a href="#basicInfo" data-toggle="tab">Thông tin cơ bản</a></li>
-                      <li><a href="#patientInfo" data-toggle="tab">Thông tin bệnh nhân</a></li>
-                      <li><a href="#healthRecord" data-toggle="tab">Sức khỏe cá nhân</a></li>
-                      <li><a href="#medicalRecord" data-toggle="tab">Bệnh án</a></li>
-                    </ul>
-                  </div>
+        <div class="modal-body">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Html.DisplayFor(model => model.Patient.FullName)</h3>
                 </div>
-                
-
-
-                <div class=" col-md-9 col-lg-9 scrolable"> 
-                    <div class="tabbable tabs-left">
-                        <div class="tab-content">
-                         <div class="tab-pane active" id="basicInfo">
-                             <table class="table">
-                                <tbody>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.Patient.Gender)</td>
-                                    <td>@Html.DisplayFor(model => model.Patient.Gender)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.Patient.Birthday)</td>
-                                    <td>@Html.DisplayFor(model => model.Patient.Birthday)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.Patient.Phone)</td>
-                                    <td>@Html.DisplayFor(model => model.Patient.Phone)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.Patient.PrimaryAddress)</td>
-                                    <td>@Html.DisplayFor(model => model.Patient.PrimaryAddress)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.Patient.SecondaryAddress)</td>
-                                    <td>@Html.DisplayFor(model => model.Patient.SecondaryAddress)</td>
-                                  </tr>
-                                 </tbody>
-                                </table>
-                         </div>
-                         <div class="tab-pane" id="patientInfo">
-                             <table class="table">
-                                <tbody>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.Patient.Nationality)</td>
-                                    <td>@Html.DisplayFor(model => model.Patient.Nationality)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.Patient.Ethnicity)</td>
-                                    <td>@Html.DisplayFor(model => model.Patient.Ethnicity)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.Patient.Job)</td>
-                                    <td>@Html.DisplayFor(model => model.Patient.Job)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.Patient.WhereToWork)</td>
-                                    <td>@Html.DisplayFor(model => model.Patient.WhereToWork)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.Patient.ContactPerson)</td>
-                                    <td>@Html.DisplayFor(model => model.Patient.ContactPerson)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.Patient.ContactPersonAddress)</td>
-                                    <td>@Html.DisplayFor(model => model.Patient.ContactPersonAddress)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.Patient.HealthInsuranceIssued)</td>
-                                    <td>@Html.DisplayFor(model => model.Patient.HealthInsuranceIssued)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.Patient.HealthInsuranceDateExpired)</td>
-                                    <td>@Html.DisplayFor(model => model.Patient.HealthInsuranceDateExpired)</td>
-                                  </tr>
-                                 </tbody>
-                                </table>
-                         </div>
-                         <div class="tab-pane" id="healthRecord">
-                             <table class="table">
-                                <tbody>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.Height)</td>
-                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.Weight)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.EyeColor)</td>
-                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.EyeColor)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.HairColor)</td>
-                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.HairColor)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.BloodType)</td>
-                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.BloodType)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.AlcoholPerWeek)</td>
-                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.AlcoholPerWeek)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.AlcoholNumOfYear)</td>
-                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.AlcoholNumOfYear)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.SmokePackPerWeek)</td>
-                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.SmokePackPerWeek)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.SmokeNumOfYear)</td>
-                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.SmokeNumOfYear)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.SportName)</td>
-                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.SportName)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.SportPerWeek)</td>
-                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.SportPerWeek)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.ExerciseType)</td>
-                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.ExerciseType)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.ExercisePerWeek)</td>
-                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.ExercisePerWeek)</td>
-                                  </tr>
-                                 </tbody>
-                             </table>
-                         </div>
-                        <div class="tab-pane" id="medicalRecord">
-                            @if (Model.MedicalProfiles.Count == 0)
-                            {
-                                <div class="alert alert-info">Bệnh nhân này chưa có Hồ Sơ Bệnh Án
-                                    <br /> Hãy là người tạo đầu tiên!
-                                </div>
-                            }
-                            <div class="panel panel-default">
-                              <div class="panel-heading">
-                                <h3 class="panel-title">Thêm mới Hồ Sơ Bệnh Án</h3>
-                              </div>
-                              <div class="panel-body" style="overflow-y: auto;height: initial;">
-                                <div class="form-group">
-                                  <label class="col-md-3 control-label" style="padding-top: 8px;">Loại Bệnh Án</label>
-                                  <div class="col-md-7">                     
-                                      @Html.DropDownList("1", (SelectList)ViewBag.medicalProfileTemplateList, new { @class="form-control", @id = "medicalProfileTemplate"})
-                                  </div>
-                                  <a class="btn btn-primary" title="Tạo" id="newMedicalProfileBtn" target="_blank">                     
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                  </a>
-                                </div>
-                              </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center">
+                            <img alt="User Pic" src="@Html.GetPictureUrl("Profile")@Model.Patient.ProfilePicture" class="img-circle" style="width:120px; height:120px">
+                            <div class="tabbable tabs-left">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#basicInfo" data-toggle="tab">Thông tin cơ bản</a></li>
+                                    <li><a href="#patientInfo" data-toggle="tab">Thông tin bệnh nhân</a></li>
+                                    <li><a href="#healthRecord" data-toggle="tab">Sức khỏe cá nhân</a></li>
+                                    <li><a href="#contactPerson" data-toggle="tab">Người liên lạc</a></li>
+                                    <li><a href="#medicalRecord" data-toggle="tab">Bệnh án</a></li>
+                                </ul>
                             </div>
-				            <ul class="event-list">
-                                @foreach (var item in Model.MedicalProfiles) {
-					                <li>
-						                <time>
-							                <span class="day">@item.CreatedDate.Day</span>
-							                <span class="month">Tháng @item.CreatedDate.Month</span>
-							                <span class="year">@item.CreatedDate.Year</span>
-						                </time>
-						                <div class="info">
-							                <h2 class="title">@Html.DisplayFor(modelItem => item.MedicalProfileTemplate.MedicalProfileTemplateName)</h2>
-							                <p class="desc">@Html.DisplayNameFor(modelItem => item.MedicalProfileKey): @Html.DisplayFor(modelItem => item.MedicalProfileKey)</p>
-						                </div>
-						                <div class="social">
-							                <ul>
-								                <li class="twitter" style="width:34%;"><a href="#twitter" target="_blank"><span class="glyphicon glyphicon-search"></span></a></li>
-								                <li class="google-plus" style="width:33%;"><a href="@Url.Action("UpdateMedicalProfile", "DoctorUser", new { id = Model.Patient.UserId, medicalProfileTemplateId = item.MedicalProfileTemplateId})" target="_blank"><span class="glyphicon glyphicon-pencil"></span></a></li>
-							                </ul>
-						                </div>
-					                </li>
-                                }
-				            </ul>
                         </div>
-                     </div>
-                   </div>
-                  </div>
+
+
+
+                        <div class=" col-md-9 col-lg-9 scrolable">
+                            <div class="tabbable tabs-left">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="basicInfo">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.Gender)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.Gender)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.Birthday)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.Birthday)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.Phone)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.Phone)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.PrimaryAddress)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.PrimaryAddress)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.SecondaryAddress)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.SecondaryAddress)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="tab-pane" id="patientInfo">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.Nationality)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.Nationality)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.Ethnicity)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.Ethnicity)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.Job)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.Job)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.WhereToWork)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.WhereToWork)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.ContactPerson)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.ContactPerson)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.ContactPersonAddress)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.ContactPersonAddress)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.HealthInsuranceIssued)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.HealthInsuranceIssued)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.HealthInsuranceDateExpired)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.HealthInsuranceDateExpired)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane" id="healthRecord">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.Height)</td>
+                                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.Weight)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.EyeColor)</td>
+                                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.EyeColor)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.HairColor)</td>
+                                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.HairColor)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.BloodType)</td>
+                                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.BloodType)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.AlcoholPerWeek)</td>
+                                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.AlcoholPerWeek)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.AlcoholNumOfYear)</td>
+                                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.AlcoholNumOfYear)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.SmokePackPerWeek)</td>
+                                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.SmokePackPerWeek)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.SmokeNumOfYear)</td>
+                                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.SmokeNumOfYear)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.SportName)</td>
+                                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.SportName)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.SportPerWeek)</td>
+                                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.SportPerWeek)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.ExerciseType)</td>
+                                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.ExerciseType)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.PersonalHealthRecord.ExercisePerWeek)</td>
+                                                    <td>@Html.DisplayFor(model => model.PersonalHealthRecord.ExercisePerWeek)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="tab-pane" id="contactPerson">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.ContactPerson)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.ContactPerson)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.ContactPersonAddress)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.ContactPersonAddress)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Html.DisplayNameFor(model => model.Patient.ContactPersonPhone)</td>
+                                                    <td>@Html.DisplayFor(model => model.Patient.ContactPersonPhone)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="tab-pane" id="medicalRecord">
+                                        @if (Model.MedicalProfiles.Count == 0)
+                                        {
+                                            <div class="alert alert-info">
+                                                Bệnh nhân này chưa có Hồ Sơ Bệnh Án
+                                    <br />
+                                                Hãy là người tạo đầu tiên!
+                                            </div>
+                                        }
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Thêm mới Hồ Sơ Bệnh Án</h3>
+                                            </div>
+                                            <div class="panel-body" style="overflow-y: auto; height: initial;">
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label" style="padding-top: 8px;">Loại Bệnh Án</label>
+                                                    <div class="col-md-7">
+                                                        @Html.DropDownList("1", (SelectList)ViewBag.medicalProfileTemplateList, new { @class = "form-control", @id = "medicalProfileTemplate" })
+                                                    </div>
+                                                    <a class="btn btn-primary" title="Tạo" id="newMedicalProfileBtn" target="_blank">
+                                                        <i class="glyphicon glyphicon-plus"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ul class="event-list">
+                                            @foreach (var item in Model.MedicalProfiles)
+                                            {
+                                                <li>
+                                                    <time>
+                                                        <span class="day">@item.CreatedDate.Day</span>
+                                                        <span class="month">Tháng @item.CreatedDate.Month</span>
+                                                        <span class="year">@item.CreatedDate.Year</span>
+                                                    </time>
+                                                    <div class="info">
+                                                        <h2 class="title">@Html.DisplayFor(modelItem => item.MedicalProfileTemplate.MedicalProfileTemplateName)</h2>
+                                                        <p class="desc">@Html.DisplayNameFor(modelItem => item.MedicalProfileKey): @Html.DisplayFor(modelItem => item.MedicalProfileKey)</p>
+                                                    </div>
+                                                    <div class="social">
+                                                        <ul>
+                                                            <li class="twitter" style="width: 34%;"><a href="#twitter" target="_blank"><span class="glyphicon glyphicon-search"></span></a></li>
+                                                            <li class="google-plus" style="width: 33%;"><a href="@Url.Action("UpdateMedicalProfile", "DoctorUser", new { id = Model.Patient.UserId, medicalProfileTemplateId = item.MedicalProfileTemplateId })" target="_blank"><span class="glyphicon glyphicon-pencil"></span></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-                <div class="panel-footer">
-                    <a data-original-title="Dị ứng" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary" id="allergy-btn">
-                        <i class="glyphicon glyphicon-list-alt"></i> Dị ứng
-                    </a>
-                    <a data-original-title="Lịch sử tiêm chủng" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary" id="immunization-btn">
-                        <i class="glyphicon glyphicon-list-alt"></i> Lịch sử tiêm chủng
-                    </a>
-                    <span class="pull-right">
-                        <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
-                        <a data-original-title="Bỏ Qua" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
-                    </span>
-                </div>
-       </div>
-   </div>
+            <div class="panel-footer">
+                <a data-original-title="Dị ứng" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary" id="allergy-btn">
+                    <i class="glyphicon glyphicon-list-alt"></i>Dị ứng
+                </a>
+                <a data-original-title="Lịch sử tiêm chủng" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary" id="immunization-btn">
+                    <i class="glyphicon glyphicon-list-alt"></i>Lịch sử tiêm chủng
+                </a>
+                <span class="pull-right">
+                    <button class="btn btn-primary edit-button" data-id="@Model.Patient.UserId" title="Cập nhật"><i class="glyphicon glyphicon-pencil"></i></button>
+                    <button class="btn btn-default cancel-button" title="Bỏ qua" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -239,5 +265,15 @@
                 }
             });
         });
+
+        $(".edit-button").click(function () {
+            var url = "/DoctorUser/EditPatient";
+            var id = $(this).attr("data-id");
+            $.get(url + "/" + id, function (data) {
+                $('#view-model').modal("hide");
+                $("#edit-container").html(data);
+                $("#edit-model").modal("show");               
+            });
+        });       
     });
 </script>
