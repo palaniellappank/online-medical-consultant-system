@@ -27,7 +27,8 @@ namespace OMCS.Web.Controllers
             ViewBag.DoctorId = doctor.UserId;
             ViewBag.RatingPoint = ratingPoint;
             ViewBag.RatingCount = ratings.Count;
-
+            var doc = _db.Doctors.Where(d => d.UserId == User.UserId).SingleOrDefault();
+            ViewBag.Doctor = doc;
             return View();
         }
 

@@ -1,40 +1,59 @@
 ﻿@model PagedList.IPagedList<OMCS.DAL.Model.Comment>
 
 @using PagedList.Mvc;
+@using OMCS.Web;
 
 @{
     Layout = null;
+    var user = @ViewBag.User;   
 }
 
 
 <style>
-    blockquote footer {
+    blockquote footer
+    {
         margin-top: 0px;
         padding-top: 0px;
         padding-bottom: 0px;
         background-color: #fff;
         color: #756e6e;
     }
-    blockquote footer cite {
-        color: #aea5a5;
-    }
+
+        blockquote footer cite
+        {
+            color: #aea5a5;
+        }
 </style>
 
-
+<hr />
 @foreach (var item in Model)
 {
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-1">
+            @if (@item.DoctorId == @user.UserId && @item.PatientId == null)
+            {
+                <img src="@Html.GetPictureUrl("Profile")@item.Doctor.ProfilePicture" class="img-circle img-responsive" style="max-height: 60px;"/>
+            }
+            else
+            {
+                <img src="@Html.GetPictureUrl("Profile")@item.Patient.ProfilePicture" class="img-circle img-responsive" style="max-height: 60px;"/>
+            }
+        </div>
+        <div class="col-md-11">
             <blockquote>
                 <p>@item.Content</p>
-                <footer>Su Tran <cite title="Source Title">@item.PostedDate.ToShortDateString()</cite></footer>
+                @if (@item.DoctorId == @user.UserId && @item.PatientId == null)
+                {
+                    <footer>@item.Doctor.FullName <cite title="Source Title">@item.PostedDate.ToShortDateString()</cite></footer>
+                }
+                else
+                {
+                    <footer>@item.Patient.FullName <cite title="Source Title">@item.PostedDate.ToShortDateString()</cite></footer> 
+                }               
             </blockquote>
-        </div>
-        <div class="col-md-2">
-            <img src="~/Content/ProfilePicture/Su.JPG" class="img-circle img-responsive" style="max-height: 60px;"/>
         </div>
     </div>
 }
 Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page}))
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

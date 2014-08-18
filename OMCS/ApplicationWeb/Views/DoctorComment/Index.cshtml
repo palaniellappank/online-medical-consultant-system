@@ -8,14 +8,14 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_DoctorLayout.cshtml";
-    //var doctor = ViewBag.DoctorId;
+    var doctor = ViewBag.Doctor;
 }
 
 <h2>Tin nhắn</h2>
 
 <div class="bs-callout bs-callout-info">
     <h4>Đánh giá</h4>
-    
+
     @if (ViewBag.RatingCount == 0)
     {
         <p>Chưa có đánh giá</p>
@@ -24,7 +24,7 @@
     {
         <p>
             <input class="rating" data-min="0" data-max="5" data-size="sm" value="@ViewBag.RatingPoint" readonly="true">
-        &nbsp;(@ViewBag.RatingCount Lượt đánh giá)
+            &nbsp;(@ViewBag.RatingCount Lượt đánh giá)
         </p>
     }
 </div>
@@ -35,7 +35,7 @@
 
 <div class="row">
     <div class="col-md-1">
-        <img src="~/Content/Image/ProfilePicture/photo.jpg" class="img-circle img-responsive" style="max-height: 66px; margin-left: 12px; padding-top: 7px;"/>
+        <img src="@Html.GetPictureUrl("Profile")@doctor.ProfilePicture" class="img-circle img-responsive" style="max-height: 66px; margin-left: 12px; padding-top: 7px;"/>
     </div>
 
     <div class="col-md-10">
@@ -43,7 +43,7 @@
             <textarea id="txtComment" class="form-control"></textarea>
         </div>
     </div>
-        
+
     <div class="col-md-1">
         <input type="submit" id="btnPostComment" value="Gửi" class="btn btn-primary" />
     </div>
