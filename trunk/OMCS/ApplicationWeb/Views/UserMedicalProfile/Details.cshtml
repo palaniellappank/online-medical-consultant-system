@@ -48,19 +48,25 @@
     <table class="table table-striped table-hover ">
         <thead>
             <tr>
-                <% _.each(snippetList, function(snippet, i){ %>
-            <th><%= snippet.columns %></th>
+                <% _.each(JSON.parse(snippet.columns), function(column, i){ %>
+                    <th><%= column %></th>
                 <% }); %>
             </tr>
         </thead>
         <tbody>
-            <% for (var i = 0; i < snippet.numofrows; i++) { %>
+            <% 
+                var numOfCols = JSON.parse(snippet.columns).length;
+                for (var i = 0; i < snippet.numofrows; i++) { %>
             <tr>
-                <% snippet.positionInTable %>
-                <% _.each(snippetList, function(snippet, j) { %>
-                    <td><%= snippet.value %>
-                    </td>
-                <% }); %>
+                <% 
+                    var indexInRow = 0;
+                    _.each(snippetList, function(snippet, j) { %>
+                    <% if (i*numOfCols + indexInRow == snippet.positionInTable) {
+                        indexInRow++;
+                    %>
+                        <td><%= snippet.value %></td>
+                    <% }
+                }); %>
             </tr>
             <% } %>
         </tbody>

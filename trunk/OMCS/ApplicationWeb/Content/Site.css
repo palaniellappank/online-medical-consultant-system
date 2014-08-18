@@ -677,3 +677,12 @@ img.slider-img:hover {
 .rating-popover .showDoctorDetail {
     margin-left: 22px;
 }
+
+/*Save button when update medical profile
+*/
+#updateMedicalProfileBtn {
+    position: fixed;
+    z-index: 10000;
+    bottom: 10px;
+    left: 150px;
+}

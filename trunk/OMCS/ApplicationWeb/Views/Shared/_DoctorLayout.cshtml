@@ -7,22 +7,21 @@
     <title>@ViewBag.Title - Trang quản lý Bác Sĩ</title>
     @Styles.Render("~/bundles/cssOMCS")
     <link href="~/Content/sb-admin.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/toggle-switch.css" rel="stylesheet">
     <link href="~/Content/select2/select2.css" rel="stylesheet">
 
-    @Scripts.Render("~/bundles/jsOMCS")
+    @if (IsSectionDefined("Scripts"))
+    {
+        @RenderSection("Scripts");
+    } else {
+        @Scripts.Render("~/bundles/jsOMCS")
+    }
     <script src="~/Content/select2/select2.js"></script>
     <script type="text/javascript" src="@Url.Content("~/Content/UploadifyContent/jquery.uploadify.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Content/UploadifyContent/jquery.uploadify.min.js")"></script>
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/UploadifyContent/uploadify.css")" />
     <link href="~/Content/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
     <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>
-    @*<link href="~/Content/select2/select2.css" rel="stylesheet">
-    <script src="~/Content/select2/select2.js"></script>
-
-    <link href="~/Content/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
-    <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>*@
     @if (IsSectionDefined("Styles"))
     {
         @RenderSection("Styles");
@@ -133,91 +132,5 @@
             });
         </script>
     </div>
-    @*<!-- Header -->
-    <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="~/Doctor/Index">Bác Sĩ: @User.LastName @User.FirstName</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="~/Account/Logout"><i class="glyphicon glyphicon-lock"></i>Đăng Xuất</a></li>
-                </ul>
-            </div>
-        </div>
-        <!-- /container -->
-    </div>
-    <!-- /Header -->
-
-    <!-- Main -->
-    <div class="container">
-
-        <div class="row">
-            <div class="col-md-3">
-                <!-- Left column -->
-
-                <ul class="nav nav-pills nav-stacked">
-                    <li class="nav-header"></li>
-                    <li class="@Html.IsActive("DoctorInformation", "Index")">
-                        <a href="@Url.Action("Index", "DoctorInformation")"><i class="glyphicon glyphicon-user"></i>Thông tin cá nhân</a>
-                    </li>
-                    <li class="@Html.IsActive("DoctorUser", "Index")">
-                        <a href="@Url.Action("Index", "DoctorUser")"><i class="glyphicon glyphicon-user"></i>Quản lý bệnh nhân</a>
-                    </li>
-                    <li class="@Html.IsActive("DoctorMedicalProfile", "Index")">
-                        <a href="@Url.Action("Index", "DoctorMedicalProfile")"><i class="glyphicon glyphicon-folder-open"></i>Quản lý bệnh án</a>
-                    </li>
-                    <li class="@Html.IsActive("DoctorConversation", "Index")">
-                        <a href="@Url.Action("Index", "DoctorConversation")" target="_blank"><i class="glyphicon glyphicon-envelope"></i>Tư vấn trực tuyến<span class="badg1e unread-message"></span></a>
-                    </li>
-                    <li class="@Html.IsActive("DoctorComment", "Index")">
-                        <a href="@Url.Action("Index", "DoctorComment")"><i class="glyphicon glyphicon-list-alt"></i>Tin nhắn</a>
-                    </li>
-                    <li class="@Html.IsActive("DoctorComment", "Index")">
-                        <a href="@Url.Action("Index", "AdminTemplate")"><i class="glyphicon glyphicon-list-alt"></i>Xem mẫu hồ sơ</a>
-                    </li>
-                </ul>
-
-                <hr>
-            </div>
-            <!-- /col-3 -->
-            <div class="col-md-9">
-                @RenderBody()
-            </div>
-            <!--/col-span-9-->
-        </div>
-    </div>
-    <!-- /Main -->
-
-    <footer class="text-center">Copyright Group 2 - FPT University - 2014</footer>
-
-    <input id="txtFromEmail" class="textBox" value="@User.Email" type="hidden"/>
-    <input id="txtToEmail" class="textBox" value="" type="hidden" />
-    <script type='text/javascript'>
-        //var chatHub = $.connection.chatHub;
-        //$(document).ready(function () {
-
-        //    $(".alert").addClass("in").fadeOut(4500);
-
-        //    var chatHub = $.connection.chatHub;
-        //    registerClientMethodsInConversation(chatHub);
-
-        //    // Start Hub
-        //    $.connection.hub.start().done(function () {
-        //        var fromUser = $("#txtFromEmail").val();
-        //        chatHub.server.connectDoctor(fromUser);
-        //    });
-        //    /* swap open/close side menu icons */
-        //    $('[data-toggle=collapse]').click(function () {
-        //        // toggle icon
-        //        $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
-        //    });
-        //});
-    </script>*@
 </body>
 </html>
