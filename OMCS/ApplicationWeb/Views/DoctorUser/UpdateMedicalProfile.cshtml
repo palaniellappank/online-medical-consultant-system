@@ -2,6 +2,9 @@
     ViewBag.Title = "Cập nhật hồ sơ bệnh án";
     Layout = "~/Views/Shared/_DoctorLayout.cshtml";
 }
+@section Scripts{
+    @Scripts.Render("~/bundles/jsTemplateEditor")
+}
 @section Styles{
     <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet">
 }
@@ -22,7 +25,7 @@
         <div class="control-group">
             <h2>@(ViewBag.medicalProfileName)</h2>
             <div class="controls">
-                <button type="submit" id="saveBtn" class="btn btn-primary" style="position: absolute;top: 18px;right: 0;">Cập nhật</button>
+                <button type="submit" id="updateMedicalProfileBtn" class="btn btn-primary">Cập nhật</button>
             </div>
         </div>
         <input name="medicalProfileTemplateId" type="hidden" value="@(ViewBag.medicalProfileTemplateId)"/>

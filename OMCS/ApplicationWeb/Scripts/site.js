@@ -1,17 +1,21 @@
 ﻿$.blockUI.defaults.message = "<h1>Vui lòng chờ</h1>";
-
+var isError;
 function doOnlineCheck() {
     var submitURL = baseUrl + "Home/Index";
-    $.ajax({
-        url: submitURL,
-        type: 'get',
-        timeout: 5000,
-        success: function (msg) {
-        },
-        error: function () {
-            bootbox.alert("Kết nối mạng bị lỗi");
-        }
-    });
+    if (isError == undefined || isError == false) {
+        $.ajax({
+            url: submitURL,
+            type: 'get',
+            timeout: 5000,
+            success: function (msg) {
+                isError = false;
+            },
+            error: function () {
+                bootbox.alert("Kết nối mạng bị lỗi");
+                isError = true;
+            }
+        });
+    }
 }
 
 $(document).ready(function () {

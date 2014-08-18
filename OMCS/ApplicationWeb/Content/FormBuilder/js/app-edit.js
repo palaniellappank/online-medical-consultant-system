@@ -47,7 +47,7 @@
             });
         };
 
-        $("#saveBtn").click(function (e) {
+        $("#updateMedicalProfileBtn").click(function (e) {
             $("form#target").validate({
                 submitHandler: function () {
                     $.ajax({
