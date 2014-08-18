@@ -145,7 +145,7 @@ function validationForm(form) {
 function initModalWithData(data) {
     $('#modal-popup').html(data);
     $('#modal-popup').modal('show');
-    var form = $('#modal-popup').find("form");  
+    var form = $('#modal-popup').find("form");
     validationForm(form);
     $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
     $('#modal-popup').find(".saveBtn").click(function (e) {
@@ -220,9 +220,10 @@ DoctorDetailView = Backbone.View.extend({
     events: {
         "rating.change .rating": "ratingChange",
         "click #btnPostComment": "postComment",
-        "click .pagination a": "goToPage"
+        "click .pagination a": "goToPage",
+        "keypress #txtComment": "postCommentPress"
     },
-    render: function(e) {
+    render: function (e) {
         var that = this;
         $.get(baseUrl + 'Comment/Evaluate/' + this.options.doctorId, function (response) {
             $.unblockUI();
@@ -231,13 +232,13 @@ DoctorDetailView = Backbone.View.extend({
             that.$el.modal("show");
         });
     },
-    ratingChange: function(event, value, caption) {
+    ratingChange: function (event, value, caption) {
         $.blockUI();
         var that = this;
         $.ajax({
             url: baseUrl + "Comment/Rate",
             type: "POST",
-            data: { ratingScore: value, doctorId: this.options.doctorId},
+            data: { ratingScore: value, doctorId: this.options.doctorId },
             success: function (e) {
                 that.render();
             }
@@ -257,6 +258,26 @@ DoctorDetailView = Backbone.View.extend({
                     that.render();
                 }
             });
+        }
+    },
+    postCommentPress: function (e) {
+        if (e.which == 13 && e.shiftKey) {
+        }
+        else if (e.which == 13) {
+            e.preventDefault();
+            var content = $("#txtComment").val().trim();
+            if (content != "") {
+                $.blockUI();
+                var that = this;
+                $.ajax({
+                    url: baseUrl + "Comment/PostComment",
+                    type: "POST",
+                    data: { content: content, doctorId: this.options.doctorId },
+                    success: function (e) {
+                        that.render();
+                    }
+                });
+            }
         }
     },
     goToPage: function (e) {
@@ -279,7 +300,8 @@ DoctorCommentView = Backbone.View.extend({
     },
     events: {
         "click #btnPostComment": "postComment",
-        "click .pagination a": "goToPage"
+        "click .pagination a": "goToPage",
+        "keypress #txtComment": "postCommentPress"
     },
     postComment: function (e) {
         e.preventDefault();
@@ -301,9 +323,38 @@ DoctorCommentView = Backbone.View.extend({
                             $(".comment-list").html(e);
                         }
                     });
-                 //   that.render();
+                    //   that.render();
                 }
             });
+        }
+    },
+    postCommentPress: function (e) {
+        if (e.which == 13 && e.shiftKey) {
+        }
+        else if (e.which == 13) {
+            e.preventDefault();
+            var content = $("#txtComment").val().trim();
+            if (content != "") {
+                $.blockUI();
+                $("#txtComment").val("");
+                var that = this;
+                $.ajax({
+                    url: baseUrl + "Comment/PostComment",
+                    type: "POST",
+                    data: { content: content, doctorId: this.options.doctorId },
+                    success: function (e) {
+                        $.ajax({
+                            url: baseUrl + "Comment/Index/" + that.options.doctorId,
+                            type: "GET",
+                            success: function (e) {
+                                $.unblockUI();
+                                $(".comment-list").html(e);
+                            }
+                        });
+                        //   that.render();
+                    }
+                });
+            }
         }
     },
     goToPage: function (e) {

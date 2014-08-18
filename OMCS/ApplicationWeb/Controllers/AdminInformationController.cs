@@ -84,5 +84,32 @@ namespace OMCS.Web.Controllers
             return Content(Url.Content(@"~\Content\Image\ProfilePicture\" + file.FileName));
         }
 
+        public ActionResult ChangePassword(int id = 0)
+        {
+            User user = _db.Users.Find(id);
+            ViewBag.Roles = _db.Roles.ToList();
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("ChangePassword", user);
+        }
+
+     
+        [HttpPost]
+        public ActionResult ChangePassword(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                user.IsActive = true;
+                var pass = Request.Params["NewPassword"];
+                string password = Convert.ToString(pass);
+                user.Password = password;
+                _db.Entry(user).State = EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return PartialView("ChangePassword", user);
+        }       
     }
 }

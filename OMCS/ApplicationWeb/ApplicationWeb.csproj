@@ -641,6 +641,9 @@
     <Content Include="Views\DoctorInformation\Index.cshtml" />
     <Content Include="Views\AdminInformation\Index.cshtml" />
     <Content Include="Views\DoctorComment\Index.cshtml" />
+    <Content Include="Views\AdminInformation\ChangePassword.cshtml" />
+    <Content Include="Views\DoctorInformation\ChangePassword.cshtml" />
+    <Content Include="Views\UserInfo\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
