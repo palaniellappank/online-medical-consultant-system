@@ -90,7 +90,7 @@
                                 <span class="input-group-btn">
                                     <button class="btn btn-warning btn-sm" id="btnUpload">Upload</button>
                                 </span>&nbsp
-                    <span class="input-group-btn">
+                    <span class="input-group-btn">                        
                         <button class="btn btn-warning btn-sm" id="btnSendMsg">Gửi</button>
                         <button class="btn btn-info btn-sm" id="requestWebcam"><i class="glyphicon glyphicon-facetime-video" style="font-size: 12px;"></i></button>
                     </span>
@@ -317,6 +317,16 @@
                 }
             });
         });
+
+       @* $('#file_upload').uploadify({
+            'swf': "@Url.Content("~/Content/UploadifyContent/uploadify.swf")",
+            'cancelImg': "@Url.Content("~/Content/UploadifyContent/uploadify-cancel.png")",
+            'uploader': "@Url.Action("Upload", "UserConversation")",
+            'onUploadSuccess': function (file, data, response) {
+                //$("#uploaded").append("<img src='" + data + "' alt='Uploaded Image' />");
+                window.location.reload(true);
+            }
+        });*@
     });
 
     function registerClientMethodsInConversation(chatHub) {
