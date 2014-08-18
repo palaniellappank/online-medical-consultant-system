@@ -15,6 +15,8 @@ namespace OMCS.Web.Controllers
         public ActionResult Index(int id, int? page)
         {
             var comments = _db.Comments.Where(c => c.DoctorId == id).OrderByDescending(u => u.PostedDate);
+            var user = _db.Users.Where(u => u.UserId == id).SingleOrDefault();
+            ViewBag.User = user;
             int pageSize = 4;
             int pageNumber = (page ?? 1);
             return PartialView("_Index", comments.ToPagedList(pageNumber, pageSize));
