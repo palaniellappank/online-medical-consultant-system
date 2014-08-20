@@ -9,6 +9,10 @@
     <link href="~/Content/bootply-admin.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 
+    <script type="text/javascript">
+        var baseUrl = "@Url.Content("~")";
+    </script>
+
     @Scripts.Render("~/bundles/jsOMCS")
 
     <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
@@ -19,9 +23,6 @@
     {
         @RenderSection("Styles");
     }
-    <script type="text/javascript">
-        var baseUrl = "@Url.Content("~")";
-    </script>
 </head>
 <body>
     <!-- Header -->
