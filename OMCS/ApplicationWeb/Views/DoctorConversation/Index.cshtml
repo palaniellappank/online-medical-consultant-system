@@ -12,11 +12,15 @@
     <link href="~/Content/bootply-admin.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 
-    @Scripts.Render("~/bundles/jsOMCS")
+    <script type="text/javascript">
+        var baseUrl = "@Url.Content("~")";
+    </script>
 
+    @Scripts.Render("~/bundles/jsOMCS")
+    <script type="text/javascript" src="~/Content/plupload/moxie.js"></script>
+    <script type="text/javascript" src="~/Content/plupload/plupload.dev.js"></script>
     <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
     <script src="~/signalr/hubs"></script>
-
 </head>
 <!-- Header -->
 <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
@@ -77,23 +81,16 @@
                         <div class="panel-footer">
                             <div class="input-group">
                                 <textarea id="txtMessage" class="form-control" rows="2" placeholder="Nội dung tin nhắn..."></textarea>
-                                <div class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Upload file <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <div id="uploader">
-                                                <input type="file" name="file" id="file" title="Upload" />
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-warning btn-sm" id="btnUpload">Upload</button>
-                                </span>&nbsp
-                    <span class="input-group-btn">                        
-                        <button class="btn btn-warning btn-sm" id="btnSendMsg">Gửi</button>
-                        <button class="btn btn-info btn-sm" id="requestWebcam"><i class="glyphicon glyphicon-facetime-video" style="font-size: 12px;"></i></button>
-                    </span>
+                                <span class="input-group-btn">                        
+                                    <button class="btn btn-warning btn-sm" id="btnSendMsg">Gửi</button>
+                                    <button class="btn btn-info btn-sm" id="requestWebcam" data-toggle="tooltip" data-original-title="Yêu cầu Webcam...">
+                                        <i class="glyphicon glyphicon-facetime-video" style="font-size: 12px;"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <div id="filelist"></div>
+                            <div id="upload-container">
+                                <a id="pickfiles" href="javascript:;">Gửi file đính kèm</a>
                             </div>
                         </div>
                     </div>
@@ -283,6 +280,7 @@
     var chatHub = $.connection.chatHub;
 
     $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
         $(".draggable").draggable();
         var chatHub = $.connection.chatHub;
         registerClientMethodsInConversation(chatHub);
@@ -293,40 +291,7 @@
             chatHub.server.connectDoctor(fromUser);
         });
 
-
-        $('#btnUpload').click(function () {
-            var formdata = new FormData(); //FormData object
-            var fileInput = document.getElementById('file');
-            var toEmail = $('#txtToEmail').val();
-            var fromEmail = $('#txtFromEmail').val();           
-            formdata.append("toEmail", toEmail);
-            formdata.append("fromEmail", fromEmail);
-            //Iterating through each files selected in fileInput
-            for (i = 0; i < fileInput.files.length; i++) {
-                //Appending each file to FormData object
-                formdata.append(fileInput.files[i].name, fileInput.files[i]);
-            }
-            $.ajax({
-                type: "POST",
-                url: '/UserConversation/Upload',
-                data: formdata,
-                processData: false,
-                contentType: false,
-                success: function () {
-                    chatHub.server.getMessageList(toEmail);                    
-                }
-            });
-        });
-
-       @* $('#file_upload').uploadify({
-            'swf': "@Url.Content("~/Content/UploadifyContent/uploadify.swf")",
-            'cancelImg': "@Url.Content("~/Content/UploadifyContent/uploadify-cancel.png")",
-            'uploader': "@Url.Action("Upload", "UserConversation")",
-            'onUploadSuccess': function (file, data, response) {
-                //$("#uploaded").append("<img src='" + data + "' alt='Uploaded Image' />");
-                window.location.reload(true);
-            }
-        });*@
+        initUploadAttachment();
     });
 
     function registerClientMethodsInConversation(chatHub) {
@@ -391,6 +356,54 @@
         }
         $("#chat-content").append(_.template(template, { user: user, message: message }));
         $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
+    }
+
+    function initUploadAttachment() {
+        var uploader = new plupload.Uploader({
+            runtimes: 'html5,flash,silverlight,html4',
+            browse_button: 'pickfiles', // you can pass in id...
+            container: document.getElementById('upload-container'), // ... or DOM Element itself
+            url: baseUrl + 'UserConversation/Upload',
+            flash_swf_url: baseUrl + 'Content/plupload/js/Moxie.swf',
+            silverlight_xap_url: baseUrl + 'Content/plupload/js/Moxie.xap',
+
+            filters: {
+                max_file_size: '4mb'
+            },
+
+            multipart_params : {
+            },
+
+            init: {
+                UploadProgress: function (up, file) {
+                    document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+                },
+
+                FilesAdded: function() {
+                    uploader.start();
+                },
+
+                UploadComplete: function() {
+                    chatHub.server.getMessageList($('#txtToEmail').val());
+                    $('#filelist').children().fadeOut(2000);
+                },
+
+                Error: function (up, err) {
+                    console.log("\nError #" + err.code + ": " + err.message);
+                }
+            }
+        });
+
+        uploader.init();
+        uploader.bind('FilesAdded', function (up, files) {
+            console.log(uploader.settings.multipart_params);
+            console.dir(uploader.settings);
+            uploader.settings.multipart_params.fromEmail = $('#txtFromEmail').val();
+            uploader.settings.multipart_params.toEmail = $('#txtToEmail').val();
+            plupload.each(files, function (file) {
+                document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
+            });
+        });
     }
 
 </script>
