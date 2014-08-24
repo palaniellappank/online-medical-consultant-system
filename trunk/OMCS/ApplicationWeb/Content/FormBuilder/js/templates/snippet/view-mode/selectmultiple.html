@@ -1,0 +1,23 @@
+<% 
+  var valueArray = [];
+  if (value)
+      valueArray = value.split("~~") 
+%>
+<% if (isChild && (label.trim().length == 0)) { %>
+    <%= value %>
+<% } else { %>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="<%= id %>">sdsd
+      <%= label %>
+  </label>
+  <div class="col-md-8">
+    <div class="form-control-static">
+      <% _.each(valueArray, function(value) { %>
+        <%= value %>
+        <br/>
+      <% }) %>
+    </div>
+  </div>
+</div>
+<% } %>

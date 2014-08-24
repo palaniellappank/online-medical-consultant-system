@@ -1,16 +1,14 @@
 ﻿define([
        "collections/my-form-input-mode"
-       , "views/my-form-input-mode", "views/my-form"
+       , "views/my-form-input-mode"
        , "views/modules/treatment"
        , "views/modules/film-document"
        , "views/modules/allergy"
        , "views/modules/immunization"
-       , "text!data/input.json",
 ], function(
   SnippetsCollection
-  , InputView, MyFormView
+  , InputView
   , TreatmentView, FilmDocument, AllergyView, ImmunizationView
-  , inputJSON
 ){
   return {
       initialize: function () {

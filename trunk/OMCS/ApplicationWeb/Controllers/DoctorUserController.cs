@@ -89,6 +89,17 @@ namespace OMCS.Web.Controllers
             return View();
         }
 
+        public ActionResult ViewMedicalProfile(int id, int medicalProfileTemplateId)
+        {
+            var medicalProfile = _db.MedicalProfiles.
+                Where(x => x.MedicalProfileTemplateId == medicalProfileTemplateId
+                && x.PatientId == id).FirstOrDefault();
+            ViewBag.medicalProfileName = medicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName;
+            ViewBag.medicalProfileId = medicalProfile.MedicalProfileId;
+            ViewBag.detailsInJson = medicalProfileBusiness.ViewMedicalProfile(id, medicalProfileTemplateId);
+            return View();
+        }
+
         [HttpPost]
         public ActionResult UpdateMedicalProfile(FormCollection formCollection)
         {

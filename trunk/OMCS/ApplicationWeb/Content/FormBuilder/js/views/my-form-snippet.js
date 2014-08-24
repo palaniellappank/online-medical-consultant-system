@@ -1,8 +1,8 @@
 define([
-       "views/snippet", "views/temp-snippet",
+       "views/snippet",
        "helper/pubsub"
 ], function(
-  SnippetView, TempSnippetView,
+  SnippetView,
   PubSub
 ){
   return SnippetView.extend({

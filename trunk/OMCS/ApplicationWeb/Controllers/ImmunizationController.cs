@@ -21,6 +21,15 @@ namespace OMCS.Web.Controllers
             return PartialView("_List", immunizations);
         }
 
+        public ActionResult ListView(int medicalProfileId)
+        {
+            var immunizations = _db.Immunizations.Where(
+                x => (x.MedicalProfileId == medicalProfileId))
+                .OrderByDescending(x => x.DateImmunized)
+                .ToList();
+            return PartialView("_ListView", immunizations);
+        }
+
         public ActionResult Create(int medicalProfileId)
         {
             var immunization = new Immunization

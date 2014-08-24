@@ -1,8 +1,5 @@
 ﻿define([
-      "templates/snippet/edit-mode/snippet-templates"
-], function (
-  _templateHTML
-) {
+], function () {
     return Backbone.View.extend({
       initialize: function (options) {
           this.render();

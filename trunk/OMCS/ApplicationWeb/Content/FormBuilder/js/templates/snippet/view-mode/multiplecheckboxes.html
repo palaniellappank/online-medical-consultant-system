@@ -9,7 +9,8 @@
       <% _.each(checkboxes, function(checkbox, i){ %>
         <div class="checkbox">
             <label for="<%= id+'-'+i %>">
-              <input type="checkbox" name="<%= id %>" id="<%= id+'-'+i %>" value="<%= checkbox %>" <% if (valueArray.indexOf(checkbox) > -1) { %> checked <% } %>><%= checkbox %>
+              <input type="checkbox" disabled="disabled" name="<%= id %>" id="<%= id+'-'+i %>" value="<%= checkbox %>"<% if (valueArray.indexOf(checkbox) > -1) { %> checked <% } %>>
+              <%= checkbox %>
             </label>
         </div>
       <% }); %>
@@ -28,7 +29,7 @@
       <% _.each(checkboxes, function(checkbox, i){ %>
         <div class="checkbox">
             <label for="<%= id+'-'+i %>">
-              <input type="checkbox" name="<%= id %>" id="<%= id+'-'+i %>" value="<%= checkbox %>" <% if (valueArray.indexOf(checkbox) > -1) { %> checked <% } %>>
+              <input type="checkbox" disabled="disabled" name="<%= id %>" id="<%= id+'-'+i %>" value="<%= checkbox %>" <% if (valueArray.indexOf(checkbox) > -1) { %> checked <% } %>>
               <%= checkbox %>
             </label>
         </div>
