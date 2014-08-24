@@ -19,6 +19,10 @@ namespace OMCS.DAL.Model
         public int PatientId { get; set; }
         public virtual Patient Patient { get; set; }
 
+        [ForeignKey("Doctor")]
+        public int DoctorId { get; set; }
+        public virtual Doctor Doctor { get; set; }
+
         [Display(Name = "Mã Bệnh Án")]
         public String MedicalProfileKey { get; set; }
 
