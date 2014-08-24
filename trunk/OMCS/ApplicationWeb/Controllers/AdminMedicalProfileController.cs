@@ -82,13 +82,14 @@ namespace OMCS.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Details(int medicalProfileId, int patientId)
+        public ActionResult ViewMedicalProfile(int id, int medicalProfileTemplateId)
         {
-            var medicalProfiles = _db.MedicalProfiles.Find(medicalProfileId);
-            ViewBag.medicalProfiles = medicalProfiles;
-            var patient = _db.Patients.Find(patientId);
-            ViewBag.patient = patient;
-            ViewBag.detailsInJson = medicalBusiness.DetailsMedicalProfileUser(medicalProfileId, patientId);
+            var medicalProfile = _db.MedicalProfiles.
+                Where(x => x.MedicalProfileTemplateId == medicalProfileTemplateId
+                && x.PatientId == id).FirstOrDefault();
+            ViewBag.medicalProfileName = medicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName;
+            ViewBag.medicalProfileId = medicalProfile.MedicalProfileId;
+            ViewBag.detailsInJson = medicalBusiness.ViewMedicalProfile(id, medicalProfileTemplateId);
             return View();
         }
 

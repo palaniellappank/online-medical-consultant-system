@@ -81,17 +81,6 @@ namespace OMCS.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Details(int medicalProfileId, int patientId)
-        {
-            var medicalProfiles = _db.MedicalProfiles.Find(medicalProfileId);
-            ViewBag.medicalProfiles = medicalProfiles;
-            var patient = _db.Patients.Find(patientId);
-            ViewBag.patient = patient;
-
-            ViewBag.detailsInJson = medicalBusiness.DetailsMedicalProfileUser(medicalProfileId, patientId);
-            return View();
-        }
-
         public ActionResult UpdateMedicalProfile(int id, int medicalProfileTemplateId)
         {
             var str = medicalBusiness.UpdateMedicalProfile(id, medicalProfileTemplateId);
@@ -105,6 +94,17 @@ namespace OMCS.Web.Controllers
                     (mp.MedicalProfileTemplateId == medicalProfileTemplateId))
             ).FirstOrDefault();
             ViewBag.medicalProfileId = medicalProfile.MedicalProfileId;
+            return View();
+        }
+
+        public ActionResult ViewMedicalProfile(int id, int medicalProfileTemplateId)
+        {
+            var medicalProfile = _db.MedicalProfiles.
+                Where(x => x.MedicalProfileTemplateId == medicalProfileTemplateId
+                && x.PatientId == id).FirstOrDefault();
+            ViewBag.medicalProfileName = medicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName;
+            ViewBag.medicalProfileId = medicalProfile.MedicalProfileId;
+            ViewBag.detailsInJson = medicalBusiness.ViewMedicalProfile(id, medicalProfileTemplateId);
             return View();
         }
 

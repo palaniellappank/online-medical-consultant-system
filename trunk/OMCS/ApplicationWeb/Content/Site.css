@@ -686,3 +686,11 @@ img.slider-img:hover {
     bottom: 10px;
     left: 150px;
 }
+
+/*
+    Show multiple line in medical profile
+*/
+
+.form-control-static.show-newline {
+    white-space: pre-line;
+}

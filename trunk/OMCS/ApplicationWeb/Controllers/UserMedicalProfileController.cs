@@ -33,9 +33,11 @@ namespace OMCS.Web.Controllers
 
         public ActionResult Details(int medicalProfileId)
         {
-            var medicalProfiles = _db.MedicalProfiles.Find(medicalProfileId);
-            ViewBag.medicalProfiles = medicalProfiles;
-            ViewBag.detailsInJson = business.DetailsMedicalProfileUser(medicalProfileId, User.UserId);                     
+            var medicalProfile = _db.MedicalProfiles.
+                Where(x => x.MedicalProfileId == medicalProfileId).FirstOrDefault();
+            ViewBag.medicalProfileName = medicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName;
+            ViewBag.medicalProfileId = medicalProfile.MedicalProfileId;
+            ViewBag.detailsInJson = business.ViewMedicalProfile(User.UserId, medicalProfile.MedicalProfileTemplate.MedicalProfileTemplateId);
             return View();
         }        
     }
