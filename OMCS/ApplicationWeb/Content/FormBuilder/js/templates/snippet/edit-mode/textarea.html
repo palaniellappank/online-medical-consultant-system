@@ -5,7 +5,10 @@
 <% } else { %>
 <!-- Textarea -->
 <div class="form-group">
-  <label class="col-md-4 control-label" for ="<%= id %>"><%= label %></label>
+  <label class="col-md-4 control-label" for ="<%= id %>">
+  	<%= label %>
+  	<% if(required) {%> <span style="color:red;padding-left: 5px;">*</span> <% } %> 
+  </label>
   <div class="col-md-8">                     
     <textarea id="<%= id %>" name="<%= id %>" placeholder="<%= placeholder %>" 
         rows="<%= numofline %>"

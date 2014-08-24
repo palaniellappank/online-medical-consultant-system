@@ -1,6 +1,9 @@
 ﻿@{
-    ViewBag.Title = "Cập nhật hồ sơ bệnh án";
+    ViewBag.Title = ViewBag.medicalProfileName;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@section Scripts{
+    @Scripts.Render("~/bundles/jsTemplateEditor")
 }
 @section Styles{
     <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet">
@@ -20,14 +23,8 @@
 <div id="build">
     <form id="target" class="form-horizontal" action="@Url.Action("UpdateMedicalProfile")">
         <div class="control-group">
-            <div align="center">
-                <h2>@(ViewBag.medicalProfileName)</h2>
-            </div>
             <div class="controls">
-               @* <a style="position: fixed; top: 0; right: 0;" href="#">
-                    <button type="submit" id="saveBtn" class="btn btn-primary" style="position: absolute; top: 0; right: 0;">Cập nhật</button>
-                </a>*@
-                <button type="submit" id="saveBtn" class="btn btn-primary" style="position: absolute; top: 0; right: 0;">Cập nhật</button>
+                <button type="submit" id="updateMedicalProfileBtn" class="btn btn-primary">Cập nhật</button>
             </div>
         </div>
         <input name="medicalProfileTemplateId" type="hidden" value="@(ViewBag.medicalProfileTemplateId)"/>
@@ -37,25 +34,25 @@
     </form>
 </div>
 
-<div class="row clearfix">
-</div>
+    <div class="row clearfix">
+    </div>
 <script src="~/Content/FormBuilder/js/config.js"></script>
-<script data-main="../main-edit" src="~/Content/FormBuilder/js/lib/require.js"></script>
+<script data-main="../main-edit" src="~/Content/FormBuilder/js/lib/require.js" ></script>
 
 <div class="modal fade in" id="modal-popup">
 </div>
 
 <div class="modal fade in" id="modal-popup-img">
-    <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-content">
-                    <img src="#" class="img-responsive">
-                </div>
-            </div>
+            <img src="#" class="img-responsive">
         </div>
+      </div>
     </div>
+  </div>
 </div>

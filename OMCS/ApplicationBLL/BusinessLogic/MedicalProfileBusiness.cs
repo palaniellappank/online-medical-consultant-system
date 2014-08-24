@@ -150,52 +150,6 @@ namespace OMCS.BLL
             }
         }
 
-        public JArray DetailsMedicalProfileUser(int medicalProfileId, int UserId)
-        {
-            var medicalProfile = _db.MedicalProfiles.Find(medicalProfileId);
-            var snippetList = _db.CustomSnippets.Where
-                (x => x.MedicalProfileTemplateId == medicalProfile.MedicalProfileTemplateId)
-                .OrderBy(x => x.Position)
-                .ToList();
-
-            dynamic snippetJsonList = new JArray();
-            int i = 0;
-            foreach (var snippet in snippetList)
-            {
-                var snippetFields = _db.CustomSnippetFields.
-                    Where(x => x.CustomSnippetId == snippet.CustomSnippetId).
-                    ToList();
-                dynamic snippetJsonObject = new JObject();
-                foreach (var snippetField in snippetFields)
-                {
-                    if (snippetField.FieldName.Equals("name"))
-                    {
-                        snippetJsonObject.name = snippetField.Value;
-                    }
-                    if (snippetField.FieldName.Equals("label"))
-                    {
-                        snippetJsonObject.name = snippetField.Value;
-                    }
-                    if (snippet.Title.Equals("Table") && snippetField.FieldName.Equals("columns"))
-                    {
-                        snippetJsonObject.columns = snippetField.Value;
-                    }
-                    if (snippet.Title.Equals("Table") && snippetField.FieldName.Equals("numofrows"))
-                    {
-                        snippetJsonObject.numofrows = snippetField.Value;
-                    }
-                }
-                snippetJsonObject.id = i;
-                i++;
-                snippetJsonObject.parentId = snippet.ParentId;
-                snippetJsonObject.positionInTable = snippet.PositionInTable;
-
-                snippetJsonObject.value = snippetBusiness.GetValueForSnippet(snippet, UserId, medicalProfileId);
-                snippetJsonList.Add(snippetJsonObject);
-            }
-            return snippetJsonList;
-        }
-
         public void SearchByStringMedical(string searchString, ref IEnumerable<MedicalProfile> medical)
         {
             if (!String.IsNullOrEmpty(searchString))

@@ -9,8 +9,12 @@
     <link href="~/Content/User.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet">
     <link href="~/Content/toggle-switch.css" rel="stylesheet">
-    @Scripts.Render("~/bundles/jsOMCS")
-
+    @if (IsSectionDefined("Scripts"))
+    {
+        @RenderSection("Scripts");
+    } else {
+        @Scripts.Render("~/bundles/jsOMCS")
+    }
     <link href="~/Content/select2/select2.css" rel="stylesheet">
     <script src="~/Content/select2/select2.js"></script>
 

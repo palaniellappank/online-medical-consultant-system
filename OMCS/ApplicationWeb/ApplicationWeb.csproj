@@ -661,7 +661,7 @@
     <Content Include="Views\DoctorUser\Index.cshtml" />
     <Content Include="Views\DoctorMedicalProfile\Index.cshtml" />
     <Content Include="Views\DoctorUser\_View.cshtml" />
-    <Content Include="Views\DoctorUser\UpdateMedicalProfile.cshtml" />
+    <Content Include="Views\DoctorMedicalProfile\UpdateMedicalProfile.cshtml" />
     <Content Include="Scripts\underscore-min.map" />
     <Content Include="Views\DoctorConversation\Index.cshtml" />
     <Content Include="Views\TreatmentHistory\_List.cshtml" />
@@ -696,10 +696,9 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\DoctorMedicalProfile\_Delete.cshtml" />
     <Content Include="Views\DoctorMedicalProfile\Details.cshtml" />
-    <Content Include="Views\DoctorMedicalProfile\UpdateMedicalProfile.cshtml" />
     <Content Include="Views\AdminMedicalProfile\Index.cshtml" />
     <Content Include="Views\AdminMedicalProfile\Delete.cshtml" />
-    <Content Include="Views\AdminMedicalProfile\Details.cshtml" />
+    <Content Include="Views\AdminMedicalProfile\ViewMedicalProfile.cshtml" />
     <Content Include="Views\AdminMedicalProfile\UpdateMedicalProfile.cshtml" />
     <Content Include="Views\Comment\_RateQuickView.cshtml" />
     <Content Include="Views\AdminInformationHospital\Index.cshtml" />
@@ -711,7 +710,7 @@
     <Content Include="Views\AdminInformation\ChangePassword.cshtml" />
     <Content Include="Views\DoctorInformation\ChangePassword.cshtml" />
     <Content Include="Views\UserInfo\ChangePassword.cshtml" />
-    <Content Include="Views\DoctorUser\ViewMedicalProfile.cshtml" />
+    <Content Include="Views\DoctorMedicalProfile\ViewMedicalProfile.cshtml" />
     <Content Include="Views\Immunization\_ListView.cshtml" />
     <Content Include="Views\Allergy\_ListView.cshtml" />
     <Content Include="Views\Allergy\_Details.cshtml" />
