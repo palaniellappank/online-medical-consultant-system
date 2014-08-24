@@ -66,51 +66,66 @@ namespace OMCS.BLL
             //Use reflection to get binding data
             if (customSnippet.SnippetType != SnippetType.Custom && String.IsNullOrEmpty(value))
             {
+                value = "";
                 switch (customSnippet.SnippetType)
                 {
                     case SnippetType.User:
                         Type type = typeof(User);
+                        object valueProperty;
                         if (customSnippet.SnippetFieldName.Equals("Age"))
                         {
-                            var valueProperty = type.GetProperty
+                            valueProperty = type.GetProperty
                                 ("Birthday", BindingFlags.IgnoreCase
                                 | BindingFlags.Public
                                 | BindingFlags.Instance).GetValue(user, null);
-                            value = valueProperty.ToString();
-                            var birthday = DateTime.Parse(value.ToString());
-                            value = DateTimeUtils.CalculateAge(birthday).ToString();
+                            if (valueProperty != null)
+                            {
+                                value = valueProperty.ToString();
+                                var birthday = DateTime.Parse(value.ToString());
+                                value = DateTimeUtils.CalculateAge(birthday).ToString();
+                            }
                         }
                         else
                         {
-                            var valueProperty = type.GetProperty
+                            valueProperty = type.GetProperty
                                 (customSnippet.SnippetFieldName, BindingFlags.IgnoreCase
                                 | BindingFlags.Public
                                 | BindingFlags.Instance).GetValue(user, null);
-                            value = valueProperty.ToString();
-                            if ("Gender".Equals(customSnippet.SnippetFieldName))
+                            if (valueProperty != null)
                             {
-                                value = "Nam".Equals(value) ? "Nam" : "Nữ";
-                            }
-                            if (customSnippet.SnippetFieldName.Equals("Birthday"))
-                            {
-                                var birthday = DateTime.Parse(value.ToString());
-                                value = birthday.ToString("dd/MM/yyyy");
+                                value = valueProperty.ToString();
+                                if ("Gender".Equals(customSnippet.SnippetFieldName))
+                                {
+                                    value = "Nam".Equals(value) ? "Nam" : "Nữ";
+                                }
+                                if (customSnippet.SnippetFieldName.Equals("Birthday"))
+                                {
+                                    var birthday = DateTime.Parse(value.ToString());
+                                    value = birthday.ToString("dd/MM/yyyy");
+                                }
                             }
                         }
                         break;
                     case SnippetType.Patient:
                         type = typeof(Patient);
-                        value = type.GetProperty
+                        valueProperty = type.GetProperty
                             (customSnippet.SnippetFieldName, BindingFlags.IgnoreCase
                             | BindingFlags.Public
-                            | BindingFlags.Instance).GetValue(patient, null).ToString();
+                            | BindingFlags.Instance).GetValue(patient, null);
+                        if (valueProperty != null) {
+                            value = valueProperty.ToString();
+                        }
                         break;
                     case SnippetType.PersonalHealthRecord:
                         type = typeof(PersonalHealthRecord);
-                        value = type.GetProperty
+                        valueProperty = type.GetProperty
                             (customSnippet.SnippetFieldName, BindingFlags.IgnoreCase
                             | BindingFlags.Public
-                            | BindingFlags.Instance).GetValue(personalHealthRecord, null).ToString();
+                            | BindingFlags.Instance).GetValue(personalHealthRecord, null);
+                        if (valueProperty != null)
+                        {
+                            value = valueProperty.ToString();
+                        }
                         break;
                 }
             }

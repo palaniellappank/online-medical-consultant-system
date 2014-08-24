@@ -406,7 +406,11 @@
             silverlight_xap_url: baseUrl + 'Content/plupload/js/Moxie.xap',
 
             filters: {
-                max_file_size: '4mb'
+                max_file_size: '4mb',
+                mime_types: [
+                    { title: "Image files", extensions: "jpg,gif,png" },
+                    { title: "Zip files", extensions: "zip,rar,7z,pdf,doc,docx,xls,xlsx" }
+                ]
             },
 
             multipart_params: {
