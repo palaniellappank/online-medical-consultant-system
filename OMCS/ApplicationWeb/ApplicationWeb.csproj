@@ -711,6 +711,13 @@
     <Content Include="Views\AdminInformation\ChangePassword.cshtml" />
     <Content Include="Views\DoctorInformation\ChangePassword.cshtml" />
     <Content Include="Views\UserInfo\ChangePassword.cshtml" />
+    <Content Include="Views\DoctorUser\ViewMedicalProfile.cshtml" />
+    <Content Include="Views\Immunization\_ListView.cshtml" />
+    <Content Include="Views\Allergy\_ListView.cshtml" />
+    <Content Include="Views\Allergy\_Details.cshtml" />
+    <Content Include="Views\FilmDocument\_ListView.cshtml" />
+    <Content Include="Views\TreatmentHistory\_ListView.cshtml" />
+    <Content Include="Views\FilmDocument\_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

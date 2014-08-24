@@ -5,8 +5,9 @@
           valueArray = value.split("~~") 
   %>
   <div><% _.each(checkboxes, function(checkbox, i){ %>
-    <label class="checkbox-inline" for="<%= id+'-'+i %>">
-      <input type="checkbox" name="<%= id %>" id="<%= id+'-'+i %>" value="<%= checkbox %>" <% if (valueArray.indexOf(checkbox) > -1) { %> checked <% } %>><%= checkbox %>
+    <label class="form-control-static checkbox-inline">
+      <input type="checkbox" disabled="disabled" value="<%= checkbox %>" <% if (valueArray.indexOf(checkbox) > -1) { %> checked <% } %>>
+      <%= checkbox %>
     </label><% }); %>
   </div>
 <% } else { %>
@@ -20,7 +21,7 @@
     %>
   <div class="col-md-8"><% _.each(checkboxes, function(checkbox, i){ %>
     <label class="checkbox-inline" for="<%= id+'-'+i %>">
-      <input type="checkbox" name="<%= id %>" id="<%= id+'-'+i %>" value="<%= checkbox %>" <% if (valueArray.indexOf(checkbox) > -1) { %> checked <% } %>>
+      <input type="checkbox" disabled="disabled" name="<%= id %>" id="<%= id+'-'+i %>" value="<%= checkbox %>" <% if (valueArray.indexOf(checkbox) > -1) { %> checked <% } %>>
       <%= checkbox %>
     </label><% }); %>
   </div>

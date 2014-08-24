@@ -1,0 +1,31 @@
+﻿@model OMCS.DAL.Model.FilmDocument
+@using OMCS.Web
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Chi tiết hồ Sơ ảnh</h4>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+          <div class="col-lg-6">
+              <img id="targetImg" src="@Html.GetPictureUrl("FilmDocument")@Model.ImagePath" class="img-responsive img-modal"/>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+                <label for="FilmType" class="control-label">Loại phim</label>
+                <div class="form-control-static">@Model.FilmType.Name</div>
+            </div>
+            <div class="form-group">
+                <label for="Description" class="control-label">@Html.DisplayNameFor(model=>model.Description)</label>
+                <div class="form-control-static">@Model.Description</div>
+            </div>
+            <div class="form-group">
+                <label for="Conclusion" class="control-label">@Html.DisplayNameFor(model=>model.Conclusion)</label>
+                <div class="form-control-static">@Model.Conclusion</div>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>

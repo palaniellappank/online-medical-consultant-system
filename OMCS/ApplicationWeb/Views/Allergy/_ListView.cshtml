@@ -1,0 +1,46 @@
+﻿@model IEnumerable<OMCS.DAL.Model.Allergy>
+@using OMCS.Web
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            Loại dị ứng
+        </th>
+        <th>
+            Tên
+        </th>
+        <th>
+            Ngày bị dị ứng gần nhất
+        </th>
+        <th>
+            Phản ứng
+        </th>
+        <th>
+            Ghi chú
+        </th>
+        <th>
+        </th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.AllergyType.Name
+        </td>
+        <td>
+            @item.Name
+        </td>
+        <td>
+            @item.DateLastOccurred.ToShortDateString()
+        </td>
+        <td>
+           @item.Reaction 
+        </td>
+        <td>
+           @item.Note
+        </td>
+        <td>
+            <a class="view-btn btn btn-sm btn-warning" data-id="@item.AllergyId" data-original-title="Xem chi tiết" data-toggle="tooltip"><i class="fa fa-search"></i></a>
+        </td>
+    </tr>
+}
+</table>

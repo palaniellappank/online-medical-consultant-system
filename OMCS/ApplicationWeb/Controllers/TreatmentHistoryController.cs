@@ -28,6 +28,15 @@ namespace OMCS.Web.Controllers
             return PartialView("_List", treatments);
         }
 
+        public ActionResult ListView(int medicalProfileId)
+        {
+            var treatments = _db.TreatmentHistories.Where(
+                x => x.MedicalProfileId == medicalProfileId)
+                .OrderByDescending(x => x.DateCreated)
+                .ToList();
+            return PartialView("_ListView", treatments);
+        }
+
         public ActionResult Create(int medicalProfileId)
         {
             var treatmentHistory = new TreatmentHistory

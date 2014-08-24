@@ -98,6 +98,15 @@ namespace OMCS.BLL
             return str;
         }
 
+        /*
+         * This function help to get medical profile detail to view
+         * and get data binding to field
+         */
+        public string ViewMedicalProfile(int patientId, int medicalProfileTemplateId)
+        {
+            return UpdateMedicalProfile(patientId, medicalProfileTemplateId);
+        }
+
         public void UpdateMedicalProfileForPatient(FormCollection formCollection)
         {
             int medicalProfileTemplateId = Int32.Parse(formCollection["medicalProfileTemplateId"]);

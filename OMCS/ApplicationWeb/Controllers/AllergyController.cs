@@ -27,6 +27,16 @@ namespace OMCS.Web.Controllers
             return PartialView("_List", allergies);
         }
 
+        public ActionResult ListView(int medicalProfileId)
+        {
+            var allergies = _db.Allergies.Where(
+                x => (x.MedicalProfileId == medicalProfileId))
+                .OrderByDescending(x => x.AllergyId)
+                .OrderByDescending(x => x.DateLastOccurred)
+                .ToList();
+            return PartialView("_ListView", allergies);
+        }
+
         public ActionResult Create(int medicalProfileId)
         {
             var allergyType = _db.AllergyTypes.ToList();
@@ -55,6 +65,14 @@ namespace OMCS.Web.Controllers
             var allergyType = _db.AllergyTypes.ToList();
             ViewBag.AllergyTypeId = new SelectList(allergyType, "AllergyTypeId", "Name", allergy.AllergyTypeId);
             return PartialView("_Edit", allergy);
+        }
+
+        public ActionResult Details(int id = 0)
+        {
+            Allergy allergy = _db.Allergies.Find(id);
+            var allergyType = _db.AllergyTypes.ToList();
+            ViewBag.AllergyTypeId = new SelectList(allergyType, "AllergyTypeId", "Name", allergy.AllergyTypeId);
+            return PartialView("_Details", allergy);
         }
 
         [HttpPost]

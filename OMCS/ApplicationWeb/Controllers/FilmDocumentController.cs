@@ -27,6 +27,16 @@ namespace OMCS.Web.Controllers
             return PartialView("_List", filmDocuments);
         }
 
+        public ActionResult ListView(int medicalProfileId)
+        {
+            var filmDocuments = _db.FilmDocuments.Where(
+                x => (x.MedicalProfileId.HasValue && x.MedicalProfileId.Value == medicalProfileId)
+                    || (x.TreatmentHistory != null && x.TreatmentHistory.MedicalProfileId == medicalProfileId))
+                .OrderByDescending(x => x.DateCreated)
+                .ToList();
+            return PartialView("_ListView", filmDocuments);
+        }
+
         public ActionResult CreateForTreatment(int treatmentHistoryId)
         {
             var filmTypeList = _db.FilmTypes.ToList();
@@ -77,6 +87,12 @@ namespace OMCS.Web.Controllers
             var filmTypeList = _db.FilmTypes.ToList();
             ViewBag.FilmTypeId = new SelectList(filmTypeList, "FilmTypeId", "Name", filmDocument.FilmTypeId);
             return PartialView("_Edit", filmDocument);
+        }
+
+        public ActionResult Details(int id = 0)
+        {
+            FilmDocument filmDocument = _db.FilmDocuments.Find(id);
+            return PartialView("_Details", filmDocument);
         }
 
         [HttpPost]

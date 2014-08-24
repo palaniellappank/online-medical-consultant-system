@@ -2,7 +2,7 @@ define([
        "models/snippet"
        , "views/snippet"
        , "helper/pubsub"
-       , "templates/snippet/edit-mode/snippet-templates"
+       , "templates/snippet/view-mode/snippet-templates"
 ], function (
     SnippetModel
   , SnippetView

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<OMCS.DAL.Model.Immunization>
+@using OMCS.Web
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            Tên
+        </th>
+        <th>
+            Lần tiêm chủng
+        </th>
+        <th>
+            Ngày tiêm chủng
+        </th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.Name
+        </td>
+        <td>
+            @item.BoosterTime
+        </td>
+        <td>
+           @item.DateImmunized.ToShortDateString() 
+        </td>
+    </tr>
+}
+</table>
