@@ -12,6 +12,10 @@ namespace OMCS.Web.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.recentMedicalProfiles = _db.MedicalProfiles.Where(
+                x => x.Doctor.UserId == User.UserId).Take(5).OrderByDescending(x => x.CreatedDate).ToList();
+            ViewBag.recentComments = _db.Comments.Where(
+                x => x.DoctorId == User.UserId).Take(5).OrderByDescending(x => x.PostedDate).ToList();
             return View();
         }
 
