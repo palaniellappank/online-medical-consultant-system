@@ -221,8 +221,40 @@
             "click #btnSendMsg": "sendMessage",
             "click #requestWebcam": "requestWebcam",
             "keypress #txtMessage": "sendMessagePress",
-            "click .picture-thumbnail": "showFullPicture"
-            //"click #btnUpload": "upload"
+            "click .picture-thumbnail": "showFullPicture",
+            "mouseover": "getMedicalProfile",
+            "focus #txtMessage": "txtMessageFocus"
+        },
+        txtMessageFocus: function (e) {
+            $(".popover").hide();
+        },
+        getMedicalProfile: function (e) {
+            var target = $(e.target).parents(".list-group-item");
+            var email = target.find(".username").val();
+            if (email != undefined) {
+                //First hide popover form other list-group-item
+                var exist = false;
+                _.each($('.popover'), function (popover) {
+                    if ($(popover).find(".email").val() != email) {
+                        $(popover).remove();
+                    } else exist = true;
+                });
+                if (exist) return;
+                target.popover({
+                    content: "<div class='medical-profile-popover'><div class='ajax-loader'></div><div>",
+                    html: true,
+                    container: 'body'
+                }).popover('show');
+                var currentLeft = parseInt($(".popover").css("left"));
+                $(".popover").css("left", currentLeft - 14 + "px");
+                setTimeout(function () {
+                    $.get('/DoctorMedicalProfile/GetLastestMedicalProfile?email=' + email, function (d) {
+                        $(".popover").find(".medical-profile-popover").html(d);
+                    });
+                }, 1000);
+            } else {
+                //$('.popover').remove();
+            }
         },
         showFullPicture: function (e) {
             var target = $(e.currentTarget);
@@ -328,9 +360,6 @@
         }
 
         chatHub.client.onGetMessageList = function (fromUser, toUser, messageDetails) {
-            if ($("#chat-content").hasClass("mCustomScrollbar")) {
-                $("#chat-content").mCustomScrollbar("destroy");
-            }
             $("#chat-content").html("");
             var loginEmail = $('#txtFromEmail').val();
             var templateLeft = $("#chat-left-template").html();
@@ -402,8 +431,6 @@
 
         uploader.init();
         uploader.bind('FilesAdded', function (up, files) {
-            console.log(uploader.settings.multipart_params);
-            console.dir(uploader.settings);
             uploader.settings.multipart_params.fromEmail = $('#txtFromEmail').val();
             uploader.settings.multipart_params.toEmail = $('#txtToEmail').val();
             plupload.each(files, function (file) {
