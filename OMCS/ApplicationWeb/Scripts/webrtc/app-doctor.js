@@ -40,7 +40,7 @@ OMCSChat.App = (function (connectionManager) {
                 console.log('call declined from: ' + decliningConnectionId);
 
                 // Let the user know that the callee declined to talk
-                bootbox.error(reason);
+                bootbox.alert("Yêu cầu xem webcam bị từ chối");
 
             };
 
