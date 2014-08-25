@@ -28,8 +28,24 @@
     }
 </style>
 <body>
-    <h1>Tư vấn trực tuyến
-    </h1>
+    <h2>Tư vấn trực tuyến</h2>
+    <div class="form-group">
+        <label>Lọc theo chuyên khoa</label>
+        <select id="specialty-select" multiple="multiple" style="width: 300px;">
+            @foreach (var specialtyField in ViewBag.SpecialtyFields) {
+              //  if (specialtyField.ParentId == 0)
+                {
+                    <optgroup label="@specialtyField.Name">
+                       @foreach (var specialtyFieldChild in ViewBag.SpecialtyFields) {
+                           if (specialtyFieldChild.ParentId == specialtyField.SpecialtyFieldId) {
+                            <option value="@specialtyFieldChild.Name">@specialtyFieldChild.Name</option>
+                           }
+                       }
+                   </optgroup>
+                }
+            }
+        </select>
+    </div>
     <hr />
         <div class="row" id="chatbox">
             <div class="col-xs-12 col-sm-4">
@@ -316,7 +332,7 @@
         $.connection.hub.start().done(function () {
             chatHub.server.connectPatient($("#txtFromEmail").val());
         });
-
+        $("#specialty-select").select2();
         initUploadAttachment();
     });
 

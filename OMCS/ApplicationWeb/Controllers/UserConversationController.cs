@@ -16,35 +16,12 @@ namespace Security.Controllers
     [CustomAuthorize(Roles = "User, Doctor")]
     public class UserConversationController : BaseController
     {
-        OMCSDBContext db = new OMCSDBContext();
-
         public ActionResult Index()
         {
-            var user = db.Users.Where(u => u.UserId == User.UserId).SingleOrDefault();
+            var user = _db.Users.Where(u => u.UserId == User.UserId).SingleOrDefault();
+            ViewBag.SpecialtyFields = _db.SpecialtyFields.ToList();
             ViewBag.Name = user.FullName;
             ViewBag.Email = user.Email;
-            return View();
-        }
-
-        public ActionResult Chat()
-        {
-            //var user = db.Users.Where(u => u.UserId == User.UserId).SingleOrDefault();
-            //ViewBag.Name = user.FullName;
-            //Debug.WriteLine(user.FullName);
-            //ViewBag.Email = user.Email;
-            return View();
-        }
-
-        public ActionResult ShowConversation()
-        {
-            return View();
-        }
-
-        public ActionResult ChatRoom()
-        {
-            //var user = db.Users.Where(u => u.UserId == User.UserId).SingleOrDefault();
-            //ViewBag.Name = user.FullName;
-            //ViewBag.Email = user.Email;          
             return View();
         }
 
