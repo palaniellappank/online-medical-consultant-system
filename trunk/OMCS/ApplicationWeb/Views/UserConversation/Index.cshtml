@@ -261,10 +261,15 @@
         },
         renderContactList: function (doctors) {
             var template = _.template($("#doctor-list-template").html(), { doctors: doctors });
-            this.contactListEl.html(template);
-            $("#contact-list").mCustomScrollbar({
-                theme: "minimal-dark"
-            });
+            if (this.contactListEl.hasClass("mCustomScrollbar")) {
+                this.contactListEl.find(".mCSB_container").html(template);
+                $("#contact-list").mCustomScrollbar("update");
+            } else {
+                this.contactListEl.html(template);
+                this.contactListEl.mCustomScrollbar({
+                    theme: "minimal-dark"
+                });
+            }
         },
         getMessageList: function (e) {
             var username = $(e.currentTarget).find(".username").val();
@@ -325,7 +330,6 @@
         }
 
         chatHub.client.onGetDoctorList = function (doctors) {
-            console.log("onGetDoctorList");
             chatBoxView.renderContactList(doctors);
         }
 
@@ -365,8 +369,6 @@
         }
 
         chatHub.client.messageReceived = function (sender, receiver, message) {
-            console.log("Message Receive:");
-            console.log(message);
             var fromEmail = $('#txtFromEmail').val();
             var toEmail = $('#txtToEmail').val();
             if (receiver.Email == fromEmail) {
@@ -382,7 +384,6 @@
                     AddMessage(sender, message);
                 }
             }
-            $(".unread-message").html(receiver.CountMessageUnRead);
         }
     }
 
@@ -392,8 +393,9 @@
         if (loginEmail == user.Email) {
             template = $("#chat-left-template").html();
         }
-        $("#chat-content").append(_.template(template, { user: user, message: message }));
-        $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
+        $("#chat-content .mCSB_container").append(_.template(template, { user: user, message: message }));
+        $("#chat-content").mCustomScrollbar("update");
+        $("#chat-content").mCustomScrollbar("scrollTo", "last");
     }
 
     function initUploadAttachment() {
