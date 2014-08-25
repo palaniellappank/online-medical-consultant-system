@@ -674,6 +674,15 @@ img.slider-img:hover {
     height: 100px;
 }
 
+.medical-profile-popover {
+    width: 150px;
+    height: 150px;
+}
+
+.medical-profile-popover .showMedicalProfile {
+    margin-left: 22px;
+}
+
 .rating-popover .showDoctorDetail {
     margin-left: 22px;
 }

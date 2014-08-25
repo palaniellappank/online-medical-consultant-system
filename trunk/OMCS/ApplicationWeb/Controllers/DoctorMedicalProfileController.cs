@@ -97,15 +97,36 @@ namespace OMCS.Web.Controllers
             return View();
         }
 
-        public ActionResult ViewMedicalProfile(int id, int medicalProfileTemplateId)
+        public ActionResult ViewMedicalProfile(int id = 0, int medicalProfileTemplateId = 0, int medicalProfileId = 0)
         {
-            var medicalProfile = _db.MedicalProfiles.
-                Where(x => x.MedicalProfileTemplateId == medicalProfileTemplateId
-                && x.PatientId == id).FirstOrDefault();
+            MedicalProfile medicalProfile;
+            //Get Medical Profile by medicalProfileId
+            if (medicalProfileId != 0)
+            {
+                medicalProfile = _db.MedicalProfiles.Find(medicalProfileId);
+                ViewBag.detailsInJson = medicalBusiness.ViewMedicalProfile(
+                    medicalProfile.PatientId, medicalProfile.MedicalProfileTemplateId);
+            }
+            else
+            {
+                //Get Medical Profile by patientId and medicalProfileTemplateId
+                medicalProfile = _db.MedicalProfiles.
+                    Where(x => x.MedicalProfileTemplateId == medicalProfileTemplateId
+                    && x.PatientId == id).FirstOrDefault();
+                ViewBag.detailsInJson = medicalBusiness.ViewMedicalProfile(id, medicalProfileTemplateId);
+            }
             ViewBag.medicalProfileName = medicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName;
             ViewBag.medicalProfileId = medicalProfile.MedicalProfileId;
-            ViewBag.detailsInJson = medicalBusiness.ViewMedicalProfile(id, medicalProfileTemplateId);
             return View();
+        }
+
+        public ActionResult GetLastestMedicalProfile(string email)
+        {
+            var medicalProfile = _db.MedicalProfiles.
+                Where(x => x.Patient.Email == email).OrderByDescending(x=>x.CreatedDate).
+                Take(1).FirstOrDefault();
+            ViewBag.medicalProfile = medicalProfile;
+            return PartialView("_LatestMedicalProfile", medicalProfile);
         }
 
         [HttpPost]

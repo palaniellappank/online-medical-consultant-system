@@ -695,7 +695,6 @@
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\DoctorMedicalProfile\_Delete.cshtml" />
-    <Content Include="Views\DoctorMedicalProfile\Details.cshtml" />
     <Content Include="Views\AdminMedicalProfile\Index.cshtml" />
     <Content Include="Views\AdminMedicalProfile\Delete.cshtml" />
     <Content Include="Views\AdminMedicalProfile\ViewMedicalProfile.cshtml" />
@@ -717,6 +716,7 @@
     <Content Include="Views\FilmDocument\_ListView.cshtml" />
     <Content Include="Views\TreatmentHistory\_ListView.cshtml" />
     <Content Include="Views\FilmDocument\_Details.cshtml" />
+    <Content Include="Views\DoctorMedicalProfile\_LatestMedicalProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
