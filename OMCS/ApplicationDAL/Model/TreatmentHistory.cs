@@ -31,7 +31,7 @@ namespace OMCS.DAL.Model
         public TreatmentHistoryType TreatmentHistoryType { get; set; }
 
         [ForeignKey("Doctor")]
-        public int DoctorId { get; set; }
+        public int? DoctorId { get; set; }
         public virtual Doctor Doctor { get; set; }
 
         [Display(Name = "Triệu chứng")]

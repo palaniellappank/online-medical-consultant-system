@@ -179,7 +179,7 @@ namespace SignalRChat.Hubs
                     Email = doctor.Email,
                     IsRead = lastestConversation.IsPatientRead,
                     IsOnline = IsOnline,
-                    SpeciatyField = doctor.SpecialtyField.Name
+                    SpecialtyField = doctor.SpecialtyField.Name
                 };
                 doctorListResult.Add(userDetailCon);
             }
@@ -196,7 +196,7 @@ namespace SignalRChat.Hubs
                 {
                     FullName = doctor.FullName,
                     IsOnline = false,
-                    SpeciatyField = doctor.SpecialtyField.Name,
+                    SpecialtyField = doctor.SpecialtyField.Name,
                     Email = doctor.Email,
                     ProfilePicture = doctor.ProfilePicture
                 };

@@ -57,17 +57,17 @@
 
             var specialtyFields = new List<SpecialtyField>
             {
-                new SpecialtyField { Name = "Ngoại tim mạch", Parent = NgoaiKhoa },
-                new SpecialtyField { Name = "Ngoại lồng ngực", Parent = NgoaiKhoa },
-                new SpecialtyField { Name = "Ngoại tiêu hóa", Parent = NgoaiKhoa },
-                new SpecialtyField { Name = "Phẫu thuật mắt", Parent = NgoaiKhoa },
-                new SpecialtyField { Name = "Ngoại tổng quát", Parent = NgoaiKhoa },
-                new SpecialtyField { Name = "Ngoại thần kinh", Parent = NgoaiKhoa },
-                new SpecialtyField { Name = "Phẫu thuật miệng & hàm mặt", Parent = NgoaiKhoa },
-                new SpecialtyField { Name = "Chấn thương chỉnh hình", Parent = NgoaiKhoa },
-                new SpecialtyField { Name = "Dị ứng", Parent = NoiKhoa },
-                new SpecialtyField { Name = "Miễn dịch học", Parent = NoiKhoa },
-                new SpecialtyField { Name = "Nội tim mạch", Parent = NoiKhoa }
+                new SpecialtyField { Name = "Ngoại tim mạch", ParentId = NgoaiKhoa.SpecialtyFieldId },
+                new SpecialtyField { Name = "Ngoại lồng ngực", ParentId = NgoaiKhoa.SpecialtyFieldId },
+                new SpecialtyField { Name = "Ngoại tiêu hóa", ParentId = NgoaiKhoa.SpecialtyFieldId },
+                new SpecialtyField { Name = "Phẫu thuật mắt", ParentId = NgoaiKhoa.SpecialtyFieldId },
+                new SpecialtyField { Name = "Ngoại tổng quát", ParentId = NgoaiKhoa.SpecialtyFieldId },
+                new SpecialtyField { Name = "Ngoại thần kinh", ParentId = NgoaiKhoa.SpecialtyFieldId },
+                new SpecialtyField { Name = "Phẫu thuật miệng & hàm mặt", ParentId = NgoaiKhoa.SpecialtyFieldId },
+                new SpecialtyField { Name = "Chấn thương chỉnh hình", ParentId = NgoaiKhoa.SpecialtyFieldId },
+                new SpecialtyField { Name = "Dị ứng", ParentId = NoiKhoa.SpecialtyFieldId },
+                new SpecialtyField { Name = "Miễn dịch học", ParentId = NoiKhoa.SpecialtyFieldId },
+                new SpecialtyField { Name = "Nội tim mạch", ParentId = NoiKhoa.SpecialtyFieldId }
             };
 
             specialtyFields.ForEach(s => _db.SpecialtyFields.AddOrUpdate(p => p.Name, s));
@@ -83,7 +83,7 @@
             {
                 new User
                 {
-                    Email = "admin@ymail.com", FirstName = "Admin",
+                    Email = "admin@mail.com", FirstName = "Admin",
                     Password = "123456", IsActive = true, Birthday = DateTime.UtcNow,
                     CreatedDate = DateTime.UtcNow, Roles = new List<Role>() {roleAdmin},
                     ProfilePicture = "photo.jpg"
@@ -97,7 +97,7 @@
             {
                 new Doctor
                 {
-                    Email = "doctor1@ymail.com", FirstName = "Doctor 1",
+                    Email = "doctor@mail.com", FirstName = "Doctor 1",
                     Password = "123456", IsActive = true, Birthday = DateTime.UtcNow,
                     CreatedDate = DateTime.UtcNow, SpecialtyField = NhiKhoa,
                     Roles = new List<Role>() {roleDoctor}, ProfilePicture = "photo.jpg"
@@ -120,7 +120,7 @@
                 },
                 new Doctor
                 {
-                    Email = "tonthattung@gmail.com", 
+                    Email = "hodacdi@gmail.com", 
                     FirstName = "Di", LastName = "Hồ Đắc", Password = "123456", 
                     IsActive = true, Birthday = DateTime.UtcNow, CreatedDate = DateTime.UtcNow, 
                     SpecialtyField = NhiKhoa, Roles = new List<Role>() {roleDoctor},

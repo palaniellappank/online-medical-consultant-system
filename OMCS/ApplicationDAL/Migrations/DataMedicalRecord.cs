@@ -61,12 +61,15 @@
 
             Patient suTran = _db.Patients.Where(pt => pt.Email.Equals("trannguyentiensu@gmail.com")).Single();
 
+            Doctor doctor1 = _db.Doctors.Where(pt => pt.Email.Equals("doctor@mail.com")).Single();
+
             MedicalProfileTemplate benhAnNgoaiDa1 = _db.MedicalProfileTemplates.Find(1);
 
             List<MedicalProfile> medicalProfiles = new List<MedicalProfile>{
                 new MedicalProfile
                 {
                     PatientId = suTran.UserId,
+                    DoctorId = doctor1.UserId,
                     CreatedDate = DateTime.UtcNow,
                     MedicalProfileTemplateId = benhAnNgoaiDa1.MedicalProfileTemplateId,
                     MedicalProfileKey = "OMCS.0000001.01"
@@ -74,6 +77,7 @@
                 new MedicalProfile
                 {
                     PatientId = suTran.UserId,
+                    DoctorId = doctor1.UserId,
                     CreatedDate = DateTime.Today.AddDays(-10),
                     MedicalProfileTemplateId = benhAnNgoaiDa1.MedicalProfileTemplateId,
                     MedicalProfileKey = "OMCS.0000001.02"
@@ -81,6 +85,7 @@
                 new MedicalProfile
                 {
                     PatientId = suTran.UserId,
+                    DoctorId = doctor1.UserId,
                     CreatedDate = DateTime.Today.AddDays(-5),
                     MedicalProfileTemplateId = benhAnNgoaiDa1.MedicalProfileTemplateId,
                     MedicalProfileKey = "OMCS.0000001.03"
