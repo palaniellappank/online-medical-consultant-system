@@ -83,7 +83,7 @@ namespace OMCS.Web.Controllers
 
         public ActionResult UpdateMedicalProfile(int id, int medicalProfileTemplateId)
         {
-            var str = medicalBusiness.UpdateMedicalProfile(id, medicalProfileTemplateId);
+            var str = medicalBusiness.UpdateMedicalProfile(id, medicalProfileTemplateId, User.UserId);
             ViewBag.formInJson = str;
             ViewBag.patientId = id;
             ViewBag.medicalProfileTemplateId = medicalProfileTemplateId;
@@ -94,6 +94,10 @@ namespace OMCS.Web.Controllers
                     (mp.MedicalProfileTemplateId == medicalProfileTemplateId))
             ).FirstOrDefault();
             ViewBag.medicalProfileId = medicalProfile.MedicalProfileId;
+
+            ViewBag.doctor = medicalProfile.Doctor;
+            ViewBag.createdDate = medicalProfile.CreatedDate;
+            ViewBag.hospital = _db.HospitalInformations.First().Name;
             return View();
         }
 

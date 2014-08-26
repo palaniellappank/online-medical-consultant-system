@@ -24,9 +24,6 @@
     <form id="target" class="form-horizontal" action="@Url.Action("UpdateMedicalProfile")">
         <div class="control-group">
             <h2>@(ViewBag.medicalProfileName)</h2>
-            <div class="controls">
-                <button type="submit" id="updateMedicalProfileBtn" class="btn btn-primary">Cập nhật</button>
-            </div>
         </div>
         <input name="medicalProfileTemplateId" type="hidden" value="@(ViewBag.medicalProfileTemplateId)"/>
         <input name="patientId" type="hidden" value="@(ViewBag.patientId)"/>
@@ -34,11 +31,6 @@
         </fieldset>
     </form>
 </div>
-
-    <div class="row clearfix">
-    </div>
-<script src="~/Content/FormBuilder/js/config.js"></script>
-<script data-main="../main-edit" src="~/Content/FormBuilder/js/lib/require.js" ></script>
 
 <div class="modal fade in" id="modal-popup">
 </div>
@@ -57,3 +49,41 @@
     </div>
   </div>
 </div>
+
+<div class="medical-profile-overview">
+    <div class="container">
+    <div class="row">
+        <div class="col-md-2 col-lg-2" align="center">
+            <img alt="User Pic" src="~/Content/ProfilePicture/@ViewBag.doctor.ProfilePicture" class="img-circle doctor-img">
+        </div>
+        <div class="col-md-6 col-lg-6">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Bác Sĩ: </td>
+                        <td>@ViewBag.doctor.FullName</td>
+                        <td>Chuyên Khoa: </td>
+                        <td>@ViewBag.doctor.SpecialtyField.Name</td>                        
+                    </tr>
+                    <tr>
+                        <td>Ngày tạo: </td>
+                        <td>@ViewBag.createdDate.ToShortDateString()</td>
+                        <td>Bệnh viện</td>
+                        <td>@ViewBag.hospital</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3 col-lg-3" align="center">
+            <div class="controls">
+                <button type="submit" id="updateMedicalProfileBtn" class="btn btn-primary">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="row clearfix">
+</div>
+<script src="~/Content/FormBuilder/js/config.js"></script>
+<script data-main="../main-edit" src="~/Content/FormBuilder/js/lib/require.js" ></script>

@@ -95,7 +95,7 @@ namespace OMCS.Web.Controllers
 
         public ActionResult UpdateMedicalProfile(int id, int medicalProfileTemplateId)
         {
-            var str = medicalBusiness.UpdateMedicalProfile(id, medicalProfileTemplateId);
+            var str = medicalBusiness.UpdateMedicalProfile(id, medicalProfileTemplateId, User.UserId);
             ViewBag.formInJson = str;
             ViewBag.patientId = id;
             ViewBag.medicalProfileTemplateId = medicalProfileTemplateId;

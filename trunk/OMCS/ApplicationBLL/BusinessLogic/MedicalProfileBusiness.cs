@@ -27,7 +27,7 @@ namespace OMCS.BLL
          * This function help doctor to get a medical template
          * and get data binding to field
          */
-        public string UpdateMedicalProfile(int patientId, int medicalProfileTemplateId)
+        public string UpdateMedicalProfile(int patientId, int medicalProfileTemplateId, int doctorId = 0)
         {
             var medicalProfile = _db.MedicalProfiles.Where(
                 mp => ((mp.PatientId == patientId) &&
@@ -39,7 +39,8 @@ namespace OMCS.BLL
                 {
                     PatientId = patientId,
                     MedicalProfileTemplateId = medicalProfileTemplateId,
-                    CreatedDate = DateTime.UtcNow
+                    CreatedDate = DateTime.UtcNow,
+                    DoctorId = doctorId
                 };
                 _db.MedicalProfiles.Add(medicalProfile);
                 _db.SaveChanges();
