@@ -33,9 +33,15 @@
         <label>Lọc theo chuyên khoa</label>
         <select id="specialty-select" multiple="multiple" style="width: 300px;">
             @foreach (var specialtyField in ViewBag.SpecialtyFields) {
-              //  if (specialtyField.ParentId == 0)
+                //  if (specialtyField.ParentId == 0)
                 {
                     <optgroup label="@specialtyField.Name">
+                       @foreach (var specialtyFieldChild in ViewBag.SpecialtyFields) {
+                           if (specialtyFieldChild.SpecialtyFieldId == specialtyField.SpecialtyFieldId)
+                           {
+                            <option value="@specialtyFieldChild.Name">@specialtyFieldChild.Name</option>
+                           }
+                       }
                        @foreach (var specialtyFieldChild in ViewBag.SpecialtyFields) {
                            if (specialtyFieldChild.ParentId == specialtyField.SpecialtyFieldId) {
                             <option value="@specialtyFieldChild.Name">@specialtyFieldChild.Name</option>
@@ -136,7 +142,7 @@
         <div class="col-xs-12 col-sm-9">
             <input class="username" type="hidden" value="<%= doctor.Email %>" />
             <span class="name"><%= doctor.FullName %></span><br />
-            <span class="speciaty"><%= doctor.SpeciatyField %></span>
+            <span class="speciaty"><%= doctor.SpecialtyField %></span>
             <span class="lastest-message"><%= doctor.LastestContent %></span><br />
             <% if (doctor.IsOnline) {
             %>
@@ -225,6 +231,7 @@
         }
     });
     new BodyView();
+    var doctorList;
     ChatBoxView = Backbone.View.extend({
         el: $("#chatbox"),
         contactListEl: $("#contact-list"),
@@ -276,6 +283,7 @@
             $("#modal-popup-img").modal("show");
         },
         renderContactList: function (doctors) {
+            //Get filter from user
             var template = _.template($("#doctor-list-template").html(), { doctors: doctors });
             if (this.contactListEl.hasClass("mCustomScrollbar")) {
                 this.contactListEl.find(".mCSB_container").html(template);
@@ -332,9 +340,29 @@
         $.connection.hub.start().done(function () {
             chatHub.server.connectPatient($("#txtFromEmail").val());
         });
-        $("#specialty-select").select2();
+        initSelectSpecialtyField();
         initUploadAttachment();
     });
+
+    function initSelectSpecialtyField() {
+        $("#specialty-select").select2();
+        $("#specialty-select").on("change", function (e) {
+            var selectedItems = $("#specialty-select").val();
+            console.log(selectedItems);
+            if (selectedItems != null && selectedItems.length != 0) {
+                //Filter doctorList
+                var filteredList = [];
+                _.each(doctorList, function (doctor) {
+                    if (selectedItems.indexOf(doctor.SpecialtyField) != -1) {
+                        filteredList.push(doctor);
+                    }
+                });
+                chatBoxView.renderContactList(filteredList);
+            } else {
+                chatBoxView.renderContactList(doctorList);
+            }
+        });
+    }
 
     function registerClientMethods(chatHub) {
         chatHub.client.onConnected = function (id, doctorDetail) {
@@ -346,6 +374,7 @@
         }
 
         chatHub.client.onGetDoctorList = function (doctors) {
+            doctorList = doctors;
             chatBoxView.renderContactList(doctors);
         }
 

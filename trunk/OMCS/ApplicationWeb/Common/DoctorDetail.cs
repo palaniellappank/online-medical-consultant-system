@@ -3,7 +3,7 @@ namespace SignalRChat.Common
 {
     public class DoctorDetail : UserDetail
     {
-        public string SpeciatyField { get; set; }
+        public string SpecialtyField { get; set; }
         public DateTime LastReceivedTime { get; set; }
     }
 }
