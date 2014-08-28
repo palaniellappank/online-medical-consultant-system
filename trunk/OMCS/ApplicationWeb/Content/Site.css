@@ -710,7 +710,11 @@ img.slider-img:hover {
     margin-bottom: 0;
 }
 
-.medical-profile-overview #updateMedicalProfileBtn {
+.medical-profile-overview table tr:first-child td {
+    border: none;
+}
+
+.medical-profile-overview .btn {
     margin-top: 20px;
 }
 

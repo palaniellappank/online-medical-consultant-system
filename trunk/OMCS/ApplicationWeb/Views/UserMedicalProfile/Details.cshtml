@@ -15,6 +15,16 @@
     var immunizationUrl = "@Url.Action("ListView", "Immunization")";
 </script>
 
+<style>
+    .medical-profile-overview {
+        position: initial;
+        bottom: auto;
+        left:auto;
+        background-color: #603cba;
+        color: #fff;
+    }
+</style>
+
 <div id="build">
     <form id="target" class="form-horizontal" action="@Url.Action("UpdateMedicalProfile")">
         <div class="control-group">
@@ -23,12 +33,36 @@
         <fieldset>
         </fieldset>
     </form>
+
+    <div class="medical-profile-overview">
+    <div class="row">
+        <div class="col-md-2 col-lg-2" align="center">
+            <img alt="User Pic" src="~/Content/ProfilePicture/@ViewBag.doctor.ProfilePicture" class="img-circle doctor-img">
+        </div>
+        <div class="col-md-10 col-lg-10">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Bác Sĩ: </td>
+                        <td>@ViewBag.doctor.FullName</td>
+                        <td>Chuyên Khoa: </td>
+                        <td>@ViewBag.doctor.SpecialtyField.Name</td>                        
+                    </tr>
+                    <tr>
+                        <td>Ngày tạo: </td>
+                        <td>@ViewBag.createdDate.ToShortDateString()</td>
+                        <td>Bệnh viện</td>
+                        <td>@ViewBag.hospital</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
 </div>
 
     <div class="row clearfix">
     </div>
-<script src="~/Content/FormBuilder/js/config.js"></script>
-<script data-main="../main-view" src="~/Content/FormBuilder/js/lib/require.js" ></script>
 
 <div class="modal fade in" id="modal-popup">
 </div>
@@ -47,3 +81,6 @@
     </div>
   </div>
 </div>
+
+<script src="~/Content/FormBuilder/js/config.js"></script>
+<script data-main="../main-view" src="~/Content/FormBuilder/js/lib/require.js" ></script>

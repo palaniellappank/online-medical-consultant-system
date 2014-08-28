@@ -38,7 +38,10 @@ namespace OMCS.Web.Controllers
             ViewBag.medicalProfileName = medicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName;
             ViewBag.medicalProfileId = medicalProfile.MedicalProfileId;
             ViewBag.detailsInJson = business.ViewMedicalProfile(User.UserId, medicalProfile.MedicalProfileTemplate.MedicalProfileTemplateId);
+            ViewBag.doctor = medicalProfile.Doctor;
+            ViewBag.createdDate = medicalProfile.CreatedDate;
+            ViewBag.hospital = _db.HospitalInformations.First().Name;
             return View();
-        }        
+        }
     }
 }

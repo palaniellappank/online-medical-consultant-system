@@ -82,38 +82,68 @@ namespace OMCS.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult ViewMedicalProfile(int id, int medicalProfileTemplateId)
+        public ActionResult ViewMedicalProfile(int id = 0, int medicalProfileTemplateId = 0, int medicalProfileId = 0)
         {
-            var medicalProfile = _db.MedicalProfiles.
-                Where(x => x.MedicalProfileTemplateId == medicalProfileTemplateId
-                && x.PatientId == id).FirstOrDefault();
+            MedicalProfile medicalProfile;
+            //Get Medical Profile by medicalProfileId
+            if (medicalProfileId != 0)
+            {
+                medicalProfile = _db.MedicalProfiles.Find(medicalProfileId);
+                ViewBag.detailsInJson = medicalBusiness.ViewMedicalProfile(
+                    medicalProfile.PatientId, medicalProfile.MedicalProfileTemplateId);
+            }
+            else
+            {
+                //Get Medical Profile by patientId and medicalProfileTemplateId
+                medicalProfile = _db.MedicalProfiles.
+                    Where(x => x.MedicalProfileTemplateId == medicalProfileTemplateId
+                    && x.PatientId == id).FirstOrDefault();
+                ViewBag.detailsInJson = medicalBusiness.ViewMedicalProfile(id, medicalProfileTemplateId);
+            }
             ViewBag.medicalProfileName = medicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName;
             ViewBag.medicalProfileId = medicalProfile.MedicalProfileId;
-            ViewBag.detailsInJson = medicalBusiness.ViewMedicalProfile(id, medicalProfileTemplateId);
+            ViewBag.doctor = medicalProfile.Doctor;
+            ViewBag.createdDate = medicalProfile.CreatedDate;
+            ViewBag.hospital = _db.HospitalInformations.First().Name;
             return View();
         }
 
-        public ActionResult UpdateMedicalProfile(int id, int medicalProfileTemplateId)
+        public ActionResult UpdateMedicalProfile(int id = 0, int medicalProfileTemplateId = 0, int medicalProfileId = 0)
         {
-            var str = medicalBusiness.UpdateMedicalProfile(id, medicalProfileTemplateId, User.UserId);
-            ViewBag.formInJson = str;
-            ViewBag.patientId = id;
-            ViewBag.medicalProfileTemplateId = medicalProfileTemplateId;
-            ViewBag.medicalProfileName = _db.MedicalProfileTemplates.Find(medicalProfileTemplateId).MedicalProfileTemplateName;
+            MedicalProfile medicalProfile;
+            //Get Medical Profile by medicalProfileId
+            if (medicalProfileId != 0)
+            {
+                medicalProfile = _db.MedicalProfiles.Find(medicalProfileId);
+                ViewBag.formInJson = medicalBusiness.UpdateMedicalProfile(
+                    medicalProfile.PatientId, medicalProfile.MedicalProfileTemplateId, User.UserId);
+            }
+            else
+            {
+                //Get Medical Profile by patientId and medicalProfileTemplateId
+                medicalProfile = _db.MedicalProfiles.
+                    Where(x => x.MedicalProfileTemplateId == medicalProfileTemplateId
+                    && x.PatientId == id).FirstOrDefault();
+                ViewBag.formInJson = medicalBusiness.UpdateMedicalProfile(id, medicalProfileTemplateId, User.UserId);
+            }
+            ViewBag.patientId = medicalProfile.PatientId;
+            ViewBag.medicalProfileTemplateId = medicalProfile.MedicalProfileTemplateId;
+            ViewBag.medicalProfileName = _db.MedicalProfileTemplates.Find(medicalProfile.MedicalProfileTemplateId).MedicalProfileTemplateName;
 
-            var medicalProfile = _db.MedicalProfiles.Where(
-                mp => ((mp.PatientId == id) &&
-                    (mp.MedicalProfileTemplateId == medicalProfileTemplateId))
-            ).FirstOrDefault();
             ViewBag.medicalProfileId = medicalProfile.MedicalProfileId;
+            ViewBag.doctor = medicalProfile.Doctor;
+            ViewBag.createdDate = medicalProfile.CreatedDate;
+            ViewBag.hospital = _db.HospitalInformations.First().Name;
             return View();
         }
 
         [HttpPost]
-        public ActionResult UpdateMedicalProfile(FormCollection formCollection)
+        public JObject UpdateMedicalProfile(FormCollection formCollection)
         {
             medicalBusiness.UpdateMedicalProfileForPatient(formCollection);
-            return View();
+            dynamic result = new JObject();
+            result.result = "success";
+            return result;
         }
     }
 }
