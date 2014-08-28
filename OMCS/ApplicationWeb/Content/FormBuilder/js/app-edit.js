@@ -45,24 +45,27 @@
             });
         };
 
+        $("form#target").validate({
+            submitHandler: function () {
+                $.ajax({
+                    type: "POST",
+                    url: $("form#target").attr("action"),
+                    data: $("form#target").serialize(),
+                    success: function () {
+                        bootbox.alert("Cập nhật thành công!");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        bootbox.alert("Có lỗi xảy ra: " + textStatus);
+                    }
+                });
+                return false;
+            }
+        });
+
         $("#updateMedicalProfileBtn").click(function (e) {
-            $("form#target").validate({
-                submitHandler: function () {
-                    $.ajax({
-                        type: "POST",
-                        url: $("form#target").attr("action"),
-                        data: $("form#target").serialize(),
-                        success: function () {
-                            bootbox.alert("Cập nhật thành công!");
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            bootbox.alert("Có lỗi xảy ra: " + textStatus);
-                        }
-                    });
-                    return false;
-                }
-            });
-            
+            if ($("form#target").valid()) {
+              $("form#target").submit();
+            };
         });
         $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
     }

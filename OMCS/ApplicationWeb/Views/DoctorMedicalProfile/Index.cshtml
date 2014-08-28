@@ -63,7 +63,7 @@
                 @item.CreatedDate
             </td>
             <td>
-                <a class="btn btn-primary" href="@Url.Action("Details", "DoctorMedicalProfile", new { medicalProfileId = item.MedicalProfileId, patientId = item.PatientId })" target="_blank" title="Xem chi tiết"><i class="glyphicon glyphicon-search"></i></a>
+                <a class="btn btn-primary" href="@Url.Action("ViewMedicalProfile", "DoctorMedicalProfile", new { medicalProfileId = item.MedicalProfileId, patientId = item.PatientId })" target="_blank" title="Xem chi tiết"><i class="glyphicon glyphicon-search"></i></a>
                 <a class="btn btn-primary" href="@Url.Action("UpdateMedicalProfile", "DoctorMedicalProfile", new { id = item.Patient.UserId, medicalProfileTemplateId = item.MedicalProfileTemplateId })" target="_blank" title="Cập nhật"><i class="glyphicon glyphicon-pencil"></i></a>
                 <button class="btn btn-danger delete-button" data-id="@item.MedicalProfileId" title="Xóa"><i class="glyphicon glyphicon-remove"></i></button>
             </td>
