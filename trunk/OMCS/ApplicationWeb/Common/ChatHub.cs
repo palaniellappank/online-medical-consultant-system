@@ -123,7 +123,6 @@ namespace SignalRChat.Hubs
         public void SendMessageTo(string toEmail, string message)
         {
             business = new ConversationBusiness(_db);
-            Debug.WriteLine(toEmail + " " + message.Trim());
             var id = Context.ConnectionId;
             var fromUserDetail = ConnectedUsers.Where(x => x.ConnectionId == id).FirstOrDefault();
             var fromUser = _db.Users.Where(x => x.Email.Equals(fromUserDetail.Email)).FirstOrDefault();
@@ -158,6 +157,60 @@ namespace SignalRChat.Hubs
                 //Notify Receiver
                 var receiver = ConnectedUsers.Where(x => x.Email == toEmail).FirstOrDefault();
                 
+                if (receiver != null && receiver.ConnectionId != null)
+                {
+                    receiver.CountMessageUnRead = business.CountMessageUnRead(toUser);
+                    Clients.Client(receiver.ConnectionId).messageReceived(fromUserDetail, toUserDetail, messageDetail);
+                }
+
+                //Notify Caller
+                Clients.Caller.messageReceived(fromUserDetail, toUserDetail, messageDetail);
+            }
+        }
+
+        public void GetLastestChatMessage(string toEmail)
+        {
+            var id = Context.ConnectionId;
+            var fromUserDetail = ConnectedUsers.Where(x => x.ConnectionId == id).FirstOrDefault();
+            var fromUser = _db.Users.Where(x => x.Email.Equals(fromUserDetail.Email)).FirstOrDefault();
+            var toUser = _db.Users.Where(x => x.Email.Equals(toEmail)).FirstOrDefault();
+            var toUserDetail = ConnectedUsers.Where(x => x.Email.Equals(toEmail)).FirstOrDefault();
+
+            var doctor = _db.Doctors.Where(u => u.Email.Equals(fromUser.Email)).FirstOrDefault();
+            var patient = new Patient();
+            if (doctor == null)
+            {
+                doctor = _db.Doctors.Where(u => u.Email.Equals(toUser.Email)).FirstOrDefault();
+                patient = _db.Patients.Where(u => u.Email.Equals(fromUser.Email)).FirstOrDefault();
+            }
+            else
+            {
+                patient = _db.Patients.Where(u => u.Email.Equals(toUser.Email)).FirstOrDefault();
+            }
+
+            if (doctor != null && patient != null)
+            {
+                var conversation = _db.Conversations.Where(x => x.DoctorId == doctor.UserId && x.PatientId == patient.UserId).FirstOrDefault();
+                var lastestConversationDetail = _db.ConversationDetails.Where(x => x.ConversationId == conversation.ConversationId).OrderByDescending(x => x.CreatedDate).FirstOrDefault();
+
+                MessageDetail messageDetail = new MessageDetail
+                {
+                    Content = lastestConversationDetail.Content,
+                    Attachment = lastestConversationDetail.Attachment,
+                    CreatedDate = String.Format("{0:dd/MM/yyyy HH:mm:ss}", lastestConversationDetail.CreatedDate),
+                    Email = lastestConversationDetail.User.Email,
+                    IsRead = lastestConversationDetail.IsRead
+                };
+
+                //Check if toUserDetail is not online yet
+                if (toUserDetail == null)
+                {
+                    toUserDetail = helper.ConvertUserToUserDetail(toUser);
+                }
+
+                //Notify Receiver
+                var receiver = ConnectedUsers.Where(x => x.Email == toEmail).FirstOrDefault();
+
                 if (receiver != null && receiver.ConnectionId != null)
                 {
                     receiver.CountMessageUnRead = business.CountMessageUnRead(toUser);
