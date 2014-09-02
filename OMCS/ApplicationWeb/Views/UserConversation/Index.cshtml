@@ -220,7 +220,8 @@
     BodyView = Backbone.View.extend({
         el: $("body"),
         events: {
-            "click .showDoctorDetail": "showDoctorDetail"
+            "click .showDoctorDetail": "showDoctorDetail",
+            "click" : "handleClick"
         },
         showDoctorDetail: function (e) {
             $("#doctor-detail").removeData().unbind();
@@ -228,6 +229,11 @@
                 doctorId: $(e.target).attr("data-id"),
                 el: "#doctor-detail"
             });
+        },
+        handleClick: function (e) {
+            if (! $(e.target).parents().hasClass("popover")) {
+                $(".popover").remove();
+            }
         }
     });
     new BodyView();
