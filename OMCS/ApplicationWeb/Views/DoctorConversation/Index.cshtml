@@ -288,7 +288,6 @@
         getMessageList: function (e) {
             var username = $(e.currentTarget).find(".username").val();
             $('#txtToEmail').val(username);
-            console.log("getMessageList from: " + username);
             chatHub.server.getMessageList(username);
         },
         sendMessage: function (e) {
@@ -374,10 +373,13 @@
         }
 
         chatHub.client.onGetMessageList = function (fromUser, toUser, messageDetails) {
-            $("#chat-content").html("");
             var loginEmail = $('#txtFromEmail').val();
             var templateLeft = $("#chat-left-template").html();
             var templateRight = $("#chat-right-template").html();
+            if ($("#chat-content").hasClass("mCustomScrollbar")) {
+                $("#chat-content").mCustomScrollbar("destroy");
+            }
+            $("#chat-content").html("");
             _.forEach(messageDetails, function (message) {
                 if (loginEmail == message.Email) {
                     $("#chat-content").append(_.template(templateLeft, { user: fromUser, message: message }));
@@ -433,7 +435,7 @@
                 },
 
                 UploadComplete: function() {
-                    chatHub.server.getMessageList($('#txtToEmail').val());
+                    chatHub.server.getLastestChatMessage($('#txtToEmail').val());
                     $('#filelist').children().fadeOut(2000);
                 },
 

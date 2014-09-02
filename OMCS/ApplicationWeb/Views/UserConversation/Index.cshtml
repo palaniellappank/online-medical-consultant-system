@@ -396,9 +396,7 @@
         chatHub.client.onGetMessageList = function (fromUser, toUser, messageDetails) {
             $("#chat-doctor").html("");
             var templateTop = $("#chat-top-template").html();
-            if (loginEmail == loginEmail) {
-                $("#chat-doctor").append(_.template(templateTop, { user: toUser }));
-            }
+            $("#chat-doctor").append(_.template(templateTop, { user: toUser }));
             if ($("#chat-content").hasClass("mCustomScrollbar")) {
                 $("#chat-content").mCustomScrollbar("destroy");
             }
@@ -484,7 +482,7 @@
                 },
 
                 UploadComplete: function () {
-                    chatHub.server.getMessageList($('#txtToEmail').val());
+                    chatHub.server.getLastestChatMessage($('#txtToEmail').val());
                     $('#filelist').children().fadeOut(2000);
                 },
 
@@ -496,8 +494,6 @@
 
         uploader.init();
         uploader.bind('FilesAdded', function (up, files) {
-            console.log(uploader.settings.multipart_params);
-            console.dir(uploader.settings);
             uploader.settings.multipart_params.fromEmail = $('#txtFromEmail').val();
             uploader.settings.multipart_params.toEmail = $('#txtToEmail').val();
             plupload.each(files, function (file) {
