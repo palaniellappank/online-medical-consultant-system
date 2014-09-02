@@ -57,6 +57,8 @@
 
             @foreach (var item in ViewBag.recentComments)
             {
+                if (@item.PatientId != null)
+                {              
                 <tr>
                     <td>
                         @item.Content
@@ -65,6 +67,10 @@
                         @item.Patient.FullName
                     </td>
                 </tr>
+                }
+                else
+                {
+                }
             }
         </table>
         <a href="@Url.Action("Index", "DoctorComment")">Xem thêm....</a>
