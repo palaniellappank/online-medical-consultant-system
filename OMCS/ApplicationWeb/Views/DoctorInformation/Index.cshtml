@@ -189,6 +189,15 @@
                 //$("#uploaded").append("<img src='" + data + "' alt='Uploaded Image' />");
                 window.location.reload(true);
             }
-        });        
+        });       
+        
+        $(".edit-button").click(function () {
+            var url = "/DoctorInformation/ChangePassword";
+            var id = $(this).attr("data-id");
+            $.get(url + "/" + id, function (data) {
+                $("#edit-container").html(data);
+                $("#edit-model").modal("show");
+            });
+        });
     });
 </script>
