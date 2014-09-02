@@ -207,6 +207,18 @@
 
 
 <script type='text/javascript'>
+    BodyView = Backbone.View.extend({
+        el: $("body"),
+        events: {
+            "click": "handleClick"
+        },
+        handleClick: function (e) {
+            if (!$(e.target).parents().hasClass("popover")) {
+                $(".popover").remove();
+            }
+        }
+    });
+    new BodyView();
     ChatBoxView = Backbone.View.extend({
         el: $("#chatbox"),
         doctorListEl: $("#contact-list"),

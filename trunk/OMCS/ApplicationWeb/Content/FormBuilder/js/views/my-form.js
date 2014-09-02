@@ -88,7 +88,7 @@ define([
     , getBottomAbove: function(eventX, eventY){
         var myFormBits = $(this.fieldset.find(".component,.component-holder"));
         var prevComponentName = null;
-        var topelement = _.find(myFormBits, function(renderedSnippet) {
+        var topelement = _.find(myFormBits, function(renderedSnippet, index) {
           //Ignore element that inside component-holder
           if ($(renderedSnippet).parent().attr("class") &&
             $(renderedSnippet).parent().attr("class").indexOf("component-holder") != -1)
@@ -109,8 +109,13 @@ define([
           if ($(renderedSnippet).attr("data-title") == "Xây dựng bảng") {
             return false;
           }
-          //90 is the height of target
-          if (top + height > eventY - 90) {
+          //94 is the height of target
+          //$("#target").position().top
+          console.log((top + height) + "  " + (eventY - 94) + "  " + index);
+          if (top + height > eventY - 94) {
+            return true;
+          }
+          if ((myFormBits.length == index + 1) && (top + height > eventY - 120)) {
             return true;
           }
           return false;
@@ -149,7 +154,7 @@ define([
       if(pageX >= this.$build.position().left &&
           pageX < (this.$build.width() + this.$build.position().left) &&
           pageY >= this.$build.position().top &&
-          pageY < (this.$build.height() + this.$build.position().top)){
+          pageY < (this.$build.height() + this.$build.position().top + 50)){
         var element = $(this.getBottomAbove(pageX, pageY));
         //Update content of dragging element
   /*      if (element.parents("[data-title='Xây dựng bảng']").length != 0) {
@@ -185,7 +190,7 @@ define([
       if(mouseEvent.pageX >= this.$build.position().left &&
          mouseEvent.pageX < (this.$build.width() + this.$build.position().left) &&
          mouseEvent.pageY >= this.$build.position().top &&
-         mouseEvent.pageY < (this.$build.height() + this.$build.position().top)) {
+         mouseEvent.pageY < (this.$build.height() + this.$build.position().top + 70)) {
          if ($(".target").attr("class").indexOf("component-holder") != -1) {
             var position = $(".target").attr("data-position");
             var parent = $(".target").parents(".component");
