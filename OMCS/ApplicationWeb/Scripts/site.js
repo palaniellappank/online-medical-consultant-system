@@ -291,7 +291,7 @@ DoctorDetailView = Backbone.View.extend({
             url: url,
             type: "GET",
             success: function (e) {
-                $("#post-list").replaceWith(e);
+                $("#post-list").html(e);
             }
         });
     }
