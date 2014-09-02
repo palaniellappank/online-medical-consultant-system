@@ -3,15 +3,21 @@
     Layout = null;
 }
 
-<div>
-    <div class="form-group">
-        <label>Hồ sơ bệnh án:</label>
-        <div>@Model.MedicalProfileTemplate.MedicalProfileTemplateName</div>
+@if (@Model != null)
+{
+    <div>
+        <div class="form-group">
+            <label>Hồ sơ bệnh án:</label>
+                <div>@Model.MedicalProfileTemplate.MedicalProfileTemplateName</div>   
+        </div>
+        <div class="form-group">
+            <label>Ngày tạo:</label>
+            <div>@Model.CreatedDate.ToShortDateString()</div>
+        </div>
     </div>
-    <div class="form-group">
-        <label>Ngày tạo:</label>
-        <div>@Model.CreatedDate.ToShortDateString()</div>
-    </div>
-</div>
 
-<a class="btn btn-primary" target="_blank" href="@Url.Action("ViewMedicalProfile", "DoctorMedicalProfile", new { medicalProfileId = Model.MedicalProfileId})">Xem chi tiết</a>
+    <a class="btn btn-primary" target="_blank" href="@Url.Action("ViewMedicalProfile", "DoctorMedicalProfile", new { medicalProfileId = Model.MedicalProfileId})">Xem chi tiết</a>
+        
+} else {
+    <div>Bệnh nhân chưa có hồ sơ bệnh án!</div>
+}

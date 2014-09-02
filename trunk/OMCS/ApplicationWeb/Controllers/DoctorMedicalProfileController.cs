@@ -98,6 +98,12 @@ namespace OMCS.Web.Controllers
                     Where(x => x.MedicalProfileTemplateId == medicalProfileTemplateId
                     && x.PatientId == id).FirstOrDefault();
                 ViewBag.formInJson = medicalBusiness.UpdateMedicalProfile(id, medicalProfileTemplateId, User.UserId);
+                if (medicalProfile == null)
+                {
+                    medicalProfile = _db.MedicalProfiles.
+                    Where(x => x.MedicalProfileTemplateId == medicalProfileTemplateId
+                    && x.PatientId == id).FirstOrDefault();
+                }
             }
             ViewBag.patientId = medicalProfile.PatientId;
             ViewBag.medicalProfileTemplateId = medicalProfile.MedicalProfileTemplateId;
