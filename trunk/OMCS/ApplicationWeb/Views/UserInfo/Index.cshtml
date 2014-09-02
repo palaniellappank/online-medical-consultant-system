@@ -316,5 +316,14 @@
                 window.location.reload(true);
             }
         });
+
+        $(".edit-button").click(function () {
+            var url = "/UserInfo/ChangePassword";
+            var id = $(this).attr("data-id");
+            $.get(url + "/" + id, function (data) {
+                $("#edit-container").html(data);
+                $("#edit-model").modal("show");
+            });
+        });
     });
 </script>
