@@ -295,6 +295,17 @@
         },
         renderContactList: function (doctors) {
             //Get filter from user
+            var selectedItems = $("#specialty-select").val();
+            if (selectedItems != null && selectedItems.length != 0) {
+                //Filter doctorList
+                var filteredList = [];
+                _.each(doctorList, function (doctor) {
+                    if (selectedItems.indexOf(doctor.SpecialtyField) != -1) {
+                        filteredList.push(doctor);
+                    }
+                });
+                doctors = filteredList;
+            }
             var template = _.template($("#doctor-list-template").html(), { doctors: doctors });
             if (this.contactListEl.hasClass("mCustomScrollbar")) {
                 this.contactListEl.find(".mCSB_container").html(template);
@@ -359,7 +370,6 @@
         $("#specialty-select").select2();
         $("#specialty-select").on("change", function (e) {
             var selectedItems = $("#specialty-select").val();
-            console.log(selectedItems);
             if (selectedItems != null && selectedItems.length != 0) {
                 //Filter doctorList
                 var filteredList = [];
