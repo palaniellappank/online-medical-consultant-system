@@ -46,4 +46,6 @@
 
 </div>
 
-@{Html.RenderAction("Index", "Comment", new { id = ViewBag.DoctorId });}
+<div id="post-list">
+    @{Html.RenderAction("Index", "Comment", new { id = ViewBag.DoctorId });}
+</div>
