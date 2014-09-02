@@ -95,6 +95,7 @@
 
             <div class="panel panel-info draggable" id="patientWebcam">
                 <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" id="closePatientWebcam"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h3 class="panel-title">Webcam</h3>
                 </div>
                 <div class="panel-body" style="padding: 0">
@@ -210,12 +211,16 @@
     BodyView = Backbone.View.extend({
         el: $("body"),
         events: {
-            "click": "handleClick"
+            "click": "handleClick",
+            "click #closePatientWebcam": "hideWebcam"
         },
         handleClick: function (e) {
             if (!$(e.target).parents().hasClass("popover")) {
                 $(".popover").remove();
             }
+        },
+        hideWebcam: function (e) {
+            $("#patientWebcam").css("display", "none");
         }
     });
     new BodyView();
