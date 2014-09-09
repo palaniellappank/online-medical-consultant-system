@@ -70,12 +70,9 @@ OMCSChat.App = (function (connectionManager) {
             onStreamAdded: function (connection, event) {
                 console.log('Binding stream from patient to doctor');
 
-                $("#patientWebcam").css("display", "block");
+                $(".webcam-content").css("display", "block");
                 var videoElement = document.querySelector('.video.patient');
                 attachMediaStream(videoElement, event.stream);
-                var bottom = window.innerHeight - Number.parseInt($(".draggable").css("height")) - 90;
-                if (bottom < 0) bottom = 0;
-                $(".draggable").offset({ top: bottom, left: 30 });                
             },
             onStreamRemoved: function (connection, streamId) {
                 // todo: proper stream removal.  right now we are only set up for one-on-one which is why this works.
