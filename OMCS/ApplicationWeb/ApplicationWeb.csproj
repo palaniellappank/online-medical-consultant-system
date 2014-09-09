@@ -717,6 +717,7 @@
     <Content Include="Views\TreatmentHistory\_ListView.cshtml" />
     <Content Include="Views\FilmDocument\_Details.cshtml" />
     <Content Include="Views\DoctorMedicalProfile\_LatestMedicalProfile.cshtml" />
+    <Content Include="Views\FilmDocument\_CreateWhenChat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

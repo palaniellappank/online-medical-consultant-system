@@ -88,5 +88,22 @@ namespace OMCS.Web.Controllers
             result.result = "ok";
             return result;
         }
+
+        public JArray GetTreatmentHistoryList(string patientEmail, int medicalProfileId)
+        {
+            var treatmentHistories = _db.TreatmentHistories.
+                Where(x => x.MedicalProfile.Patient.Email.Equals(patientEmail)
+                    && (x.MedicalProfileId == medicalProfileId)).
+                OrderByDescending(x => x.DateCreated).ToList();
+            dynamic treatmentHistoryListJson = new JArray();
+            foreach (var treatmentHistory in treatmentHistories)
+            {
+                dynamic treatmentHistoryJson = new JObject();
+                treatmentHistoryJson.id = treatmentHistory.TreatmentHistoryId;
+                treatmentHistoryJson.text = treatmentHistory.DateCreated.ToShortDateString();
+                treatmentHistoryListJson.Add(treatmentHistoryJson);
+            }
+            return treatmentHistoryListJson;
+        }
     }
 }

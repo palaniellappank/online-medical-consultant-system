@@ -1,0 +1,108 @@
+﻿@model OMCS.DAL.Model.FilmDocument
+<form>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <input name="doctorId" type="hidden" value="@Html.ValueFor(model=>model.DoctorId)"/>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Thêm Hồ Sơ ảnh</h4>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group col-lg-6">
+                <label class="control-label ">Hồ sơ bệnh án</label>
+                <input name="medicalProfileId"/>
+            </div>
+            <div class="form-group col-lg-6">
+                <label class="control-label">Ngày khám</label>
+                <input name="treatmentHistoryId"/>
+            </div>
+            <img id="imgPhoto" src="#" data-src="holder.js/400x300" alt="your image" class="img-responsive"/>
+            <input style="display:none" value="" name="imgBase64"/>
+          </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="FilmType" class="control-label">Loại phim</label>
+                    @Html.DropDownList("FilmTypeId", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="Description" class="control-label">@Html.DisplayNameFor(model=>model.Description)</label>
+                    <textarea id="Description" name="Description" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Conclusion" class="control-label">@Html.DisplayNameFor(model=>model.Conclusion)</label>
+                    <textarea id="Conclusion" name="Conclusion" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
+        <button class="btn btn-primary saveBtn">Lưu</button>
+      </div>
+    </div>
+  </div>
+</form>
+<script type="text/javascript">
+    var patientEmail = $('#txtToEmail').val();
+    var form = $('#modal-popup').find("form");
+    $(".saveBtn").click(function (e) {
+        e.preventDefault();
+        if (form.valid()) {
+            var formData = new FormData(form[0]);
+            $.ajax({
+                url: baseUrl + "FilmDocument/CreateFromWebcam",
+                method: "post",
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function () {
+                    $('#modal-popup').modal('hide');
+                }
+            });
+        }
+    });
+    $("input[name=medicalProfileId").select2({
+        width: 150,
+        ajax: {
+            url: baseUrl + "DoctorMedicalProfile/GetMedicalProfileList?patientEmail=" + patientEmail,
+            dataType: 'json',
+            type: "GET",
+            results: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.text,
+                            id: item.id
+                        }
+                    })
+                };
+            }
+        }
+    });
+    $("input[name=treatmentHistoryId").select2({
+        width: 150,
+        ajax: {
+            url: baseUrl + "TreatmentHistory/GetTreatmentHistoryList?patientEmail=" + patientEmail,
+            dataType: 'json',
+            type: "GET",
+            data: function (term) {
+                return {
+                    medicalProfileId: $("input[name=medicalProfileId").val()
+                };
+            },
+            results: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.text,
+                            id: item.id
+                        }
+                    })
+                };
+            }
+        }
+    });
+</script>
