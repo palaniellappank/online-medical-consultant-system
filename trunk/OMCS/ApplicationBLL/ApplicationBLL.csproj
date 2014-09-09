@@ -44,6 +44,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
@@ -86,6 +87,7 @@
     <Compile Include="BusinessLogic\MedicalProfileTemplateBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\DateTimeUtils.cs" />
+    <Compile Include="Utils\ImageToString.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -96,6 +98,9 @@
       <Project>{7a12b6b4-c9f1-4d0e-8d3b-498c2369d66d}</Project>
       <Name>ApplicationDAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

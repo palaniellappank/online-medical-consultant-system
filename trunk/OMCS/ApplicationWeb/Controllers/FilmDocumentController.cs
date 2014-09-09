@@ -12,6 +12,7 @@ using System.Diagnostics;
 using Newtonsoft.Json.Linq;
 using System.Data;
 using System.IO;
+using ApplicationBLL.Utils;
 
 namespace OMCS.Web.Controllers
 {
@@ -35,6 +36,17 @@ namespace OMCS.Web.Controllers
                 .OrderByDescending(x => x.DateCreated)
                 .ToList();
             return PartialView("_ListView", filmDocuments);
+        }
+
+        public ActionResult CreateWhenChat(string patientEmail)
+        {
+            var filmTypeList = _db.FilmTypes.ToList();
+            ViewBag.FilmTypeId = new SelectList(filmTypeList, "FilmTypeId", "Name");
+            var filmDocument = new FilmDocument
+            {
+                DoctorId = User.UserId
+            };
+            return PartialView("_CreateWhenChat", filmDocument);
         }
 
         public ActionResult CreateForTreatment(int treatmentHistoryId)
@@ -70,6 +82,28 @@ namespace OMCS.Web.Controllers
                 var path = HttpContext.Server.MapPath("~/Content/Image/FilmDocument/" + fileName);
                 var dbPath = fileName;
                 file.SaveAs(path);
+                filmDocument.ImagePath = dbPath;
+            }
+            filmDocument.DateCreated = DateTime.Now;
+
+            _db.FilmDocuments.Add(filmDocument);
+            _db.SaveChanges();
+            dynamic result = new JObject();
+            result.result = "ok";
+            return result;
+        }
+
+        [HttpPost]
+        public JObject CreateFromWebcam(FilmDocument filmDocument, string imgBase64)
+        {
+            imgBase64 = imgBase64.Split(',')[1];
+            var file = ImageToString.GetImageFromString(imgBase64);
+            if (file != null)
+            {
+                var fileName = DateTime.Now.Millisecond + ".png";
+                var path = HttpContext.Server.MapPath("~/Content/Image/FilmDocument/" + fileName);
+                var dbPath = fileName;
+                file.Save(path);
                 filmDocument.ImagePath = dbPath;
             }
             filmDocument.DateCreated = DateTime.Now;

@@ -159,5 +159,21 @@ namespace OMCS.Web.Controllers
             result.result = "success";
             return result;
         }
+
+        public JArray GetMedicalProfileList(string patientEmail)
+        {
+            var medicalProfiles = _db.MedicalProfiles.
+                Where(x => x.Patient.Email.Equals(patientEmail)).
+                OrderByDescending(x => x.CreatedDate).ToList();
+            dynamic medicalProfileListJson = new JArray();
+            foreach (var medicalProfile in medicalProfiles)
+            {
+                dynamic medicalProfileJson = new JObject();
+                medicalProfileJson.id = medicalProfile.MedicalProfileId;
+                medicalProfileJson.text = medicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName;
+                medicalProfileListJson.Add(medicalProfileJson);
+            }
+            return medicalProfileListJson;
+        }
     }
 }

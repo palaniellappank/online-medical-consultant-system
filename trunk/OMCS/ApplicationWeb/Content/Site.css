@@ -661,6 +661,12 @@ img.slider-img:hover {
     display:none;
 }
 
+#takePhoto {
+    position: absolute;
+    top: 4px;
+    left: 94px;
+}
+
 .ajax-loader {
     background-image: url('/Content/Image/ajax-loader.gif');
     background-repeat: no-repeat;

@@ -48,6 +48,9 @@
             var filmTypes = new List<FilmType>
             {
                 new FilmType {
+                    Name = "Webcam"
+                },
+                new FilmType {
                     Name = "X-quang"
                 },
                 new FilmType {

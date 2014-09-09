@@ -97,14 +97,15 @@
                 <div class="panel-heading">
                     <button type="button" class="close" data-dismiss="modal" id="closePatientWebcam"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>                    
                     <h3 class="panel-title">Webcam</h3>
-                    <input type="button" id="takePhoto" value="Chụp hình" />
+                    <button class="btn btn-info btn-sm" id="takePhoto" data-toggle="tooltip" data-original-title="Chụp hình ảnh...">
+                        <i class="glyphicon glyphicon-camera" style="font-size: 12px;"></i>
+                    </button>
                 </div>
                 <div class="panel-body" style="padding: 0">
                     <video id="webcam" class="video patient cool-background" autoplay="autoplay"
                         controls="controls" muted="muted" style="width: 100%; height: 100%">
                     </video>
-                    <canvas id="photo"></canvas>
-                    
+                    <canvas id="photo" style="display: none"></canvas>
                 </div>
             </div>
         </div>
@@ -130,6 +131,8 @@
     </div>
 </div>
 
+<div class="modal fade in" id="modal-popup">
+</div>
 
 <script id="doctor-list-template" type="text/template">
     <%
@@ -215,7 +218,8 @@
         el: $("body"),
         events: {
             "click": "handleClick",
-            "click #closePatientWebcam": "hideWebcam"
+            "click #closePatientWebcam": "hideWebcam",
+            "click #takePhoto": "takePhoto"
         },
         handleClick: function (e) {
             if (!$(e.target).parents().hasClass("popover")) {
@@ -224,6 +228,26 @@
         },
         hideWebcam: function (e) {
             $("#patientWebcam").css("display", "none");
+        },
+        takePhoto: function (e) {
+            var video = $("#webcam")[0];
+            var photo = $("#photo")[0],
+                context = photo.getContext('2d');
+
+            photo.width = video.clientWidth;
+            photo.height = video.clientHeight;
+            context.drawImage(video, 0, 0, photo.width, photo.height);
+
+            var url = baseUrl + "FilmDocument/CreateWhenChat";
+            var toEmail = $('#txtToEmail').val();
+            $.get(url + "?patientEmail=" + toEmail, function (data) {
+                $('#modal-popup').html(data);
+                $('#modal-popup').modal('show');
+                var form = $('#modal-popup').find("form");
+                validationForm(form);
+                $("#imgPhoto").attr("src", photo.toDataURL('image/webp'));
+                $("input[name=imgBase64]").val(photo.toDataURL());
+            });
         }
     });
     new BodyView();
@@ -457,21 +481,6 @@
             });
         });
     }
-
-    var video = document.getElementById('webcam');
-    function takePhoto() {
-        var photo = document.getElementById('photo'),
-            context = photo.getContext('2d');
-
-        photo.width = video.clientWidth;
-        photo.height = video.clientHeight;
-
-        context.drawImage(video, 0, 0, photo.width, photo.height);
-    }
-
-    var photoButton = document.getElementById('takePhoto');
-    photoButton.addEventListener('click', takePhoto, false);
-
 </script>
 
 <script src="~/Scripts/webrtc/adapter.js"></script>
