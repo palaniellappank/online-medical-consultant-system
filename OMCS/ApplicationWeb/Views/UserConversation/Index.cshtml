@@ -66,6 +66,21 @@
                 </div>
             </div>
             <div class="col-sm-8">
+                <div class="panel panel-primary webcam-content" style="display:none">
+                    <div class="panel-body">
+                        <video id="webcam" class="video patient cool-background" autoplay="autoplay"
+                            controls="controls" muted="muted" style="width: 100%; height: 100%;">
+                        </video>
+                        <canvas id="photo" style="display: none"></canvas>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group-btn" style="margin-right: 53px;margin-left: auto;display:block">
+                            <button class="btn btn-warning btn-sm" id="closePatientWebcam" data-toggle="tooltip" data-original-title="Đóng webcam...">
+                                <i class="glyphicon glyphicon-remove" style="font-size: 12px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <div class="panel panel-primary panel-chat">
                     <div class="panel-heading c-list">
                         <span id="chat-doctor"></span>
@@ -90,19 +105,6 @@
             </div>
         </div>
 </body>
-
-
-<div class="panel panel-info draggable" id="patientWebcam">
-    <div class="panel-heading">
-        <button type="button" class="close" data-dismiss="modal" id="closePatientWebcam"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h3 class="panel-title">Webcam</h3>
-    </div>
-    <div class="panel-body" style="padding: 0">
-        <video class="video patient cool-background" autoplay="autoplay"
-            controls="controls" muted="muted" style="width: 100%; height: 100%">
-        </video>
-    </div>
-</div>
 
 <div class="modal fade in" id="modal-popup-img" aria-hidden="false">
     <div class="modal-dialog modal-lg">
@@ -238,7 +240,7 @@
             }
         },
         hideWebcam: function (e) {
-            $("#patientWebcam").css("display", "none");
+            $(".webcam-content").css("display", "none");
         }
     });
     new BodyView();
@@ -356,7 +358,6 @@
     var chatHub = $.connection.chatHub;
 
     $(function () {
-        $(".draggable").draggable();
         OMCSChat.App.init($("#txtFromEmail").val());
         registerClientMethods(chatHub);
         $.connection.hub.start().done(function () {

@@ -572,12 +572,6 @@ ul.c-controls li a:hover
     border-radius: 0;   
 }
 
-#chatbox .panel-chat {
-    border-left: none;
-    margin-left: -30px;
-}
-
-
 /* Css for chatbox */
 .chat
 {
@@ -659,12 +653,6 @@ img.slider-img:hover {
     border-radius: 0px; 
     z-index:100; 
     display:none;
-}
-
-#takePhoto {
-    position: absolute;
-    top: 4px;
-    left: 94px;
 }
 
 .ajax-loader {

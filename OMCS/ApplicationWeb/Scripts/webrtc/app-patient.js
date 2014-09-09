@@ -38,12 +38,9 @@ OMCSChat.App = (function (connectionManager) {
                     // Store off the stream reference so we can share it later
                     _mediaStream = stream;
 
-                    $("#patientWebcam").css("display", "block");
+                    $(".webcam-content").css("display", "block");
                     var videoElement = document.querySelector('.video.patient');
                     attachMediaStream(videoElement, _mediaStream);
-                    var bottom = window.innerHeight - Number.parseInt($(".draggable").css("height")) - 90;
-                    if (bottom < 0) bottom = 0;
-                    $(".draggable").offset({ top: bottom, left: 30 });
 
                     console.log("answerCall" + _doctor.ConnectionId);
                     _hub.server.answerCall(true, _doctor.ConnectionId);
@@ -116,6 +113,7 @@ OMCSChat.App = (function (connectionManager) {
 
                 // Bind the remote stream to the partner window
                 var otherVideo = document.querySelector('.video.partner');
+                $(".webcam-content").css("display", "block");
                 attachMediaStream(otherVideo, event.stream); // from adapter.js
             },
             onStreamRemoved: function (connection, streamId) {
