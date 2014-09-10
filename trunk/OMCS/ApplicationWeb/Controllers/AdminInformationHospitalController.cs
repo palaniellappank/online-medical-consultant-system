@@ -16,10 +16,6 @@ namespace OMCS.Web.Controllers
     [CustomAuthorize(Roles = "Admin")]
     public class AdminInformationHospitalController : BaseController
     {
-        //
-        // GET: /AdminInformationHospital/
-        private OMCSDBContext _db = new OMCSDBContext();
-
         public ActionResult Index()
         {
             var doctorCount = _db.Doctors.Count();

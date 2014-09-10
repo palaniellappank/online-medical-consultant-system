@@ -20,16 +20,12 @@
     <script src="~/signalr/hubs"></script>
     <script type="text/javascript" src="~/Content/plupload/moxie.js"></script>
     <script type="text/javascript" src="~/Content/plupload/plupload.dev.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.flexslider.js"></script>
 </head>
 <!-- Header -->
 <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
             <a class="navbar-brand" href="~/Doctor/Index">Bác Sĩ: @User.LastName @User.FirstName</a>
         </div>
         <div class="navbar-collapse collapse">
@@ -46,14 +42,23 @@
 <div class="container">
 
     <div class="row">
+        <div class="col-xs-4" style="float: right">
+            <label class="switch-light progress progress-striped active" onclick="">
+                <input type="checkbox" id="private-consult-enable">
+                <span>Tư vấn riêng
+                <span aria-label="Tắt" title="Tắt">O</span>
+                    <span aria-label="Bật" title="Bật">I</span>
+                </span>
+                <a class="progress-bar progress-bar-success"></a>
+            </label>
+        </div>
         <div class="col-md-12">
             <div class="row" id="chatbox">
                 <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="historyConsultant">
                         <div class="panel-heading c-list">
                             <span class="title">Lịch sử tư vấn</span>
                         </div>
-
                         <div class="row" style="display: none;">
                             <div class="col-xs-12">
                                 <div class="input-group c-search">
@@ -66,6 +71,32 @@
                         </div>
                         <ul class="list-group" id="contact-list">
                         </ul>
+                    </div>
+
+                    <div class="panel panel-default" id="patientDetailPanel">
+                        <div class="panel-heading" id="patientDetailPanelHeading">
+                        </div>
+                        <div class="panel-body">
+                            <fieldset>
+                                <legend>Lịch sử khám bệnh</legend>
+                            </fieldset>
+                            <div class="flexslider">
+                                <ul class="treatment-history-list slides">
+                                </ul>
+                            </div>
+                            <div class="pull-right treatment-navigation">
+                                <button class="btn btn-default btn-sm btn-omcs btn-prev" data-toggle="tooltip" data-original-title="Quay lại">
+                                    <i class="glyphicon glyphicon-chevron-left" style="font-size: 12px;"></i>
+                                </button>
+                                <button class="btn btn-default btn-sm btn-omcs btn-next" data-toggle="tooltip" data-original-title="Tiếp tục">
+                                    <i class="glyphicon glyphicon-chevron-right" style="font-size: 12px;"></i>
+                                </button>
+                            </div>
+                            <div class="clearfix"></div>
+                            <fieldset>
+                                <legend>Khám bệnh</legend>
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -97,9 +128,6 @@
                                 <textarea id="txtMessage" class="form-control" rows="2" placeholder="Nội dung tin nhắn..."></textarea>
                                 <span class="input-group-btn">
                                     <button class="btn btn-warning btn-sm" id="btnSendMsg">Gửi</button>
-                                    <button class="btn btn-info btn-sm" id="requestWebcam" data-toggle="tooltip" data-original-title="Yêu cầu Webcam...">
-                                        <i class="glyphicon glyphicon-facetime-video" style="font-size: 12px;"></i>
-                                    </button>
                                 </span>
                             </div>
                             <div id="filelist"></div>
@@ -134,6 +162,23 @@
 </div>
 
 <div class="modal fade in" id="modal-popup">
+</div>
+
+<div class="modal fade in" id="modal-popup-full">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade in" id="view-model">
+    <div id="view-container"></div>
 </div>
 
 <script id="doctor-list-template" type="text/template">
@@ -214,19 +259,168 @@
     </li>
 </script>
 
+<script id="treatment-history-template" type="text/html">
+    <% _.each(treatmentHistories, function(treatmentHistory) { %>
+    <li class="treatment-history-item">
+        <h4><span class="label label-info" data-original-title="Ngày tạo" data-toggle="tooltip"><%= treatmentHistory.dateCreated %></span></h4>
+                                    
+        <div class="medical-record-name">
+            <a class="btn btn-default btn-sm" style="border-radius: 0" href="@Url.Action("ViewMedicalProfile", "DoctorMedicalProfile")?medicalProfileId=<%= treatmentHistory.medicalRecordId %>"><%= treatmentHistory.medicalRecordName %></a>
+        </div>
+        <span class="text"><b>Ngày phát bệnh:</b> <%= treatmentHistory.onSetDate %></span>
+        <span class="text"><b>Chẩn đoán:</b> <%= treatmentHistory.diagnosis %></span>
+        <span class="text"><b>Tình trạng điều trị:</b> <%= treatmentHistory.condition %></span>
+                           
+        <div class="treatment-item-btn-group">
+            <ul>
+                <li class="facebook" style="width: 34%;">
+                    <a href="/DoctorMedicalProfile/ViewMedicalProfile/7?medicalProfileTemplateId=1" target="_blank" data-container="body" data-original-title="Xem chi tiết" data-toggle="tooltip">
+                        <span class="glyphicon glyphicon-search"></span></a>
+                </li>
+                <li class="twitter" style="width: 33%;">
+                    <a href="/DoctorMedicalProfile/UpdateMedicalProfile/7?medicalProfileTemplateId=1" target="_blank" data-container="body" data-original-title="Chỉnh sửa" data-toggle="tooltip">
+                        <span class="glyphicon glyphicon-pencil"></span></a>
+                </li>
+                <li class="google-plus" style="width: 33%;">
+                    <a href="/DoctorMedicalProfile/UpdateMedicalProfile/7?medicalProfileTemplateId=1" target="_blank" data-container="body" data-original-title="Xóa" data-toggle="tooltip">
+                        <span class="glyphicon glyphicon-remove"></span></a>
+                </li>
+                                            
+            </ul>
+        </div>
+    </li>
+    <% }) %>
+</script>
+
+<script id="user-detail-heading-template" type="text/html">
+    <div class="row">
+        <input type="hidden" value="<%= patientDetail.patientId %>" id="patientId"/>
+        <div class="col-xs-12 col-sm-3">
+            <img src="/Content/Image/ProfilePicture/<%= patientDetail.profilePicture %>" class="img-responsive img-circle">
+        </div>
+        <div class="col-xs-12 col-sm-9">
+            <span class="name"><%= patientDetail.fullname %></span><br>
+            <span class="speciaty"><%= patientDetail.job %> - <%= patientDetail.age %> tuổi</span><br>
+            <button class="btn btn-info btn-sm" data-original-title="Xem chi tiết" data-toggle="tooltip" id="btnViewPatientDetail">
+                <i class="glyphicon glyphicon-search" style="font-size: 12px;"></i>
+            </button>
+            <button class="btn btn-info btn-sm" data-original-title="Dị ứng" data-toggle="tooltip" style="margin-left: 4px;" id="btnViewAllergy">
+                <i class="glyphicon glyphicon-list-alt" style="font-size: 12px;"></i>
+            </button>
+            <button class="btn btn-info btn-sm" data-original-title="Lịch sử tiêm chủng" data-toggle="tooltip" style="margin-left: 4px;" id="btnViewImmunization">
+                <i class="fa fa-medkit" style="font-size: 12px;"></i>
+            </button>
+            <button class="btn btn-info btn-sm" id="requestWebcam" data-toggle="tooltip" data-original-title="Yêu cầu Webcam..." style="margin-left: 4px;">
+                <i class="glyphicon glyphicon-facetime-video" style="font-size: 12px;"></i>
+            </button>
+        </div>
+    </div>
+</script>
 
 <script type='text/javascript'>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        var chatHub = $.connection.chatHub;
+        registerClientMethodsInConversation(chatHub);
+
+        //enable / disable
+        $('#private-consult-enable').click(function () {
+            if ($(this).prop("checked")) {
+                $("#historyConsultant").css("display", "none");
+                $("#patientDetailPanel").css("display", "block");
+                var patientEmail = $("#txtToEmail").val();
+                patientDetailView.render(patientEmail);
+            } else {
+                $("#historyConsultant").css("display", "block");
+                $("#patientDetailPanel").css("display", "none");
+            }
+        });
+
+
+        // Start Hub
+        $.connection.hub.start().done(function () {
+            var fromUser = $("#txtFromEmail").val();
+            chatHub.server.connectDoctor(fromUser);
+        });
+
+        initUploadAttachment();
+    });
+    
+    PatientDetailView = Backbone.View.extend({
+        el: $("#patientDetailPanel"),
+        events: {
+            "click #btnViewPatientDetail": "viewPatientDetail",
+            "click #btnViewAllergy": "viewAllergy",
+            "click #btnViewImmunization": "viewImmunization",
+            "click .btn-prev": "goToPrevious",
+            "click .btn-next": "goToNext"
+        },
+        goToPrevious: function () {
+            $('.flexslider').flexslider('prev');
+        },
+        goToNext: function () {
+            $('.flexslider').flexslider('next');
+        },
+        viewPatientDetail: function () {
+            var email = $("#txtToEmail").val();
+            $.get(baseUrl + "DoctorUser/View?email=" + email, function (data) {
+                $('#view-container').html(data);
+                $('#view-model').modal('show');
+            });
+        },
+        viewAllergy: function () {
+            var patientId = $("#patientId").val();
+            $.ajax({
+                url: baseUrl + "UserHealthRecord/ShowAllergyList/" + patientId,
+                success: function(e) {
+                    $("#modal-popup-full").find(".modal-body").html(e);
+                    $("#modal-popup-full").modal("show");
+                }
+            });
+        },
+        viewImmunization: function() {
+            var patientId = $("#patientId").val();
+            $.ajax({
+                url: "/UserHealthRecord/ShowImmunizationList/" + patientId,
+                success: function(e) {
+                    $("#modal-popup-full").find(".modal-body").html(e);
+                    $("#modal-popup-full").modal("show");
+                }
+            });
+        },
+        render: function (email) {
+            $.ajax({
+                url: baseUrl + "DoctorUser/ViewInJson?email=" + email,
+                success: function (data) {
+                    patientDetail = JSON.parse(data);
+                    var template = _.template($("#user-detail-heading-template").html(), { patientDetail: patientDetail });
+                    $("#patientDetailPanelHeading").html(template);
+                }
+            });
+            $.ajax({
+                url: baseUrl + "TreatmentHistory/GetAllTreatmentHistoryList?patientEmail=" + email,
+                success: function (data) {
+                    treatmentHistories = JSON.parse(data);
+                    var template = _.template($("#treatment-history-template").html(), { treatmentHistories: treatmentHistories });
+                    $(".treatment-history-list").html(template);
+                    $('.flexslider').flexslider({
+                        animation: "slide",
+                        controlNav: false,
+                        directionNav: false,
+                        slideshow: false
+                    });
+                }
+            });
+        }
+    });
+    var patientDetailView = new PatientDetailView();
+
+
     BodyView = Backbone.View.extend({
         el: $("body"),
         events: {
-            "click": "handleClick",
             "click #closePatientWebcam": "hideWebcam",
             "click #takePhoto": "takePhoto"
-        },
-        handleClick: function (e) {
-            if (!$(e.target).parents().hasClass("popover")) {
-                $(".popover").remove();
-            }
         },
         hideWebcam: function (e) {
             $(".webcam-content").css("display", "none");
@@ -265,39 +459,10 @@
             "click #requestWebcam": "requestWebcam",
             "keypress #txtMessage": "sendMessagePress",
             "click .picture-thumbnail": "showFullPicture",
-            "mouseover": "getMedicalProfile",
             "focus #txtMessage": "txtMessageFocus"
         },
         txtMessageFocus: function (e) {
             $(".popover").hide();
-        },
-        getMedicalProfile: function (e) {
-            var target = $(e.target).parents(".list-group-item");
-            var email = target.find(".username").val();
-            if (email != undefined) {
-                //First hide popover form other list-group-item
-                var exist = false;
-                _.each($('.popover'), function (popover) {
-                    if ($(popover).find(".email").val() != email) {
-                        $(popover).remove();
-                    } else exist = true;
-                });
-                if (exist) return;
-                target.popover({
-                    content: "<div class='medical-profile-popover'><div class='ajax-loader'></div><div>",
-                    html: true,
-                    container: 'body'
-                }).popover('show');
-                var currentLeft = parseInt($(".popover").css("left"));
-                $(".popover").css("left", currentLeft - 14 + "px");
-                setTimeout(function () {
-                    $.get('/DoctorMedicalProfile/GetLastestMedicalProfile?email=' + email, function (d) {
-                        $(".popover").find(".medical-profile-popover").html(d);
-                    });
-                }, 1000);
-            } else {
-                //$('.popover').remove();
-            }
         },
         showFullPicture: function (e) {
             var target = $(e.currentTarget);
@@ -351,20 +516,6 @@
 
     // Declare a proxy to reference the hub. 
     var chatHub = $.connection.chatHub;
-
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-        var chatHub = $.connection.chatHub;
-        registerClientMethodsInConversation(chatHub);
-
-        // Start Hub
-        $.connection.hub.start().done(function () {
-            var fromUser = $("#txtFromEmail").val();
-            chatHub.server.connectDoctor(fromUser);
-        });
-
-        initUploadAttachment();
-    });
 
     function registerClientMethodsInConversation(chatHub) {
         chatHub.client.onConnected = function (id, doctorDetail) {

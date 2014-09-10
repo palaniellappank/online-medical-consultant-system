@@ -105,5 +105,27 @@ namespace OMCS.Web.Controllers
             }
             return treatmentHistoryListJson;
         }
+
+        public JArray GetAllTreatmentHistoryList(string patientEmail)
+        {
+            var treatmentHistories = _db.TreatmentHistories.
+                Where(x => x.MedicalProfile.Patient.Email.Equals(patientEmail)).
+                OrderByDescending(x => x.DateCreated).ToList();
+            dynamic treatmentHistoryListJson = new JArray();
+            foreach (var treatmentHistory in treatmentHistories)
+            {
+                dynamic treatmentHistoryJson = new JObject();
+                treatmentHistoryJson.id = treatmentHistory.TreatmentHistoryId;
+                treatmentHistoryJson.medicalRecordName = treatmentHistory.MedicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName;
+                treatmentHistoryJson.medicalRecordId = treatmentHistory.MedicalProfile.MedicalProfileId;
+                treatmentHistoryJson.symptom = treatmentHistory.Symptom;
+                treatmentHistoryJson.diagnosis = treatmentHistory.Diagnosis;
+                treatmentHistoryJson.treatment = treatmentHistory.Treatment;
+                treatmentHistoryJson.condition = treatmentHistory.Condition;
+                treatmentHistoryJson.dateCreated = treatmentHistory.DateCreated.ToShortDateString();
+                treatmentHistoryListJson.Add(treatmentHistoryJson);
+            }
+            return treatmentHistoryListJson;
+        }
     }
 }

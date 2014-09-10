@@ -16,6 +16,7 @@ using System.Data;
 using System.Text;
 using WebMatrix.WebData;
 using System.Threading;
+using OMCS.BLL.Utils;
 
 namespace OMCS.Web.Controllers
 {
@@ -54,9 +55,28 @@ namespace OMCS.Web.Controllers
             return View(users.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult View(int id)
+        public JObject ViewInJson(string email)
         {
-            var patient = _db.Patients.Find(id);
+            var patient = _db.Patients.Where(x => x.Email == email).SingleOrDefault();
+            dynamic patientJson = new JObject();
+            patientJson.patientId = patient.UserId;
+            patientJson.profilePicture = patient.ProfilePicture;
+            patientJson.fullname = patient.FullName;
+            patientJson.job = patient.Job;
+            patientJson.age = DateTimeUtils.CalculateAge(patient.Birthday.Value);
+            return patientJson;
+        }
+
+        public ActionResult View(int id = 0, string email = "")
+        {
+            Patient patient;
+            if (id == 0)
+            {
+                patient = _db.Patients.Where(x=>x.Email.Equals(email)).SingleOrDefault();
+                id = patient.UserId;
+            } else {
+                patient = _db.Patients.Find(id);
+            }
             var personalHealthRecord = _db.PersonalHealthRecords.Find(id);
             var medicalProfiles = _db.MedicalProfiles.Where(mp => mp.PatientId == id).ToList();
             var medicalProfileTemplates = _db.MedicalProfileTemplates.ToList();

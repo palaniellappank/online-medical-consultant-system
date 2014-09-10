@@ -97,6 +97,11 @@ namespace OMCS.Web.Controllers
         public JObject CreateFromWebcam(FilmDocument filmDocument, string imgBase64)
         {
             imgBase64 = imgBase64.Split(',')[1];
+            int mod4 = imgBase64.Length % 4;
+            if (mod4 > 0)
+            {
+                imgBase64 += new string('=', 4 - mod4);
+            }
             var file = ImageToString.GetImageFromString(imgBase64);
             if (file != null)
             {
