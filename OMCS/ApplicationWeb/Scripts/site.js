@@ -18,6 +18,10 @@ function doOnlineCheck() {
     }
 }
 
+$(document).ajaxComplete(function (event, xhr, settings) {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
 $(document).ready(function () {
     $.validator.setDefaults({
         highlight: function (element) {
@@ -37,9 +41,9 @@ $(document).ready(function () {
         }
     });
 
-    setInterval(function () {
-        doOnlineCheck();
-    }, 10000);
+   // setInterval(function () {
+   //     doOnlineCheck();
+   // }, 10000);
 
     jQuery.extend(jQuery.validator.messages, {
         required: "Bạn cần nhập giá trị này.",//This field is required.

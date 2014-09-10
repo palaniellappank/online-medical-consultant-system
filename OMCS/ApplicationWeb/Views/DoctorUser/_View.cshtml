@@ -266,7 +266,7 @@
                 url: "/UserHealthRecord/ShowImmunizationList/" + @Html.DisplayFor(model => model.Patient.UserId),
                 success: function(e) {
                     $("#modal-popup").find(".modal-body").html(e);
-                    $("#model-popup").find(".modal-title").html("Lịch sử tiêm ch");
+                    $("#model-popup").find(".modal-title").html("Lịch sử tiêm chủng");
                     $("#modal-popup").modal("show");
                 }
             });

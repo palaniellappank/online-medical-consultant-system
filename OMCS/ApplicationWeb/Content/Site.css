@@ -38,6 +38,11 @@
     display: none;
 }
 
+.btn-omcs {
+    border-radius: 0;
+    border: 0;
+}
+
 /*
  * Callouts
  *
@@ -530,7 +535,7 @@ ul.c-controls li a:hover
 .speciaty
 {
     font-size: 1.0em;
-    color: #3498db;
+    color: #547DA2;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
@@ -615,6 +620,75 @@ ul.c-controls li a:hover
 
 .unread-message-hightlight {
     color: #d35400;
+}
+
+/* patientDetailPanel in DoctorConversation page */
+#patientDetailPanel legend {
+    margin: 0;
+}
+
+.treatment-history-list {
+    list-style: none;
+    margin: 0px;
+    padding: 0;
+}
+
+.treatment-history-list .treatment-item-btn-group {
+    position: absolute;
+    top: 0px;
+    right: 2px;
+    display: block;
+    width: 40px;
+}
+
+.treatment-history-item {
+    position: relative;
+}
+
+.treatment-history-item span.text {
+    padding-top: 5px;
+    display: block;
+}
+
+.treatment-history-item .medical-record-name {
+    position: absolute;
+    right: 48px;
+    top: 4px;
+}
+
+.treatment-history-item:before {
+  content : "";
+  position: absolute;
+  right    : 0;
+  bottom  : 0;
+  height  : 1px;
+  width   : 50%;
+  border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.treatment-history-list .treatment-item-btn-group ul {
+    border-left: 1px solid rgb(230, 230, 230);
+    border-right: 1px solid rgb(230, 230, 230);
+    margin: 0px;
+    display: table;
+    list-style: none;
+    padding: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+.treatment-history-list .treatment-item-btn-group ul li {
+    display: block;
+    padding: 0px;
+    cursor: pointer;
+    color: rgb(30, 30, 30);
+    font-size: 11pt;
+    font-weight: 300;
+}
+
+.treatment-history-list .treatment-item-btn-group ul li a {
+    width: 40px;
+    padding: 3px;
 }
 
 img.img-modal {
