@@ -441,8 +441,8 @@
                 $('#modal-popup').modal('show');
                 var form = $('#modal-popup').find("form");
                 validationForm(form);
-                $("#imgPhoto").attr("src", photo.toDataURL('image/webp'));
-                $("input[name=imgBase64]").val(photo.toDataURL());
+                $("#imgPhoto").attr("src", photo.toDataURL());
+                $("textarea[name=imgBase64]").val(photo.toDataURL());
             });
         }
     });
