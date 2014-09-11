@@ -13,6 +13,8 @@ using Newtonsoft.Json.Linq;
 using System.Data;
 using System.IO;
 using ApplicationBLL.Utils;
+using System.Drawing.Imaging;
+using System.Drawing;
 
 namespace OMCS.Web.Controllers
 {
@@ -102,15 +104,30 @@ namespace OMCS.Web.Controllers
             {
                 imgBase64 += new string('=', 4 - mod4);
             }
-            var file = ImageToString.GetImageFromString(imgBase64);
-            if (file != null)
+
+            byte[] buffer = Convert.FromBase64String(imgBase64);
+
+            MemoryStream ms = new MemoryStream(buffer, 0, buffer.Length);
+
+            System.Drawing.Bitmap bitmap = (System.Drawing.Bitmap)Image.FromStream(ms);
+
+            ms.Close();
+
+            var fileName = DateTime.Now.Ticks + ".png";
+            var path = HttpContext.Server.MapPath("~/Content/Image/FilmDocument/" + fileName);
+            
+            // convert to image first and store it to disk
+            using (MemoryStream mOutput = new MemoryStream())
             {
-                var fileName = DateTime.Now.Millisecond + ".png";
-                var path = HttpContext.Server.MapPath("~/Content/Image/FilmDocument/" + fileName);
-                var dbPath = fileName;
-                file.Save(path);
-                filmDocument.ImagePath = dbPath;
+                bitmap.Save(mOutput, System.Drawing.Imaging.ImageFormat.Png);
+                using (FileStream fs = System.IO.File.Create(path))
+                using (BinaryWriter bw = new BinaryWriter(fs))
+                    bw.Write(mOutput.ToArray());
             }
+
+
+            var dbPath = fileName;
+            filmDocument.ImagePath = dbPath;
             filmDocument.DateCreated = DateTime.Now;
 
             _db.FilmDocuments.Add(filmDocument);
