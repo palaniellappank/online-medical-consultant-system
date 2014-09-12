@@ -1,27 +1,79 @@
 ﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
+    ViewBag.UserId = User.UserId;
 }
-@model IEnumerable<OMCS.DAL.Model.MedicalProfile>
+@model OMCS.Web.DTO.PatientInformation
 
-<fieldset>
-    <legend>Hồ sơ bệnh án</legend>
-</fieldset>
-
-<table class="table table-data table-bordered table-striped" style="clear: both">
-    <tbody>
-        @foreach (var item in Model)
+<div class="tab-pane" id="medicalRecord">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Thêm mới Hồ Sơ Bệnh Án</h3>
+        </div>
+        <div class="panel-body" style="overflow-y: auto; height: initial;">
+            <div class="form-group">
+                <label class="col-md-3 control-label" style="padding-top: 8px;">Loại Bệnh Án</label>
+                <div class="col-md-7">
+                    @Html.DropDownList("1", (SelectList)ViewBag.medicalProfileTemplateList, new { @class = "form-control", @id = "medicalProfileTemplate" })
+                </div>
+                <label class="col-md-3 control-label" style="padding-top: 8px;">Bác sĩ theo dõi</label>
+                <div class="col-md-7">
+                    @Html.DropDownList("1", (SelectList)ViewBag.doctorNameList, new { @class = "form-control", @id = "doctorName", @name = "doctorName" })
+                </div>
+            </div>
+            <a class="btn btn-primary" title="Tạo" id="newMedicalProfileBtn" target="_blank">
+                <i class="glyphicon glyphicon-plus"></i>
+            </a>
+        </div>
+    </div>
+    <fieldset>
+        <legend>Hồ sơ bệnh án cá nhân</legend>
+    </fieldset>
+    @if (Model.MedicalProfiles.Count == 0)
+    {
+        <div class="alert alert-info">
+            Bạn chưa có Hồ Sơ Bệnh Án!                                  
+        </div>
+    }
+    <ul class="event-list">
+        @foreach (var item in Model.MedicalProfiles)
         {
-            <tr>
-                <td style="width: auto;">@item.MedicalProfileTemplate.MedicalProfileTemplateName</td>
-                <td style="width: auto;">@item.CreatedDate.ToShortDateString()</td>
-                <td>
-                    <a class="btn btn-primary" href="@Url.Action("Details", "UserMedicalProfile", new { medicalProfileId = item.MedicalProfileId })" target="_blank">Xem chi tiết</a>
-                </td>
-            </tr>
+            <li>
+                <time>
+                    <span class="day">@item.CreatedDate.Day</span>
+                    <span class="month">Tháng @item.CreatedDate.Month</span>
+                    <span class="year">@item.CreatedDate.Year</span>
+                </time>
+                <div class="info">
+                    <h2 class="title">@Html.DisplayFor(modelItem => item.MedicalProfileTemplate.MedicalProfileTemplateName)</h2>
+                    @*   <p class="desc">@Html.DisplayNameFor(modelItem => item.MedicalProfileKey): @Html.DisplayFor(modelItem => item.MedicalProfileKey)</p>*@
+                </div>
+                <div class="social">
+                    <ul>
+                        <li class="twitter" style="width: 34%;">
+                            <a href="@Url.Action("Details", "UserMedicalProfile", new { medicalProfileId = item.MedicalProfileId })" target="_blank">
+                                <span class="glyphicon glyphicon-search"></span></a>
+                        </li>
+                        <li class="google-plus" style="width: 33%;">
+                            <a href="@Url.Action("UpdateMedicalProfile", "UserMedicalProfile", new { id = item.Patient.UserId, medicalProfileTemplateId = item.MedicalProfileTemplateId })"  target="_blank">
+                                <span class="glyphicon glyphicon-pencil"></span></a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
         }
-    </tbody>
-</table>
+    </ul>
+</div>
 
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#newMedicalProfileBtn").click(function () {
+            var id = @ViewBag.UserId;
+            var medicalProfileTemplateId = $("#medicalProfileTemplate").val();
+            var doctorId = $("#doctorName").val();
+            $(this).attr("href", "@Url.Action("UpdateMedicalProfile", "UserMedicalProfile")" + "/" + id + "?medicalProfileTemplateId=" + medicalProfileTemplateId + "&doctorId=" + doctorId);            
+            $(this)[0].click();
+        });
+    });
+</script>
 
