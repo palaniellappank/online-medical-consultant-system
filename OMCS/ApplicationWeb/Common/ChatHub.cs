@@ -255,7 +255,14 @@ namespace SignalRChat.Hubs
             var fromUser = _db.Users.Where(x => x.Email.Equals(fromUserDetail.Email)).FirstOrDefault();
             var toUser = _db.Users.Where(x => x.Email.Equals(toEmail)).FirstOrDefault();
             var toUserDetail = ConnectedUsers.Where(x => x.Email.Equals(toEmail)).FirstOrDefault();
-            Clients.Client(toUserDetail.ConnectionId).RequestWebcamReceived(fromUserDetail);
+            if (toUserDetail == null)
+            {
+                Clients.Caller.patientOffline(toUser.FullName);
+            }
+            else
+            {
+                Clients.Client(toUserDetail.ConnectionId).RequestWebcamReceived(fromUserDetail);
+            }
         }
 
         public void AnswerCall(bool acceptCall, string targetConnectionId)

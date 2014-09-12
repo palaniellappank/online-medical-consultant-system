@@ -22,6 +22,28 @@ $(document).ajaxComplete(function (event, xhr, settings) {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
+bootstrap_alert = function () { }
+bootstrap_alert.warning = function (target, message) {
+    target.html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>')
+}
+
+function flexdestroy(selector) {
+    var el = $(selector);
+    var elClean = el.clone();
+
+    elClean.find('.flex-viewport').children().unwrap();
+    elClean
+    .find('.clone, .flex-direction-nav, .flex-control-nav')
+    .remove()
+    .end()
+    .find('*').removeAttr('style').removeClass(function (index, css) {
+        return (css.match(/\bflex\S+/g) || []).join(' ');
+    });
+
+    elClean.insertBefore(el);
+    elClean.next().remove();
+}
+
 $(document).ready(function () {
     $.validator.setDefaults({
         highlight: function (element) {

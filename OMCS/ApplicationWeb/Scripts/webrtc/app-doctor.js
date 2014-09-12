@@ -25,7 +25,19 @@ OMCSChat.App = (function (connectionManager) {
             if (webrtcDetectedBrowser == null) {
                 console.log('Your browser doesnt appear to support WebRTC.');
             };
-            console.log("Go to _setupHubCallbacks");
+
+            // Hub Callback: Call Accepted
+            hub.client.callAccepted = function (acceptingUser) {
+                console.log('call accepted from: ' + JSON.stringify(acceptingUser) + '.  Initiating WebRTC call and offering my stream up...');
+
+                // Callee accepted our call, let's send them an offer with our video stream
+                //connectionManager.initiateOffer(acceptingUser.ConnectionId, _mediaStream);
+            };
+
+            // Hub Callback: Patient is offline
+            hub.client.patientOffline = function (fullname) {
+                bootbox.alert("Bệnh nhân " + fullname + " không ở chế độ Online");
+            };
 
             // Hub Callback: Call Accepted
             hub.client.callAccepted = function (acceptingUser) {

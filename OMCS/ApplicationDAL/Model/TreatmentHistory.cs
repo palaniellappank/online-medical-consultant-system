@@ -25,8 +25,12 @@ namespace OMCS.DAL.Model
         public int TreatmentHistoryId { get; set; }
 
         [ForeignKey("MedicalProfile")]
-        public int MedicalProfileId { get; set; }
+        public int? MedicalProfileId { get; set; }
         public virtual MedicalProfile MedicalProfile { get; set; }
+
+        [ForeignKey("Patient")]
+        public int? PatientId { get; set; }
+        public virtual Patient Patient { get; set; }
 
         public TreatmentHistoryType TreatmentHistoryType { get; set; }
 
