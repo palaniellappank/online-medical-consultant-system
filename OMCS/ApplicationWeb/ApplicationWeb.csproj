@@ -216,9 +216,11 @@
     <Compile Include="Controllers\DoctorInformationController.cs" />
     <Compile Include="Controllers\DoctorCommentController.cs" />
     <Compile Include="Controllers\FilmDocumentController.cs" />
+    <Compile Include="Controllers\FilmDocumentPatientController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\TreatmentHistoryController.cs" />
     <Compile Include="Controllers\DoctorConversationController.cs" />
+    <Compile Include="Controllers\TreatmentHistoryPatientController.cs" />
     <Compile Include="Helpers\DateTimeBinder.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -667,7 +669,6 @@
     <Content Include="Views\DoctorConversation\Index.cshtml" />
     <Content Include="Views\TreatmentHistory\_List.cshtml" />
     <Content Include="Views\TreatmentHistory\_Create.cshtml" />
-    <Content Include="Views\TreatmentHistory\_Edit.cshtml" />
     <Content Include="Views\FilmDocument\_Create.cshtml" />
     <Content Include="Views\FilmDocument\_Edit.cshtml" />
     <Content Include="Views\FilmDocument\_List.cshtml" />
@@ -715,10 +716,14 @@
     <Content Include="Views\Allergy\_ListView.cshtml" />
     <Content Include="Views\Allergy\_Details.cshtml" />
     <Content Include="Views\FilmDocument\_ListView.cshtml" />
-    <Content Include="Views\TreatmentHistory\_ListView.cshtml" />
     <Content Include="Views\FilmDocument\_Details.cshtml" />
     <Content Include="Views\DoctorMedicalProfile\_LatestMedicalProfile.cshtml" />
     <Content Include="Views\FilmDocument\_CreateWhenChat.cshtml" />
+    <Content Include="Views\UserMedicalProfile\UpdateMedicalProfile.cshtml" />
+    <Content Include="Views\TreatmentHistoryPatient\List.cshtml" />
+    <Content Include="Views\TreatmentHistoryPatient\Create.cshtml" />
+    <Content Include="Views\TreatmentHistory\_Edit.cshtml" />
+    <Content Include="Views\TreatmentHistory\_ListView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

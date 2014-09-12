@@ -10,6 +10,7 @@
       },
       events: {
           "click #newTreatmentHistoryBtn": "createNew",
+          "click #newTreatmentHistoryPatientBtn": "createNewPatient",
           "click .edit-btn": "editTreatment",
           "click .delete-btn": "deleteTreatment",
           "click .add-film-btn": "addFilmDocument",
@@ -17,6 +18,12 @@
       },
       createNew: function() {
           var url = "/TreatmentHistory/Create";
+          $.get(url + "?medicalProfileId=" + medicalProfileId, function (data) {
+              initModalWithData(data);
+          });
+      },
+      createNewPatient: function () {
+          var url = "/TreatmentHistoryPatient/Create";
           $.get(url + "?medicalProfileId=" + medicalProfileId, function (data) {
               initModalWithData(data);
           });
@@ -72,7 +79,7 @@
           $.ajax({
               type: "POST",
               url: treatmentHistoryUrl,
-              data: { medicalProfileId: medicalProfileId },
+              data: { medicalProfileId: medicalProfileId},
               success: function (data) {
                   that.$el.append(data);
                   $('[data-toggle="tooltip"]').tooltip();
