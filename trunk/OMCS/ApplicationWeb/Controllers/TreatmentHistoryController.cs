@@ -52,6 +52,7 @@ namespace OMCS.Web.Controllers
         [HttpPost]
         public JObject Create(TreatmentHistory treatmentHistory)
         {
+            treatmentHistory.DateCreated = DateTime.UtcNow;
             _db.TreatmentHistories.Add(treatmentHistory);
             _db.SaveChanges();
             dynamic result = new JObject();
@@ -89,12 +90,24 @@ namespace OMCS.Web.Controllers
             return result;
         }
 
-        public JArray GetTreatmentHistoryList(string patientEmail, int medicalProfileId)
+        public JArray GetTreatmentHistoryList(string patientEmail, int medicalProfileId = 0)
         {
-            var treatmentHistories = _db.TreatmentHistories.
+            List<TreatmentHistory> treatmentHistories = new List<TreatmentHistory>();
+            if (medicalProfileId == 0)
+            {
+                treatmentHistories = _db.TreatmentHistories.
                 Where(x => x.MedicalProfile.Patient.Email.Equals(patientEmail)
                     && (x.MedicalProfileId == medicalProfileId)).
                 OrderByDescending(x => x.DateCreated).ToList();
+            }
+            else
+            {
+                treatmentHistories = _db.TreatmentHistories.
+                Where(x => x.MedicalProfile.Patient.Email.Equals(patientEmail)
+                    && (x.MedicalProfileId == 0)).
+                OrderByDescending(x => x.DateCreated).ToList();
+            }
+            
             dynamic treatmentHistoryListJson = new JArray();
             foreach (var treatmentHistory in treatmentHistories)
             {
@@ -109,15 +122,18 @@ namespace OMCS.Web.Controllers
         public JArray GetAllTreatmentHistoryList(string patientEmail)
         {
             var treatmentHistories = _db.TreatmentHistories.
-                Where(x => x.MedicalProfile.Patient.Email.Equals(patientEmail)).
+                Where(x => x.MedicalProfile.Patient.Email.Equals(patientEmail) || x.Patient.Email.Equals(patientEmail)).
                 OrderByDescending(x => x.DateCreated).ToList();
             dynamic treatmentHistoryListJson = new JArray();
             foreach (var treatmentHistory in treatmentHistories)
             {
                 dynamic treatmentHistoryJson = new JObject();
                 treatmentHistoryJson.id = treatmentHistory.TreatmentHistoryId;
-                treatmentHistoryJson.medicalRecordName = treatmentHistory.MedicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName;
-                treatmentHistoryJson.medicalRecordId = treatmentHistory.MedicalProfile.MedicalProfileId;
+                if (treatmentHistory.MedicalProfile != null)
+                {
+                    treatmentHistoryJson.medicalRecordName = treatmentHistory.MedicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName;
+                    treatmentHistoryJson.medicalRecordId = treatmentHistory.MedicalProfile.MedicalProfileId;
+                }
                 treatmentHistoryJson.symptom = treatmentHistory.Symptom;
                 treatmentHistoryJson.diagnosis = treatmentHistory.Diagnosis;
                 treatmentHistoryJson.treatment = treatmentHistory.Treatment;

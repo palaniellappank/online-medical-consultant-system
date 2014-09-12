@@ -44,7 +44,7 @@
     <div class="row">
         <div class="col-xs-4" style="float: right">
             <label class="switch-light progress progress-striped active" onclick="">
-                <input type="checkbox" id="private-consult-enable">
+                <input type="checkbox" id="private-consult-enable" disabled="disabled">
                 <span>Tư vấn riêng
                 <span aria-label="Tắt" title="Tắt">O</span>
                     <span aria-label="Bật" title="Bật">I</span>
@@ -103,18 +103,22 @@
                                 </fieldset>
                             </a>
                             <div id="collapseTwo" class="collapse">
-                                <div class="">
+                                <form id="newTreatmentForm" action="@Url.Action("Create","TreatmentHistory")" method="post">
+                                    <div class="form-group" style="margin-top: 20px;">
+                                        <label class="control-label">Hồ sơ bệnh án</label>
+                                        <input name="medicalProfileId" style="margin-left: 10px">
+                                    </div>
                                     <div class="form-group">
                                         <label for="OnSetDate" class="control-label">Ngày phát bệnh</label>
-                                        <span style="color:red;">*</span><input id="OnSetDate" readonly="readonly" name="OnSetDate" value="11/09/2014" class="datepicker form-control required">
+                                        <input id="OnSetDate" readonly="readonly" name="OnSetDate" class="datepicker form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="Symptom" class="control-label">Triệu chứng</label>
-                                        <span style="color:red;">*</span><textarea id="Symptom" name="Symptom" class="form-control required"></textarea>
+                                        <textarea id="Symptom" name="Symptom" class="form-control required"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="Diagnosis" class="control-label">Chẩn đoán</label>
-                                        <span style="color:red;">*</span><textarea id="Diagnosis" name="Diagnosis" class="form-control required"></textarea>
+                                        <textarea id="Diagnosis" name="Diagnosis" class="form-control required"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="Treatment" class="control-label">Phương pháp điều trị</label>
@@ -131,6 +135,7 @@
                                             <textarea id="Note" name="Note" class="form-control"></textarea>
                                         </div>
                                     </div>
+                                    <div class="alert-aria"></div>
                                     <div class="btn-group pull-right">
                                         <button class="btn btn-info btn-sm" id="saveTreatmentBtn" data-toggle="tooltip" data-original-title="Lưu lượt khám bệnh">
                                             <i class="glyphicon glyphicon-floppy-disk" style="font-size: 12px;"></i>
@@ -139,7 +144,7 @@
                                             <i class="glyphicon glyphicon-refresh" style="font-size: 12px;"></i>
                                         </button>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -170,9 +175,9 @@
                         </div>
                         <div class="panel-footer">
                             <div class="input-group">
-                                <textarea id="txtMessage" class="form-control" rows="2" placeholder="Nội dung tin nhắn..."></textarea>
+                                <textarea id="txtMessage" class="form-control" rows="2" placeholder="Nội dung tin nhắn..." disabled="disabled"></textarea>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-warning btn-sm" id="btnSendMsg">Gửi</button>
+                                    <button class="btn btn-warning btn-sm" id="btnSendMsg" disabled="disabled">Gửi</button>
                                 </span>
                             </div>
                             <div id="filelist"></div>
@@ -310,7 +315,11 @@
         <h4><span class="label label-info" data-container="body" data-original-title="Ngày tạo" data-toggle="tooltip"><%= treatmentHistory.dateCreated %></span></h4>
                                     
         <div class="medical-record-name">
-            <a class="btn btn-default btn-sm" style="border-radius: 0" href="@Url.Action("ViewMedicalProfile", "DoctorMedicalProfile")?medicalProfileId=<%= treatmentHistory.medicalRecordId %>"><%= treatmentHistory.medicalRecordName %></a>
+            <% if (treatmentHistory.medicalRecordName != undefined) { %>
+                <a class="btn btn-default btn-sm" style="border-radius: 0" href="@Url.Action("ViewMedicalProfile", "DoctorMedicalProfile")?medicalProfileId=<%= treatmentHistory.medicalRecordId %>"><%= treatmentHistory.medicalRecordName %></a>
+            <% } else { %>
+                <span class="label label-default">Khám bệnh tự do</span>
+            <% } %>
         </div>
         <span class="text"><b>Ngày phát bệnh:</b> <%= treatmentHistory.onSetDate %></span>
         <span class="text"><b>Chẩn đoán:</b> <%= treatmentHistory.diagnosis %></span>
@@ -394,13 +403,36 @@
     });
     
     PatientDetailView = Backbone.View.extend({
-        el: $("#patientDetailPanel"),
+        el: "#patientDetailPanel",
         events: {
             "click #btnViewPatientDetail": "viewPatientDetail",
             "click #btnViewAllergy": "viewAllergy",
             "click #btnViewImmunization": "viewImmunization",
+            "click #saveTreatmentBtn": "saveTreatment",
             "click .btn-prev": "goToPrevious",
             "click .btn-next": "goToNext"
+        },
+        saveTreatment: function (e) {
+            e.preventDefault();
+            var form = $("#newTreatmentForm");
+            if (form.valid()) {
+                var formData = new FormData(form[0]);
+                var patientId = $("#patientId").val();
+                formData.append("patientId", patientId);
+                $.ajax({
+                    url: form.attr("action"),
+                    method: "post",
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (response) {
+                        var result = JSON.parse(response);
+                        if (result.result == "ok") {
+                            bootstrap_alert.warning(form.find(".alert-aria"), "Lượt khám bệnh lưu thành công");
+                        }
+                    }
+                });
+            }
         },
         goToPrevious: function () {
             $('.flexslider').flexslider('prev');
@@ -450,6 +482,7 @@
                     treatmentHistories = JSON.parse(data);
                     var template = _.template($("#treatment-history-template").html(), { treatmentHistories: treatmentHistories });
                     $(".treatment-history-list").html(template);
+                    flexdestroy(".flexslider");
                     $('.flexslider').flexslider({
                         animation: "slide",
                         controlNav: false,
@@ -458,6 +491,26 @@
                     });
                 }
             });
+            $("input[name=medicalProfileId").select2({
+                width: 170,
+                ajax: {
+                    url: baseUrl + "DoctorMedicalProfile/GetMedicalProfileList?patientEmail=" + email,
+                    dataType: 'json',
+                    type: "GET",
+                    results: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.text,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    }
+                }
+            });
+            var form = $("#newTreatmentForm");
+            validationForm(form);
         }
     });
     var patientDetailView = new PatientDetailView();
@@ -497,9 +550,6 @@
     ChatBoxView = Backbone.View.extend({
         el: $("#chatbox"),
         doctorListEl: $("#contact-list"),
-        initialize: function () {
-            this.render();
-        },
         events: {
             "click .list-group-item": "getMessageList",
             "click #btnSendMsg": "sendMessage",
@@ -530,6 +580,9 @@
             var username = $(e.currentTarget).find(".username").val();
             $('#txtToEmail').val(username);
             chatHub.server.getMessageList(username);
+            $("#private-consult-enable").removeAttr("disabled");
+            $("#txtMessage").removeAttr("disabled");
+            $("#btnSendMsg").removeAttr("disabled");
         },
         sendMessage: function (e) {
             var msg = $("#txtMessage").val();
