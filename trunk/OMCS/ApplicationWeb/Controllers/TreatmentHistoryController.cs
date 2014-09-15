@@ -96,8 +96,7 @@ namespace OMCS.Web.Controllers
             if (medicalProfileId == 0)
             {
                 treatmentHistories = _db.TreatmentHistories.
-                Where(x => x.MedicalProfile.Patient.Email.Equals(patientEmail)
-                    && (x.MedicalProfileId == medicalProfileId)).
+                Where(x => x.MedicalProfile == null).
                 OrderByDescending(x => x.DateCreated).ToList();
             }
             else

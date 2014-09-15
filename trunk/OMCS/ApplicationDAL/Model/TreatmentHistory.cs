@@ -32,6 +32,14 @@ namespace OMCS.DAL.Model
         public int? PatientId { get; set; }
         public virtual Patient Patient { get; set; }
 
+        [ForeignKey("ConversationFrom")]
+        public int? ConversationFromId { get; set; }
+        public virtual ConversationDetail ConversationFrom { get; set; }
+
+        [ForeignKey("ConversationTo")]
+        public int? ConversationToId { get; set; }
+        public virtual ConversationDetail ConversationTo { get; set; }
+
         public TreatmentHistoryType TreatmentHistoryType { get; set; }
 
         [ForeignKey("Doctor")]
