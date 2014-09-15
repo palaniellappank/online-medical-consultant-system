@@ -216,7 +216,6 @@
     <Compile Include="Controllers\DoctorInformationController.cs" />
     <Compile Include="Controllers\DoctorCommentController.cs" />
     <Compile Include="Controllers\FilmDocumentController.cs" />
-    <Compile Include="Controllers\FilmDocumentPatientController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\TreatmentHistoryController.cs" />
     <Compile Include="Controllers\DoctorConversationController.cs" />

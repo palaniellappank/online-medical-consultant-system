@@ -190,7 +190,7 @@
                                                     <div class="col-md-7">
                                                         @Html.DropDownList("1", (SelectList)ViewBag.medicalProfileTemplateList, new { @class = "form-control", @id = "medicalProfileTemplate" })
                                                     </div>
-                                                    <a class="btn btn-primary" title="Tạo" id="newMedicalProfileBtn" target="_blank">
+                                                    <a class="btn btn-primary" title="Tạo" id="newMedicalProfileBtn" href="@Url.Action("UpdateMedicalProfile", "DoctorMedicalProfile")/@Model.Patient.UserId?medicalProfileTemplateId=@ViewBag.medicalProfileTemplateList.Items[0].MedicalProfileTemplateId">
                                                         <i class="glyphicon glyphicon-plus"></i>
                                                     </a>
                                                 </div>
@@ -280,6 +280,12 @@
                 $("#edit-container").html(data);
                 $("#edit-model").modal("show");               
             });
-        });       
+        });
+
+        $("#medicalProfileTemplate").change(function() {
+            var medicalProfileTemplateId = $("#medicalProfileTemplate").val();
+            var tempUrl = $("#newMedicalProfileBtn").attr("href").replace(/medicalProfileTemplateId=\d+/g, "medicalProfileTemplateId="+medicalProfileTemplateId);
+            $("#newMedicalProfileBtn").attr("href", tempUrl);
+        });
     });
 </script>

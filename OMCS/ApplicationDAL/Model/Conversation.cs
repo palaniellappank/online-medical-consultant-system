@@ -23,15 +23,6 @@ namespace OMCS.DAL.Model
         public int DoctorId { get; set; }
         public virtual Doctor Doctor { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Ngày tư vấn")]
-        public DateTime DateConsulted { get; set; }
-
-        public string HealthProblem { get; set; }
-        public string ConditionStatus { get; set; }
-        public string Note { get; set; }
-
         public string LatestContentFromPatient { get; set; }
         public string LatestContentFromDoctor { get; set; }
         [DataType(DataType.Date)]

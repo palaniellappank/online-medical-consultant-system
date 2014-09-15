@@ -70,8 +70,7 @@ namespace SignalRChat.Hubs
             {
                 Debug.WriteLine("Patient: " + patient.Email + "  " + "Doctor: " + doctor.Email);
                 var newestConversation = _db.Conversations.Where(
-                    con => (con.PatientId == patient.UserId) && (con.DoctorId == doctor.UserId))
-                    .OrderByDescending(con => con.DateConsulted).FirstOrDefault();
+                    con => (con.PatientId == patient.UserId) && (con.DoctorId == doctor.UserId)).FirstOrDefault();
 
                 if (newestConversation != null)
                 {
@@ -289,8 +288,7 @@ namespace SignalRChat.Hubs
         {
             //Store in database
             Conversation conversation = _db.Conversations.Where(
-                x => (x.PatientId == patient.UserId && x.DoctorId == doctor.UserId))
-            .OrderByDescending(x => x.DateConsulted).FirstOrDefault();
+                x => (x.PatientId == patient.UserId && x.DoctorId == doctor.UserId)).FirstOrDefault();
 
             if (conversation == null)
             {
@@ -298,7 +296,6 @@ namespace SignalRChat.Hubs
                 {
                     DoctorId = doctor.UserId,
                     PatientId = patient.UserId,
-                    DateConsulted = DateTime.Now,
                     LatestTimeFromDoctor = DateTime.Now,
                     LatestTimeFromPatient = DateTime.Now
                 };

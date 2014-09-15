@@ -53,7 +53,7 @@ namespace Security.Controllers
                         patient = _db.Patients.Where(u => u.Email.Equals(toUser.Email)).FirstOrDefault();
                     }
 
-                    Conversation conversation = _db.Conversations.Where(x => (x.PatientId == patient.UserId && x.DoctorId == doctor.UserId)).OrderByDescending(x => x.DateConsulted).FirstOrDefault();
+                    Conversation conversation = _db.Conversations.Where(x => (x.PatientId == patient.UserId && x.DoctorId == doctor.UserId)).FirstOrDefault();
 
                     if (conversation == null)
                     {
@@ -61,7 +61,6 @@ namespace Security.Controllers
                         {
                             DoctorId = doctor.UserId,
                             PatientId = patient.UserId,
-                            DateConsulted = DateTime.Now,
                             LatestTimeFromDoctor = DateTime.Now,
                             LatestTimeFromPatient = DateTime.Now
                         };

@@ -311,9 +311,8 @@
 
 <script id="treatment-history-template" type="text/html">
     <% _.each(treatmentHistories, function(treatmentHistory) { %>
-    <li class="treatment-history-item">
+    <li class="treatment-history-item" data-treatmentId="<%= treatmentHistory.id %>">
         <h4><span class="label label-info" data-container="body" data-original-title="Ngày tạo" data-toggle="tooltip"><%= treatmentHistory.dateCreated %></span></h4>
-                                    
         <div class="medical-record-name">
             <% if (treatmentHistory.medicalRecordName != undefined) { %>
                 <a class="btn btn-default btn-sm" style="border-radius: 0" href="@Url.Action("ViewMedicalProfile", "DoctorMedicalProfile")?medicalProfileId=<%= treatmentHistory.medicalRecordId %>"><%= treatmentHistory.medicalRecordName %></a>
@@ -328,15 +327,19 @@
         <div class="treatment-item-btn-group">
             <ul>
                 <li class="facebook" style="width: 34%;">
-                    <a href="/DoctorMedicalProfile/ViewMedicalProfile/7?medicalProfileTemplateId=1" target="_blank" data-container="body" data-original-title="Xem chi tiết" data-toggle="tooltip">
+                    <a class="viewTreatment" target="_blank" data-container="body" data-original-title="Xem chi tiết" data-toggle="tooltip">
                         <span class="glyphicon glyphicon-search"></span></a>
                 </li>
                 <li class="twitter" style="width: 33%;">
-                    <a href="/DoctorMedicalProfile/UpdateMedicalProfile/7?medicalProfileTemplateId=1" target="_blank" data-container="body" data-original-title="Chỉnh sửa" data-toggle="tooltip">
+                    <a class="editTreatment" href="/DoctorMedicalProfile/UpdateMedicalProfile/7?medicalProfileTemplateId=1" target="_blank" data-container="body" data-original-title="Chỉnh sửa" data-toggle="tooltip">
                         <span class="glyphicon glyphicon-pencil"></span></a>
                 </li>
+                <li class="facebook" style="width: 34%;">
+                    <a class="viewConversation" data-container="body" data-original-title="Liên kết hội thoại" data-toggle="tooltip">
+                        <span class="glyphicon glyphicon-comment"></span></a>
+                </li>
                 <li class="google-plus" style="width: 33%;">
-                    <a href="/DoctorMedicalProfile/UpdateMedicalProfile/7?medicalProfileTemplateId=1" target="_blank" data-container="body" data-original-title="Xóa" data-toggle="tooltip">
+                    <a class="deleteTreatment" href="/DoctorMedicalProfile/UpdateMedicalProfile/7?medicalProfileTemplateId=1" target="_blank" data-container="body" data-original-title="Xóa" data-toggle="tooltip">
                         <span class="glyphicon glyphicon-remove"></span></a>
                 </li>
                                             
@@ -404,13 +407,39 @@
     
     PatientDetailView = Backbone.View.extend({
         el: "#patientDetailPanel",
+        times: 0,
         events: {
             "click #btnViewPatientDetail": "viewPatientDetail",
             "click #btnViewAllergy": "viewAllergy",
             "click #btnViewImmunization": "viewImmunization",
             "click #saveTreatmentBtn": "saveTreatment",
+            "click #clearTreatmentBtn": "clearTreatment",
+            "click .editTreatment": "editTreament",
+            "click .viewConversation": "viewConversation",
             "click .btn-prev": "goToPrevious",
             "click .btn-next": "goToNext"
+        },
+        editTreament: function (e) {
+            e.preventDefault();
+            var treatmentId = $(e.target).parents("[data-treatmentid]").attr("data-treatmentid");
+            var url = "/TreatmentHistory/Edit";
+            var that = this;
+            $.get(url + "?id=" + treatmentId, function (data) {
+                initModalWithData(data);
+            });
+        },
+        viewConversation: function (e) {
+            e.preventDefault();
+            var treatmentId = $(e.target).parents("[data-treatmentid]").attr("data-treatmentid");
+            var url = "/TreatmentHistory/Edit";
+            var that = this;
+            $.get(url + "?id=" + treatmentId, function (data) {
+                initModalWithData(data);
+            });
+        },
+        clearTreatment: function (e) {
+            e.preventDefault();
+            $("#newTreatmentForm")[0].reset();
         },
         saveTreatment: function (e) {
             e.preventDefault();
@@ -419,6 +448,7 @@
                 var formData = new FormData(form[0]);
                 var patientId = $("#patientId").val();
                 formData.append("patientId", patientId);
+                var that = this;
                 $.ajax({
                     url: form.attr("action"),
                     method: "post",
@@ -429,6 +459,7 @@
                         var result = JSON.parse(response);
                         if (result.result == "ok") {
                             bootstrap_alert.warning(form.find(".alert-aria"), "Lượt khám bệnh lưu thành công");
+                            that.clearTreatment();
                         }
                     }
                 });
@@ -509,12 +540,14 @@
                     }
                 }
             });
-            var form = $("#newTreatmentForm");
-            validationForm(form);
+            if (this.times == 0) {
+                var form = $("#newTreatmentForm");
+                validationForm(form);
+            }
+            this.times++;
         }
     });
     var patientDetailView = new PatientDetailView();
-
 
     BodyView = Backbone.View.extend({
         el: $("body"),

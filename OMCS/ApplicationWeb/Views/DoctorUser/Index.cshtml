@@ -105,11 +105,6 @@
             $.get(url + "/" + id, function (data) {
                 $('#view-container').html(data);
                 $('#view-model').modal('show');
-                $("#newMedicalProfileBtn").click(function () {
-                    var medicalProfileTemplateId = $("#medicalProfileTemplate").val();
-                    $(this).attr("href", "@Url.Action("UpdateMedicalProfile", "DoctorMedicalProfile")" + "/" + id + "?medicalProfileTemplateId=" + medicalProfileTemplateId);
-                    $(this)[0].click();
-                });
             });           
         });
 

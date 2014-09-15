@@ -648,6 +648,7 @@ ul.c-controls li a:hover
 .treatment-history-item span.text {
     padding-top: 5px;
     display: block;
+    width: 85%;
 }
 
 .treatment-history-item .medical-record-name {

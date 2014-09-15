@@ -16,7 +16,7 @@ namespace OMCS.Web.Controllers
                 x => x.Doctor.UserId == User.UserId).Take(5).OrderByDescending(x => x.CreatedDate).ToList();
             ViewBag.recentComments = _db.Comments.Where(
                 x => x.DoctorId == User.UserId).Take(5).OrderByDescending(x => x.PostedDate).ToList();
-            ViewBag.recentMessage = _db.Conversations.Where(c => c.DoctorId == User.UserId).OrderByDescending(x => x.DateConsulted).ToList();
+            ViewBag.recentMessage = _db.Conversations.Where(c => c.DoctorId == User.UserId).OrderByDescending(x => x.LatestTimeFromPatient).ToList();
             ViewBag.countMessage = _db.Conversations.Where(c => (c.IsDoctorRead == false) && (c.DoctorId == User.UserId)).Count();
             ViewBag.doctorId = _db.Doctors.Where(d => d.UserId == User.UserId).SingleOrDefault();           
             return View();
