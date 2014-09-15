@@ -161,7 +161,7 @@ namespace OMCS.Web.Controllers
                     //emailBackground.Start();
                     return RedirectToAction("Index", "Home");
                 }
-                catch (MembershipCreateUserException e)
+                catch (MembershipCreateUserException)
                 {
                 }
             }

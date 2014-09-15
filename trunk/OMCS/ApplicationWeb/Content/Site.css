@@ -613,6 +613,30 @@ ul.c-controls li a:hover
     color: #777777;
 }
 
+.chat .mCustomScrollBox {
+    max-width: 98%;
+}
+
+/* 
+   Used for mapping conversation 
+   with treatment history 
+*/
+.mapping-conversation {
+    padding-left: 12px;
+    border-left: 1px solid;
+    border-left-width: 5px;
+    border-left-color: #5bc0de;
+    cursor: pointer;
+}
+
+.mapping-conversation:hover {
+    background: #EEE9E5;
+}
+
+.mapping-conversation-red {
+    border-left-color: #d9534f;
+}
+
 .panel .slidedown .glyphicon, .chat .glyphicon
 {
     margin-right: 5px;

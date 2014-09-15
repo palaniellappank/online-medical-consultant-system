@@ -42,7 +42,6 @@ namespace OMCS.Web.Controllers
             var treatmentHistory = new TreatmentHistory
             {
                 MedicalProfileId = medicalProfileId,
-                DoctorId = User.UserId,
                 OnSetDate = DateTime.Now,
                 DateCreated = DateTime.Now
             };
@@ -53,6 +52,7 @@ namespace OMCS.Web.Controllers
         public JObject Create(TreatmentHistory treatmentHistory)
         {
             treatmentHistory.DateCreated = DateTime.UtcNow;
+            treatmentHistory.DoctorId = User.UserId;
             _db.TreatmentHistories.Add(treatmentHistory);
             _db.SaveChanges();
             dynamic result = new JObject();

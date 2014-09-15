@@ -15,7 +15,6 @@ using System.Data.Entity.Validation;
 using Security.DAL.Security;
 using System.Threading;
 using System.Diagnostics;
-using Security.DAL.Security;
 
 namespace OMCS.Web.Controllers
 {
