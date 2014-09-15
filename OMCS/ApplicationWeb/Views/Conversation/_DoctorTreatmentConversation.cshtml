@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<div class="modal-dialog modal-lg">
+    <div class="modal-content" id="treatmentConversationDetails">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Liên kết hội thoại</h4>
+        </div>
+        <div class="modal-body">
+            <ul class="chat" id="message-content" style="height: 408px;">
+            </ul>
+            <div class="jumbotron">
+                <h1>Chưa có liên kết!</h1>
+                <p>Chọn <code>Đánh dấu</code> để thực hiện liên kết nội dung chat với <code>Lượt khám bệnh</code> này</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default mark-conversation">Đánh dấu</button>
+            <button class="btn btn-primary save-mark-conversation" data-dismiss="modal">Lưu</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var loginEmail = $('#txtFromEmail').val();
+    var templateLeft = $("#chat-left-template").html();
+    var templateRight = $("#chat-right-template").html();
+    var messageDetails = @Html.Raw(ViewBag.messageList);
+    var treatmentHistory = @Html.Raw(ViewBag.treatmentHistory);
+    var fromUser = @Html.Raw(ViewBag.fromUser);
+    var toUser = @Html.Raw(ViewBag.toUser);
+    var TreatmentConversationView = Backbone.View.extend({
+        el: "#treatmentConversationDetails",
+        initialize: function() {
+            this.render();
+        },
+        events: {
+            "click .mark-conversation": "markConversation",
+            "click .mapping-conversation": "doMapping",
+            "click .save-mark-conversation": "saveMapping"
+        },
+        markConversation: function() {
+            var that = this;
+            var url = baseUrl + "Conversation/GetMessageConversation?fromEmail=" + fromUser.Email + "&ToEmail=" + toUser.Email;
+            $.getJSON(url, function(data) {
+                messageDetails = data;
+                that.render();
+                that.updateColor();
+            });
+        },
+        saveMapping: function() {
+            var url = baseUrl + "Conversation/SaveTreatmentConversationMapping";
+            $.post(url, 
+                {
+                    id: treatmentHistory.TreatmentId,
+                    conversationToId: treatmentHistory.ConversationToId,
+                    conversationFromId: treatmentHistory.ConversationFromId
+                },
+                function(data) {
+                    bootbox.alert("Lưu đánh dấu thành công!");
+            });
+        },
+        doMapping: function(e) {
+            var target = e.currentTarget;
+            var id = parseInt($(target).attr("data-id"));
+            if (treatmentHistory.ConversationFromId == null) {
+                treatmentHistory.ConversationFromId = id;
+            } else if (treatmentHistory.ConversationToId == null) {
+                if (id < treatmentHistory.ConversationFromId) {
+                    treatmentHistory.ConversationToId = treatmentHistory.ConversationFromId;
+                    treatmentHistory.ConversationFromId = id;
+                } else {
+                    treatmentHistory.ConversationToId = id;
+                }
+            } else 
+            //Both fromId and toId are not null
+            {
+                treatmentHistory.ConversationFromId = id;
+                treatmentHistory.ConversationToId = null;
+            }
+            this.updateColor();
+        },
+        updateColor: function() {
+            //Change color
+            var messageList = $("#message-content").find("li");
+            _.each(messageList, function(message) {
+                $(message).addClass("mapping-conversation");
+                $(message).removeClass("mapping-conversation-red");
+                var id = parseInt($(message).attr("data-id"));
+                if (id == treatmentHistory.ConversationFromId) {
+                    $(message).addClass("mapping-conversation-red");
+                }
+                if (id == treatmentHistory.ConversationToId) {
+                    $(message).addClass("mapping-conversation-red");
+                }
+                if (id >= treatmentHistory.ConversationFromId && id <= treatmentHistory.ConversationToId) {
+                    $(message).addClass("mapping-conversation-red");
+                }
+            });
+        },
+        render: function() {
+            if ($("#message-content").hasClass("mCustomScrollbar")) {
+                $("#message-content").mCustomScrollbar("destroy");
+            }
+            $("#message-content").html("");
+            if (messageDetails.length != 0) {
+                $("#message-content").next().hide();
+                $("#message-content").show();
+                _.forEach(messageDetails, function (message) {
+                    var messageHtml;
+                    if (loginEmail == message.Email) {
+                        messageHtml = _.template(templateLeft, { user: fromUser, message: message });
+                    } else {
+                        messageHtml = _.template(templateRight, { user: toUser, message: message });
+                    }
+                    $("#message-content").append(messageHtml);
+                });
+            
+                $("#message-content").mCustomScrollbar({
+                    theme: "minimal-dark"
+                });
+            } else {
+                $("#message-content").hide();
+            }
+        }
+    });
+    new TreatmentConversationView();
+</script>

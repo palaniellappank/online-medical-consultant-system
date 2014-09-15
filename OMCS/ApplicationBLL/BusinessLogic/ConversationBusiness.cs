@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data;
 using OMCS.DAL.Model;
+using Newtonsoft.Json.Linq;
 
 namespace OMCS.BLL
 {
-    public class ConversationBusiness
+    public class ConversationBusiness: BaseBusiness
     {
         private OMCSDBContext _db;
         public ConversationBusiness(OMCSDBContext context)
@@ -59,6 +60,78 @@ namespace OMCS.BLL
                 _db.Entry(conversationDetail).State = EntityState.Modified;
             }
             _db.SaveChanges();
+        }
+
+        public JArray GetMessageByTreatment(int treatmentId)
+        {
+            var treatment = _db.TreatmentHistories.Find(treatmentId);
+            var doctor = treatment.Doctor;
+            var patient = treatment.Patient;
+            var conversationJson = new JArray();
+
+            if (doctor != null && patient != null)
+            {
+                var conversation = _db.Conversations.Where(
+                    con => (con.PatientId == patient.UserId) && (con.DoctorId == doctor.UserId)).FirstOrDefault();
+
+                if (conversation != null)
+                {
+                    var conversationDetails = _db.ConversationDetails.Where(cd => cd.Conversation.ConversationId == conversation.ConversationId
+                        && treatment.ConversationFromId <= cd.ConversationDetailId && treatment.ConversationToId >= cd.ConversationDetailId).
+                    OrderBy(cd => cd.CreatedDate).ToList();
+
+                    //Convert conversationDetails to MessageDetails
+                    foreach (var conversationDetail in conversationDetails)
+                    {
+                        String date = (DateTime.Now.Subtract(conversationDetail.CreatedDate).Days) > 1 ?
+                            String.Format("{0:HH:mm:ss}", conversationDetail.CreatedDate) :
+                            String.Format("{0:dd/MM/yyyy HH:mm:ss}", conversationDetail.CreatedDate);
+                        dynamic messageDetail = new JObject();
+                        messageDetail.id = conversationDetail.ConversationDetailId;
+                        messageDetail.Content = conversationDetail.Content;
+                        messageDetail.Email = conversationDetail.User.Email;
+                        messageDetail.Attachment = conversationDetail.Attachment;
+                        messageDetail.CreatedDate = date;
+                        conversationJson.Add(messageDetail);
+                    }
+                }
+            }
+            return conversationJson;
+        }
+
+        public JArray GetMessageByConversation(string fromEmail, string toEmail)
+        {
+            var doctor = GetDoctor(fromEmail, toEmail);
+            var patient = GetPatient(fromEmail, toEmail);
+            var conversationJson = new JArray();
+
+            if (doctor != null && patient != null)
+            {
+                var conversation = _db.Conversations.Where(
+                    con => (con.PatientId == patient.UserId) && (con.DoctorId == doctor.UserId)).FirstOrDefault();
+
+                if (conversation != null)
+                {
+                    var conversationDetails = _db.ConversationDetails.Where(cd => cd.Conversation.ConversationId == conversation.ConversationId).
+                    OrderBy(cd => cd.CreatedDate).ToList();
+
+                    //Convert conversationDetails to MessageDetails
+                    foreach (var conversationDetail in conversationDetails)
+                    {
+                        String date = (DateTime.Now.Subtract(conversationDetail.CreatedDate).Days) > 1 ?
+                            String.Format("{0:HH:mm:ss}", conversationDetail.CreatedDate) :
+                            String.Format("{0:dd/MM/yyyy HH:mm:ss}", conversationDetail.CreatedDate);
+                        dynamic messageDetail = new JObject();
+                        messageDetail.id = conversationDetail.ConversationDetailId;
+                        messageDetail.Content = conversationDetail.Content;
+                        messageDetail.Email = conversationDetail.User.Email;
+                        messageDetail.Attachment = conversationDetail.Attachment;
+                        messageDetail.CreatedDate = date;
+                        conversationJson.Add(messageDetail);
+                    }
+                }
+            }
+            return conversationJson;
         }
     }
 }

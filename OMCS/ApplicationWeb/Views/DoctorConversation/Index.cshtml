@@ -258,7 +258,7 @@
 </script>
 
 <script id="chat-left-template" type="text/template">
-    <li class="left clearfix">
+    <li class="left clearfix" data-id="<%= message.id %>">
         <span class="chat-img pull-left">
             <img src="@Html.GetPictureUrl("Profile")<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
         </span>
@@ -285,7 +285,7 @@
 </script>
 
 <script id="chat-right-template" type="text/template">
-    <li class="right clearfix <% if (!message.IsRead) { %> unread-message-hightlight<% } %>">
+    <li class="right clearfix <% if (!message.IsRead) { %> unread-message-hightlight<% } %>" data-id="<%= message.id %>">
         <span class="chat-img pull-right">
             <img src="@Html.GetPictureUrl("Profile")<%= user.ProfilePicture %>" alt="User Avatar" class="img-circle" />
         </span>
@@ -327,7 +327,7 @@
         <div class="treatment-item-btn-group">
             <ul>
                 <li class="facebook" style="width: 34%;">
-                    <a class="viewTreatment" target="_blank" data-container="body" data-original-title="Xem chi tiết" data-toggle="tooltip">
+                    <a class="viewTreatment" data-container="body" data-original-title="Xem chi tiết" data-toggle="tooltip">
                         <span class="glyphicon glyphicon-search"></span></a>
                 </li>
                 <li class="twitter" style="width: 33%;">
@@ -431,10 +431,12 @@
         viewConversation: function (e) {
             e.preventDefault();
             var treatmentId = $(e.target).parents("[data-treatmentid]").attr("data-treatmentid");
-            var url = "/TreatmentHistory/Edit";
+            var patientEmail = $("#txtToEmail").val();
+            var url = "/Conversation/DoctorTreatmentConversation?treatmentId=" + treatmentId + "&toEmail=" + patientEmail;
             var that = this;
-            $.get(url + "?id=" + treatmentId, function (data) {
-                initModalWithData(data);
+            $.get(url, function (data) {
+                $('#modal-popup').html(data);
+                $('#modal-popup').modal('show');
             });
         },
         clearTreatment: function (e) {

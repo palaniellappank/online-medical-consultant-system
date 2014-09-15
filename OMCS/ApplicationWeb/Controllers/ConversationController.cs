@@ -6,95 +6,73 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using OMCS.DAL.Model;
+using OMCS.BLL;
+using Newtonsoft.Json.Linq;
 
 namespace OMCS.Web.Controllers
 {
-    public class ConversationController : Controller
+    public class ConversationController : BaseController
     {
-        private OMCSDBContext db = new OMCSDBContext();
+        ConversationBusiness business;
 
-        //
-        // GET: /Conversation/
+        public ConversationController()
+        {
+            business = new ConversationBusiness(_db);
+        }
 
         public ActionResult Index()
         {
-            var conversations = db.Conversations.Include(c => c.Patient).Include(c => c.Doctor);
+            var conversations = _db.Conversations.Include(c => c.Patient).Include(c => c.Doctor);
             return View(conversations.ToList());
         }
 
-        //
-        // GET: /Conversation/Details/5
-
-        public ActionResult Details(int id = 0)
+        /*
+            Get Conversation that belongs to a treatment
+        */
+        public ActionResult DoctorTreatmentConversation(int treatmentId)
         {
-            ConversationDetail conDetail = db.ConversationDetails.FirstOrDefault(d => d.ConversationId == id);
-            if (conDetail == null)
-            {
-                return HttpNotFound();
-            }
-            return PartialView("_Details",conDetail);
+            var treatment = _db.TreatmentHistories.Find(treatmentId);
+            User fromUser = treatment.Doctor;
+            User toUser = treatment.Patient;
+            dynamic fromUserJson = new JObject();
+            fromUserJson.ProfilePicture = fromUser.ProfilePicture;
+            fromUserJson.FullName = fromUser.FullName;
+            fromUserJson.Email = fromUser.Email;
+            dynamic toUserJson = new JObject();
+            toUserJson.ProfilePicture = toUser.ProfilePicture;
+            toUserJson.FullName = toUser.FullName;
+            toUserJson.Email = toUser.Email;
+            dynamic treatmentJson = new JObject();
+            treatmentJson.TreatmentId = treatment.TreatmentHistoryId;
+            treatmentJson.ConversationFromId = treatment.ConversationFromId;
+            treatmentJson.ConversationToId = treatment.ConversationToId;
+            ViewBag.messageList = business.GetMessageByTreatment(treatmentId);
+            ViewBag.fromUser = fromUserJson;
+            ViewBag.toUser = toUserJson;
+            ViewBag.treatmentHistory = treatmentJson;
+            return View("_DoctorTreatmentConversation");
         }
 
-        //
-        // GET: /Conversation/Edit/5
-
-        public ActionResult Edit(int id = 0)
+        /*
+            Get Conversation that belongs to a treatment
+        */
+        public JArray GetMessageConversation(string fromEmail, string toEmail)
         {
-            Conversation conversation = db.Conversations.Find(id);
-            if (conversation == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.PatientId = new SelectList(db.Users, "UserId", "Email", conversation.PatientId);
-            ViewBag.DoctorId = new SelectList(db.Users, "UserId", "Email", conversation.DoctorId);
-            return View(conversation);
+            var messageList = business.GetMessageByConversation(fromEmail, toEmail);
+            return messageList;
         }
 
-        //
-        // POST: /Conversation/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(Conversation conversation)
+        public void SaveTreatmentConversationMapping(int id, int conversationFromId, int conversationToId)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(conversation).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.PatientId = new SelectList(db.Users, "UserId", "Email", conversation.PatientId);
-            ViewBag.DoctorId = new SelectList(db.Users, "UserId", "Email", conversation.DoctorId);
-            return View(conversation);
-        }
-
-        //
-        // GET: /Conversation/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            Conversation conversation = db.Conversations.Find(id);
-            if (conversation == null)
-            {
-                return HttpNotFound();
-            }
-            return View(conversation);
-        }
-
-        //
-        // POST: /Conversation/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Conversation conversation = db.Conversations.Find(id);
-            db.Conversations.Remove(conversation);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var treatment = _db.TreatmentHistories.Find(id);
+            treatment.ConversationFromId = conversationFromId;
+            treatment.ConversationToId = conversationToId;
+            _db.SaveChanges();
         }
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _db.Dispose();
             base.Dispose(disposing);
         }
     }
