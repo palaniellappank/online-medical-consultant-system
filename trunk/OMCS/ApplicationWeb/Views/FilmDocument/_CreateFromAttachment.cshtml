@@ -1,5 +1,6 @@
-﻿@model OMCS.DAL.Model.FilmDocument
-<form>
+﻿@using OMCS.Web
+@model OMCS.DAL.Model.FilmDocument
+<form id="createFromAttachment">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <input name="doctorId" type="hidden" value="@Html.ValueFor(model=>model.DoctorId)"/>
@@ -18,8 +19,8 @@
                 <label class="control-label">Ngày khám</label>
                 <input name="treatmentHistoryId"/>
             </div>
-            <img id="imgPhoto" src="#" data-src="holder.js/400x300" alt="your image" class="img-responsive"/>
-            <textarea style="display:none" name="imgBase64"></textarea>
+            <input name="imagePath" value="@Model.ImagePath" type="hidden"/>
+            <img src="@Html.GetPictureUrl("Upload")@Model.ImagePath" class="img-responsive"/>
           </div>
             <div class="col-lg-6">
                 <div class="form-group">
@@ -47,13 +48,13 @@
 </form>
 <script type="text/javascript">
     var patientEmail = $('#txtToEmail').val();
-    var form = $('#modal-popup').find("form");
+    var form = $("#createFromAttachment");
     form.find(".saveBtn").click(function (e) {
         e.preventDefault();
         if (form.valid()) {
             var formData = new FormData(form[0]);
             $.ajax({
-                url: baseUrl + "FilmDocument/CreateFromWebcam",
+                url: baseUrl + "FilmDocument/CreateFromAttachment",
                 method: "post",
                 contentType: false,
                 processData: false,
@@ -90,7 +91,7 @@
             type: "GET",
             data: function (term) {
                 return {
-                    medicalProfileId: $("input[name=medicalProfileId").val()
+                    medicalProfileId: form.find("input[name=medicalProfileId]").val()
                 };
             },
             results: function (data) {

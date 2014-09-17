@@ -207,6 +207,10 @@
                     <img src="#" class="img-responsive">
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
+                <button class="btn btn-primary useAsFilmDocument">Sử dụng...</button>
+            </div>
         </div>
     </div>
 </div>
@@ -555,10 +559,21 @@
         el: $("body"),
         events: {
             "click #closePatientWebcam": "hideWebcam",
-            "click #takePhoto": "takePhoto"
+            "click #takePhoto": "takePhoto",
+            "click .useAsFilmDocument": "useAsFilmDocument"
         },
         hideWebcam: function (e) {
             $(".webcam-content").css("display", "none");
+        },
+        useAsFilmDocument: function (e) {
+            var imagePath = $("#modal-popup-img").find("img").attr("src");
+            var url = baseUrl + "FilmDocument/CreateFromAttachment?imagePath=" + imagePath;
+            $.get(url, function (data) {
+                $('#modal-popup').html(data);
+                $('#modal-popup').modal('show');
+                var form = $('#modal-popup').find("form");
+                validationForm(form);
+            });
         },
         takePhoto: function (e) {
             var video = $("#webcam")[0];
@@ -570,8 +585,7 @@
             context.drawImage(video, 0, 0, photo.width, photo.height);
 
             var url = baseUrl + "FilmDocument/CreateWhenChat";
-            var toEmail = $('#txtToEmail').val();
-            $.get(url + "?patientEmail=" + toEmail, function (data) {
+            $.get(url, function (data) {
                 $('#modal-popup').html(data);
                 $('#modal-popup').modal('show');
                 var form = $('#modal-popup').find("form");
