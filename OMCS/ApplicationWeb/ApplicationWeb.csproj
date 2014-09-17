@@ -724,6 +724,7 @@
     <Content Include="Views\TreatmentHistory\_Edit.cshtml" />
     <Content Include="Views\TreatmentHistory\_ListView.cshtml" />
     <Content Include="Views\Conversation\_DoctorTreatmentConversation.cshtml" />
+    <Content Include="Views\FilmDocument\_CreateFromAttachment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

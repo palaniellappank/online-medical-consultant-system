@@ -40,7 +40,7 @@ namespace OMCS.Web.Controllers
             return PartialView("_ListView", filmDocuments);
         }
 
-        public ActionResult CreateWhenChat(string patientEmail)
+        public ActionResult CreateWhenChat()
         {
             var filmTypeList = _db.FilmTypes.ToList();
             ViewBag.FilmTypeId = new SelectList(filmTypeList, "FilmTypeId", "Name");
@@ -49,6 +49,18 @@ namespace OMCS.Web.Controllers
                 DoctorId = User.UserId
             };
             return PartialView("_CreateWhenChat", filmDocument);
+        }
+
+        public ActionResult CreateFromAttachment(string imagePath)
+        {
+            var imageName = Path.GetFileName(imagePath);
+            var filmTypeList = _db.FilmTypes.ToList();
+            ViewBag.FilmTypeId = new SelectList(filmTypeList, "FilmTypeId", "Name");
+            var filmDocument = new FilmDocument
+            {
+                ImagePath = imageName
+            };
+            return PartialView("_CreateFromAttachment", filmDocument);
         }
 
         public ActionResult CreateForTreatment(int treatmentHistoryId)
@@ -130,6 +142,24 @@ namespace OMCS.Web.Controllers
             filmDocument.ImagePath = dbPath;
             filmDocument.DateCreated = DateTime.Now;
 
+            _db.FilmDocuments.Add(filmDocument);
+            _db.SaveChanges();
+            dynamic result = new JObject();
+            result.result = "ok";
+            return result;
+        }
+
+        [HttpPost]
+        public JObject CreateFromAttachment(FilmDocument filmDocument)
+        {
+            var fileName = DateTime.Now.Ticks + "_" + Path.GetFileName(filmDocument.ImagePath);
+            var path = HttpContext.Server.MapPath("~/Content/Image/FilmDocument/" + fileName);
+            var dbPath = fileName;
+            System.IO.File.Copy(HttpContext.Server.MapPath("~/Content/Upload/" + filmDocument.ImagePath), path);
+
+            filmDocument.ImagePath = dbPath;
+            filmDocument.DateCreated = DateTime.Now;
+            filmDocument.DoctorId = User.UserId;
             _db.FilmDocuments.Add(filmDocument);
             _db.SaveChanges();
             dynamic result = new JObject();

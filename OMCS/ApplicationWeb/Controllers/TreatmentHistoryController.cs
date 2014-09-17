@@ -103,7 +103,7 @@ namespace OMCS.Web.Controllers
             {
                 treatmentHistories = _db.TreatmentHistories.
                 Where(x => x.MedicalProfile.Patient.Email.Equals(patientEmail)
-                    && (x.MedicalProfileId == 0)).
+                    && (x.MedicalProfileId == medicalProfileId)).
                 OrderByDescending(x => x.DateCreated).ToList();
             }
             

@@ -166,9 +166,13 @@ namespace OMCS.Web.Controllers
                 Where(x => x.Patient.Email.Equals(patientEmail)).
                 OrderByDescending(x => x.CreatedDate).ToList();
             dynamic medicalProfileListJson = new JArray();
+            dynamic medicalProfileJson = new JObject();
+            medicalProfileJson.id = 0;
+            medicalProfileJson.text = "Khám bệnh tự do";
+            medicalProfileListJson.Add(medicalProfileJson);
             foreach (var medicalProfile in medicalProfiles)
             {
-                dynamic medicalProfileJson = new JObject();
+                medicalProfileJson = new JObject();
                 medicalProfileJson.id = medicalProfile.MedicalProfileId;
                 medicalProfileJson.text = medicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName;
                 medicalProfileListJson.Add(medicalProfileJson);
