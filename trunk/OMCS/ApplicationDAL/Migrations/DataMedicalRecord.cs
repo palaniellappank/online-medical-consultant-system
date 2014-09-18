@@ -21,7 +21,7 @@
                 },
                 new MedicalProfileTemplate
                 {
-                    MedicalProfileTemplateName = "Bệnh Án Ngoài Da - BV Da Liễu"
+                    MedicalProfileTemplateName = "Bệnh Án Nội Khoa"
                 },
                 new MedicalProfileTemplate
                 {
@@ -29,7 +29,7 @@
                 },
                 new MedicalProfileTemplate
                 {
-                    MedicalProfileTemplateName = "Bệnh Án Nội Khoa"
+                    MedicalProfileTemplateName = "Bệnh Án Ngoài Da - BV Da Liễu"
                 },
                 
             };
@@ -43,9 +43,12 @@
 
             Patient suTran = _db.Patients.Where(pt => pt.Email.Equals("trannguyentiensu@gmail.com")).Single();
 
+            Patient caodanh = _db.Patients.Where(pt => pt.Email.Equals("caodanh@gmail.com")).Single();
+
             Doctor doctor1 = _db.Doctors.Where(pt => pt.Email.Equals("doctor@mail.com")).Single();
 
-            MedicalProfileTemplate benhAnNgoaiDa1 = _db.MedicalProfileTemplates.Find(1);
+            MedicalProfileTemplate benhAnMau = _db.MedicalProfileTemplates.Find(1);
+            MedicalProfileTemplate benhAnNoiKhoa = _db.MedicalProfileTemplates.Find(2);
 
             List<MedicalProfile> medicalProfiles = new List<MedicalProfile>{
                 new MedicalProfile
@@ -53,23 +56,31 @@
                     PatientId = suTran.UserId,
                     DoctorId = doctor1.UserId,
                     CreatedDate = DateTime.UtcNow,
-                    MedicalProfileTemplateId = benhAnNgoaiDa1.MedicalProfileTemplateId,
+                    MedicalProfileTemplateId = benhAnMau.MedicalProfileTemplateId,
                     MedicalProfileKey = "OMCS.0000001.01"
                 },
                 new MedicalProfile
                 {
-                    PatientId = suTran.UserId,
+                    PatientId = caodanh.UserId,
                     DoctorId = doctor1.UserId,
                     CreatedDate = DateTime.Today.AddDays(-10),
-                    MedicalProfileTemplateId = benhAnNgoaiDa1.MedicalProfileTemplateId,
-                    MedicalProfileKey = "OMCS.0000001.02"
+                    MedicalProfileTemplateId = benhAnNoiKhoa.MedicalProfileTemplateId,
+                    MedicalProfileKey = "OMCS.0000002.02"
+                },
+                new MedicalProfile
+                {
+                    PatientId = caodanh.UserId,
+                    DoctorId = doctor1.UserId,
+                    CreatedDate = DateTime.Today.AddDays(-5),
+                    MedicalProfileTemplateId = benhAnMau.MedicalProfileTemplateId,
+                    MedicalProfileKey = "OMCS.0000001.03"
                 },
                 new MedicalProfile
                 {
                     PatientId = suTran.UserId,
                     DoctorId = doctor1.UserId,
                     CreatedDate = DateTime.Today.AddDays(-5),
-                    MedicalProfileTemplateId = benhAnNgoaiDa1.MedicalProfileTemplateId,
+                    MedicalProfileTemplateId = benhAnNoiKhoa.MedicalProfileTemplateId,
                     MedicalProfileKey = "OMCS.0000001.03"
                 }
             };
