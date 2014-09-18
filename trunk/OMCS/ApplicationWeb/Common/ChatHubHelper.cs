@@ -23,7 +23,7 @@ namespace SignalRChat.Hubs
 
         /* Update Doctor Status for all user
          */
-        public void UpdateDoctorsStatus(string id, string email, List<DoctorDetail> Doctors, List<UserDetail> ConnectedUsers)
+        public void UpdateDoctorsStatus(string email, List<DoctorDetail> Doctors, List<UserDetail> ConnectedUsers)
         {
             var doctor = _db.Doctors.Where(x => x.Email.Equals(email)).FirstOrDefault();
             var doctorDetail = Doctors.Where(x => x.Email.Equals(email)).FirstOrDefault();
@@ -32,7 +32,6 @@ namespace SignalRChat.Hubs
             if (doctorDetail != null)
             {
                 doctorDetail.CountMessageUnRead = business.CountMessageUnRead(doctor);
-                doctorDetail.IsOnline = doctor.IsOnline;
 
                 foreach (UserDetail userDetail in ConnectedUsers)
                 {
@@ -41,7 +40,7 @@ namespace SignalRChat.Hubs
                     {
                         var doctorDetailForUser = userDetail.DoctorList.Where(
                         x => x.Email == email).FirstOrDefault();
-                        doctorDetailForUser.IsOnline = doctorDetail.IsOnline;
+                        doctorDetailForUser.OnlineStatus = doctorDetail.OnlineStatus;
                     }
                 }
             }
@@ -130,7 +129,7 @@ namespace SignalRChat.Hubs
                     //Check user online or not
                     var connectedUser = ConnectedUsers.Where
                         (x => x.Email == conversation.Patient.Email).FirstOrDefault();
-                    var IsOnline = (connectedUser != null && connectedUser.IsOnline) ? true : false;
+                    var onlineStatus = (connectedUser != null) ? OnlineStatus.Online : OnlineStatus.Offline;
                     UserDetail userDetailCon = new UserDetail
                     {
                         FullName = conversation.Patient.FullName,
@@ -139,7 +138,7 @@ namespace SignalRChat.Hubs
                         ProfilePicture = conversation.Patient.ProfilePicture,
                         Email = conversation.Patient.Email,
                         IsRead = conversation.IsDoctorRead,
-                        IsOnline = IsOnline
+                        OnlineStatus = onlineStatus
                     };
                     userDetailList.Add(userDetailCon);
                 }
@@ -168,7 +167,7 @@ namespace SignalRChat.Hubs
                 //Check user online or not
                 var connectedUser = ConnectedUsers.Where
                     (x => x.Email == doctor.Email).FirstOrDefault();
-                var IsOnline = (connectedUser != null && connectedUser.IsOnline) ? true : false;
+                var onlineStatus = (connectedUser != null) ? OnlineStatus.Online : OnlineStatus.Offline;
                 DoctorDetail userDetailCon = new DoctorDetail
                 {
                     FullName = doctor.FullName,
@@ -177,7 +176,7 @@ namespace SignalRChat.Hubs
                     ProfilePicture = doctor.ProfilePicture,
                     Email = doctor.Email,
                     IsRead = lastestConversation.IsPatientRead,
-                    IsOnline = IsOnline,
+                    OnlineStatus = onlineStatus,
                     SpecialtyField = doctor.SpecialtyField.Name
                 };
                 doctorListResult.Add(userDetailCon);
@@ -185,6 +184,9 @@ namespace SignalRChat.Hubs
             return doctorListResult;
         }
 
+        /*
+         * Get all doctor from database when init
+         */
         public List<DoctorDetail> GetListDoctors()
         {
             var doctorListDB = _db.Doctors.ToList();
@@ -194,7 +196,7 @@ namespace SignalRChat.Hubs
                 DoctorDetail doctorDetail = new DoctorDetail
                 {
                     FullName = doctor.FullName,
-                    IsOnline = false,
+                    OnlineStatus = OnlineStatus.Offline,
                     SpecialtyField = doctor.SpecialtyField.Name,
                     Email = doctor.Email,
                     ProfilePicture = doctor.ProfilePicture
@@ -210,7 +212,7 @@ namespace SignalRChat.Hubs
             {
                 FullName = user.FullName,
                 Email = user.Email,
-                IsOnline = false,
+                OnlineStatus = Common.OnlineStatus.Offline,
                 ProfilePicture = user.ProfilePicture
             };
             return userDetail;
@@ -272,7 +274,7 @@ namespace SignalRChat.Hubs
                             FullName = user.FullName,
                             ProfilePicture = user.ProfilePicture,
                             Email = user.Email,
-                            IsOnline = true
+                            OnlineStatus = Common.OnlineStatus.Online
                         };
                         receiveUser.ConversationList.Add(patient);
                     }

@@ -45,7 +45,7 @@ namespace SignalRChat.Hubs
             var doctor = _db.Doctors.Where(x=>x.Email.Equals(email)).FirstOrDefault();
             var doctorDetail = Doctors.Where(x => x.Email.Equals(email)).FirstOrDefault();
 
-            helper.UpdateDoctorsStatus(id, email, Doctors, ConnectedUsers);
+            helper.UpdateDoctorsStatus(email, Doctors, ConnectedUsers);
 
             //Add User
             UserDetail userDetail = new UserDetail
@@ -55,7 +55,7 @@ namespace SignalRChat.Hubs
                 ProfilePicture = doctor.ProfilePicture,
                 FullName = doctor.FullName,
                 Email = doctor.Email,
-                IsOnline = true
+                OnlineStatus = OnlineStatus.Online
             };
 
             //Show List of Lastest contact
@@ -81,7 +81,7 @@ namespace SignalRChat.Hubs
                     CountMessageUnRead = business.CountMessageUnRead(user),
                     Email = email,
                     FullName = user.FullName, ProfilePicture = user.ProfilePicture,
-                    IsOnline = true
+                    OnlineStatus = OnlineStatus.Online
                 };
                 ConnectedUsers.Add(userDetail);
                 userDetail.DoctorList = helper.GetListDoctorConversation(email, ConnectedUsers);
@@ -96,10 +96,34 @@ namespace SignalRChat.Hubs
                 var patient = doctor.ConversationList.Find(x => x.Email == userDetail.Email);
                 if (patient != null)
                 {
-                    patient.IsOnline = true;
+                    patient.OnlineStatus = OnlineStatus.Online;
                 }
                 Clients.Client(doctor.ConnectionId).onGetConversationList(doctor.ConversationList);
             }
+        }
+
+        public void UpdateStatusToBusy(string email)
+        {
+            var id = Context.ConnectionId;
+            var user = Doctors.Where(x => x.Email == email).FirstOrDefault();
+            if (user != null)
+            {
+                user.OnlineStatus = OnlineStatus.Busy;
+            }
+            helper.UpdateDoctorsStatus(email, Doctors, ConnectedUsers);
+            Clients.AllExcept(id).onRefreshDoctorList();
+        }
+
+        public void UpdateStatusToOnline(string email)
+        {
+            var id = Context.ConnectionId;
+            var user = Doctors.Where(x => x.Email == email).FirstOrDefault();
+            if (user != null)
+            {
+                user.OnlineStatus = OnlineStatus.Online;
+            }
+            helper.UpdateDoctorsStatus(email, Doctors, ConnectedUsers);
+            Clients.AllExcept(id).onRefreshDoctorList();
         }
 
         public void GetMessageList(string email)
@@ -235,7 +259,7 @@ namespace SignalRChat.Hubs
                 var connectedUser = ConnectedUsers.Where(x => x.Email == item.Email).FirstOrDefault();
                 if ((connectedUser == null) && (doctor != null))
                 {
-                    doctor.IsOnline = false;
+                    doctor.OnlineStatus = OnlineStatus.Offline;
                     Clients.AllExcept(id).onGetDoctorList(Doctors);
                 }
             }

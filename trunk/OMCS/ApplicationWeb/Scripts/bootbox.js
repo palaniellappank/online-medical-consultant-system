@@ -70,7 +70,7 @@
 
   var defaults = {
     // default language
-    locale: "en",
+    locale: "vi",
     // show backdrop or not
     backdrop: true,
     // animate the modal in/out
@@ -848,6 +848,11 @@
       OK      : "OK",
       CANCEL  : "取消",
       CONFIRM : "確認"
+    },
+    vi : {
+        OK      : "Đồng ý",
+        CANCEL  : "Bỏ qua",
+        CONFIRM : "Đồng ý"
     }
   };
 

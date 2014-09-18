@@ -14,12 +14,6 @@ namespace OMCS.DAL.Model
         [Key]
         public int MedicalProfileTemplateId { get; set; }
 
-        public bool IsDefault { get; set; }
-
         public string MedicalProfileTemplateName { get; set; }
-
-        [ForeignKey("MedicalProfileType")]
-        public int? MedicalProfileTypeId { get; set; }
-        public MedicalProfileType MedicalProfileType { get; set; }
     }
 }

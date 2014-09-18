@@ -147,9 +147,11 @@
             <span class="name"><%= doctor.FullName %></span><br />
             <span class="speciaty"><%= doctor.SpecialtyField %></span>
             <span class="lastest-message"><%= doctor.LastestContent %></span><br />
-            <% if (doctor.IsOnline) {
+            <% if (doctor.OnlineStatus == 1) {
             %>
                 <i class="glyphicon glyphicon-user" style="position: absolute; right: 0; top: 40px; color: #2980b9; font-size: 1.2em;"></i>
+            <% } else if (doctor.OnlineStatus == 2) { %>
+                <i class="glyphicon glyphicon-user" style="position: absolute; right: 0; top: 40px; color: #E74C3C; font-size: 1.2em;"></i>
             <% } %>
 
             <% if (!doctor.IsRead) {

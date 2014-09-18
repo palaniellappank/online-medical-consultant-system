@@ -244,7 +244,7 @@
             <input class="username" type="hidden" value="<%= conversation.Email %>" />
             <span class="name"><%= conversation.FullName %></span><br />
             <span class="speciaty"><%= conversation.LastestContent %></span><br />
-            <% if (conversation.IsOnline) {
+            <% if (conversation.OnlineStatus == 1) {
             %>
                 <i class="glyphicon glyphicon-user" style="position: absolute; right: 0; top: 40px; color: #2980b9; font-size: 1.2em;"></i>
             <% } %>
@@ -391,9 +391,13 @@
                 $("#patientDetailPanel").css("display", "block");
                 var patientEmail = $("#txtToEmail").val();
                 patientDetailView.render(patientEmail);
+                var doctorEmail = $("#txtFromEmail").val();
+                chatHub.server.updateStatusToBusy(doctorEmail);
             } else {
                 $("#historyConsultant").css("display", "block");
                 $("#patientDetailPanel").css("display", "none");
+                var doctorEmail = $("#txtFromEmail").val();
+                chatHub.server.updateStatusToOnline(doctorEmail);
             }
         });
 

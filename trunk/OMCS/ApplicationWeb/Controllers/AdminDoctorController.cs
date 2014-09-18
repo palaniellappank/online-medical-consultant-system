@@ -92,7 +92,6 @@ namespace OMCS.Web.Controllers
                 var specialtyFieldId = Request.Params["dropdownlist"];
                 int specialty = Convert.ToInt32(specialtyFieldId);
                 doctor.UserId = getLastId;
-                doctor.IsOnline = false;
                 doctor.SpecialtyFieldId = specialty;
                 db.Doctors.Add(doctor);
                 db.SaveChanges();
