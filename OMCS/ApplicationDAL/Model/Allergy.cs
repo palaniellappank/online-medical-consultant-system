@@ -9,20 +9,6 @@ using System.Threading.Tasks;
 
 namespace OMCS.DAL.Model
 {
-    //public enum AllergyType
-    //{
-    //    [Display(Name = "Thuốc")]
-    //    Medication = 0,
-
-    //    [Display(Name = "Thức Ăn")]
-    //    Food = 1,
-
-    //    [Display(Name = "Môi Trường")]
-    //    Environmental = 2,
-
-    //    [Display(Name = "Khác")]
-    //    Other = 4
-    //};
 
     [Table("Allergy")]
     public class Allergy

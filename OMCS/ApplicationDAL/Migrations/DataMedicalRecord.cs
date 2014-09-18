@@ -13,40 +13,22 @@
         {
             #region MedicalProfile
 
-            List<MedicalProfileType> medicalProfileTypes = new List<MedicalProfileType>{
-                new MedicalProfileType
-                {
-                    Name = "Bệnh án Ngoài Da"
-                }
-            };
-
-            medicalProfileTypes.ForEach(s => _db.MedicalProfileTypes.AddOrUpdate(p => (p.Name), s));
-            _db.SaveChanges();
-
-            MedicalProfileType loaiBenhAnNgoaiDa2 = _db.MedicalProfileTypes.FirstOrDefault();
-
-
             List<MedicalProfileTemplate> medicalProfileTemplates = new List<MedicalProfileTemplate>{
                 //Default medical profile
                 new MedicalProfileTemplate
                 {
-                    IsDefault = true, MedicalProfileType = loaiBenhAnNgoaiDa2,
                     MedicalProfileTemplateName = "Bệnh Án Mẫu"
                 },
                 new MedicalProfileTemplate
                 {
-                    IsDefault = false,
-                    MedicalProfileTemplateName = "Bệnh Án Ngoài Da - BV Da Liễu",
-                    MedicalProfileType = loaiBenhAnNgoaiDa2
+                    MedicalProfileTemplateName = "Bệnh Án Ngoài Da - BV Da Liễu"
                 },
                 new MedicalProfileTemplate
                 {
-                    IsDefault = false,
                     MedicalProfileTemplateName = "Bệnh Án Truyền Nhiễm"
                 },
                 new MedicalProfileTemplate
                 {
-                    IsDefault = false,
                     MedicalProfileTemplateName = "Bệnh Án Nội Khoa"
                 },
                 

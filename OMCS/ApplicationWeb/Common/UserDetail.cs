@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 namespace SignalRChat.Common
 {
+    public enum OnlineStatus
+    {
+        Offline,
+        Online,
+        Busy
+    }
     public class UserDetail
     {
         public string ConnectionId { get; set; }
@@ -14,6 +20,6 @@ namespace SignalRChat.Common
         public string LastestContent { get; set; }
         public DateTime LastestTime { get; set; }
         public bool IsRead { get; set; }
-        public bool IsOnline { get; set; }
+        public OnlineStatus OnlineStatus { get; set; }
     }
 }

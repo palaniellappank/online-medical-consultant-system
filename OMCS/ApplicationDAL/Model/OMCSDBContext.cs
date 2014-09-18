@@ -50,7 +50,6 @@ namespace OMCS.DAL.Model
         public DbSet<Immunization> Immunizations { get; set; }
         public DbSet<MedicalProfile> MedicalProfiles { get; set; }
         public DbSet<MedicalProfileTemplate> MedicalProfileTemplates { get; set; }
-        public DbSet<MedicalProfileType> MedicalProfileTypes { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<PersonalHealthRecord> PersonalHealthRecords { get; set; }
         public DbSet<SpecialtyField> SpecialtyFields { get; set; }
