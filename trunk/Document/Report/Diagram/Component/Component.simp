@@ -1103,16 +1103,7 @@
             <tagged-values />
             <documentation>
               <text>
-                <content>
-                  <p index="0">
-                    <t />
-                    <style font-name="Arial" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
-                      <text>
-                        <solid-brush color="#FF000000" />
-                      </text>
-                    </style>
-                  </p>
-                </content>
+                <content />
               </text>
             </documentation>
             <cooperation>
@@ -1471,16 +1462,7 @@
             <tagged-values />
             <documentation>
               <text>
-                <content>
-                  <p index="0">
-                    <t />
-                    <style font-name="Arial" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
-                      <text>
-                        <solid-brush color="#FF000000" />
-                      </text>
-                    </style>
-                  </p>
-                </content>
+                <content />
               </text>
             </documentation>
             <cooperation>
@@ -1563,16 +1545,7 @@
             <tagged-values />
             <documentation>
               <text>
-                <content>
-                  <p index="0">
-                    <t />
-                    <style font-name="Arial" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
-                      <text>
-                        <solid-brush color="#FF000000" />
-                      </text>
-                    </style>
-                  </p>
-                </content>
+                <content />
               </text>
             </documentation>
             <cooperation>
@@ -1609,21 +1582,12 @@
             <style class="default" />
             <erd-relation type="Association" multiplicity-from="1" multiplicity-to="0..*" from-attribute="" to-attribute="" />
           </item>
-          <item id="ddip287943959666904052_768270623694988736" cid="REL005" type="erd-relationship" name="has" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 13:58:29">
+          <item id="ddip287943959666904052_768270623694988736" cid="REL005" type="erd-relationship" name="has" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 13:58:29">
             <stereotypes />
             <tagged-values />
             <documentation>
               <text>
-                <content>
-                  <p index="0">
-                    <t />
-                    <style font-name="Arial" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
-                      <text>
-                        <solid-brush color="#FF000000" />
-                      </text>
-                    </style>
-                  </p>
-                </content>
+                <content />
               </text>
             </documentation>
             <cooperation>
@@ -1678,14 +1642,6 @@
           <item id="ddip287943959666904052_807261521530426925" cid="REL036" type="erd-relationship" name="has" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="08/10/2014 16:34:47">
             <stereotypes />
             <tagged-values />
-            <associated-diagrams />
-            <owned-items />
-            <style class="default" />
-            <erd-relation type="Association" multiplicity-from="1" multiplicity-to="0..*" from-attribute="0..1" to-attribute="0..*" />
-          </item>
-          <item id="ddip287943959666904052_599133991229202871" cid="REL001" type="erd-relationship" name="has" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 11:58:34">
-            <stereotypes />
-            <tagged-values />
             <documentation>
               <text>
                 <content>
@@ -1698,6 +1654,23 @@
                     </style>
                   </p>
                 </content>
+              </text>
+            </documentation>
+            <cooperation>
+              <participants />
+              <comments />
+            </cooperation>
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <erd-relation type="Association" multiplicity-from="0..1" multiplicity-to="0..*" from-attribute="" to-attribute="" />
+          </item>
+          <item id="ddip287943959666904052_599133991229202871" cid="REL001" type="erd-relationship" name="has" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 11:58:34">
+            <stereotypes />
+            <tagged-values />
+            <documentation>
+              <text>
+                <content />
               </text>
             </documentation>
             <cooperation>
@@ -1714,16 +1687,7 @@
             <tagged-values />
             <documentation>
               <text>
-                <content>
-                  <p index="0">
-                    <t />
-                    <style font-name="Arial" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
-                      <text>
-                        <solid-brush color="#FF000000" />
-                      </text>
-                    </style>
-                  </p>
-                </content>
+                <content />
               </text>
             </documentation>
             <cooperation>
@@ -1735,22 +1699,14 @@
             <style class="Su Style" />
             <comment>A Treatment History can belong to a medical profile or not. If not, it's called "Khám bệnh tự do"</comment>
           </item>
-          <item id="di989462682161356345" cid="CN001" type="comment-connector" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 12:05:00">
+          <item id="di989462682161356345" cid="CN001" type="comment-connector" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 12:05:00">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip287943959666904052_405664416481463593" cid="REL002" type="erd-relationship" name="involves" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 13:42:18">
-            <stereotypes />
-            <tagged-values />
-            <associated-diagrams />
-            <owned-items />
-            <style class="default" />
-            <erd-relation type="Association" multiplicity-from="1" multiplicity-to="0..1" from-attribute="aba626b90f0cd41688876a0054a8b30b0697" to-attribute="" />
-          </item>
-          <item id="ddip287943959666904052_787137436825228384" cid="REL003" type="erd-relationship" name="involves" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 13:42:22">
+          <item id="ddip287943959666904052_405664416481463593" cid="REL002" type="erd-relationship" name="involves" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 13:42:18">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -1758,21 +1714,20 @@
             <style class="default" />
             <erd-relation type="Association" multiplicity-from="1" multiplicity-to="0..1" from-attribute="aba626b90f0cd41688876a0054a8b30b0697" to-attribute="" />
           </item>
-          <item id="ddip287943959666904052_618767772825014588" cid="ENT002" type="erd-entity" name="ConversationDetail" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 13:51:15">
+          <item id="ddip287943959666904052_787137436825228384" cid="REL003" type="erd-relationship" name="involves" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 13:42:22">
+            <stereotypes />
+            <tagged-values />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <erd-relation type="Association" multiplicity-from="1" multiplicity-to="0..1" from-attribute="aba626b90f0cd41688876a0054a8b30b0697" to-attribute="" />
+          </item>
+          <item id="ddip287943959666904052_618767772825014588" cid="ENT002" type="erd-entity" name="ConversationDetail" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 13:51:15">
             <stereotypes />
             <tagged-values />
             <documentation>
               <text>
-                <content>
-                  <p index="0">
-                    <t />
-                    <style font-name="Arial" font-size="12" font-bold="false" font-italic="false" font-underline="false" font-strikeout="false">
-                      <text>
-                        <solid-brush color="#FF000000" />
-                      </text>
-                    </style>
-                  </p>
-                </content>
+                <content />
               </text>
             </documentation>
             <cooperation>
@@ -1788,7 +1743,7 @@
               <attribute uid="ad7ed9bceb5e6459d81fe4422d36c420a698" name="Attachment" type="string" type-size="" foreign-key="false" primary-key="false" nullable="true" description="" default-value="" />
             </attributes>
           </item>
-          <item id="ddip287943959666904052_263464439491743942" cid="REL004" type="erd-relationship" name="has" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 13:51:49">
+          <item id="ddip287943959666904052_263464439491743942" cid="REL004" type="erd-relationship" name="has" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 13:51:49">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -1804,7 +1759,7 @@
             <style background-type="solid" background-color="#FFFFFFFF" background-color2="#FFFFFFFF" border-color="#FF000000" border-width="2" shadow-type="smooth" shadow-offset="-2,-2" shadow-size="6,6" shadow-visible="false" shadow-color="#50000000" shadow-radius="6" gloss-effect="false" threed-gloss-effect="false" wrap-name-text="true" wrap-other-text="true" text-wrapping-threshold="0" padding="0" name-color="#FF000000" name-font="Calibri;14.25;B" name-horizontal-alignment="center" name-vertical-alignment="center" part-header-color="#FF1E1E1E" part-header-font="Microsoft Sans Serif;9;I" part-header-horizontal-alignment="center" part-header-vertical-alignment="center" text-color="#FF000000" text-font="Calibri;14.25;B" text-horizontal-alignment="left" text-vertical-alignment="center" tagged-value-color="#FF1E1E1E" tagged-value-font="Microsoft Sans Serif;9;I" tagged-value-horizontal-alignment="center" tagged-value-vertical-alignment="center" stereotype-color="#FF1E1E1E" stereotype-font="Calibri;14.25;I" stereotype-horizontal-alignment="center" stereotype-vertical-alignment="center" />
             <erd-relation type="Association" multiplicity-from="1" multiplicity-to="0..1" from-attribute="1" to-attribute="0..*" />
           </item>
-          <item id="ddip287943959666904052_546029670382907387" cid="REL007" type="erd-relationship" name="has conversa tion to" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 13:59:42">
+          <item id="ddip287943959666904052_546029670382907387" cid="REL007" type="erd-relationship" name="has conversa tion to" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 13:59:42">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -1812,7 +1767,7 @@
             <style class="default" />
             <erd-relation type="Association" multiplicity-from="1" multiplicity-to="0..1" from-attribute="ad7ed9bceb5e6459d81fe4422d36c420a698" to-attribute="" />
           </item>
-          <item id="ddip287943959666904052_752026088273756898" cid="REL008" type="erd-relationship" name="has" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 14:03:39">
+          <item id="ddip287943959666904052_752026088273756898" cid="REL008" type="erd-relationship" name="has" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/18/2014 14:03:39">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
