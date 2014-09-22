@@ -112,7 +112,7 @@
 </XPD:OBJ>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:ATTR name="#OwnedElements" type="integer">34</XPD:ATTR>
+<XPD:ATTR name="#OwnedElements" type="integer">38</XPD:ATTR>
 <XPD:OBJ name="OwnedElements[0]" type="UMLActor" guid="of8fsd2TA0+8ulTmHUXvfwAA">
 <XPD:ATTR name="Name" type="string">Doctor</XPD:ATTR>
 <XPD:REF name="Namespace">8kTC6l8kCkCAjbn9bMDapgAA</XPD:REF>
@@ -125,10 +125,10 @@
 <XPD:REF name="Instances[1]">t/KjjnEmLEmyJy69yR/S8gAA</XPD:REF>
 <XPD:REF name="Instances[2]">WZ0AtqmZi0+RKu7hWzTTxAAA</XPD:REF>
 <XPD:REF name="Instances[3]">FFywLkE6wEu2E19tQgADFAAA</XPD:REF>
-<XPD:REF name="Instances[4]">VM3/2P+JVUyYnR019MqsNQAA</XPD:REF>
-<XPD:REF name="Instances[5]">HMVHLB7RlUauP2iDsNtv7QAA</XPD:REF>
-<XPD:REF name="Instances[6]">RUBZU+k1Yke8DqIifMWKlgAA</XPD:REF>
-<XPD:REF name="Instances[7]">wer1zpnOU0SCI7Pzw51s7AAA</XPD:REF>
+<XPD:REF name="Instances[4]">HMVHLB7RlUauP2iDsNtv7QAA</XPD:REF>
+<XPD:REF name="Instances[5]">RUBZU+k1Yke8DqIifMWKlgAA</XPD:REF>
+<XPD:REF name="Instances[6]">wer1zpnOU0SCI7Pzw51s7AAA</XPD:REF>
+<XPD:REF name="Instances[7]">VM3/2P+JVUyYnR019MqsNQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[1]" type="UMLClass" guid="hJ7/7mQNhE6oJjUjpuhOoAAA">
 <XPD:ATTR name="Name" type="string">DoctorController</XPD:ATTR>
@@ -237,6 +237,8 @@
 <XPD:OBJ name="OwnedElements[18]" type="UMLClass" guid="e1wPbj04kESik5kgzUUuAAAA">
 <XPD:ATTR name="Name" type="string">DoctorMedicalProfileController</XPD:ATTR>
 <XPD:REF name="Namespace">8kTC6l8kCkCAjbn9bMDapgAA</XPD:REF>
+<XPD:ATTR name="#Instances" type="integer">1</XPD:ATTR>
+<XPD:REF name="Instances[0]">As4/KytRwkOFImK9HvFp0wAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[19]" type="UMLClass" guid="R2YfnfpLFUm3Y5OUkBgS+QAA">
 <XPD:ATTR name="Name" type="string">UserConversationController</XPD:ATTR>
@@ -260,8 +262,6 @@
 <XPD:OBJ name="OwnedElements[22]" type="UMLClass" guid="2iaqjmbRukaHBmVutrUmmQAA">
 <XPD:ATTR name="Name" type="string">MedicalProfileDataContext</XPD:ATTR>
 <XPD:REF name="Namespace">8kTC6l8kCkCAjbn9bMDapgAA</XPD:REF>
-<XPD:ATTR name="#Instances" type="integer">1</XPD:ATTR>
-<XPD:REF name="Instances[0]">zmLsfY7YeUuil3xK+jMlfQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[23]" type="UMLClass" guid="amV236gvKEySC2o2txkDoAAA">
 <XPD:ATTR name="Name" type="string">DoctorMedicalProfileController</XPD:ATTR>
@@ -274,8 +274,6 @@
 <XPD:OBJ name="OwnedElements[25]" type="UMLClass" guid="zFBVKFcok0iGtz48um4YzgAA">
 <XPD:ATTR name="Name" type="string">DoctorMedicalProfileController</XPD:ATTR>
 <XPD:REF name="Namespace">8kTC6l8kCkCAjbn9bMDapgAA</XPD:REF>
-<XPD:ATTR name="#Instances" type="integer">1</XPD:ATTR>
-<XPD:REF name="Instances[0]">As4/KytRwkOFImK9HvFp0wAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[26]" type="UMLClass" guid="41S8zNFmJ0+vk45X1kFANwAA">
 <XPD:ATTR name="Name" type="string">UserConversationController</XPD:ATTR>
@@ -298,8 +296,6 @@
 <XPD:OBJ name="OwnedElements[29]" type="UMLClass" guid="Vn1ulJHGUEykuuMiLUBNWwAA">
 <XPD:ATTR name="Name" type="string">ConversationDataContext</XPD:ATTR>
 <XPD:REF name="Namespace">8kTC6l8kCkCAjbn9bMDapgAA</XPD:REF>
-<XPD:ATTR name="#Instances" type="integer">1</XPD:ATTR>
-<XPD:REF name="Instances[0]">kLgKxWKdD0aEOUNo6MbF7gAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[30]" type="UMLClass" guid="P9OJR6BTakWJXQuCmEaz/QAA">
 <XPD:ATTR name="Name" type="string">ChatHub</XPD:ATTR>
@@ -316,8 +312,6 @@
 <XPD:OBJ name="OwnedElements[32]" type="UMLClass" guid="TSJJGZ6tFUqPrNplZpS9DQAA">
 <XPD:ATTR name="Name" type="string">PatientDataContext</XPD:ATTR>
 <XPD:REF name="Namespace">8kTC6l8kCkCAjbn9bMDapgAA</XPD:REF>
-<XPD:ATTR name="#Instances" type="integer">1</XPD:ATTR>
-<XPD:REF name="Instances[0]">loTvr837tU6dPKhQ8RF/KAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[33]" type="UMLActor" guid="AXygxJ8730WMKWS+bLRc8wAA">
 <XPD:ATTR name="Name" type="string">Admin</XPD:ATTR>
@@ -328,6 +322,28 @@
 <XPD:REF name="Views[2]">ouznU3cH7EacCzMt+OrR4wAA</XPD:REF>
 <XPD:ATTR name="#Instances" type="integer">1</XPD:ATTR>
 <XPD:REF name="Instances[0]">n7P0xlYm10WmBPPpdGoVDwAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedElements[34]" type="UMLClass" guid="PflLzo+3fkGT2jYmeh45SgAA">
+<XPD:ATTR name="Name" type="string">OMCSDBContext</XPD:ATTR>
+<XPD:REF name="Namespace">8kTC6l8kCkCAjbn9bMDapgAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedElements[35]" type="UMLClass" guid="jrWB/yoQVUW6Jl62gA9WeQAA">
+<XPD:ATTR name="Name" type="string">Conversation</XPD:ATTR>
+<XPD:REF name="Namespace">8kTC6l8kCkCAjbn9bMDapgAA</XPD:REF>
+<XPD:ATTR name="#Instances" type="integer">1</XPD:ATTR>
+<XPD:REF name="Instances[0]">kLgKxWKdD0aEOUNo6MbF7gAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedElements[36]" type="UMLClass" guid="1ltFoI9jZkiRUSxpqGFK4AAA">
+<XPD:ATTR name="Name" type="string">MedicalProfile</XPD:ATTR>
+<XPD:REF name="Namespace">8kTC6l8kCkCAjbn9bMDapgAA</XPD:REF>
+<XPD:ATTR name="#Instances" type="integer">1</XPD:ATTR>
+<XPD:REF name="Instances[0]">zmLsfY7YeUuil3xK+jMlfQAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedElements[37]" type="UMLClass" guid="Z3O1jQIwTEKqQXVNhWWc5AAA">
+<XPD:ATTR name="Name" type="string">Patient</XPD:ATTR>
+<XPD:REF name="Namespace">8kTC6l8kCkCAjbn9bMDapgAA</XPD:REF>
+<XPD:ATTR name="#Instances" type="integer">1</XPD:ATTR>
+<XPD:REF name="Instances[0]">loTvr837tU6dPKhQ8RF/KAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:ATTR name="#OwnedCollaborations" type="integer">1</XPD:ATTR>
 <XPD:OBJ name="OwnedCollaborations[0]" type="UMLCollaboration" guid="1Py/VLPYUU+zbIkBgIOcVwAA">
@@ -7032,7 +7048,6 @@
 <XPD:OBJ name="OwnedViews[0]" type="UMLFrameView" guid="aREr/jncQEKlSz4b8/xTpAAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">4</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">4</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">1221</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">301</XPD:ATTR>
@@ -7120,15 +7135,15 @@
 <XPD:OBJ name="OwnedViews[4]" type="UMLSeqObjectView" guid="LTl9dsbsoUaKWeP0jPH22wAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">904</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">920</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">28</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">185</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">137</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">249</XPD:ATTR>
 <XPD:REF name="Model">zmLsfY7YeUuil3xK+jMlfQAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="Jwy9jWWAIEm4Fpf+i1Ve3gAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="tvCipURgeUSx/cVgDS13RgAA">
 <XPD:ATTR name="FontStyle" type="integer">4</XPD:ATTR>
-<XPD:ATTR name="Text" type="string"> : MedicalProfileDataContext</XPD:ATTR>
+<XPD:ATTR name="Text" type="string"> : MedicalProfile</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="yBlSZCAOB0y6cqIEMVHqAQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -7304,7 +7319,7 @@
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">813,180;989,180</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">813,180;981,180</XPD:ATTR>
 <XPD:REF name="Model">gSiJioHyE0+r2avV+h7p5QAA</XPD:REF>
 <XPD:REF name="Head">bSUZDGiBYUqYQvMOvjQJCQAA</XPD:REF>
 <XPD:REF name="Tail">aKOso3Hn0UaeZEhVgX9NZwAA</XPD:REF>
@@ -7331,7 +7346,7 @@
 <XPD:REF name="HostEdge">DFAKpDIm6kqj3OiCsbvYCgAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Activation" type="UMLActivationView" guid="IJnRvDta+USWbBmpOzPDhwAA">
-<XPD:ATTR name="Left" type="integer">989</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">981</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">180</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">53</XPD:ATTR>
@@ -7341,7 +7356,7 @@
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">1002,187;1176,187</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">994,187;1176,187</XPD:ATTR>
 <XPD:REF name="Model">YL26rPiUHkOgviNrM+pzlgAA</XPD:REF>
 <XPD:REF name="Head">/Z3IuqmwnEusmvyNRtizrAAA</XPD:REF>
 <XPD:REF name="Tail">bSUZDGiBYUqYQvMOvjQJCQAA</XPD:REF>
@@ -7378,7 +7393,7 @@
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">1176,203;1002,203</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">1176,203;994,203</XPD:ATTR>
 <XPD:REF name="Model">ImvfBybvsE+2r6m+i6S/ogAA</XPD:REF>
 <XPD:REF name="Head">bSUZDGiBYUqYQvMOvjQJCQAA</XPD:REF>
 <XPD:REF name="Tail">/Z3IuqmwnEusmvyNRtizrAAA</XPD:REF>
@@ -7406,7 +7421,7 @@
 </XPD:OBJ>
 <XPD:OBJ name="Activation" type="UMLActivationView" guid="r0bv9M7tOUiximpwDr/CCwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">989</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">981</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">203</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
@@ -7417,7 +7432,7 @@
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="FontSize" type="integer">12</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">989,210;813,210</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">981,210;813,210</XPD:ATTR>
 <XPD:REF name="Model">FxWLUjwyx0GkXDMO8gqJZwAA</XPD:REF>
 <XPD:REF name="Head">aKOso3Hn0UaeZEhVgX9NZwAA</XPD:REF>
 <XPD:REF name="Tail">bSUZDGiBYUqYQvMOvjQJCQAA</XPD:REF>
@@ -7929,7 +7944,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="O0J8KBXBI0KdgPzcTfACdAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="0zRVUuS6REy42w6PNKBqVAAA">
 <XPD:ATTR name="FontStyle" type="integer">4</XPD:ATTR>
-<XPD:ATTR name="Text" type="string"> : ConversationDataContext</XPD:ATTR>
+<XPD:ATTR name="Text" type="string"> : Conversation</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="dDvElpL/mEmKdb984GkkEAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -9985,7 +10000,7 @@
 <XPD:REF name="DiagramOwner">vLTdRDeAXE2k87OpckIHnQAA</XPD:REF>
 <XPD:OBJ name="DiagramView" type="UMLSequenceDiagramView" guid="eljWK5NUQEG3vahGk3kqBAAA">
 <XPD:REF name="Diagram">ql9LVAukBUOaF/SvOv36rQAA</XPD:REF>
-<XPD:ATTR name="#OwnedViews" type="integer">25</XPD:ATTR>
+<XPD:ATTR name="#OwnedViews" type="integer">26</XPD:ATTR>
 <XPD:OBJ name="OwnedViews[0]" type="UMLFrameView" guid="/spCDpYJAUCNHMGlhpvsEAAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
@@ -10152,7 +10167,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="g6PmvsZFOU2hDOHiuSRT4AAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="j7F6WXwhskuufkwI2B2G7AAA">
 <XPD:ATTR name="FontStyle" type="integer">4</XPD:ATTR>
-<XPD:ATTR name="Text" type="string"> : PatientDataContext</XPD:ATTR>
+<XPD:ATTR name="Text" type="string"> : Patient</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="kQS5IJNc3k2tyLJRwzFsgQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -10825,6 +10840,16 @@
 <XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
+<XPD:OBJ name="OwnedViews[25]" type="UMLTextView" guid="yIdFoig2HECn2YwPzqpBjgAA">
+<XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
+<XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">60</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">484</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">32</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">23</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Text
+</XPD:ATTR>
+</XPD:OBJ>
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:ATTR name="#ParticipatingStimuli" type="integer">17</XPD:ATTR>
@@ -11123,7 +11148,7 @@
 <XPD:REF name="CollaborationInstanceSet">IewQkU6Lt0O+JXeNpxgx2gAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="ParticipatingInstances[3]" type="UMLObject" guid="As4/KytRwkOFImK9HvFp0wAA">
-<XPD:REF name="Classifier">zFBVKFcok0iGtz48um4YzgAA</XPD:REF>
+<XPD:REF name="Classifier">e1wPbj04kESik5kgzUUuAAAA</XPD:REF>
 <XPD:REF name="CollaborationInstanceSet">IewQkU6Lt0O+JXeNpxgx2gAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">2</XPD:ATTR>
 <XPD:REF name="Views[0]">7jbfTZ/8H06XIEUkzbqUqQAA</XPD:REF>
@@ -11149,7 +11174,7 @@
 <XPD:REF name="ReceivingStimuli[1]">FxWLUjwyx0GkXDMO8gqJZwAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="ParticipatingInstances[5]" type="UMLObject" guid="zmLsfY7YeUuil3xK+jMlfQAA">
-<XPD:REF name="Classifier">2iaqjmbRukaHBmVutrUmmQAA</XPD:REF>
+<XPD:REF name="Classifier">1ltFoI9jZkiRUSxpqGFK4AAA</XPD:REF>
 <XPD:REF name="CollaborationInstanceSet">IewQkU6Lt0O+JXeNpxgx2gAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">2</XPD:ATTR>
 <XPD:REF name="Views[0]">LTl9dsbsoUaKWeP0jPH22wAA</XPD:REF>
@@ -11259,7 +11284,7 @@
 <XPD:REF name="ReceivingStimuli[1]">lmAwlZ1cpEabh1YcrIiHTAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="ParticipatingInstances[13]" type="UMLObject" guid="kLgKxWKdD0aEOUNo6MbF7gAA">
-<XPD:REF name="Classifier">Vn1ulJHGUEykuuMiLUBNWwAA</XPD:REF>
+<XPD:REF name="Classifier">jrWB/yoQVUW6Jl62gA9WeQAA</XPD:REF>
 <XPD:REF name="CollaborationInstanceSet">IewQkU6Lt0O+JXeNpxgx2gAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">2</XPD:ATTR>
 <XPD:REF name="Views[0]">vEScOlj0MkGG2MiXebOYtQAA</XPD:REF>
@@ -11427,7 +11452,7 @@
 <XPD:REF name="ReceivingStimuli[2]">b+nwaY++0EKt5ahW0BSpLgAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="ParticipatingInstances[25]" type="UMLObject" guid="loTvr837tU6dPKhQ8RF/KAAA">
-<XPD:REF name="Classifier">TSJJGZ6tFUqPrNplZpS9DQAA</XPD:REF>
+<XPD:REF name="Classifier">Z3O1jQIwTEKqQXVNhWWc5AAA</XPD:REF>
 <XPD:REF name="CollaborationInstanceSet">IewQkU6Lt0O+JXeNpxgx2gAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">2</XPD:ATTR>
 <XPD:REF name="Views[0]">nXGLpQYDPUqsr8dXlJkhoAAA</XPD:REF>
@@ -11512,7 +11537,7 @@
 </XPD:OBJ>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:ATTR name="#OwnedElements" type="integer">17</XPD:ATTR>
+<XPD:ATTR name="#OwnedElements" type="integer">22</XPD:ATTR>
 <XPD:OBJ name="OwnedElements[0]" type="UMLClass" guid="ksyNB2G3e0ayyxEp4OYtOQAA">
 <XPD:ATTR name="Name" type="string">UserConversationController</XPD:ATTR>
 <XPD:REF name="Namespace">q/60jq+Nd0SYa+/++BZaPwAA</XPD:REF>
@@ -11548,8 +11573,6 @@
 <XPD:OBJ name="OwnedElements[6]" type="UMLClass" guid="HCjsyCqjvkyzmSs8fAMK4AAA">
 <XPD:ATTR name="Name" type="string">ConversationDataContext</XPD:ATTR>
 <XPD:REF name="Namespace">q/60jq+Nd0SYa+/++BZaPwAA</XPD:REF>
-<XPD:ATTR name="#Instances" type="integer">1</XPD:ATTR>
-<XPD:REF name="Instances[0]">gBeuGhdhjU+fZbSQl1KS3QAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[7]" type="UMLClass" guid="cDF/zLjeO0Cm//75Yqlk+QAA">
 <XPD:ATTR name="Name" type="string">AdminTemplateController</XPD:ATTR>
@@ -11572,9 +11595,6 @@
 <XPD:OBJ name="OwnedElements[10]" type="UMLClass" guid="Y9hd2IMQtEy1qt5aQhyHWQAA">
 <XPD:ATTR name="Name" type="string">MedicalProfileDataContext</XPD:ATTR>
 <XPD:REF name="Namespace">q/60jq+Nd0SYa+/++BZaPwAA</XPD:REF>
-<XPD:ATTR name="#Instances" type="integer">2</XPD:ATTR>
-<XPD:REF name="Instances[0]">MRXyN8h9gEm5fvZkwMjkaAAA</XPD:REF>
-<XPD:REF name="Instances[1]">HBXGAkpq0kyl6tzD9iDyqwAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[11]" type="UMLClass" guid="wg1fRbQtaE+b9qCvyM/KLgAA">
 <XPD:ATTR name="Name" type="string">DoctorMedicalProfileController</XPD:ATTR>
@@ -11607,8 +11627,34 @@
 <XPD:OBJ name="OwnedElements[16]" type="UMLClass" guid="9m5QNc5y4U6JeddnqQH9uAAA">
 <XPD:ATTR name="Name" type="string">CommentDataContext</XPD:ATTR>
 <XPD:REF name="Namespace">q/60jq+Nd0SYa+/++BZaPwAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedElements[17]" type="UMLClass" guid="ty1iF+8MQkKGAFbA0845iQAA">
+<XPD:ATTR name="Name" type="string">OMCSDBContext</XPD:ATTR>
+<XPD:REF name="Namespace">q/60jq+Nd0SYa+/++BZaPwAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedElements[18]" type="UMLClass" guid="aXIIj8DwREKNhF6xs/Q2hgAA">
+<XPD:ATTR name="Name" type="string">Comment</XPD:ATTR>
+<XPD:REF name="Namespace">q/60jq+Nd0SYa+/++BZaPwAA</XPD:REF>
 <XPD:ATTR name="#Instances" type="integer">1</XPD:ATTR>
 <XPD:REF name="Instances[0]">A92JTbMzKEOnv1RLXcDmWwAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedElements[19]" type="UMLClass" guid="+3vo4E/1EU2opfWhG2DZggAA">
+<XPD:ATTR name="Name" type="string">MedicalProfile</XPD:ATTR>
+<XPD:REF name="Namespace">q/60jq+Nd0SYa+/++BZaPwAA</XPD:REF>
+<XPD:ATTR name="#Instances" type="integer">1</XPD:ATTR>
+<XPD:REF name="Instances[0]">HBXGAkpq0kyl6tzD9iDyqwAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedElements[20]" type="UMLClass" guid="OWXpHS9ocUK0GX5mx9CGFAAA">
+<XPD:ATTR name="Name" type="string">MedicalProfileTemplate</XPD:ATTR>
+<XPD:REF name="Namespace">q/60jq+Nd0SYa+/++BZaPwAA</XPD:REF>
+<XPD:ATTR name="#Instances" type="integer">1</XPD:ATTR>
+<XPD:REF name="Instances[0]">MRXyN8h9gEm5fvZkwMjkaAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedElements[21]" type="UMLClass" guid="lIJxQrxZo0Sbi+DA4/r8EwAA">
+<XPD:ATTR name="Name" type="string">Conversation</XPD:ATTR>
+<XPD:REF name="Namespace">q/60jq+Nd0SYa+/++BZaPwAA</XPD:REF>
+<XPD:ATTR name="#Instances" type="integer">1</XPD:ATTR>
+<XPD:REF name="Instances[0]">gBeuGhdhjU+fZbSQl1KS3QAA</XPD:REF>
 </XPD:OBJ>
 <XPD:ATTR name="#OwnedCollaborationInstanceSets" type="integer">4</XPD:ATTR>
 <XPD:OBJ name="OwnedCollaborationInstanceSets[0]" type="UMLCollaborationInstanceSet" guid="nmiVqY4vIEmrjuXoCUNVJwAA">
@@ -11753,7 +11799,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="Lq2DX7MiQE63HFV0BNP9EgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="94yG0vUTik+yMdIW/09mKQAA">
 <XPD:ATTR name="FontStyle" type="integer">4</XPD:ATTR>
-<XPD:ATTR name="Text" type="string"> : ConversationDataContext</XPD:ATTR>
+<XPD:ATTR name="Text" type="string"> : Conversation</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="kUtaApYZBkeJcXyijr6y/gAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -13533,7 +13579,7 @@
 <XPD:REF name="CollaborationInstanceSet">nmiVqY4vIEmrjuXoCUNVJwAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="ParticipatingInstances[8]" type="UMLObject" guid="gBeuGhdhjU+fZbSQl1KS3QAA">
-<XPD:REF name="Classifier">HCjsyCqjvkyzmSs8fAMK4AAA</XPD:REF>
+<XPD:REF name="Classifier">lIJxQrxZo0Sbi+DA4/r8EwAA</XPD:REF>
 <XPD:REF name="CollaborationInstanceSet">nmiVqY4vIEmrjuXoCUNVJwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">2</XPD:ATTR>
 <XPD:REF name="Views[0]">vsh23dQkuU+2pGCTxalZUgAA</XPD:REF>
@@ -13869,7 +13915,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="JO6Volu9rkuP0dj0arIuCgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="uGJFFWlkr0eeaYkO/srF+gAA">
 <XPD:ATTR name="FontStyle" type="integer">4</XPD:ATTR>
-<XPD:ATTR name="Text" type="string"> : MedicalProfileDataContext</XPD:ATTR>
+<XPD:ATTR name="Text" type="string"> : MedicalProfileTemplate</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="bKEaWe6PuEaAnkaU4jgvZAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -15295,7 +15341,7 @@
 <XPD:REF name="ReceivingStimuli[1]">y0pWak/WH0uRii6ITI7tbQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="ParticipatingInstances[7]" type="UMLObject" guid="MRXyN8h9gEm5fvZkwMjkaAAA">
-<XPD:REF name="Classifier">Y9hd2IMQtEy1qt5aQhyHWQAA</XPD:REF>
+<XPD:REF name="Classifier">OWXpHS9ocUK0GX5mx9CGFAAA</XPD:REF>
 <XPD:REF name="CollaborationInstanceSet">auG9K+jBH0iBWhlccRuhDQAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">2</XPD:ATTR>
 <XPD:REF name="Views[0]">/pMdshxoeE2J2YUd0nXCUAAA</XPD:REF>
@@ -15480,7 +15526,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="awVw2XndnkiTc9CMVrm3hQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="RiMyOH960kWx3WIRi6aLsAAA">
 <XPD:ATTR name="FontStyle" type="integer">4</XPD:ATTR>
-<XPD:ATTR name="Text" type="string"> : MedicalProfileDataContext</XPD:ATTR>
+<XPD:ATTR name="Text" type="string"> : MedicalProfile</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="8ckhV4K4HkK3GQc7o6ODaQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -16848,7 +16894,7 @@
 <XPD:REF name="ReceivingStimuli[3]">ivq0uFHmiUm+GW+88cUB5wAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="ParticipatingInstances[5]" type="UMLObject" guid="HBXGAkpq0kyl6tzD9iDyqwAA">
-<XPD:REF name="Classifier">Y9hd2IMQtEy1qt5aQhyHWQAA</XPD:REF>
+<XPD:REF name="Classifier">+3vo4E/1EU2opfWhG2DZggAA</XPD:REF>
 <XPD:REF name="CollaborationInstanceSet">1J/9ZWjJZ0qIiQcoFVnMawAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">2</XPD:ATTR>
 <XPD:REF name="Views[0]">U49a6p/KPESuj/V4piLs1wAA</XPD:REF>
@@ -16991,7 +17037,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="w+Sawx0YN0edBwfSwo/mngAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="9Dp1fZ7MeUSOJDHn82my0AAA">
 <XPD:ATTR name="FontStyle" type="integer">4</XPD:ATTR>
-<XPD:ATTR name="Text" type="string"> : CommentDataContext</XPD:ATTR>
+<XPD:ATTR name="Text" type="string"> : Comment</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="gRJQIlFitUqavOIt/vxoQwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -17730,7 +17776,7 @@
 <XPD:REF name="CollaborationInstanceSet">e/96cuVrlk6E13RCPz1wXAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="ParticipatingInstances[4]" type="UMLObject" guid="A92JTbMzKEOnv1RLXcDmWwAA">
-<XPD:REF name="Classifier">9m5QNc5y4U6JeddnqQH9uAAA</XPD:REF>
+<XPD:REF name="Classifier">aXIIj8DwREKNhF6xs/Q2hgAA</XPD:REF>
 <XPD:REF name="CollaborationInstanceSet">e/96cuVrlk6E13RCPz1wXAAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">2</XPD:ATTR>
 <XPD:REF name="Views[0]">Tqh1TR35j06oskv/uaZC+QAA</XPD:REF>
