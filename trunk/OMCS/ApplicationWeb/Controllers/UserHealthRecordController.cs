@@ -18,8 +18,8 @@ namespace OMCS.Web.Controllers
         private OMCSDBContext db = new OMCSDBContext();
         public ActionResult Index()
         {
-            var personalHealthRecord = _db.PersonalHealthRecords.Where(pa => pa.PatientId == User.UserId).SingleOrDefault();
-            return View(personalHealthRecord);
+            var patient = _db.Patients.Where(x => x.UserId == User.UserId).FirstOrDefault();
+            return View(patient.PersonalHealthRecord);
         }
 
         public JObject Save(string name, string value, int pk)

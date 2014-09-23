@@ -66,6 +66,12 @@ namespace OMCS.Web.Controllers
             return PartialView("_Edit", treatmentHistory);
         }
 
+        public ActionResult View(int id = 0)
+        {
+            TreatmentHistory treatmentHistory = _db.TreatmentHistories.Find(id);
+            return PartialView("_View", treatmentHistory);
+        }
+
         [HttpPost]
         public JObject Edit(TreatmentHistory treatmentHistory)
         {

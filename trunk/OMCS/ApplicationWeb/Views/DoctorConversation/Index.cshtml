@@ -196,16 +196,14 @@
 <input id="txtFromEmail" class="textBox" value="@User.Email" type="hidden"/>
 <input id="txtToEmail" class="textBox" value="" type="hidden" />
 
-<div class="modal fade in" id="modal-popup-img" aria-hidden="false">
+<div class="modal fade in" id="modal-popup-img-use-as" aria-hidden="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
-                <div class="modal-content">
-                    <img src="#" class="img-responsive">
-                </div>
+                <img src="#" class="img-responsive" style="max-height: 400px;display: block;margin-left: auto;margin-right: auto;">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
@@ -233,6 +231,22 @@
 
 <div class="modal fade in" id="view-model">
     <div id="view-container"></div>
+</div>
+
+<div class="modal fade in" id="modal-popup-img" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <img src="#" class="img-responsive" style="max-height: 400px;display: block;margin-left: auto;margin-right: auto;">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script id="doctor-list-template" type="text/template">
@@ -422,10 +436,20 @@
             "click #btnViewImmunization": "viewImmunization",
             "click #saveTreatmentBtn": "saveTreatment",
             "click #clearTreatmentBtn": "clearTreatment",
+            "click .viewTreatment": "viewTreatment",
             "click .editTreatment": "editTreament",
             "click .viewConversation": "viewConversation",
             "click .btn-prev": "goToPrevious",
             "click .btn-next": "goToNext"
+        },
+        viewTreatment: function (e) {
+            e.preventDefault();
+            var treatmentId = $(e.target).parents("[data-treatmentid]").attr("data-treatmentid");
+            var url = "/TreatmentHistory/View";
+            var that = this;
+            $.get(url + "?id=" + treatmentId, function (data) {
+                initModalWithData(data);
+            });
         },
         editTreament: function (e) {
             e.preventDefault();
@@ -570,7 +594,7 @@
             $(".webcam-content").css("display", "none");
         },
         useAsFilmDocument: function (e) {
-            var imagePath = $("#modal-popup-img").find("img").attr("src");
+            var imagePath = $("#modal-popup-img-use-as").find("img").attr("src");
             var url = baseUrl + "FilmDocument/CreateFromAttachment?imagePath=" + imagePath;
             $.get(url, function (data) {
                 $('#modal-popup').html(data);
@@ -616,8 +640,8 @@
         },
         showFullPicture: function (e) {
             var target = $(e.currentTarget);
-            $("#modal-popup-img").find("img").attr("src", target.attr("src"));
-            $("#modal-popup-img").modal("show");
+            $("#modal-popup-img-use-as").find("img").attr("src", target.attr("src"));
+            $("#modal-popup-img-use-as").modal("show");
         },
         requestWebcam: function () {
             var toEmail = $('#txtToEmail').val();

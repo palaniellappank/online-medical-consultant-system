@@ -12,6 +12,8 @@ namespace OMCS.DAL.Model
     [Table("Patient")]
     public class Patient : User
     {
+        public virtual PersonalHealthRecord PersonalHealthRecord { get; set; }
+
         [Display(Name = "Dân tộc")]
         public string Ethnicity { get; set; }
 
