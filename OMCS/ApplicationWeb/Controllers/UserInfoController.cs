@@ -19,13 +19,6 @@ namespace OMCS.Web.Controllers
     [CustomAuthorize(Roles = "User")]
     public class UserInfoController : BaseController
     {
-        //PatientBusiness userBusiness;
-
-        //public UserInfoController()
-        //{
-        //    userBusiness = new PatientBusiness(_db);
-        //}
-
         public ActionResult Index()
         {
             var patient = _db.Patients.Where(pa => pa.UserId == User.UserId).SingleOrDefault();
