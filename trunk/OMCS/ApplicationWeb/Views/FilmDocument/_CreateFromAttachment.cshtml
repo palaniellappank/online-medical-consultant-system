@@ -10,32 +10,32 @@
       </div>
       <div class="modal-body">
           <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group col-lg-6">
-                <label class="control-label ">Hồ sơ bệnh án</label>
-                <input name="medicalProfileId"/>
-            </div>
-            <div class="form-group col-lg-6">
-                <label class="control-label">Ngày khám</label>
-                <input name="treatmentHistoryId"/>
-            </div>
-            <input name="imagePath" value="@Model.ImagePath" type="hidden"/>
-            <img src="@Html.GetPictureUrl("Upload")@Model.ImagePath" class="img-responsive"/>
-          </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label for="FilmType" class="control-label">Loại phim</label>
-                    @Html.DropDownList("FilmTypeId", null, new { @class = "form-control" })
+                <div class="form-group col-md-6">
+                    <label class="control-label ">Hồ sơ bệnh án</label>
+                    <input name="medicalProfileId"/>
                 </div>
-                <div class="form-group">
-                    <label for="Description" class="control-label">@Html.DisplayNameFor(model=>model.Description)</label>
-                    <textarea id="Description" name="Description" class="form-control"></textarea>
+                <div class="form-group col-md-6">
+                    <label class="control-label">Ngày khám</label>
+                    <input name="treatmentHistoryId"/>
                 </div>
-                <div class="form-group">
-                    <label for="Conclusion" class="control-label">@Html.DisplayNameFor(model=>model.Conclusion)</label>
-                    <textarea id="Conclusion" name="Conclusion" class="form-control"></textarea>
+                <input name="imagePath" value="@Model.ImagePath" type="hidden"/>
+                <div class="col-md-6">
+                    <img src="@Html.GetPictureUrl("Upload")@Model.ImagePath" class="img-responsive"/>
                 </div>
-            </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="FilmType" class="control-label">Loại phim</label>
+                        @Html.DropDownList("FilmTypeId", null, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label for="Description" class="control-label">@Html.DisplayNameFor(model=>model.Description)</label>
+                        <textarea id="Description" name="Description" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="Conclusion" class="control-label">@Html.DisplayNameFor(model=>model.Conclusion)</label>
+                        <textarea id="Conclusion" name="Conclusion" class="form-control"></textarea>
+                    </div>
+                </div>
         </div>
       </div>
 

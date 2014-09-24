@@ -449,7 +449,8 @@
             var url = "/TreatmentHistory/View";
             var that = this;
             $.get(url + "?id=" + treatmentId, function (data) {
-                initModalWithData(data);
+                $('#modal-popup').html(data);
+                $('#modal-popup').modal('show');
             });
         },
         editTreament: function (e) {
