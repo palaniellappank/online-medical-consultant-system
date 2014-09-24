@@ -33,7 +33,12 @@ namespace OMCS.Web.Controllers
         {
             var treatment = _db.TreatmentHistories.Find(treatmentId);
             User fromUser = treatment.Doctor;
+            
             User toUser = treatment.Patient;
+            if (toUser == null)
+            {
+                toUser = treatment.MedicalProfile.Patient;
+            }
             dynamic fromUserJson = new JObject();
             fromUserJson.ProfilePicture = fromUser.ProfilePicture;
             fromUserJson.FullName = fromUser.FullName;

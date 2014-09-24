@@ -792,7 +792,8 @@ img.slider-img:hover {
     color: #fff;
 }
 
-.medical-profile-overview .doctor-img {
+.medical-profile-overview .doctor-img,
+.view-treatment-history-modal .doctor-img {
     width: 70px;
     height: 70px;
     margin-top: 5px;
