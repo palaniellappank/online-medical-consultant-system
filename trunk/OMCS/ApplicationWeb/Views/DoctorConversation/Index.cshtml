@@ -103,7 +103,7 @@
                                 </fieldset>
                             </a>
                             <div id="collapseTwo" class="collapse">
-                                <form id="newTreatmentForm" action="@Url.Action("Create","TreatmentHistory")" method="post">
+                                <form id="newTreatmentForm" action="@Url.Action("Create", "TreatmentHistory")" method="post">
                                     <div class="form-group" style="margin-top: 20px;">
                                         <label class="control-label">Hồ sơ bệnh án</label>
                                         <input name="medicalProfileId" style="margin-left: 10px">
@@ -124,7 +124,7 @@
                                         <label for="Treatment" class="control-label">Phương pháp điều trị</label>
                                         <textarea id="Treatment" name="Treatment" class="form-control"></textarea>
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label for="Condition">Tình trạng điều trị</label>
                                         <textarea id="Condition" name="Condition" class="form-control"></textarea>
@@ -150,7 +150,7 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="panel panel-primary webcam-content" style="display:none">
+                    <div class="panel panel-primary webcam-content" style="display: none">
                         <div class="panel-body">
                             <video id="webcam" class="video patient cool-background" autoplay="autoplay"
                                 controls="controls" muted="muted" style="width: 100%; height: 100%;">
@@ -158,7 +158,7 @@
                             <canvas id="photo" style="display: none"></canvas>
                         </div>
                         <div class="panel-footer">
-                            <div class="input-group-btn" style="margin-right: 53px;margin-left: auto;display:block">
+                            <div class="input-group-btn" style="margin-right: 53px; margin-left: auto; display: block">
                                 <button class="btn btn-info btn-sm" id="takePhoto" data-toggle="tooltip" data-original-title="Chụp hình ảnh...">
                                     <i class="glyphicon glyphicon-camera" style="font-size: 12px;"></i>
                                 </button>
@@ -203,7 +203,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
-                <img src="#" class="img-responsive" style="max-height: 400px;display: block;margin-left: auto;margin-right: auto;">
+                <img src="#" class="img-responsive" style="max-height: 400px; display: block; margin-left: auto; margin-right: auto;">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
@@ -217,16 +217,16 @@
 </div>
 
 <div class="modal fade in" id="modal-popup-full">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title"></h4>
-      </div>
-      <div class="modal-body">
-      </div>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="modal fade in" id="view-model">
@@ -240,7 +240,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
-                <img src="#" class="img-responsive" style="max-height: 400px;display: block;margin-left: auto;margin-right: auto;">
+                <img src="#" class="img-responsive" style="max-height: 400px; display: block; margin-left: auto; margin-right: auto;">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
@@ -341,7 +341,7 @@
         <span class="text"><b>Ngày phát bệnh:</b> <%= treatmentHistory.onSetDate %></span>
         <span class="text"><b>Chẩn đoán:</b> <%= treatmentHistory.diagnosis %></span>
         <span class="text"><b>Tình trạng điều trị:</b> <%= treatmentHistory.condition %></span>
-                           
+
         <div class="treatment-item-btn-group">
             <ul>
                 <li class="facebook" style="width: 34%;">
@@ -349,7 +349,7 @@
                         <span class="glyphicon glyphicon-search"></span></a>
                 </li>
                 <li class="twitter" style="width: 33%;">
-                    <a class="editTreatment" href="/DoctorMedicalProfile/UpdateMedicalProfile/7?medicalProfileTemplateId=1" target="_blank" data-container="body" data-original-title="Chỉnh sửa" data-toggle="tooltip">
+                    <a class="editTreatment" data-container="body" data-original-title="Chỉnh sửa" data-toggle="tooltip">
                         <span class="glyphicon glyphicon-pencil"></span></a>
                 </li>
                 <li class="facebook" style="width: 34%;">
@@ -357,10 +357,10 @@
                         <span class="glyphicon glyphicon-comment"></span></a>
                 </li>
                 <li class="google-plus" style="width: 33%;">
-                    <a class="deleteTreatment" href="/DoctorMedicalProfile/UpdateMedicalProfile/7?medicalProfileTemplateId=1" target="_blank" data-container="body" data-original-title="Xóa" data-toggle="tooltip">
+                    <a class="deleteTreatment" data-container="body" data-original-title="Xóa" data-toggle="tooltip">
                         <span class="glyphicon glyphicon-remove"></span></a>
                 </li>
-                                            
+
             </ul>
         </div>
     </li>
@@ -369,7 +369,7 @@
 
 <script id="user-detail-heading-template" type="text/html">
     <div class="row">
-        <input type="hidden" value="<%= patientDetail.patientId %>" id="patientId"/>
+        <input type="hidden" value="<%= patientDetail.patientId %>" id="patientId" />
         <div class="col-xs-12 col-sm-3">
             <img src="/Content/Image/ProfilePicture/<%= patientDetail.profilePicture %>" class="img-responsive img-circle">
         </div>
@@ -426,7 +426,7 @@
 
         initUploadAttachment();
     });
-    
+
     PatientDetailView = Backbone.View.extend({
         el: "#patientDetailPanel",
         times: 0,
@@ -439,6 +439,7 @@
             "click .viewTreatment": "viewTreatment",
             "click .editTreatment": "editTreament",
             "click .viewConversation": "viewConversation",
+            "click .deleteTreatment": "deleteTreatment",
             "click .btn-prev": "goToPrevious",
             "click .btn-next": "goToNext"
         },
@@ -499,6 +500,15 @@
                 });
             }
         },
+        deleteTreatment: function (e) {
+            e.preventDefault();
+            var treatmentId = $(e.target).parents("[data-treatmentid]").attr("data-treatmentid");
+            var url = "/TreatmentHistory/DeleteTreatment";
+            var that = this;
+            $.get(url + "?id=" + treatmentId, function (data) {
+                initModalWithData(data);
+            });
+        },
         goToPrevious: function () {
             $('.flexslider').flexslider('prev');
         },
@@ -516,17 +526,17 @@
             var patientId = $("#patientId").val();
             $.ajax({
                 url: baseUrl + "UserHealthRecord/ShowAllergyList/" + patientId,
-                success: function(e) {
+                success: function (e) {
                     $("#modal-popup-full").find(".modal-body").html(e);
                     $("#modal-popup-full").modal("show");
                 }
             });
         },
-        viewImmunization: function() {
+        viewImmunization: function () {
             var patientId = $("#patientId").val();
             $.ajax({
                 url: "/UserHealthRecord/ShowImmunizationList/" + patientId,
-                success: function(e) {
+                success: function (e) {
                     $("#modal-popup-full").find(".modal-body").html(e);
                     $("#modal-popup-full").modal("show");
                 }
