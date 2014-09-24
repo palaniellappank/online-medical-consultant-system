@@ -23,7 +23,7 @@ namespace OMCS.Web.Controllers
         {
             var treatments = _db.TreatmentHistories.Where(
                 x => x.MedicalProfileId == medicalProfileId)
-                .OrderByDescending(x=>x.DateCreated)
+                .OrderByDescending(x => x.DateCreated)
                 .ToList();
             return PartialView("_List", treatments);
         }
@@ -72,6 +72,24 @@ namespace OMCS.Web.Controllers
             return PartialView("_View", treatmentHistory);
         }
 
+        public ActionResult DeleteTreatment(int id = 0)
+        {
+            TreatmentHistory treatmentHistory = _db.TreatmentHistories.Find(id);
+            return PartialView("DeleteTreatment", treatmentHistory);
+        }
+
+        [HttpPost, ActionName("DeleteTreatment")]
+        public ActionResult DeleteTreatmentConfirm(int id)
+        {
+            List<FilmDocument> filmDocuments = _db.FilmDocuments.Where(
+                x => x.TreatmentHistoryId == id).ToList();
+            filmDocuments.ForEach(x => _db.FilmDocuments.Remove(x));
+            TreatmentHistory treatmentHistory = _db.TreatmentHistories.Find(id);
+            _db.TreatmentHistories.Remove(treatmentHistory);
+            _db.SaveChanges();
+            return RedirectToAction("Index", "DoctorConversation");
+        }
+
         [HttpPost]
         public JObject Edit(TreatmentHistory treatmentHistory)
         {
@@ -112,7 +130,7 @@ namespace OMCS.Web.Controllers
                     && (x.MedicalProfileId == medicalProfileId)).
                 OrderByDescending(x => x.DateCreated).ToList();
             }
-            
+
             dynamic treatmentHistoryListJson = new JArray();
             foreach (var treatmentHistory in treatmentHistories)
             {
@@ -144,6 +162,7 @@ namespace OMCS.Web.Controllers
                 treatmentHistoryJson.treatment = treatmentHistory.Treatment;
                 treatmentHistoryJson.condition = treatmentHistory.Condition;
                 treatmentHistoryJson.dateCreated = treatmentHistory.DateCreated.ToShortDateString();
+                treatmentHistoryJson.onSetDate = treatmentHistory.OnSetDate.ToShortDateString();
                 treatmentHistoryListJson.Add(treatmentHistoryJson);
             }
             return treatmentHistoryListJson;
