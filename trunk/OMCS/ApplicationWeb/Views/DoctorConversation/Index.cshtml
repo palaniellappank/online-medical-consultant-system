@@ -229,6 +229,7 @@
     </div>
 </div>
 
+<!-- Use for modal view patient detail -->
 <div class="modal fade in" id="view-model">
     <div id="view-container"></div>
 </div>
@@ -374,7 +375,11 @@
             <img src="/Content/Image/ProfilePicture/<%= patientDetail.profilePicture %>" class="img-responsive img-circle">
         </div>
         <div class="col-xs-12 col-sm-9">
-            <span class="name"><%= patientDetail.fullname %></span><br>
+            <span class="name"><%= patientDetail.fullname %></span>
+            <button class="btn btn-info btn-sm" data-original-title="Tìm bệnh nhân" data-toggle="tooltip" id="btnSearchPatient" style="margin-bottom: 8px;">
+                <i class="fa fa-exchange" style="font-size: 12px;"></i>
+            </button>
+            <br>
             <span class="speciaty"><%= patientDetail.job %> - <%= patientDetail.age %> tuổi</span><br>
             <button class="btn btn-info btn-sm" data-original-title="Xem chi tiết" data-toggle="tooltip" id="btnViewPatientDetail">
                 <i class="glyphicon glyphicon-search" style="font-size: 12px;"></i>
@@ -432,6 +437,7 @@
         times: 0,
         events: {
             "click #btnViewPatientDetail": "viewPatientDetail",
+            "click #btnSearchPatient": "searchPatient",
             "click #btnViewAllergy": "viewAllergy",
             "click #btnViewImmunization": "viewImmunization",
             "click #saveTreatmentBtn": "saveTreatment",
@@ -442,6 +448,13 @@
             "click .deleteTreatment": "deleteTreatment",
             "click .btn-prev": "goToPrevious",
             "click .btn-next": "goToNext"
+        },
+        searchPatient: function (e) {
+            var url = baseUrl + "DoctorConversation/SearchPatient";
+            $.get(url, function (data) {
+                $('#modal-popup').html(data);
+                $('#modal-popup').modal('show');
+            });
         },
         viewTreatment: function (e) {
             e.preventDefault();
@@ -517,8 +530,8 @@
             $('.flexslider').flexslider('next');
         },
         viewPatientDetail: function () {
-            var email = $("#txtToEmail").val();
-            $.get(baseUrl + "DoctorUser/View?email=" + email, function (data) {
+            var patientId = $("#patientId").val();
+            $.get(baseUrl + "DoctorUser/View?id=" + patientId, function (data) {
                 $('#view-container').html(data);
                 $('#view-model').modal('show');
             });
