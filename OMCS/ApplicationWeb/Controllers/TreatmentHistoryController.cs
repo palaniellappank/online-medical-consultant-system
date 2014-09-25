@@ -16,6 +16,7 @@ namespace OMCS.Web.Controllers
 {
     public class TreatmentHistoryController : BaseController
     {
+        FilmDocumentBusiness filmDocumentBO = new FilmDocumentBusiness();
         private AdminUserBusiness business = new AdminUserBusiness();
         private MedicalProfileBusiness medicalProfileBusiness = new MedicalProfileBusiness();
 
@@ -49,11 +50,34 @@ namespace OMCS.Web.Controllers
         }
 
         [HttpPost]
-        public JObject Create(TreatmentHistory treatmentHistory)
+        public JObject Create(TreatmentHistory treatmentHistory, string filmDocuments = "")
         {
             treatmentHistory.DateCreated = DateTime.UtcNow;
             treatmentHistory.DoctorId = User.UserId;
             _db.TreatmentHistories.Add(treatmentHistory);
+            _db.SaveChanges();
+            if (!string.IsNullOrEmpty(filmDocuments))
+            {
+                JArray filmDocumentsJson = JArray.Parse(filmDocuments) as JArray;
+                foreach (dynamic filmDocumentJson in filmDocumentsJson)
+                {
+                    var fileName = DateTime.Now.Ticks + ".png";
+                    var path = HttpContext.Server.MapPath("~/Content/Image/FilmDocument/" + fileName);
+                    string imgBase64 = filmDocumentJson.ImgBase64;
+                    filmDocumentBO.SaveFilmDocumentFromBase64String(imgBase64, path);
+                    FilmDocument filmDocument = new FilmDocument
+                    {
+                        Conclusion = filmDocumentJson.Conclusion,
+                        Description = filmDocumentJson.Description,
+                        FilmTypeId = filmDocumentJson.FilmTypeId,
+                        TreatmentHistoryId = treatmentHistory.TreatmentHistoryId,
+                        ImagePath = fileName,
+                        DoctorId = User.UserId,
+                        DateCreated = DateTime.UtcNow
+                    };
+                    _db.FilmDocuments.Add(filmDocument);
+                }
+            }
             _db.SaveChanges();
             dynamic result = new JObject();
             result.result = "ok";
