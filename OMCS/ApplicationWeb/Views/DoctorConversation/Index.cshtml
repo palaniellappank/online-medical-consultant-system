@@ -435,6 +435,7 @@
     PatientDetailView = Backbone.View.extend({
         el: "#patientDetailPanel",
         times: 0,
+        email: undefined,
         events: {
             "click #btnViewPatientDetail": "viewPatientDetail",
             "click #btnSearchPatient": "searchPatient",
@@ -487,7 +488,9 @@
             });
         },
         clearTreatment: function (e) {
-            e.preventDefault();
+            if (e != undefined) {
+                e.preventDefault();
+            }
             $("#newTreatmentForm")[0].reset();
         },
         saveTreatment: function (e) {
@@ -509,6 +512,7 @@
                         if (result.result == "ok") {
                             bootstrap_alert.warning(form.find(".alert-aria"), "Lượt khám bệnh lưu thành công");
                             that.clearTreatment();
+                            that.renderTreatmentHistory(that.email);
                         }
                     }
                 });
@@ -556,15 +560,7 @@
                 }
             });
         },
-        render: function (email) {
-            $.ajax({
-                url: baseUrl + "DoctorUser/ViewInJson?email=" + email,
-                success: function (data) {
-                    patientDetail = JSON.parse(data);
-                    var template = _.template($("#user-detail-heading-template").html(), { patientDetail: patientDetail });
-                    $("#patientDetailPanelHeading").html(template);
-                }
-            });
+        renderTreatmentHistory: function(email) {
             $.ajax({
                 url: baseUrl + "TreatmentHistory/GetAllTreatmentHistoryList?patientEmail=" + email,
                 success: function (data) {
@@ -580,6 +576,18 @@
                     });
                 }
             });
+        },
+        render: function (email) {
+            this.email = email;
+            $.ajax({
+                url: baseUrl + "DoctorUser/ViewInJson?email=" + email,
+                success: function (data) {
+                    patientDetail = JSON.parse(data);
+                    var template = _.template($("#user-detail-heading-template").html(), { patientDetail: patientDetail });
+                    $("#patientDetailPanelHeading").html(template);
+                }
+            });
+            this.renderTreatmentHistory(email);
             $("input[name=medicalProfileId").select2({
                 width: 170,
                 ajax: {
