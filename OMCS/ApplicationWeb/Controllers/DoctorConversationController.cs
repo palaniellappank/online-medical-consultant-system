@@ -14,5 +14,10 @@ namespace OMCS.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult SearchPatient()
+        {
+            return PartialView("_SearchPatient");
+        }
     }
 }

@@ -169,7 +169,11 @@ var validationRegex = {
 
 function validationForm(form) {
     form.validate();
-    $('<span style="color:red;">*</span>').insertBefore(form.find('.required'));
+    if (form.find(".form-horizontal").length == 0) {
+        $('<span style="color:red;">*</span>').insertBefore(form.find('.required'));
+    } else {
+        form.find('.required').parent().prev().append('<span style="color:red; margin-left: 4px;">*</span>');
+    }
 }
 
 function initModalWithData(data) {

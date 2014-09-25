@@ -726,6 +726,10 @@
     <Content Include="Views\Conversation\_DoctorTreatmentConversation.cshtml" />
     <Content Include="Views\FilmDocument\_CreateFromAttachment.cshtml" />
     <Content Include="Views\TreatmentHistory\DeleteTreatment.cshtml" />
+    <Content Include="Views\TreatmentHistory\_View.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\DoctorConversation\_SearchPatient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -716,6 +716,11 @@ ul.c-controls li a:hover
     padding: 3px;
 }
 
+/* Modal */
+.modal-dialog .datepicker {
+    max-width: 145px;
+}
+
 img.img-modal {
     cursor: pointer;
     -webkit-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
@@ -793,7 +798,8 @@ img.slider-img:hover {
 }
 
 .medical-profile-overview .doctor-img,
-.view-treatment-history-modal .doctor-img {
+.view-treatment-history-modal .doctor-img,
+.edit-treatment-history-modal .doctor-img {
     width: 70px;
     height: 70px;
     margin-top: 5px;
