@@ -41,6 +41,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
         <button class="btn btn-primary saveBtn">Lưu</button>
+        <button class="btn btn-primary saveToCurrentTreatmentBtn">Lưu Vào Lượt Khám</button>
       </div>
     </div>
   </div>
@@ -63,6 +64,19 @@
                     bootbox.alert("Hồ sơ ảnh đã được lưu thành công!");
                 }
             });
+        }
+    });
+    form.find(".saveToCurrentTreatmentBtn").click(function (e) {
+        e.preventDefault();
+        if (form.valid()) {
+            var treatment = {};
+            treatment.FilmTypeId = form.find("select[name=FilmTypeId]").val();
+            treatment.Description = form.find("textarea[name=Description]").val();
+            treatment.Conclusion = form.find("textarea[name=Conclusion]").val();
+            treatment.ImgBase64 = form.find("textarea[name=imgBase64]").val();
+            patientDetailView.filmDocuments.push(treatment);
+            patientDetailView.renderFilmDocument();
+            $('#modal-popup').modal('hide');
         }
     });
     form.find("input[name=medicalProfileId]").select2({

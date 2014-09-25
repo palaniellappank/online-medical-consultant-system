@@ -82,6 +82,7 @@
     <Compile Include="BusinessLogic\AdminUserBusiness.cs" />
     <Compile Include="BusinessLogic\BaseBusiness.cs" />
     <Compile Include="BusinessLogic\ConversationBusiness.cs" />
+    <Compile Include="BusinessLogic\FilmDocumentBusiness.cs" />
     <Compile Include="BusinessLogic\CustomSnippetBusiness.cs" />
     <Compile Include="BusinessLogic\MedicalProfileBusiness.cs" />
     <Compile Include="BusinessLogic\MedicalProfileTemplateBusiness.cs" />

@@ -130,10 +130,12 @@
                                         <textarea id="Condition" name="Condition" class="form-control"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <div class="form-group">
-                                            <label for="Note">Ghi chú</label>
-                                            <textarea id="Note" name="Note" class="form-control"></textarea>
-                                        </div>
+                                        <label for="Note">Ghi chú</label>
+                                        <textarea id="Note" name="Note" class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group film-document">
+                                        <label>Hồ sơ ảnh</label>
+                                        <div class="film-document-holder"></div>
                                     </div>
                                     <div class="alert-aria"></div>
                                     <div class="btn-group pull-right">
@@ -394,6 +396,52 @@
                 <i class="glyphicon glyphicon-facetime-video" style="font-size: 12px;"></i>
             </button>
         </div>
+    </div>
+</script>
+
+<script id="film-document-template" type="text/html">
+    <div class="form-control-static">
+    <%
+        _.each(filmDocuments, function(filmDocument, index) {
+    %>
+        <div class="col-md-3">
+            <img class="slider-img img-responsive" data-id="<%= index %>" src="<%= filmDocument.ImgBase64 %>">
+        </div>
+    <% }); %>
+    </div>
+</script>
+
+<script id="film-document-detail-template" type="text/html">
+    <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Thay Đổi Hồ Sơ Ảnh</h4>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+          <div class="col-md-6">
+            <img id="imgPhoto" src="<%= filmDocument.ImgBase64 %>" alt="your image" class="img-responsive"/>
+          </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Description" class="control-label">Mô tả</label>
+                    <textarea id="Description" name="Description" class="form-control"><%= filmDocument.Description %></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Conclusion" class="control-label">Kết luận</label>
+                    <textarea id="Conclusion" name="Conclusion" class="form-control"><%= filmDocument.Conclusion %></textarea>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
+        <button class="btn btn-warning deleteFilmDocumentBtn" data-id="<%= filmDocument.PositionId %>">Xóa</button>
+        <button class="btn btn-primary saveFilmDocumentBtn" data-id="<%= filmDocument.PositionId %>">Lưu</button>
+      </div>
+    </div>
     </div>
 </script>
 

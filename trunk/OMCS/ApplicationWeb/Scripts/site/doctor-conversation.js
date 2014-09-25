@@ -36,11 +36,13 @@ PatientDetailView = Backbone.View.extend({
     el: "#patientDetailPanel",
     times: 0,
     email: undefined,
+    filmDocuments: [],
     events: {
         "click #btnViewPatientDetail": "viewPatientDetail",
         "click #btnSearchPatient": "searchPatient",
         "click #btnViewAllergy": "viewAllergy",
         "click #btnViewImmunization": "viewImmunization",
+        "click #requestWebcam": "requestWebcam",
         "click #saveTreatmentBtn": "saveTreatment",
         "click #clearTreatmentBtn": "clearTreatment",
         "click .viewTreatment": "viewTreatment",
@@ -48,7 +50,22 @@ PatientDetailView = Backbone.View.extend({
         "click .viewConversation": "viewConversation",
         "click .deleteTreatment": "deleteTreatment",
         "click .btn-prev": "goToPrevious",
-        "click .btn-next": "goToNext"
+        "click .btn-next": "goToNext",
+        "click .slider-img": "openDetailFilmDocument"
+    },
+    openDetailFilmDocument: function (e) {
+        var position = $(e.currentTarget).attr("data-id");
+        var filmDocument = this.filmDocuments[position];
+        filmDocument.PositionId = position;
+        var template = _.template($("#film-document-detail-template").html(), { filmDocument: filmDocument });  
+        $('#modal-popup').html(template);
+        $('#modal-popup').modal('show');
+    },
+    requestWebcam: function () {
+        var toEmail = $('#txtToEmail').val();
+        if (toEmail.length > 0) {
+            chatHub.server.requestWebcam(toEmail);
+        }
     },
     searchPatient: function (e) {
         var url = baseUrl + "DoctorConversation/SearchPatient";
@@ -92,6 +109,8 @@ PatientDetailView = Backbone.View.extend({
             e.preventDefault();
         }
         $("#newTreatmentForm")[0].reset();
+        this.filmDocuments = [];
+        this.renderFilmDocument();
     },
     saveTreatment: function (e) {
         e.preventDefault();
@@ -100,6 +119,7 @@ PatientDetailView = Backbone.View.extend({
             var formData = new FormData(form[0]);
             var patientId = $("#patientId").val();
             formData.append("patientId", patientId);
+            formData.append("filmDocuments", JSON.stringify(this.filmDocuments));
             var that = this;
             $.ajax({
                 url: form.attr("action"),
@@ -177,6 +197,15 @@ PatientDetailView = Backbone.View.extend({
             }
         });
     },
+    renderFilmDocument: function () {
+        if (this.filmDocuments.length > 0) {
+            var template = _.template($("#film-document-template").html(), { filmDocuments: this.filmDocuments });
+            this.$el.find(".film-document").show();
+            this.$el.find(".film-document").find(".film-document-holder").html(template);
+        } else {
+            this.$el.find(".film-document").hide();
+        }
+    },
     render: function (email) {
         this.email = email;
         $.ajax({
@@ -188,6 +217,7 @@ PatientDetailView = Backbone.View.extend({
             }
         });
         this.renderTreatmentHistory(email);
+        this.renderFilmDocument();
         $("input[name=medicalProfileId").select2({
             width: 170,
             ajax: {
@@ -262,24 +292,13 @@ ChatBoxView = Backbone.View.extend({
     events: {
         "click .list-group-item": "getMessageList",
         "click #btnSendMsg": "sendMessage",
-        "click #requestWebcam": "requestWebcam",
         "keypress #txtMessage": "sendMessagePress",
-        "click .picture-thumbnail": "showFullPicture",
-        "focus #txtMessage": "txtMessageFocus"
-    },
-    txtMessageFocus: function (e) {
-        $(".popover").hide();
+        "click .picture-thumbnail": "showFullPicture"
     },
     showFullPicture: function (e) {
         var target = $(e.currentTarget);
         $("#modal-popup-img-use-as").find("img").attr("src", target.attr("src"));
         $("#modal-popup-img-use-as").modal("show");
-    },
-    requestWebcam: function () {
-        var toEmail = $('#txtToEmail').val();
-        if (toEmail.length > 0) {
-            chatHub.server.requestWebcam(toEmail);
-        }
     },
     renderContactList: function (conversations) {
         var template = _.template($("#doctor-list-template").html(), { conversations: conversations });
@@ -323,6 +342,37 @@ ChatBoxView = Backbone.View.extend({
 
 var chatBoxView = new ChatBoxView();
 
+var ModalPopupView = Backbone.View.extend({
+    el: "#modal-popup",
+    events: {
+        "click .deleteFilmDocumentBtn": "deleteFilmDocument",
+        "click .saveFilmDocumentBtn": "saveFilmDocument"
+    },
+    saveFilmDocument: function (e) {
+        var id = $(e.currentTarget).attr("data-id");
+        var treatment = patientDetailView.filmDocuments[id];
+      //  treatment.FilmTypeId = form.find("select[name=FilmTypeId]").val();
+        treatment.Description = this.$el.find("textarea[name=Description]").val();
+        treatment.Conclusion = this.$el.find("textarea[name=Conclusion]").val();
+        patientDetailView.filmDocuments[id] = treatment;
+        patientDetailView.renderFilmDocument();
+        $('#modal-popup').modal('hide');
+    },
+    deleteFilmDocument: function (e) {
+        bootbox.confirm("Bạn có muốn xóa hồ sơ ảnh này?", function (result) {
+            if (result) {
+                var id = $(e.currentTarget).attr("data-id");
+                var treatment = patientDetailView.filmDocuments[id];
+                //  treatment.FilmTypeId = form.find("select[name=FilmTypeId]").val();
+                patientDetailView.filmDocuments.splice(id, 1);
+                patientDetailView.renderFilmDocument();
+                $('#modal-popup').modal('hide');
+            } else {
+            }
+        });
+    }
+});
+new ModalPopupView();
 // Declare a proxy to reference the hub. 
 var chatHub = $.connection.chatHub;
 
