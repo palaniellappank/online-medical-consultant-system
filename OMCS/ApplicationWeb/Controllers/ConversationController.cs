@@ -22,8 +22,8 @@ namespace OMCS.Web.Controllers
 
         public ActionResult Index()
         {
-            var conversations = _db.Conversations.Include(c => c.Patient).Include(c => c.Doctor);
-            return View(conversations.ToList());
+            var treatmentList = _db.TreatmentHistories.Where(t => (t.PatientId == User.UserId || t.MedicalProfile.PatientId == User.UserId)).ToList();
+            return View(treatmentList);
         }
 
         /*
@@ -33,7 +33,7 @@ namespace OMCS.Web.Controllers
         {
             var treatment = _db.TreatmentHistories.Find(treatmentId);
             User fromUser = treatment.Doctor;
-            
+
             User toUser = treatment.Patient;
             if (toUser == null)
             {
