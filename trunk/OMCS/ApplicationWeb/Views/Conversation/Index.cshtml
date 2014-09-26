@@ -1,57 +1,183 @@
-﻿@model IEnumerable<OMCS.DAL.Model.Conversation>
-
+﻿@model IEnumerable<OMCS.DAL.Model.TreatmentHistory>
+@using OMCS.Web;
 @{
     Layout = "~/Views/Shared/_UserLayout.cshtml";
     ViewBag.Title = "Index";
 }
+<h2>Lược Sử Khám Bệnh</h2>
 
-<h2>Lịch Sử Tư Vấn</h2>
+@foreach (var item in Model)
+{
+    <div class="modal-dialog modal-lg view-treatment-history-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    @if (item.MedicalProfileId != null)
+                    { 
+                        <span class="label label-default">@item.MedicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName</span>                                                
+                    }
+                    else
+                    {
+                        <span class="label label-default">Khám bệnh tự do</span>
+                    }</h4>
+                <div id="treatment-type" class="pull-right" style="margin-top: -29px; margin-right: 27px;">
+                    <select class="form-control" name="TreatmentHistoryType" disabled="disabled">
+                        <option value="Online">@item.TreatmentHistoryType.ToString()</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row form-horizontal">
+                    <div class="form-group">
+                        <label for="Symptom" class="control-label col-md-4">@Html.DisplayNameFor(model => model.Symptom)</label>
+                        <div class="form-control-static col-md-8">@item.Symptom</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Diagnosis" class="control-label col-md-4">@Html.DisplayNameFor(model => model.Diagnosis)</label>
+                        <div class="form-control-static col-md-8">@item.Diagnosis</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Treatment" class="control-label col-md-4">@Html.DisplayNameFor(model => model.Treatment)</label>
+                        <div class="form-control-static col-md-8">@item.Treatment</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Condition" class="control-label col-md-4">@Html.DisplayNameFor(model => model.Condition)</label>
+                        <div class="form-control-static col-md-8">@item.Condition</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Note" class="control-label col-md-4">@Html.DisplayNameFor(model => model.Note)</label>
+                        <div class="form-control-static col-md-8">@item.Note</div>
+                    </div>
 
-<p>
-</p>
-<table class="table table-striped table-hover">
-    <tr class="active">
-        <th>Bác Sĩ
-        </th>
-        <th>Ngày Tư Vấn
-        </th>
-        <th>Thao Tác
-        </th>
-    </tr>
+                    <div class="form-group film-document-list">
+                        <label class="col-md-4 control-label">Hồ sơ ảnh</label>
+                        <div class="col-md-8">
+                            @if (item.FilmDocuments.Count == 0)
+                            {
+                                <p class="form-control-static">Không có <code>Hồ sơ ảnh</code></p>
+                            }
+                            else
+                            {
+                                <div class="flexslider-film-document">
+                                    <ul class="treatment-history-list slides">
+                                        @foreach (var film in item.FilmDocuments)
+                                        {
+                                            <li>
+                                                <div class="col-md-3">
+                                                    <img class="slider-img img-responsive" 
+                                data-id="@film.FilmDocumentId" src="@Html.GetPictureUrl("FilmDocument")@film.ImagePath" 
+                                style="margin-top: 15px;"/>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <label for="FilmType" class="control-label col-md-4">Loại phim</label>
+                                                        <div class="form-control-static col-md-8">@film.FilmType.Name</div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="Description" class="control-label col-md-4">Mô tả</label>
+                                                        <div class="form-control-static col-md-8">@film.FilmType.Description</div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="Conclusion" class="control-label col-md-4">Kết luận</label>
+                                                        <div class="form-control-static col-md-8">@film.Conclusion</div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                                        if (item.FilmDocuments.Count > 1)
+                                        {
+                                <div class="pull-right film-navigation">
+                                    <button class="btn btn-default btn-sm btn-omcs btn-prev" data-toggle="tooltip" data-original-title="Quay lại">
+                                        <i class="glyphicon glyphicon-chevron-left" style="font-size: 12px;"></i>
+                                    </button>
+                                    <button class="btn btn-default btn-sm btn-omcs btn-next" data-toggle="tooltip" data-original-title="Tiếp tục">
+                                        <i class="glyphicon glyphicon-chevron-right" style="font-size: 12px;"></i>
+                                    </button>
+                                </div>
+                                        }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Doctor.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateConsulted, "ShortDateTime")
-            </td>
-            <td>
-                @* @Html.ActionLink("Xem", "Details", new { id = item.ConversationId }, new { @class = "btn btn-primary" })*@
-                <button class="btn btn-primary details-button" data-id="@item.ConversationId">Xem</button>
-            </td>
-        </tr>
-    }
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-2 col-lg-2 col-md-offset-1">
+                        <img alt="User Pic" src="@Html.GetPictureUrl("Profile")@item.Patient.ProfilePicture" class="img-circle doctor-img">
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Bác Sĩ: </td>
+                                    <td>@item.Doctor.FullName</td>
+                                    <td>Chuyên Khoa: </td>
+                                    <td>@item.Doctor.SpecialtyField.Name</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày khám: </td>
+                                    <td>@item.DateCreated.ToShortDateString()</td>
+                                    <td>Ngày phát bệnh</td>
+                                    <td>@item.OnSetDate.ToShortDateString()</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
-</table>
-
-<div class="modal fade in" id="details-model">
-    <div id="details-container"></div>
+<div class="modal fade in" id="modal-popup-img" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <img src="#" class="img-responsive" style="max-height: 400px; display: block; margin-left: auto; margin-right: auto;">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    ViewTreatmentHistoryModal = Backbone.View.extend({
+        el: $(".view-treatment-history-modal"),
+        initialize: function () {
+        },
+        events: {
+            "click .slider-img": "showImage",
+            "click .btn-prev": "goToPrevious",
+            "click .btn-next": "goToNext"
+        },
+        showImage: function (e) {
+            var target = $(e.target);
+            $("#modal-popup-img").find(".img-responsive").attr("src", target.attr("src"));
+            $("#modal-popup-img").modal("show");
+        },
+        goToPrevious: function () {
+            $('.flexslider-film-document').flexslider('prev');
+        },
+        goToNext: function () {
+            $('.flexslider-film-document').flexslider('next');
+        }
+    });
+    new ViewTreatmentHistoryModal();
 
-        $(".details-button").click(function () {
-            var url = "/Conversation/Details";
-            var id = $(this).attr("data-id");
-            $.get(url + "/" + id, function (data) {
-                $("#details-container").html(data);
-                $("#details-model").modal("show");
-            });
+    $('#modal-popup').on('shown.bs.modal', function () {
+        $('.flexslider-film-document').flexslider({
+            animation: "slide",
+            controlNav: false,
+            directionNav: false,
+            slideshow: false
         });
-
     });
 </script>
