@@ -87,11 +87,14 @@
                         </ul>
                     </div>
                     <div class="panel-footer">
-                        <div class="input-group">
-                        <textarea id="txtMessage" class="form-control input-sm" rows="2" cols="80" placeholder="Nội dung tin nhắn..."></textarea>
-                        <span class="input-group-btn">
-                            <button class="btn btn-warning btn-sm" id="btnSendMsg">Gửi</button>
-                        </span>
+                        <div style="min-height: 55px;">
+                            <div style="float: left;width: 93%;">
+                                <textarea id="txtMessage" class="form-control" rows="2" style="border-radius: 0;" placeholder="Nội dung tin nhắn..."></textarea>
+                            </div>
+                            <div style="width: 5%; float: right">
+                                <button class="btn btn-info btn-omcs btn-sm" style="width: 30px;" id="btnSendMsg" data-toggle="tooltip" data-original-title="Gửi tin nhắn"><i class="fa fa-share"></i></button>
+                                <button class="btn btn-warning btn-omcs btn-sm" id="btnOpenRequestConsult" data-toggle="tooltip" data-original-title="Gửi yêu cầu tư vấn"><i class="fa fa-file-text"></i></button>
+                            </div>
                         </div>
                         <div id="filelist"></div>
                         <div id="upload-container">
@@ -113,6 +116,57 @@
                 <div class="modal-content">
                     <img src="#" class="img-responsive">
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade in" id="modal-popup-request-consult" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Yêu cầu tư vấn</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label">Tình trạng hiện tại</label>
+                    <div class="">
+                        <textarea class="form-control conditionTxt"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Nội dung cần tư vấn</label>
+                    <div class="">
+                        <textarea class="form-control requestConsultTxt"></textarea>
+                    </div>
+                </div>
+                <div class="alert-aria">
+                </div>
+                <button class="btn btn-default send-form-request">Gửi yêu cầu</button>
+                <h3>Mẫu tư vấn tham khảo</h3>
+                <p><code>Tình trạng hiện tại:</code> Bác sỹ ơi cho em hỏi, con gái em năm nay 6 tuổi, bé thường xuyên bị đau bụng và em đã đưa bé khám tại Bệnh viện Nhi đồng 2 nhưng qua kết quả siêu âm Bác sỹ bảo bé không bị bệnh gì cả chỉ là 2 thận của bé bên lớn, bên nhỏ do dị tật bẩm sinh và không cho dùng thuốc (chỉ khuyên uống nhiều nước). Tuy nhiên, về nhà bé vẫn bảo đau bụng.</p>
+                <p><code>Nội dung cần tư vấn:</code> Bác sỹ cho em hỏi con gái em nên đi khám ở bệnh viện nào? và bệnh của bé em nên cho bé khám khoa nào hoặc là khám tổng quát hết được không ạ? Xin cám ơn Bác sỹ ạ!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade in" id="modal-remind-consult" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="jumbotron">
+                    <h1>Lưu ý!</h1>
+                    <p>Để quá trình tư vấn diễn được hiểu quả bạn có thể gửi yêu cầu tư vấn theo <code>Mẫu tư vấn</code>có sẵn của chương trình</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default open-request-consult">Mẫu tư vấn</button>
+                <button class="btn btn-primary" data-dismiss="modal">Bỏ qua</button>
             </div>
         </div>
     </div>
