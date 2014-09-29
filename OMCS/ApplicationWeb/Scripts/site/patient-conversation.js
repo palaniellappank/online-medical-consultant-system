@@ -1,4 +1,5 @@
 ﻿$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
     OMCSChat.App.init($("#txtFromEmail").val());
     registerClientMethods(chatHub);
     $.connection.hub.start().done(function () {
@@ -13,7 +14,34 @@ BodyView = Backbone.View.extend({
     events: {
         "click .showDoctorDetail": "showDoctorDetail",
         "click": "handleClick",
-        "click #closePatientWebcam": "hideWebcam"
+        "click #closePatientWebcam": "hideWebcam",
+        "click .open-request-consult": "openRequestConsult",
+        "click .send-form-request": "sendRequestConsult"
+    },
+    openRequestConsult: function (e) {
+        $("#modal-remind-consult").modal("hide");
+        chatBoxView.openRequestConsultModal();
+    },
+    sendRequestConsult: function (e) {
+        var condition = $("#modal-popup-request-consult").find(".conditionTxt").val();
+        var requestConsult = $("#modal-popup-request-consult").find(".requestConsultTxt").val();
+        content = "";
+        if (condition.trim().length > 0) {
+            content += "<b>Tình trạng hiện tại: </b>" + condition + "<br>";
+        }
+        if (requestConsult.trim().length > 0) {
+            content += "<b>Nội dung cần tư vấn: </b>" + requestConsult;
+        }
+        if (content.trim().length > 0) {
+            var toEmail = $('#txtToEmail').val();
+            chatHub.server.sendMessageTo(toEmail, content);
+            $("#modal-popup-request-consult").find("textarea").val("");
+            $("#modal-popup-request-consult").modal("hide");
+        } else {
+            bootstrap_alert.warning($(".alert-aria"),
+                "Bạn cần nhập ít nhất một trong hai giá trị <code>Tình trạng hiện tại</code> hoặc <code>Nội dung cần tư vấn</code>");
+        }
+
     },
     showDoctorDetail: function (e) {
         $("#doctor-detail").removeData().unbind();
@@ -36,6 +64,7 @@ var doctorList;
 ChatBoxView = Backbone.View.extend({
     el: $("#chatbox"),
     contactListEl: $("#contact-list"),
+    firstTime: true,
     initialize: function () {
         this.render();
     },
@@ -43,12 +72,26 @@ ChatBoxView = Backbone.View.extend({
         "click .list-group-item": "getMessageList",
         "mouseover": "getDoctorRating",
         "click #btnSendMsg": "sendMessage",
+        "click #btnOpenRequestConsult": "openRequestConsultModal",
         "keypress #txtMessage": "sendMessagePress",
         "focus #txtMessage": "txtMessageFocus",
+        "click #txtMessage": "remindForm",
         "click .picture-thumbnail": "showFullPicture"
+    },
+    remindForm: function (e) {
+        if (this.firstTime == true) {
+            this.firstTime = false;
+            $("#modal-remind-consult").modal("show");
+        }
     },
     txtMessageFocus: function (e) {
         $(".popover").hide();
+    },
+    openRequestConsultModal: function (e) {
+        var toEmail = $('#txtToEmail').val();
+        if (toEmail.length > 0) {
+            $("#modal-popup-request-consult").modal("show");
+        }
     },
     getDoctorRating: function (e) {
         var target = $(e.target).parents(".list-group-item");
