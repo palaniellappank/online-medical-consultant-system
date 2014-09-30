@@ -14,7 +14,9 @@
                 <h4 class="modal-title">
                     @if (item.MedicalProfileId != null)
                     { 
-                        <span class="label label-default">@item.MedicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName</span>                                                
+                        
+                        <a href="@Url.Action("Details", "UserMedicalProfile", new { medicalProfileId = item.MedicalProfileId })" target="_blank">
+                            <span class="btn btn-default btn-sm">@item.MedicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName</span> </a>                                               
                     }
                     else
                     {
@@ -64,9 +66,7 @@
                                         {
                                             <li>
                                                 <div class="col-md-3">
-                                                    <img class="slider-img img-responsive" 
-                                data-id="@film.FilmDocumentId" src="@Html.GetPictureUrl("FilmDocument")@film.ImagePath" 
-                                style="margin-top: 15px;"/>
+                                                    <img class="slider-img img-responsive" data-id="@film.FilmDocumentId" src="@Html.GetPictureUrl("FilmDocument")@film.ImagePath" style="margin-top: 15px;"/>
                                                 </div>
                                                 <div class="col-md-9">
                                                     <div class="form-group">
@@ -85,18 +85,7 @@
                                             </li>
                                         }
                                     </ul>
-                                </div>
-                                        if (item.FilmDocuments.Count > 1)
-                                        {
-                                <div class="pull-right film-navigation">
-                                    <button class="btn btn-default btn-sm btn-omcs btn-prev" data-toggle="tooltip" data-original-title="Quay lại">
-                                        <i class="glyphicon glyphicon-chevron-left" style="font-size: 12px;"></i>
-                                    </button>
-                                    <button class="btn btn-default btn-sm btn-omcs btn-next" data-toggle="tooltip" data-original-title="Tiếp tục">
-                                        <i class="glyphicon glyphicon-chevron-right" style="font-size: 12px;"></i>
-                                    </button>
-                                </div>
-                                        }
+                                </div>                                       
                             }
                         </div>
                     </div>
@@ -106,7 +95,7 @@
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-md-2 col-lg-2 col-md-offset-1">
-                        <img alt="User Pic" src="@Html.GetPictureUrl("Profile")@item.Patient.ProfilePicture" class="img-circle doctor-img">
+                        <img alt="User Pic" src="@Html.GetPictureUrl("Profile")@item.Doctor.ProfilePicture" class="img-circle doctor-img">
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <table class="table">
@@ -139,7 +128,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
-                <img src="#" class="img-responsive" style="max-height: 400px; display: block; margin-left: auto; margin-right: auto;">
+                <img src="#" class="img-responsive" style="max-height: 800px; max-width: 800px; display: block; margin-left: auto; margin-right: auto;">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Bỏ qua</button>
@@ -148,26 +137,19 @@
     </div>
 </div>
 
+
 <script type="text/javascript">
     ViewTreatmentHistoryModal = Backbone.View.extend({
         el: $(".view-treatment-history-modal"),
         initialize: function () {
         },
         events: {
-            "click .slider-img": "showImage",
-            "click .btn-prev": "goToPrevious",
-            "click .btn-next": "goToNext"
+            "click .slider-img": "showImage"
         },
         showImage: function (e) {
             var target = $(e.target);
             $("#modal-popup-img").find(".img-responsive").attr("src", target.attr("src"));
             $("#modal-popup-img").modal("show");
-        },
-        goToPrevious: function () {
-            $('.flexslider-film-document').flexslider('prev');
-        },
-        goToNext: function () {
-            $('.flexslider-film-document').flexslider('next');
         }
     });
     new ViewTreatmentHistoryModal();
