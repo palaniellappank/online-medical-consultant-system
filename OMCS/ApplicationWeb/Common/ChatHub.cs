@@ -139,6 +139,13 @@ namespace SignalRChat.Hubs
             {
                 toUserDetail = helper.ConvertUserToUserDetail(toUser);
             }
+
+            //If toUser is doctor, calculate the NumberOfRequestConsult
+            var doctor = _db.Doctors.Where(x => x.Email.Equals(email)).FirstOrDefault();
+            if (doctor != null)
+            {
+                toUserDetail.NumOfWait = helper.GetNumberOfWaitingPatient(fromUser.Email, email); ;
+            }
             List<MessageDetail> userDetails = helper.GetMessageDetail(fromUser.Email, toUser.Email);
             Clients.Caller.onGetMessageList(fromUserDetail, toUserDetail, userDetails);
             
