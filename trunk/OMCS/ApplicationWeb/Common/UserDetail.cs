@@ -21,5 +21,6 @@ namespace SignalRChat.Common
         public DateTime LastestTime { get; set; }
         public bool IsRead { get; set; }
         public OnlineStatus OnlineStatus { get; set; }
+        public int NumOfWait { get; set; }
     }
 }

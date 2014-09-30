@@ -217,9 +217,11 @@
     %>  
 </script>
 
-<script id="chat-top-template" type="text/template">
+<script id="chat-top-template" type="text/html">
     <strong class="title"><%= user.FullName %>
     </strong>
+
+    <span class="title pull-right" data-toggle="tooltip" data-original-title="Số bệnh nhân đang chờ"><%= user.NumOfWait %> <i class="fa fa-users"></i></span>
 </script>
 
 <script id="chat-left-template" type="text/template">

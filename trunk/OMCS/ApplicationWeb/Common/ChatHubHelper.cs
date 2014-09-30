@@ -46,13 +46,39 @@ namespace SignalRChat.Hubs
             }
         }
 
+        public int GetNumberOfWaitingPatient(string fromPatientEmail, string toDoctorEmail)
+        {
+            var doctor = _db.Doctors.Where(x => x.Email.Equals(toDoctorEmail)).FirstOrDefault();
+            var patient = _db.Patients.Where(x => x.Email.Equals(fromPatientEmail)).FirstOrDefault();
+            var conversation = _db.Conversations.Where(x => x.DoctorId == doctor.UserId && x.PatientId == patient.UserId).FirstOrDefault();
+            var numOfWating = 0;
+            if (conversation != null)
+            {
+                var lastestMessage = _db.ConversationDetails.Where(x => x.ConversationId == conversation.ConversationId).OrderByDescending(x => x.CreatedDate).FirstOrDefault();
+                if (lastestMessage != null)
+                {
+                    numOfWating = _db.Conversations.Where(x => x.DoctorId == doctor.UserId && 
+                        x.IsDoctorRead == false && x.LatestTimeFromPatient < lastestMessage.CreatedDate).Count();
+                }
+                else
+                {
+                    numOfWating = _db.Conversations.Where(x => x.DoctorId == doctor.UserId && 
+                        x.IsDoctorRead == false).Count();
+                }
+            }
+            else
+            {
+                numOfWating = _db.Conversations.Where(x => x.DoctorId == doctor.UserId && x.IsDoctorRead == false).Count();
+            }
+            return numOfWating;
+        }
+
         /*
          * fromEmail: Logged user
          * toEmail: Choosed user to see message
          */
         public List<MessageDetail> GetMessageDetail(string fromEmail, string toEmail)
         {
-
             var doctor = _db.Doctors.Where(u => u.Email.Equals(fromEmail)).FirstOrDefault();
             var patient = new Patient();
             if (doctor == null)
@@ -67,7 +93,6 @@ namespace SignalRChat.Hubs
             var messageDetails = new List<MessageDetail>();
             if (doctor != null && patient != null)
             {
-                Debug.WriteLine("Patient: " + patient.Email + "  " + "Doctor: " + doctor.Email);
                 var newestConversation = _db.Conversations.Where(
                     con => (con.PatientId == patient.UserId) && (con.DoctorId == doctor.UserId)).FirstOrDefault();
 
@@ -93,7 +118,6 @@ namespace SignalRChat.Hubs
                         };
                         messageDetails.Add(messageDetail);
                     }
-                    Debug.WriteLine(messageDetails.Count);
                     if (fromEmail.Equals(doctor.Email))
                     {
                         business.MarkConversationAsRead(newestConversation, true);
