@@ -306,6 +306,7 @@
     <Content Include="Content\Image\ProfilePicture\photo.jpg" />
     <Content Include="Content\Image\ProfilePicture\Su.JPG" />
     <Content Include="Content\Image\register-bg.jpg" />
+    <Content Include="Content\mCustomScrollbar\jquery.mousewheel.js" />
     <Content Include="Content\plupload\i18n\ar.js" />
     <Content Include="Content\plupload\i18n\az.js" />
     <Content Include="Content\plupload\i18n\bs.js" />
