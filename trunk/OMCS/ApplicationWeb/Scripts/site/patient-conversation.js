@@ -229,6 +229,7 @@ function registerClientMethods(chatHub) {
         $("#chat-doctor").html("");
         var templateTop = $("#chat-top-template").html();
         $("#chat-doctor").append(_.template(templateTop, { user: toUser }));
+        $('[data-toggle="tooltip"]').tooltip();
         if ($("#chat-content").hasClass("mCustomScrollbar")) {
             $("#chat-content").mCustomScrollbar("destroy");
         }

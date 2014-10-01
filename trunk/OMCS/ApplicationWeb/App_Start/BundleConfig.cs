@@ -17,6 +17,7 @@ namespace OMCS.Web
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/jquery.blockUI.js",
                         "~/Scripts/bootbox.js",
+                        "~/Content/mCustomScrollbar/jquery.mousewheel.js",
                         "~/Content/mCustomScrollbar/jquery.mCustomScrollbar.js",
                         "~/Content/select2/select2.js",
                         "~/Scripts/jquery.metisMenu.js",

@@ -106,8 +106,8 @@ namespace SignalRChat.Hubs
                     foreach (var conversationDetail in conversationDetails)
                     {
                         String date = (DateTime.Now.Subtract(conversationDetail.CreatedDate).Days) > 1 ?
-                            String.Format("{0:HH:mm:ss}", conversationDetail.CreatedDate) :
-                            String.Format("{0:dd/MM/yyyy HH:mm:ss}", conversationDetail.CreatedDate);
+                            String.Format("{0:dd/MM/yyyy HH:mm:ss}", conversationDetail.CreatedDate) :
+                            String.Format("{0:HH:mm:ss}", conversationDetail.CreatedDate);
                         MessageDetail messageDetail = new MessageDetail
                         {
                             Content = conversationDetail.Content,
