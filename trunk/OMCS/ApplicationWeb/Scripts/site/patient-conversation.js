@@ -79,9 +79,12 @@ ChatBoxView = Backbone.View.extend({
         "click .picture-thumbnail": "showFullPicture"
     },
     remindForm: function (e) {
-        if (this.firstTime == true) {
-            this.firstTime = false;
-            $("#modal-remind-consult").modal("show");
+        var toEmail = $('#txtToEmail').val();
+        if (toEmail.length > 0) {
+            if (this.firstTime == true) {
+                this.firstTime = false;
+                $("#modal-remind-consult").modal("show");
+            }
         }
     },
     txtMessageFocus: function (e) {
