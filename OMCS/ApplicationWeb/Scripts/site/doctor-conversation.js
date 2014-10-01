@@ -165,6 +165,7 @@ PatientDetailView = Backbone.View.extend({
         $.ajax({
             url: baseUrl + "UserHealthRecord/ShowAllergyList/" + patientId,
             success: function (e) {
+                e = e.replace("UserMedicalProfile/Details", "DoctorMedicalProfile/ViewMedicalProfile");
                 $("#modal-popup-full").find(".modal-body").html(e);
                 $("#modal-popup-full").modal("show");
             }
@@ -175,6 +176,7 @@ PatientDetailView = Backbone.View.extend({
         $.ajax({
             url: "/UserHealthRecord/ShowImmunizationList/" + patientId,
             success: function (e) {
+                e = e.replace("UserMedicalProfile/Details", "DoctorMedicalProfile/ViewMedicalProfile");
                 $("#modal-popup-full").find(".modal-body").html(e);
                 $("#modal-popup-full").modal("show");
             }

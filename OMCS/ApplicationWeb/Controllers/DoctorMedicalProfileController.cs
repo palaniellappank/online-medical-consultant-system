@@ -167,7 +167,7 @@ namespace OMCS.Web.Controllers
                 OrderByDescending(x => x.CreatedDate).ToList();
             dynamic medicalProfileListJson = new JArray();
             dynamic medicalProfileJson = new JObject();
-            medicalProfileJson.id = 0;
+            medicalProfileJson.id = null;
             medicalProfileJson.text = "Khám bệnh tự do";
             medicalProfileListJson.Add(medicalProfileJson);
             foreach (var medicalProfile in medicalProfiles)
