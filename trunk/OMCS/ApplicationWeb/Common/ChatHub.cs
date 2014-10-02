@@ -191,9 +191,13 @@ namespace SignalRChat.Hubs
                     {
                         receiver.CountMessageUnRead = business.CountMessageUnRead(toUser);
                         Clients.Client(receiver.ConnectionId).messageReceived(fromUserDetail, toUserDetail, messageDetail);
-                        var userDetailList = helper.GetLastestConversationList(receiver.Email, ConnectedUsers);
-                        receiver.ConversationList = userDetailList;
-                        Clients.Client(receiver.ConnectionId).onGetConversationList(receiver.ConversationList);
+
+                        //If receiver is docter
+                        if (toEmail.Equals(doctor.Email)) {
+                            var userDetailList = helper.GetLastestConversationList(receiver.Email, ConnectedUsers);
+                            receiver.ConversationList = userDetailList;
+                            Clients.Client(receiver.ConnectionId).onGetConversationList(receiver.ConversationList);
+                        }
                     }
                 }
 
