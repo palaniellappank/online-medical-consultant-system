@@ -36,7 +36,7 @@ namespace OMCS.Web.Controllers
             }
             business.SearchByString(searchString, ref treatmentList);//Search UserName/Fullname by string
             ViewBag.CurrentFilter = searchString;           
-            int pageSize = 5;
+            int pageSize = 2;
             int pageNumber = (page ?? 1);
             return View(treatmentList.ToPagedList(pageNumber, pageSize));
         }

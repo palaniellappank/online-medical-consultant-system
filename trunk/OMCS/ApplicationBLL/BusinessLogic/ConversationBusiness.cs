@@ -136,9 +136,7 @@ namespace OMCS.BLL
         {
             if (!String.IsNullOrEmpty(searchString))
             {
-                treatments = treatments.Where(u => (!String.IsNullOrWhiteSpace(u.Doctor.FullName) && (u.Doctor.FullName.ToUpper().Contains(searchString.ToUpper())))
-                    || (!String.IsNullOrWhiteSpace(u.MedicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName) && (u.MedicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName.ToUpper().Contains(searchString.ToUpper())))
-                    || (!String.IsNullOrWhiteSpace(u.Symptom) && (u.Symptom.ToUpper().Contains(searchString.ToUpper()))));
+                treatments = treatments.Where(u => (!String.IsNullOrWhiteSpace(u.Doctor.FullName) && (u.Doctor.FullName.ToUpper().Contains(searchString.ToUpper()))));
             }
         }
     }
