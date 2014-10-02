@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 
 namespace OMCS.BLL
 {
-    public class ConversationBusiness: BaseBusiness
+    public class ConversationBusiness : BaseBusiness
     {
         private OMCSDBContext _db;
         public ConversationBusiness(OMCSDBContext context)
@@ -20,9 +20,7 @@ namespace OMCS.BLL
         public int CountMessageUnRead(User user)
         {
             int countMessageUnRead = 0;
-
             List<Conversation> conversations;
-
             var doctor = _db.Doctors.Where(
                 x => (x.Email == user.Email)).FirstOrDefault();
             if (doctor != null)
@@ -37,7 +35,6 @@ namespace OMCS.BLL
                     x => (x.PatientId == user.UserId)).ToList();
                 countMessageUnRead = conversations.Count(x => x.IsPatientRead == false);
             }
-            
             return countMessageUnRead;
         }
 
@@ -55,7 +52,8 @@ namespace OMCS.BLL
 
             List<ConversationDetail> conversationDetails = _db.ConversationDetails.Where(
                 x => x.ConversationId == conversation.ConversationId).ToList();
-            foreach (var conversationDetail in conversationDetails) {
+            foreach (var conversationDetail in conversationDetails)
+            {
                 conversationDetail.IsRead = true;
                 _db.Entry(conversationDetail).State = EntityState.Modified;
             }
@@ -132,6 +130,16 @@ namespace OMCS.BLL
                 }
             }
             return conversationJson;
+        }
+
+        public void SearchByString(string searchString, ref IEnumerable<TreatmentHistory> treatments)
+        {
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                treatments = treatments.Where(u => (!String.IsNullOrWhiteSpace(u.Doctor.FullName) && (u.Doctor.FullName.ToUpper().Contains(searchString.ToUpper())))
+                    || (!String.IsNullOrWhiteSpace(u.MedicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName) && (u.MedicalProfile.MedicalProfileTemplate.MedicalProfileTemplateName.ToUpper().Contains(searchString.ToUpper())))
+                    || (!String.IsNullOrWhiteSpace(u.Symptom) && (u.Symptom.ToUpper().Contains(searchString.ToUpper()))));
+            }
         }
     }
 }

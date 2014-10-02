@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using OMCS.DAL.Model;
 using OMCS.BLL;
 using Newtonsoft.Json.Linq;
+using PagedList;
 
 namespace OMCS.Web.Controllers
 {
@@ -20,10 +21,24 @@ namespace OMCS.Web.Controllers
             business = new ConversationBusiness(_db);
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string currentFilter, string searchString, int? page)
         {
-            var treatmentList = _db.TreatmentHistories.Where(t => (t.PatientId == User.UserId || t.MedicalProfile.PatientId == User.UserId)).ToList();
-            return View(treatmentList);
+            IEnumerable<TreatmentHistory> treatmentList = _db.TreatmentHistories.Where(t => (t.PatientId == User.UserId || t.MedicalProfile.PatientId == User.UserId)).OrderByDescending(x=>x.DateCreated).ToList();
+            //var treatmentList = _db.TreatmentHistories.Where(t => (t.PatientId == User.UserId || t.MedicalProfile.PatientId == User.UserId)).ToList();
+            //return View(treatmentList);            
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            business.SearchByString(searchString, ref treatmentList);//Search UserName/Fullname by string
+            ViewBag.CurrentFilter = searchString;           
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(treatmentList.ToPagedList(pageNumber, pageSize));
         }
 
         /*
