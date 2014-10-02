@@ -110,7 +110,7 @@
                 $("#message-content").show();
                 _.forEach(messageDetails, function (message) {
                     var messageHtml;
-                    if (loginEmail == message.Email) {
+                    if (fromUser.Email == message.Email) {
                         messageHtml = _.template(templateLeft, { user: fromUser, message: message });
                     } else {
                         messageHtml = _.template(templateRight, { user: toUser, message: message });
