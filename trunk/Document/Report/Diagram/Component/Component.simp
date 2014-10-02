@@ -2220,21 +2220,21 @@
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip317520991702365665_569875088198499709" cid="PORT003" type="port" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/22/2014 20:53:55">
+          <item id="ddip317520991702365665_569875088198499709" cid="PORT003" type="port" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/22/2014 20:53:55">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip317520991702365665_948733135194839721" cid="CPT001" type="component" name="Web" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/22/2014 20:52:36">
+          <item id="ddip317520991702365665_948733135194839721" cid="CPT001" type="component" name="Web" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/22/2014 20:52:36">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip317520991702365665_984501926282861280" cid="PORT002" type="port" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/22/2014 20:53:38">
+          <item id="ddip317520991702365665_984501926282861280" cid="PORT002" type="port" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/22/2014 20:53:38">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -2302,14 +2302,14 @@
               <end-role id="" name="" multiplicity="" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="ddip317520991702365665_870131915603165351" cid="IFC001" type="uml-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/22/2014 20:54:29">
+          <item id="ddip317520991702365665_870131915603165351" cid="IFC001" type="uml-interface" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/22/2014 20:54:29">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip317520991702365665_769535051850644664" cid="REL001" type="relationship" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/22/2014 20:54:35">
+          <item id="ddip317520991702365665_769535051850644664" cid="REL001" type="relationship" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/22/2014 20:54:35">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
@@ -2320,14 +2320,14 @@
               <end-role id="" name="" multiplicity="" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="ddip317520991702365665_308690327601208574" cid="RIF001" type="uml-required-interface" name="" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/22/2014 20:54:41">
+          <item id="ddip317520991702365665_308690327601208574" cid="RIF001" type="uml-required-interface" name="" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/22/2014 20:54:41">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
             <owned-items />
             <style class="default" />
           </item>
-          <item id="ddip317520991702365665_724396604607205216" cid="REL006" type="relationship" name="&lt;delegate&gt;" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/22/2014 23:13:06">
+          <item id="ddip317520991702365665_724396604607205216" cid="REL006" type="relationship" name="&lt;delegate&gt;" style-class="default" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creation-date="09/22/2014 23:13:06">
             <stereotypes />
             <tagged-values />
             <associated-diagrams />
