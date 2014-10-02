@@ -181,17 +181,20 @@ namespace SignalRChat.Hubs
 
                 helper.SyncUserDetailWhenSendMessage(fromUserDetail, toEmail, message, ConnectedUsers);
                 
-                Debug.WriteLine("DoctorId = " + toUser.UserId, "  PatientId = " + fromUser.UserId);
-                
                 MessageDetail messageDetail = helper.SaveMessageToDatabase(fromUser, patient, doctor, message);
 
                 //Notify Receiver
-                var receiver = ConnectedUsers.Where(x => x.Email == toEmail).FirstOrDefault();
-                
-                if (receiver != null && receiver.ConnectionId != null)
+                var receivers = ConnectedUsers.Where(x => x.Email == toEmail).ToList();
+                foreach (var receiver in receivers)
                 {
-                    receiver.CountMessageUnRead = business.CountMessageUnRead(toUser);
-                    Clients.Client(receiver.ConnectionId).messageReceived(fromUserDetail, toUserDetail, messageDetail);
+                    if (receiver != null && receiver.ConnectionId != null)
+                    {
+                        receiver.CountMessageUnRead = business.CountMessageUnRead(toUser);
+                        Clients.Client(receiver.ConnectionId).messageReceived(fromUserDetail, toUserDetail, messageDetail);
+                        var userDetailList = helper.GetLastestConversationList(receiver.Email, ConnectedUsers);
+                        receiver.ConversationList = userDetailList;
+                        Clients.Client(receiver.ConnectionId).onGetConversationList(receiver.ConversationList);
+                    }
                 }
 
                 //Notify Caller
