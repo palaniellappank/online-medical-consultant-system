@@ -62,6 +62,7 @@ namespace OMCS.Web.Controllers
             patientJson.patientId = patient.UserId;
             patientJson.profilePicture = patient.ProfilePicture;
             patientJson.fullname = patient.FullName;
+            patientJson.email = patient.Email;
             patientJson.job = patient.Job;
             patientJson.age = DateTimeUtils.CalculateAge(patient.Birthday.Value);
             return patientJson;
