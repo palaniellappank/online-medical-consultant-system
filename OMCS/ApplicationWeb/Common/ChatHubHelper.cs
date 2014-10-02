@@ -245,8 +245,8 @@ namespace SignalRChat.Hubs
         /* 
          * user: send message user
          * toEmail: User who receive message
-         * Update DoctorList for Patient
-         * And ConversationList for Doctor
+         * 
+         * Update DoctorList for Patient and ConversationList for Doctor
          * To see the lastest chat content
          */
         public void SyncUserDetailWhenSendMessage(UserDetail user, string toEmail, string message, List<UserDetail> ConnectedUsers)
