@@ -1,0 +1,1 @@
+An online system that allows patients and doctors exchange information so that doctors can help patients to diagnose their medical issues and give advice.
